@@ -17,17 +17,17 @@
         body { background-color: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; background-image: url('https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1000&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; }
         body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(5,5,5,0.6), rgba(5,5,5,0.95)); z-index: -1; }
         
-        .top-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; pointer-events: none; backdrop-filter: blur(10px); background: rgba(0,0,0,0.3); }
-        .user-info { display: flex; align-items: center; gap: 8px; pointer-events: auto;}
-        .header-avatar { width: 32px; height: 32px; border-radius: 50%; background: #333; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.1); }
-        .header-level { background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 5px; border: 1px solid var(--border); }
-        .header-level-bar { width: 24px; height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; overflow: hidden;}
+        .top-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; pointer-events: none; backdrop-filter: blur(10px); background: rgba(0,0,0,0.3); }
+        .user-info { display: flex; align-items: center; gap: 6px; pointer-events: auto;}
+        .header-avatar { width: 28px; height: 28px; border-radius: 50%; background: #333; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.1); }
+        .header-level { background: rgba(255,255,255,0.1); padding: 3px 7px; border-radius: 20px; font-size: 10px; font-weight: 700; display: flex; align-items: center; gap: 4px; border: 1px solid var(--border); }
+        .header-level-bar { width: 20px; height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; overflow: hidden;}
         .header-level-fill { height: 100%; background: var(--success); width: 50%; transition: width 0.3s;}
-        .header-right { display: flex; align-items: center; gap: 8px; pointer-events: auto;}
-        .balance { font-size: 13px; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 20px; border: 1px solid var(--border);}
-        .menu-btn { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid var(--border); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; }
+        .header-right { display: flex; align-items: center; gap: 6px; pointer-events: auto;}
+        .balance { font-size: 11px; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 3px; background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 20px; border: 1px solid var(--border);}
+        .menu-btn { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid var(--border); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; }
         .menu-btn:active { transform: scale(0.9); }
-        .menu-btn svg { width: 16px; height: 16px; fill: var(--text); }
+        .menu-btn svg { width: 14px; height: 14px; fill: var(--text); }
 
         .toast-container { position: fixed; top: -50px; left: 50%; transform: translateX(-50%); z-index: 10000; transition: top 0.3s; display: flex; align-items: center; gap: 6px; background: rgba(30, 30, 30, 0.95); color: white; padding: 8px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.5); white-space: nowrap; max-width: 90%; overflow: hidden; text-overflow: ellipsis;}
         .toast-container.show { top: 15px; }
@@ -38,59 +38,66 @@
         .sidebar { position: fixed; bottom: -100%; left: 0; right: 0; width: 100%; max-width: 500px; margin: 0 auto; height: 85vh; background: #111111; border-top: 1px solid rgba(255,255,255,0.1); border-radius: 20px 20px 0 0; z-index: 999; display: flex; flex-direction: column; transition: bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow-y: auto; box-shadow: 0 -10px 40px rgba(0,0,0,0.8); }
         .sidebar.active { bottom: 0; }
         .swipe-bar { width: 40px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; margin: 10px auto 15px auto; flex-shrink: 0;}
-        .menu-content { padding: 0 15px 30px 15px; display: flex; flex-direction: column; gap: 12px; }
-        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-        .menu-box-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-md); padding: 10px 4px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; transition: 0.2s; position: relative;}
+        .menu-content { padding: 0 15px 30px 15px; display: flex; flex-direction: column; gap: 10px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+        .menu-box-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-sm); padding: 8px 3px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; transition: 0.2s; position: relative;}
         .menu-box-btn:active { transform: scale(0.95); background: rgba(255,255,255,0.08); }
-        .menu-box-btn span { font-size: 10px; font-weight: 600; color: var(--text); text-align: center; line-height: 1.2;}
-        .icon-box { width: 36px; height: 36px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 18px; }
+        .menu-box-btn span { font-size: 9px; font-weight: 600; color: var(--text); text-align: center; line-height: 1.1;}
+        .icon-box { width: 32px; height: 32px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 16px; }
         .ic-purple { background: rgba(139, 92, 246, 0.15); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.2); }
         .ic-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.2); }
         .ic-gold { background: rgba(251, 191, 36, 0.15); color: #fcd34d; border: 1px solid rgba(251, 191, 36, 0.2); }
         .ic-red { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); }
         .ic-green { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); }
         .ic-grey { background: rgba(255, 255, 255, 0.1); color: #d1d5db; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .wide-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-md); padding: 10px; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s;}
+        .wide-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-sm); padding: 8px; display: flex; align-items: center; gap: 6px; cursor: pointer; transition: 0.2s;}
         .wide-btn:active { transform: scale(0.97); background: rgba(255,255,255,0.08); }
-        .wide-btn h4 { font-size: 12px; font-weight: 700; margin-bottom: 2px; color: var(--text);}
-        .wide-btn p { font-size: 9px; color: var(--text-muted); font-weight: 600;}
-        .menu-category { display: flex; flex-direction: column; gap: 6px; margin-top: 5px; }
-        .category-title { font-size: 11px; font-weight: 800; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-left: 5px; margin-bottom: 2px;}
-        .small-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-md); padding: 8px 10px; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s;}
+        .wide-btn h4 { font-size: 11px; font-weight: 700; margin-bottom: 1px; color: var(--text);}
+        .wide-btn p { font-size: 8px; color: var(--text-muted); font-weight: 600;}
+        .menu-category { display: flex; flex-direction: column; gap: 5px; margin-top: 5px; }
+        .category-title { font-size: 10px; font-weight: 800; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-left: 5px; margin-bottom: 2px;}
+        .small-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-sm); padding: 6px 8px; display: flex; align-items: center; gap: 6px; cursor: pointer; transition: 0.2s;}
         .small-btn:active { transform: scale(0.97); background: rgba(255,255,255,0.08); }
-        .small-btn span { font-size: 11px; font-weight: 600; color: var(--text); }
-        .small-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 14px; flex-shrink: 0;}
+        .small-btn span { font-size: 10px; font-weight: 600; color: var(--text); }
+        .small-icon { width: 24px; height: 24px; border-radius: 6px; display: flex; justify-content: center; align-items: center; font-size: 12px; flex-shrink: 0;}
 
-        .screen { display: none; flex: 1; padding: 60px 15px 15px 15px; flex-direction: column; animation: fadeIn 0.2s ease; position: relative; height: 100%; overflow-y: auto;}
+        .screen { display: none; flex: 1; padding: 50px 12px 12px 12px; flex-direction: column; animation: fadeIn 0.2s ease; position: relative; height: 100%; overflow-y: auto;}
         .screen.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        #screen-game { justify-content: center; padding-bottom: 25px; }
-        .sim-card-container { background: linear-gradient(135deg, #1a1a24, #0a0a0f); border-radius: 24px; border: 1px solid rgba(255,255,255,0.15); padding: 20px; position: relative; display: flex; flex-direction: column; box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.2); overflow: hidden; margin-bottom: 15px; }
-        .sim-chip { width: 45px; height: 35px; background: linear-gradient(135deg, #fbbf24, #d97706); border-radius: 8px; position: absolute; top: 15px; left: 15px; box-shadow: 0 3px 10px rgba(251, 191, 36, 0.4); display: flex; flex-direction: column; justify-content: space-between; padding: 5px; }
-        .sim-chip-line { width: 100%; height: 1.5px; background: rgba(0,0,0,0.4); border-radius: 1px; }
-        .sim-chip-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 14px; height: 18px; border: 1.5px solid rgba(0,0,0,0.4); border-radius: 3px;}
-        .sim-logo { position: absolute; top: 15px; right: 15px; font-size: 22px; font-weight: 900; color: rgba(255,255,255,0.15); letter-spacing: 3px; text-shadow: 1px 1px 0 rgba(0,0,0,0.5);}
-        .sim-display-area { margin-top: 45px; margin-bottom: 15px; text-align: center; min-height: 160px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 2; }
-        .sim-dashes { display: flex; gap: 10px; justify-content: center; align-items: center; opacity: 0.4; transition: opacity 0.2s; }
-        .sim-dash { width: 25px; height: 6px; background: white; border-radius: 3px; box-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        #screen-game { justify-content: center; padding-bottom: 20px; }
+        .sim-card-container { background: linear-gradient(135deg, #1a1a24, #0a0a0f); border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); padding: 15px; position: relative; display: flex; flex-direction: column; box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.2); overflow: hidden; margin-bottom: 12px; }
+        .sim-chip { width: 35px; height: 28px; background: linear-gradient(135deg, #fbbf24, #d97706); border-radius: 6px; position: absolute; top: 12px; left: 12px; box-shadow: 0 3px 10px rgba(251, 191, 36, 0.4); display: flex; flex-direction: column; justify-content: space-between; padding: 4px; }
+        .sim-chip-line { width: 100%; height: 1px; background: rgba(0,0,0,0.4); border-radius: 1px; }
+        .sim-chip-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 14px; border: 1px solid rgba(0,0,0,0.4); border-radius: 2px;}
+        .sim-logo { position: absolute; top: 12px; right: 12px; font-size: 18px; font-weight: 900; color: rgba(255,255,255,0.15); letter-spacing: 2px; text-shadow: 1px 1px 0 rgba(0,0,0,0.5);}
+        .sim-display-area { margin-top: 35px; margin-bottom: 10px; text-align: center; min-height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 2; }
+        .sim-dashes { display: flex; gap: 8px; justify-content: center; align-items: center; opacity: 0.4; transition: opacity 0.2s; }
+        .sim-dash { width: 20px; height: 5px; background: white; border-radius: 3px; box-shadow: 0 0 10px rgba(255,255,255,0.5); }
         .sim-result-box { display: none; flex-direction: column; align-items: center; width: 100%; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .sim-result-box.show { display: flex; }
-        .sim-result-number { font-size: 24px; font-weight: 900; letter-spacing: 1px; color: white; text-shadow: 0 0 15px currentColor; margin-bottom: 6px; }
-        .sim-result-rarity { font-size: 12px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px;}
-        .sim-result-price { font-size: 16px; font-weight: 900; color: var(--gold); background: rgba(251,191,36,0.15); padding: 5px 15px; border-radius: 15px; border: 1px solid rgba(251,191,36,0.3);}
-        .sim-x5-grid { display: none; grid-template-columns: 1fr; gap: 8px; width: 100%; max-height: 200px; overflow-y: auto; animation: popIn 0.3s; }
+        .sim-result-number { font-size: 20px; font-weight: 900; letter-spacing: 1px; color: white; text-shadow: 0 0 15px currentColor; margin-bottom: 4px; }
+        .sim-result-rarity { font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px;}
+        .sim-result-price { font-size: 14px; font-weight: 900; color: var(--gold); background: rgba(251,191,36,0.15); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(251,191,36,0.3);}
+        .sim-x5-grid { display: none; grid-template-columns: 1fr; gap: 6px; width: 100%; max-height: 180px; overflow-y: auto; animation: popIn 0.3s; }
         .sim-x5-grid.show { display: grid; }
-        .sim-x5-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.6); padding: 10px 12px; border-radius: 10px; border-left: 4px solid; }
-        .sim-x5-item span:first-child { font-size: 14px; font-weight: 800; color: white;}
-        .sim-x5-item span:last-child { font-size: 13px; font-weight: 800; color: var(--gold);}
+        .sim-x5-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.6); padding: 8px 10px; border-radius: 8px; border-left: 3px solid; }
+        .sim-x5-item span:first-child { font-size: 12px; font-weight: 800; color: white;}
+        .sim-x5-item span:last-child { font-size: 11px; font-weight: 800; color: var(--gold);}
         @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        .sim-controls { display: flex; flex-direction: column; gap: 8px; margin-top: auto; z-index: 2;}
-        .btn-select { background: rgba(255,255,255,0.08); color: white; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 10px 14px; font-size: 12px; font-weight: 700; width: 100%; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; }
-        .btn-select:active { transform: scale(0.98); background: rgba(255,255,255,0.15); }
-        .spin-actions { display: flex; gap: 8px; width: 100%;}
-        .btn-main { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; border-radius: var(--radius-md); padding: 14px; font-size: 13px; font-weight: 800; cursor: pointer; transition: 0.2s; flex: 1; text-transform: uppercase; }
+        
+        .sim-controls { display: flex; flex-direction: column; gap: 8px; margin-top: auto; z-index: 2; }
+        .sim-top-row { display: flex; gap: 8px; align-items: stretch; }
+        .btn-archive { flex: 1; background: rgba(255,255,255,0.08); color: white; border: 1px solid var(--border); border-radius: 10px; padding: 10px; font-size: 11px; font-weight: 700; display: flex; flex-direction: column; justify-content: center; cursor: pointer; transition: 0.2s; }
+        .btn-archive span:first-child { font-size: 9px; color: var(--text-muted); margin-bottom: 2px; }
+        .btn-archive span:last-child { font-size: 12px; color: var(--accent); font-weight: 800; }
+        .btn-roaming-square { width: 48px; height: 48px; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; flex-shrink: 0;}
+        .btn-roaming-square:active { transform: scale(0.95); }
+        .btn-roaming-square span:first-child { font-size: 16px; }
+        .btn-roaming-square span:last-child { font-size: 7px; color: var(--success); font-weight: 800; margin-top: 1px;}
+        .spin-actions { display: flex; gap: 6px; width: 100%; margin-top: 4px;}
+        .btn-main { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; border-radius: var(--radius-sm); padding: 12px; font-size: 12px; font-weight: 800; cursor: pointer; transition: 0.2s; flex: 1; text-transform: uppercase; }
         .btn-main:active { transform: scale(0.96); }
         .btn-main:disabled { background: #2d3041; color: var(--text-muted); box-shadow: none; transform: none; }
         .btn-x5 { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.5); flex: 0.4; }
@@ -98,47 +105,56 @@
 
         .games-container { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); border: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; backdrop-filter: blur(10px); height: 100%; max-height: 600px;}
         .game-tabs { display: flex; background: rgba(0,0,0,0.4); border-bottom: 1px solid var(--border); overflow-x: auto;}
-        .game-tab { flex: 1; padding: 12px 10px; text-align: center; font-size: 12px; font-weight: 800; color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: 0.2s; border-bottom: 2px solid transparent;}
+        .game-tab { flex: 1; padding: 10px 8px; text-align: center; font-size: 11px; font-weight: 800; color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: 0.2s; border-bottom: 2px solid transparent;}
         .game-tab.active { color: white; border-bottom-color: var(--accent); background: rgba(255,255,255,0.05);}
-        .game-content { flex: 1; padding: 15px; display: flex; flex-direction: column; overflow-y: auto; position: relative;}
+        .game-content { flex: 1; padding: 12px; display: flex; flex-direction: column; overflow-y: auto; position: relative;}
         .game-pane { display: none; flex-direction: column; height: 100%;}
         .game-pane.active { display: flex; }
 
         /* КРАШ */
-        .crash-graph-container { width: 100%; height: 240px; background: radial-gradient(circle at center, #111 0%, #000 100%); border-radius: 16px; position: relative; overflow: hidden; border: 2px solid rgba(255,255,255,0.08); margin-bottom: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.8); background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 25% 50%; }
+        .crash-graph-container { width: 100%; height: 200px; background: radial-gradient(circle at center, #111 0%, #000 100%); border-radius: 14px; position: relative; overflow: hidden; border: 2px solid rgba(255,255,255,0.08); margin-bottom: 12px; box-shadow: 0 0 20px rgba(0,0,0,0.8); background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 25% 50%; }
         .crash-graph-svg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1;}
-        .crash-big-mult { position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); font-size: 64px; font-weight: 900; color: white; z-index: 2; text-shadow: 0 0 20px rgba(255,255,255,0.3); letter-spacing: -2px; transition: color 0.2s; }
+        .crash-big-mult { position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); font-size: 52px; font-weight: 900; color: white; z-index: 2; text-shadow: 0 0 20px rgba(255,255,255,0.3); letter-spacing: -2px; transition: color 0.2s; }
         .crash-big-mult.crashed { color: var(--danger); text-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
-        .crash-profit-display { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 18px; font-weight: 800; color: var(--success); z-index: 2; text-shadow: 0 0 10px rgba(16, 185, 129, 0.5); opacity: 0; transition: opacity 0.2s; }
+        .crash-profit-display { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: 800; color: var(--success); z-index: 2; text-shadow: 0 0 10px rgba(16, 185, 129, 0.5); opacity: 0; transition: opacity 0.2s; }
         .crash-profit-display.show { opacity: 1; }
         
-        .history-strip { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 12px; padding-bottom: 5px;}
-        .h-strip-badge { padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; background: rgba(255,255,255,0.1); color: white; white-space: nowrap;}
+        .history-strip { display: flex; gap: 5px; overflow-x: auto; margin-bottom: 10px; padding-bottom: 4px;}
+        .h-strip-badge { padding: 3px 6px; border-radius: 5px; font-size: 10px; font-weight: 800; background: rgba(255,255,255,0.1); color: white; white-space: nowrap;}
         .h-strip-badge.high { color: var(--success); background: rgba(16,185,129,0.2);}
         .h-strip-badge.low { color: var(--danger); background: rgba(239,68,68,0.2);}
         
-        .crash-control-panel { background: rgba(255,255,255,0.03); border-radius: 16px; padding: 15px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; }
-        .bet-input-large { width: 100%; background: #000; border: 1px solid #333; color: white; border-radius: 12px; padding: 12px; font-size: 22px; font-weight: 900; outline: none; margin-bottom: 12px; text-align: center; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);}
-        .bet-presets { display: flex; gap: 8px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 5px; justify-content: center;}
-        .btn-preset { padding: 10px 0; flex: 1; border-radius: 10px; background: #1a1a1a; border: none; color: white; font-size: 11px; font-weight: 800; white-space: nowrap; cursor: pointer; transition: 0.2s;}
+        .crash-control-panel { background: rgba(255,255,255,0.03); border-radius: 14px; padding: 12px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 12px; }
+        .bet-input-large { width: 100%; background: #000; border: 1px solid #333; color: white; border-radius: 10px; padding: 10px; font-size: 18px; font-weight: 900; outline: none; margin-bottom: 10px; text-align: center; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);}
+        .bet-presets { display: flex; gap: 6px; margin-bottom: 10px; overflow-x: auto; padding-bottom: 4px; justify-content: center;}
+        .btn-preset { padding: 8px 0; flex: 1; border-radius: 8px; background: #1a1a1a; border: none; color: white; font-size: 10px; font-weight: 800; white-space: nowrap; cursor: pointer; transition: 0.2s;}
         .btn-preset.active { background: white; color: black; }
         
-        .btn-crash-main { width: 100%; padding: 20px; border-radius: 16px; background: #10b981; color: white; font-size: 20px; font-weight: 900; border: none; text-transform: uppercase; transition: 0.1s; margin-bottom: 10px; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);}
+        .btn-crash-main { width: 100%; padding: 15px; border-radius: 14px; background: #10b981; color: white; font-size: 15px; font-weight: 900; border: none; text-transform: uppercase; transition: 0.1s; margin-bottom: 8px; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);}
         .btn-crash-main.cashout { background: #fbbf24; color: black; box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4); animation: pulseGold 1.5s infinite; }
         .btn-crash-main.disabled { background: rgba(255,255,255,0.1); color: var(--text-muted); box-shadow: none; animation: none; }
         @keyframes pulseGold { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
 
+        .live-bets-container { background: rgba(0,0,0,0.4); border-radius: 10px; padding: 8px; border: 1px solid rgba(255,255,255,0.05); margin-top: 8px; height: 120px; display: flex; flex-direction: column; }
+        .live-bets-header { display: flex; justify-content: space-between; font-size: 9px; color: var(--text-muted); font-weight: 700; margin-bottom: 6px; text-transform: uppercase; }
+        .live-bets-list { flex: 1; overflow-y: auto; }
+        .live-bet-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 11px; }
+        .live-bet-row:last-child { border-bottom: none; }
+        .live-bet-user { display: flex; align-items: center; gap: 5px; font-weight: 600; color: #ccc; }
+        .live-bet-amount { font-weight: 800; color: white; }
+        .live-bet-mult { font-weight: 800; color: var(--success); }
+
         /* 3D КУБИКИ И МОНЕТКА */
         .game-board { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; perspective: 1000px; }
         .dice-container { display: flex; gap: 20px; margin: 20px 0; }
-        .dice-3d { width: 80px; height: 80px; position: relative; transform-style: preserve-3d; transition: transform 0.1s; }
-        .dice-face { position: absolute; width: 100%; height: 100%; background: #fff; border-radius: 12px; border: 2px solid #ddd; display: flex; justify-content: center; align-items: center; font-size: 40px; font-weight: 900; color: #111; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); backface-visibility: visible; }
-        .dice-1 { transform: rotateY(0deg) translateZ(40px); }
-        .dice-6 { transform: rotateY(180deg) translateZ(40px); }
-        .dice-2 { transform: rotateY(90deg) translateZ(40px); }
-        .dice-5 { transform: rotateY(-90deg) translateZ(40px); }
-        .dice-3 { transform: rotateX(90deg) translateZ(40px); }
-        .dice-4 { transform: rotateX(-90deg) translateZ(40px); }
+        .dice-3d { width: 70px; height: 70px; position: relative; transform-style: preserve-3d; transition: transform 0.1s; }
+        .dice-face { position: absolute; width: 100%; height: 100%; background: #fff; border-radius: 10px; border: 2px solid #ddd; display: flex; justify-content: center; align-items: center; font-size: 36px; font-weight: 900; color: #111; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); backface-visibility: visible; }
+        .dice-1 { transform: rotateY(0deg) translateZ(35px); }
+        .dice-6 { transform: rotateY(180deg) translateZ(35px); }
+        .dice-2 { transform: rotateY(90deg) translateZ(35px); }
+        .dice-5 { transform: rotateY(-90deg) translateZ(35px); }
+        .dice-3 { transform: rotateX(90deg) translateZ(35px); }
+        .dice-4 { transform: rotateX(-90deg) translateZ(35px); }
         .dice-3d.rolling { animation: rollDice 1.2s ease-in-out infinite; }
         @keyframes rollDice {
             0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
@@ -147,8 +163,8 @@
             75% { transform: rotateX(540deg) rotateY(270deg) rotateZ(180deg); }
             100% { transform: rotateX(720deg) rotateY(360deg) rotateZ(0deg); }
         }
-        .coin-container { width: 100px; height: 100px; position: relative; transform-style: preserve-3d; margin: 20px 0; transition: transform 0.1s; }
-        .coin-face { position: absolute; width: 100%; height: 100%; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 50px; background: linear-gradient(135deg, #fbbf24, #d97706); border: 4px solid #fcd34d; box-shadow: 0 0 20px rgba(251, 191, 36, 0.5); backface-visibility: hidden; }
+        .coin-container { width: 90px; height: 90px; position: relative; transform-style: preserve-3d; margin: 20px 0; transition: transform 0.1s; }
+        .coin-face { position: absolute; width: 100%; height: 100%; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 45px; background: linear-gradient(135deg, #fbbf24, #d97706); border: 4px solid #fcd34d; box-shadow: 0 0 20px rgba(251, 191, 36, 0.5); backface-visibility: hidden; }
         .coin-front { transform: rotateY(0deg) translateZ(5px); }
         .coin-back { transform: rotateY(180deg) translateZ(5px); }
         .coin-container.rolling { animation: flipCoin 1.2s ease-in-out infinite; }
@@ -160,77 +176,140 @@
             100% { transform: rotateY(720deg) rotateX(0deg); }
         }
 
-        .opponent-info { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-weight: 700; width: 100%; margin-bottom: 15px;}
-        .opponent-card { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 10px; text-align: center; width: 45%;}
-        .opponent-avatar { width: 40px; height: 40px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 16px; margin: 0 auto 5px auto; overflow: hidden;}
-        .opponent-name { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-        .opponent-label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; margin-top: 2px;}
-        .vs-text { font-size: 12px; color: var(--text-muted); font-weight: 800; }
-        .game-stats { width: 100%; background: rgba(255,255,255,0.03); border-radius: var(--radius-md); padding: 15px; margin-bottom: 20px; border: 1px solid var(--border);}
-        .game-stat-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; font-weight: 600;}
+        .opponent-info { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-weight: 700; width: 100%; margin-bottom: 12px;}
+        .opponent-card { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 8px; text-align: center; width: 45%;}
+        .opponent-avatar { width: 36px; height: 36px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 14px; margin: 0 auto 4px auto; overflow: hidden;}
+        .opponent-name { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        .opponent-label { font-size: 8px; color: var(--text-muted); text-transform: uppercase; margin-top: 1px;}
+        .vs-text { font-size: 11px; color: var(--text-muted); font-weight: 800; }
+        .game-stats { width: 100%; background: rgba(255,255,255,0.03); border-radius: var(--radius-md); padding: 12px; margin-bottom: 15px; border: 1px solid var(--border);}
+        .game-stat-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 12px; font-weight: 600;}
         .game-stat-row:last-child { margin-bottom: 0;}
         .game-stat-row span:first-child { color: var(--text-muted); }
         .game-stat-row span:last-child { color: white; font-weight: 800;}
-        .btn-throw { background: white; color: black; border: none; border-radius: var(--radius-md); padding: 18px; font-size: 16px; font-weight: 900; width: 100%; text-transform: uppercase; margin-bottom: 10px; transition: 0.2s; }
+        .btn-throw { background: white; color: black; border: none; border-radius: var(--radius-md); padding: 15px; font-size: 14px; font-weight: 900; width: 100%; text-transform: uppercase; margin-bottom: 8px; transition: 0.2s; }
         .btn-throw:active { transform: scale(0.96); }
         .btn-throw:disabled { background: rgba(255,255,255,0.2); color: var(--text-muted); }
         
-        .lobby-tabs { display: flex; gap: 15px; border-bottom: 1px solid var(--border); margin-bottom: 15px; }
-        .lobby-tab { font-size: 14px; font-weight: 800; color: var(--text-muted); padding-bottom: 8px; cursor: pointer; position: relative;}
+        .lobby-tabs { display: flex; gap: 12px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+        .lobby-tab { font-size: 12px; font-weight: 800; color: var(--text-muted); padding-bottom: 6px; cursor: pointer; position: relative;}
         .lobby-tab.active { color: white; }
         .lobby-tab.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background: white; }
-        .lobby-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
-        .lobby-avatar { width: 40px; height: 40px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 16px; position: relative; overflow: hidden;}
-        .lobby-status { position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--success); border: 2px solid #000; }
-        .lobby-info { flex: 1; margin-left: 12px; }
-        .lobby-name { font-size: 14px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px;}
-        .lobby-sub { font-size: 10px; color: var(--text-muted); font-weight: 600;}
+        .lobby-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
+        .lobby-avatar { width: 36px; height: 36px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 14px; position: relative; overflow: hidden;}
+        .lobby-status { position: absolute; bottom: 0; right: 0; width: 8px; height: 8px; border-radius: 50%; background: var(--success); border: 2px solid #000; }
+        .lobby-info { flex: 1; margin-left: 10px; }
+        .lobby-name { font-size: 12px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px;}
+        .lobby-sub { font-size: 9px; color: var(--text-muted); font-weight: 600;}
         .lobby-bet { text-align: right; }
-        .lobby-amount { font-size: 14px; font-weight: 800;}
-        .lobby-win { font-size: 10px; color: var(--text-muted); font-weight: 600;}
+        .lobby-amount { font-size: 12px; font-weight: 800;}
+        .lobby-win { font-size: 9px; color: var(--text-muted); font-weight: 600;}
 
-        .empty-pane { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-weight: 700; gap: 10px;}
-        .empty-pane span { font-size: 40px; }
+        /* VIP МАГАЗИН */
+        .shop-grid { display: flex; flex-direction: column; gap: 12px; padding-bottom: 15px;}
+        .vip-card { background: linear-gradient(135deg, #1a1a24, #0a0a0f); border-radius: var(--radius-lg); padding: 15px; border: 1px solid rgba(251, 191, 36, 0.3); position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .vip-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(251,191,36,0.1) 0%, transparent 60%); pointer-events: none; }
+        .vip-badge { position: absolute; top: 12px; right: 12px; background: rgba(251, 191, 36, 0.15); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.3); padding: 3px 8px; border-radius: 6px; font-size: 9px; font-weight: 900; text-transform: uppercase; }
+        .vip-title { font-size: 16px; font-weight: 900; color: white; margin-bottom: 4px; }
+        .vip-desc { font-size: 10px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4; }
+        .vip-features { display: flex; flex-direction: column; gap: 6px; margin-bottom: 15px; }
+        .vip-feat { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: #ccc; }
+        .vip-feat span { color: var(--gold); font-size: 12px; }
+        .btn-buy-stars { width: 100%; padding: 12px; border-radius: 10px; border: none; background: linear-gradient(135deg, #fbbf24, #d97706); color: black; font-size: 13px; font-weight: 900; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 6px; transition: 0.2s; text-transform: uppercase; }
+        .btn-buy-stars:active { transform: scale(0.96); }
+        .btn-buy-stars.legendary { background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white; }
+        .btn-buy-stars.mythic { background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; }
 
-        .country-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .country-item { background: rgba(255,255,255,0.05); padding: 12px; border-radius: var(--radius-md); display: flex; align-items: center; gap: 8px; cursor: pointer; border: 1px solid transparent; transition: 0.2s;}
+        /* КОЛЕСО ФОРТУНЫ */
+        .fortune-wheel-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+        .wheel-wrapper { position: relative; width: 220px; height: 220px; margin-bottom: 15px; }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--gold); position: relative; overflow: hidden; transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99); }
+        .wheel-segment { position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; clip-path: polygon(0 0, 100% 0, 100% 100%); display: flex; align-items: center; justify-content: center; }
+        .wheel-segment span { position: absolute; right: 10px; top: 10px; font-size: 9px; font-weight: 900; color: white; transform: rotate(45deg); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 35px; height: 35px; background: var(--gold); border-radius: 50%; z-index: 10; display: flex; justify-content: center; align-items: center; font-size: 18px; box-shadow: 0 0 20px rgba(251,191,36,0.5); }
+        .wheel-pointer { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 20px solid var(--danger); z-index: 11; filter: drop-shadow(0 0 5px rgba(239,68,68,0.8)); }
+
+        /* 3D АНИМАЦИЯ МИФИЧЕСКОГО НОМЕРА */
+        .mythic-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; perspective: 1000px; }
+        .mythic-overlay.active { opacity: 1; pointer-events: auto; }
+        .mythic-card { width: 80%; max-width: 320px; background: linear-gradient(135deg, #2a0a0a, #0a0a0f); border: 3px solid var(--danger); border-radius: 20px; padding: 25px 15px; text-align: center; transform: translateZ(-500px) rotateY(0deg); transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 0 50px rgba(239, 68, 68, 0.8); position: relative; }
+        .mythic-overlay.active .mythic-card { transform: translateZ(0) rotateY(0deg); animation: flyIn 0.6s forwards, pulseMythic 2s infinite 0.6s; }
+        @keyframes flyIn {
+            0% { transform: translateZ(-500px) rotateY(180deg) scale(0.5); }
+            100% { transform: translateZ(0) rotateY(0deg) scale(1); }
+        }
+        @keyframes pulseMythic {
+            0% { box-shadow: 0 0 50px rgba(239, 68, 68, 0.8); }
+            50% { box-shadow: 0 0 100px rgba(239, 68, 68, 1); }
+            100% { box-shadow: 0 0 50px rgba(239, 68, 68, 0.8); }
+        }
+        .mythic-number { font-size: 28px; font-weight: 900; color: var(--danger); text-shadow: 0 0 20px rgba(239, 68, 68, 0.8); margin-bottom: 10px; letter-spacing: 2px;}
+        .mythic-title { font-size: 12px; font-weight: 800; color: var(--gold); text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px;}
+        .mythic-close { background: var(--danger); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 900; font-size: 13px; cursor: pointer; text-transform: uppercase; }
+
+        /* ОСТАЛЬНОЕ */
+        .empty-pane { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-weight: 700; gap: 8px;}
+        .empty-pane span { font-size: 30px; }
+        .country-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .country-item { background: rgba(255,255,255,0.05); padding: 10px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 6px; cursor: pointer; border: 1px solid transparent; transition: 0.2s;}
         .country-item.active { border-color: var(--accent); background: rgba(59,130,246,0.1);}
-        
-        .bp-card { background: rgba(0,0,0,0.4); border-radius: var(--radius-md); padding: 12px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;}
+        .country-item span { font-size: 16px; }
+        .country-item p { font-size: 10px; font-weight: 700; }
+        .bp-card { background: rgba(0,0,0,0.4); border-radius: var(--radius-sm); padding: 10px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;}
+        .bp-card h4 { font-size: 12px; font-weight: 800; color: var(--text); margin-bottom: 2px;}
+        .bp-card p { font-size: 10px; color: var(--text-muted); font-weight: 600;}
+        .bp-reward { text-align: right; }
         .bp-list-container { max-height: 55vh; overflow-y: auto; padding-right: 5px; }
-        
-        .inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 5px;}
-        .btn-sell-all { background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; border: none; border-radius: var(--radius-sm); padding: 6px 12px; font-size: 10px; font-weight: 800; cursor: pointer; text-transform: uppercase;}
-        .inventory-item { background: rgba(0,0,0,0.5); border-radius: var(--radius-md); padding: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 3px solid var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(5px);}
-        .inv-info h4 { font-size: 14px; margin-bottom: 2px; font-weight: 800; letter-spacing: 1px; }
-        .inv-info p { font-size: 10px; color: var(--text-muted); font-weight: 600; margin-bottom: 2px;}
-        .btn-sell { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 10px; margin-top: 5px; cursor: pointer; text-transform: uppercase; }
-        .profile-layout { display: flex; flex-direction: column; gap: 10px; padding-bottom: 15px;}
-        .profile-card { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); padding: 15px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);}
-        .avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #8b5cf6); display: flex; justify-content: center; align-items: center; font-size: 24px; margin: 0 auto 8px auto; border: 2px solid rgba(255,255,255,0.1); overflow: hidden;}
-        .progress-container { width: 100%; background: rgba(0,0,0,0.4); height: 10px; border-radius: 5px; margin-bottom: 8px; overflow: hidden; border: 1px solid var(--border); position: relative;}
+        .inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 0 5px;}
+        .btn-sell-all { background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; border: none; border-radius: var(--radius-sm); padding: 5px 10px; font-size: 9px; font-weight: 800; cursor: pointer; text-transform: uppercase;}
+        .inventory-item { background: rgba(0,0,0,0.5); border-radius: var(--radius-sm); padding: 10px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; border-left: 3px solid var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(5px);}
+        .inv-info h4 { font-size: 13px; margin-bottom: 2px; font-weight: 800; letter-spacing: 1px; }
+        .inv-info p { font-size: 9px; color: var(--text-muted); font-weight: 600; margin-bottom: 2px;}
+        .btn-sell { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.4); padding: 3px 8px; border-radius: 5px; font-weight: 700; font-size: 9px; margin-top: 4px; cursor: pointer; text-transform: uppercase; }
+        .profile-layout { display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px;}
+        .profile-card { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); padding: 12px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);}
+        .avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #8b5cf6); display: flex; justify-content: center; align-items: center; font-size: 20px; margin: 0 auto 6px auto; border: 2px solid rgba(255,255,255,0.1); overflow: hidden;}
+        .progress-container { width: 100%; background: rgba(0,0,0,0.4); height: 8px; border-radius: 4px; margin-bottom: 6px; overflow: hidden; border: 1px solid var(--border); position: relative;}
         .progress-bar { height: 100%; background: linear-gradient(90deg, #3b82f6, #8b5cf6); width: 0%; transition: width 0.3s; }
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;}
-        .stat-box { background: rgba(0,0,0,0.3); padding: 10px; border-radius: var(--radius-sm); text-align: center; }
-        .stat-box span { display: block; font-size: 9px; color: var(--text-muted); font-weight: 700; margin-bottom: 4px; text-transform: uppercase;}
-        .stat-box strong { font-size: 14px; font-weight: 900; color: var(--text); }
-        .shop-card { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); padding: 15px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 10px; backdrop-filter: blur(10px);}
-        .btn-buy { background: linear-gradient(135deg, #0088cc, #006699); color: white; border: none; border-radius: var(--radius-md); padding: 12px; font-size: 14px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; margin-top: 8px;}
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px;}
+        .stat-box { background: rgba(0,0,0,0.3); padding: 8px; border-radius: var(--radius-sm); text-align: center; }
+        .stat-box span { display: block; font-size: 8px; color: var(--text-muted); font-weight: 700; margin-bottom: 3px; text-transform: uppercase;}
+        .stat-box strong { font-size: 13px; font-weight: 900; color: var(--text); }
+        .shop-card { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); padding: 12px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 8px; backdrop-filter: blur(10px);}
+        .btn-buy { background: linear-gradient(135deg, #0088cc, #006699); color: white; border: none; border-radius: var(--radius-md); padding: 10px; font-size: 12px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; margin-top: 6px;}
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 9998; display: flex; justify-content: center; align-items: flex-end; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .bottom-sheet { width: 100%; max-width: 500px; background: #111111; border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 20px 15px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1); max-height: 85vh; overflow-y: auto; border: 1px solid var(--border); }
+        .bottom-sheet { width: 100%; max-width: 500px; background: #111111; border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 15px 12px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1); max-height: 85vh; overflow-y: auto; border: 1px solid var(--border); }
         .modal-overlay.active .bottom-sheet { transform: translateY(0); }
-        .modal-title { font-size: 16px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 15px; }
-        .tariff-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: var(--radius-md); margin-bottom: 8px; cursor: pointer; border: 1px solid transparent;}
+        .modal-title { font-size: 14px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 12px; }
+        .tariff-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(255,255,255,0.05); border-radius: var(--radius-sm); margin-bottom: 6px; cursor: pointer; border: 1px solid transparent;}
         .tariff-item.active { border-color: var(--accent); background: rgba(59, 130, 246, 0.1); }
-        .search-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 10; display: none; flex-direction: column; align-items: center; justify-content: center; border-radius: var(--radius-lg); gap: 15px;}
+        .search-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 10; display: none; flex-direction: column; align-items: center; justify-content: center; border-radius: var(--radius-lg); gap: 12px;}
         .search-overlay.active { display: flex; }
-        .spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+        .spinner { width: 30px; height: 30px; border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .setting-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 12px; font-weight: 600;}
+        .setting-item:last-child { border-bottom: none; }
+        .toggle-switch { position: relative; display: inline-block; width: 40px; height: 22px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .4s; border-radius: 22px; }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--success); }
+        input:checked + .slider:before { transform: translateX(18px); }
     </style>
 </head>
 <body>
     <div class="toast-container" id="toast"><span class="toast-icon">🎉</span><span id="toastText">Уведомление</span></div>
+
+    <!-- 3D АНИМАЦИЯ МИФА -->
+    <div class="mythic-overlay" id="mythicOverlay">
+        <div class="mythic-card">
+            <div class="mythic-title">✨ МИФИЧЕСКИЙ НОМЕР ✨</div>
+            <div class="mythic-number" id="mythicNumberDisplay">+7 999 777-77-77</div>
+            <button class="mythic-close" onclick="closeMythicOverlay()">ЗАБРАТЬ</button>
+        </div>
+    </div>
 
     <div class="top-header">
         <div class="user-info">
@@ -254,11 +333,11 @@
                 <div class="menu-box-btn" onclick="switchTab('game', this)"><div class="icon-box ic-purple">🎰</div><span>Крутка</span></div>
                 <div class="menu-box-btn" onclick="switchTab('inventory', this)"><div class="icon-box ic-blue">📁</div><span>Коллекция</span></div>
                 <div class="menu-box-btn" onclick="switchTab('games', this)"><div class="icon-box ic-gold">🎮</div><span>Игры</span></div>
-                <div class="menu-box-btn" onclick="switchTab('shop', this)"><div class="icon-box ic-red">⭐</div><span>VIP</span></div>
+                <div class="menu-box-btn" onclick="switchTab('wheel', this)"><div class="icon-box ic-green">🎡</div><span>Колесо</span></div>
             </div>
             <div class="grid-2">
                 <div class="wide-btn" onclick="switchTab('battlepass', this)"><div class="icon-box ic-gold" style="width: 28px; height: 28px; font-size: 14px;">👑</div><div><h4>Пропуск</h4><p>награды</p></div></div>
-                <div class="wide-btn" onclick="switchTab('shop', this)"><div class="icon-box ic-grey" style="width: 28px; height: 28px; font-size: 14px;">🛒</div><div><h4>Магазин</h4><p>VIP, удача...</p></div></div>
+                <div class="wide-btn" onclick="switchTab('shop', this)"><div class="icon-box ic-grey" style="width: 28px; height: 28px; font-size: 14px;">⭐</div><div><h4>VIP</h4><p>звёзды</p></div></div>
             </div>
             <div class="menu-category">
                 <div class="category-title">Игрок</div>
@@ -281,7 +360,7 @@
                     <div class="small-btn" onclick="switchTab('settings', this)"><div class="small-icon ic-grey">⚙️</div><span>Настройки</span></div>
                 </div>
             </div>
-            <button class="btn-main" style="margin-top: 10px; background: rgba(255,255,255,0.05); box-shadow: none; color: var(--text-muted);" onclick="toggleMenu()">Закрыть меню</button>
+            <button class="btn-main" style="margin-top: 8px; background: rgba(255,255,255,0.05); box-shadow: none; color: var(--text-muted);" onclick="toggleMenu()">Закрыть меню</button>
         </div>
     </div>
 
@@ -300,27 +379,57 @@
                 <div class="sim-x5-grid" id="simX5Grid"></div>
             </div>
             <div class="sim-controls">
-                <button class="btn-select" onclick="openTariffModal()"><span>Архив: <span id="currentTierName" style="color: var(--accent);">Серый рынок</span></span><span id="currentTierCost" style="color: var(--gold);">500 🪙</span></button>
-                <button class="btn-select" onclick="openRoamingModal()" style="border-color: rgba(16,185,129,0.3);">
-                    <span>Роуминг: <span id="currentRoamingText" style="color: var(--success);">🌍 Любая</span></span>
-                    <span style="font-size: 16px;">✈️</span>
-                </button>
+                <div class="sim-top-row">
+                    <button class="btn-archive" onclick="openTariffModal()">
+                        <span>Архив</span>
+                        <span id="currentTierName" style="color: var(--accent);">Серый рынок</span>
+                    </button>
+                    <button class="btn-roaming-square" onclick="openRoamingModal()">
+                        <span>✈️</span>
+                        <span id="currentRoamingText">🌍 Любая</span>
+                    </button>
+                </div>
                 <div class="spin-actions">
                     <button class="btn-main" id="spinBtn" onclick="handleSpin()">Крутить</button>
                     <button class="btn-main btn-x5" id="spinBtnX5" onclick="toggleX5()">x5</button>
                 </div>
-                <div style="font-size: 10px; color: var(--text-muted); text-align: center; margin-top: 5px;">До гаранта: <span id="guaranteeCount">1000</span></div>
+                <div style="font-size: 9px; color: var(--text-muted); text-align: center; margin-top: 4px;">До гаранта: <span id="guaranteeCount">1000</span></div>
             </div>
+        </div>
+    </div>
+
+    <!-- КОЛЕСО ФОРТУНЫ -->
+    <div id="screen-wheel" class="screen">
+        <h1 style="font-size: 20px; font-weight: 900; color: var(--gold); text-transform: uppercase; text-align: center; margin-bottom: 20px; text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);">Колесо Фортуны</h1>
+        <div class="fortune-wheel-container">
+            <div class="wheel-wrapper">
+                <div class="wheel-pointer"></div>
+                <div class="wheel" id="fortuneWheel"></div>
+                <div class="wheel-center">🎰</div>
+            </div>
+            <button class="btn-main" id="spinWheelBtn" onclick="spinWheel()" style="width: 100%; padding: 16px; font-size: 16px; border-radius: 12px;">Крутить бесплатно</button>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 15px; text-align: center;">Приз: случайный номер из архива или монеты</p>
         </div>
     </div>
 
     <!-- VIP МАГАЗИН -->
     <div id="screen-shop" class="screen">
-        <div style="text-align: center; margin-bottom: 20px;">
-            <h1 style="font-size: 22px; font-weight: 900; color: var(--gold); text-transform: uppercase; text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);">VIP Синтез</h1>
-            <p style="font-size: 11px; color: var(--text-muted);">Топ-секретные номера за Telegram Stars</p>
-            <div style="margin-top: 10px; display: inline-block; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 800;">⭐ Баланс: <span id="starsCount">0</span></div>
+        <div style="text-align: center; margin-bottom: 15px;">
+            <h1 style="font-size: 20px; font-weight: 900; color: var(--gold); text-transform: uppercase; text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);">VIP Синтез</h1>
+            <p style="font-size: 10px; color: var(--text-muted);">Топ-секретные номера за Telegram Stars</p>
         </div>
+        
+        <div class="profile-card" style="text-align: center; margin-bottom: 15px; border-color: rgba(251,191,36,0.3); background: rgba(251,191,36,0.05);">
+            <h3 style="font-size: 13px; font-weight: 800; color: var(--gold); margin-bottom: 8px;">Как купить?</h3>
+            <p style="font-size: 11px; color: #ccc; line-height: 1.4; margin-bottom: 12px;">
+                1. Нажмите кнопку «Задонатить» ниже.<br>
+                2. Отправьте звёзды админу <b>@TrillYummy</b>.<br>
+                3. Напишите ему, какой лот вы хотите.<br>
+                4. Он выдаст вам номер вручную!
+            </p>
+            <a href="https://t.me/TrillYummy" target="_blank" class="btn-buy-stars" style="text-decoration: none; display: block;">Задонатить @TrillYummy</a>
+        </div>
+
         <div class="shop-grid" id="vipShopGrid"></div>
     </div>
 
@@ -344,9 +453,9 @@
                             <div class="lobby-tab" onclick="switchLobbyTab('coin', 'history', this)">История</div>
                         </div>
                         <div id="coin-lobby-list" style="flex: 1; overflow-y: auto;">
-                            <div style="text-align: center; color: var(--text-muted); margin-top: 20px; font-size: 12px;">Загрузка лотов...</div>
+                            <div style="text-align: center; color: var(--text-muted); margin-top: 20px; font-size: 11px;">Загрузка лотов...</div>
                         </div>
-                        <div style="margin-top: auto; padding-top: 15px;">
+                        <div style="margin-top: auto; padding-top: 12px;">
                             <input type="number" id="coinBetInput" class="bet-input-large" value="1000" placeholder="Ставка">
                             <button class="btn-throw" id="coinCreateBtn" onclick="createBet('coin')">Создать лот</button>
                         </div>
@@ -372,7 +481,7 @@
                                 <div class="coin-face coin-front">🦅</div>
                                 <div class="coin-face coin-back">🪙</div>
                             </div>
-                            <div style="font-size: 14px; font-weight: 800; color: var(--text-muted); margin-bottom: 20px;" id="coin-status-text">Ожидание соперника...</div>
+                            <div style="font-size: 12px; font-weight: 800; color: var(--text-muted); margin-bottom: 15px;" id="coin-status-text">Ожидание соперника...</div>
                         </div>
 
                         <div class="game-stats">
@@ -395,9 +504,9 @@
                             <div class="lobby-tab" onclick="switchLobbyTab('dice', 'history', this)">История</div>
                         </div>
                         <div id="dice-lobby-list" style="flex: 1; overflow-y: auto;">
-                            <div style="text-align: center; color: var(--text-muted); margin-top: 20px; font-size: 12px;">Загрузка лотов...</div>
+                            <div style="text-align: center; color: var(--text-muted); margin-top: 20px; font-size: 11px;">Загрузка лотов...</div>
                         </div>
-                        <div style="margin-top: auto; padding-top: 15px;">
+                        <div style="margin-top: auto; padding-top: 12px;">
                             <input type="number" id="diceBetInput" class="bet-input-large" value="1000" placeholder="Ставка">
                             <button class="btn-throw" id="diceCreateBtn" onclick="createBet('dice')">Создать лот</button>
                         </div>
@@ -437,7 +546,7 @@
                                     <div class="dice-face dice-6">6</div>
                                 </div>
                             </div>
-                            <div style="font-size: 14px; font-weight: 800; color: var(--text-muted); margin-bottom: 20px;" id="dice-status-text">Ожидание соперника...</div>
+                            <div style="font-size: 12px; font-weight: 800; color: var(--text-muted); margin-bottom: 15px;" id="dice-status-text">Ожидание соперника...</div>
                         </div>
 
                         <div class="game-stats">
@@ -453,14 +562,11 @@
 
                 <!-- КРАШ -->
                 <div id="pane-crash" class="game-pane">
-                    <div class="history-strip" id="rocketHistory" style="gap: 6px; margin-bottom: 12px;"></div>
+                    <div class="history-strip" id="rocketHistory" style="gap: 5px; margin-bottom: 10px;"></div>
                     
                     <div class="crash-graph-container">
-                        <!-- Огромный Икс -->
                         <div class="crash-big-mult" id="rocketMultiplier">x1,00</div>
-                        <!-- Профит -->
                         <div class="crash-profit-display" id="rocketProfit">+0 🪙</div>
-                        
                         <svg class="crash-graph-svg" id="crashGraphSvg" viewBox="0 0 100 100" preserveAspectRatio="none">
                             <path id="graphFill" d="M0,100 L0,100 L0,100 Z" fill="rgba(59, 130, 246, 0.15)" />
                             <path id="graphPath" d="M0,100 L0,100" stroke="#3b82f6" stroke-width="2.5" fill="none" style="filter: drop-shadow(0 0 8px #3b82f6); transition: stroke 0.3s;" />
@@ -468,9 +574,9 @@
                     </div>
 
                     <div class="crash-control-panel">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                            <span style="font-size: 12px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Ставка</span>
-                            <span style="font-size: 10px; color: var(--text-muted);">Макс: 10 000 000</span>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span style="font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Ставка</span>
+                            <span style="font-size: 9px; color: var(--text-muted);">Макс: 10 000 000</span>
                         </div>
                         <input type="number" id="manualBetInput" class="bet-input-large" value="1000" oninput="updateManualBet(this.value)">
                         <div class="bet-presets">
@@ -479,13 +585,18 @@
                             <button class="btn-preset" onclick="setBet(10000, this)">10к</button>
                             <button class="btn-preset" onclick="setBet(100000, this)">100к</button>
                         </div>
-                        <div style="display: flex; gap: 8px;">
-                            <input type="number" id="autoCashoutInput" class="bet-input-large" style="margin-bottom:0; padding: 10px; font-size: 13px; background: #0a0a0a; border: 1px solid #222; border-radius: 10px;" placeholder="Автозабор (x2.0)">
-                            <button class="btn-preset" onclick="setAutoCashout()" style="flex: 0.3; background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.4); border-radius: 10px; font-size: 12px;">OK</button>
+                        <div style="display: flex; gap: 6px;">
+                            <input type="number" id="autoCashoutInput" class="bet-input-large" style="margin-bottom:0; padding: 8px; font-size: 11px; background: #0a0a0a; border: 1px solid #222; border-radius: 8px;" placeholder="Автозабор (x2.0)">
+                            <button class="btn-preset" onclick="setAutoCashout()" style="flex: 0.3; background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.4); border-radius: 8px; font-size: 10px;">OK</button>
                         </div>
                     </div>
 
                     <button class="btn-crash-main" id="rocketBtn" onclick="handleRocket()">СДЕЛАТЬ СТАВКУ</button>
+                    
+                    <div class="live-bets-container">
+                        <div class="live-bets-header"><span>Живые ставки</span><span id="liveBetsCount">0</span></div>
+                        <div id="liveBetsList"></div>
+                    </div>
                 </div>
 
                 <!-- АПГРЕЙД -->
@@ -496,28 +607,32 @@
 
             <div class="search-overlay" id="searchOverlay">
                 <div class="spinner"></div>
-                <div style="font-weight: 800; font-size: 14px;" id="searchText">Ожидание соперника...</div>
-                <button class="btn-main" style="margin-top: 10px; background: rgba(255,255,255,0.1);" onclick="cancelSearch()">Отмена</button>
+                <div style="font-weight: 800; font-size: 12px;" id="searchText">Ожидание соперника...</div>
+                <button class="btn-main" style="margin-top: 8px; background: rgba(255,255,255,0.1);" onclick="cancelSearch()">Отмена</button>
             </div>
         </div>
     </div>
 
     <!-- Батл Пасс -->
     <div id="screen-battlepass" class="screen">
-        <div class="profile-card" style="text-align: center; background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(217, 119, 6, 0.1)); border-color: var(--gold); margin-bottom: 15px;">
-            <h3 style="font-size: 24px; color: var(--gold); text-shadow: 0 0 10px rgba(251,191,36,0.5);">Уровень <span id="bpLevelDisplay">1</span></h3>
-            <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">1 уровень за 10 кейсов</p>
+        <div class="profile-card" style="text-align: center; background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(217, 119, 6, 0.1)); border-color: var(--gold); margin-bottom: 12px;">
+            <h3 style="font-size: 20px; color: var(--gold); text-shadow: 0 0 10px rgba(251,191,36,0.5);">Уровень <span id="bpLevelDisplay">1</span></h3>
+            <p style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">1 уровень за 10 кейсов</p>
         </div>
         <div class="bp-list-container" id="bpList"></div>
     </div>
 
     <!-- НАСТРОЙКИ -->
     <div id="screen-settings" class="screen">
-        <h2 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; font-size: 18px; text-align: center;">Настройки</h2>
+        <h2 style="margin-bottom: 12px; font-weight: 900; text-transform: uppercase; font-size: 16px; text-align: center;">Настройки</h2>
         <div class="profile-card">
-            <h3 style="font-size: 14px; font-weight: 800; margin-bottom: 10px; color: var(--gold);">Автопродажа номеров</h3>
-            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Если включено, эти номера будут сразу продаваться, не попадая в базу.</p>
+            <h3 style="font-size: 13px; font-weight: 800; margin-bottom: 8px; color: var(--gold);">Анимация Мифа</h3>
+            <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 12px;">Показывать 3D-анимацию при выпадении мифического номера</p>
             
+            <div class="setting-item"><span>3D Анимация</span><label class="toggle-switch"><input type="checkbox" id="mythicAnimToggle" onchange="saveSettings()" checked><span class="slider"></span></label></div>
+        </div>
+        <div class="profile-card" style="margin-top: 10px;">
+            <h3 style="font-size: 13px; font-weight: 800; margin-bottom: 8px; color: var(--gold);">Автопродажа номеров</h3>
             <div class="setting-item"><span>Обычные</span><label class="toggle-switch"><input type="checkbox" id="auto-sell-Обычный" onchange="saveAutoSell()"><span class="slider"></span></label></div>
             <div class="setting-item"><span>Необычные</span><label class="toggle-switch"><input type="checkbox" id="auto-sell-Необычный" onchange="saveAutoSell()"><span class="slider"></span></label></div>
             <div class="setting-item"><span>Редкие</span><label class="toggle-switch"><input type="checkbox" id="auto-sell-Редкий" onchange="saveAutoSell()"><span class="slider"></span></label></div>
@@ -528,23 +643,23 @@
     </div>
 
     <div id="screen-inventory" class="screen">
-        <div class="inventory-header"><h2 style="font-weight: 900; text-transform: uppercase; font-size: 18px;">Твоя База</h2><button class="btn-sell-all" onclick="sellAllNumbers()">Продать всё</button></div>
-        <div id="inventoryList" style="padding-bottom: 20px;"></div>
+        <div class="inventory-header"><h2 style="font-weight: 900; text-transform: uppercase; font-size: 16px;">Твоя База</h2><button class="btn-sell-all" onclick="sellAllNumbers()">Продать всё</button></div>
+        <div id="inventoryList" style="padding-bottom: 15px;"></div>
     </div>
 
     <div id="screen-profile" class="screen">
         <div class="profile-layout">
             <div class="profile-card">
                 <div class="avatar" id="userAvatar">👤</div>
-                <h3 style="text-align: center; font-size: 18px; margin-bottom: 2px; font-weight: 800;" id="userName">Игрок</h3>
-                <div style="margin-top: 15px;">
-                    <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; margin-bottom: 5px;">
+                <h3 style="text-align: center; font-size: 16px; margin-bottom: 2px; font-weight: 800;" id="userName">Игрок</h3>
+                <div style="margin-top: 12px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; margin-bottom: 4px;">
                         <span>Уровень <span id="userLevel">1</span></span>
                         <span id="userXpText">0 / 100 XP</span>
                     </div>
                     <div class="progress-container"><div class="progress-bar" id="userXpBar"></div></div>
                 </div>
-                <div class="stats-grid" style="margin-top: 15px;">
+                <div class="stats-grid" style="margin-top: 12px;">
                     <div class="stat-box"><span>Кейсов</span><strong id="statOpened">0</strong></div>
                     <div class="stat-box"><span>База</span><strong id="statValue" style="color: var(--gold);">0</strong></div>
                 </div>
@@ -553,20 +668,20 @@
     </div>
 
     <div id="screen-chances" class="screen">
-        <h2 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; font-size: 18px; text-align: center;">Шансы</h2>
+        <h2 style="margin-bottom: 12px; font-weight: 900; text-transform: uppercase; font-size: 16px; text-align: center;">Шансы</h2>
         <div class="profile-card"><div id="chancesList"></div></div>
     </div>
 
     <div id="screen-promo" class="screen">
-        <h2 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; font-size: 18px; text-align: center;">Промокоды</h2>
+        <h2 style="margin-bottom: 12px; font-weight: 900; text-transform: uppercase; font-size: 16px; text-align: center;">Промокоды</h2>
         <div class="profile-card">
-            <input type="text" id="promoInput" style="width: 100%; padding: 15px; border-radius: 10px; background: rgba(0,0,0,0.5); border: 1px solid var(--border); color: white; font-weight: 800; margin-bottom: 10px; text-transform: uppercase;" placeholder="ВВЕДИ КОД">
+            <input type="text" id="promoInput" style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(0,0,0,0.5); border: 1px solid var(--border); color: white; font-weight: 800; margin-bottom: 8px; text-transform: uppercase; font-size: 12px;" placeholder="ВВЕДИ КОД">
             <button class="btn-main" style="width: 100%;" onclick="activatePromo()">Активировать</button>
         </div>
     </div>
 
     <div id="screen-buyer" class="screen">
-        <h2 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; font-size: 18px; text-align: center;">Скупщик</h2>
+        <h2 style="margin-bottom: 12px; font-weight: 900; text-transform: uppercase; font-size: 16px; text-align: center;">Скупщик</h2>
         <div class="profile-card">
             <button class="btn-main" style="width: 100%; background: linear-gradient(135deg, #10b981, #059669);" onclick="sellToBuyer()">Сдать всё (+20%)</button>
         </div>
@@ -580,7 +695,7 @@
             <div class="tariff-item" onclick="selectTier('hacker', this, 2500)"><div><h4>Хакерский взлом</h4></div><div style="color:var(--gold);">2 500 🪙</div></div>
             <div class="tariff-item" onclick="selectTier('vip', this, 10000)"><div><h4>VIP-связь</h4></div><div style="color:var(--gold);">10 000 🪙</div></div>
             <div class="tariff-item" onclick="selectTier('gov', this, 50000)"><div><h4>Правительственный</h4></div><div style="color:var(--gold);">50 000 🪙</div></div>
-            <button class="btn-main" style="margin-top: 15px; background: rgba(255,255,255,0.1); box-shadow: none;" onclick="closeTariffModal()">Закрыть</button>
+            <button class="btn-main" style="margin-top: 12px; background: rgba(255,255,255,0.1); box-shadow: none;" onclick="closeTariffModal()">Закрыть</button>
         </div>
     </div>
 
@@ -588,7 +703,7 @@
         <div class="bottom-sheet">
             <div class="modal-title">Роуминг</div>
             <div class="country-grid" id="countryGrid"></div>
-            <button class="btn-main" style="margin-top: 20px; background: rgba(255,255,255,0.1); box-shadow: none;" onclick="closeRoamingModal()">Закрыть</button>
+            <button class="btn-main" style="margin-top: 15px; background: rgba(255,255,255,0.1); box-shadow: none;" onclick="closeRoamingModal()">Закрыть</button>
         </div>
     </div>
 
@@ -613,7 +728,7 @@
         const myId = tg.initDataUnsafe?.user?.id || Math.floor(Math.random() * 1000000000);
 
         let balance = parseInt(localStorage.getItem('casino_balance')) || 5000;
-        let starsBalance = parseInt(localStorage.getItem('stars_balance')) || 5000;
+        let starsBalance = parseInt(localStorage.getItem('stars_balance')) || 0;
         let inventory = JSON.parse(localStorage.getItem('casino_inventory')) || [];
         let statOpened = parseInt(localStorage.getItem('stat_opened')) || 0;
         let userLevel = parseInt(localStorage.getItem('user_level')) || 1;
@@ -621,6 +736,7 @@
         let isSpinning = false;
         let isX5Active = false;
         let currentTier = { key: 'grey', cost: 500, name: 'Серый рынок' };
+        let mythicAnimEnabled = localStorage.getItem('mythic_anim_enabled') !== 'false';
         
         let autoSellSettings = JSON.parse(localStorage.getItem('auto_sell_settings')) || { "Обычный": false, "Необычный": false, "Редкий": false, "Эпический": false, "Легендарный": false, "Мифический": false };
 
@@ -630,10 +746,10 @@
             { code: "+7", flag: "🇷🇺 Россия", prefix: 7 }, { code: "+375", flag: "🇧🇾 Беларусь", prefix: 375 }, { code: "+380", flag: "🇺🇦 Украина", prefix: 380 }, { code: "+1", flag: "🇺🇸 США", prefix: 1 }, { code: "+49", flag: "🇩🇪 Германия", prefix: 49 }, { code: "+44", flag: "🇬🇧 Англия", prefix: 44 }, { code: "+971", flag: "🇦🇪 ОАЭ", prefix: 971 }
         ];
         
-        // КРАШ ПЕРЕМЕННЫЕ
+        // КРАШ ПЕРЕМЕННЫЕ (РЕАЛЬНЫЕ СТАВКИ)
         let rocketHistory = JSON.parse(localStorage.getItem('rocket_history')) || [];
         let rocketBet = 5000;
-        let rocketState = 'idle'; // idle, flying, crashed
+        let rocketState = 'idle'; 
         let rocketMult = 1.0;
         let rocketInterval = null;
         let currentCrashPoint = 0;
@@ -641,19 +757,26 @@
         let rocketTime = 0;
         let autoCashout = 0;
         let autoStartTimeout = null;
+        let myActiveBetAmount = 0;
         const MAX_BET = 10000000;
+        let liveBetsUnsub = null;
 
         let myActiveBetId = null;
-        let myActiveBetAmount = 0; 
         let currentGameId = null;
         let isWaitingForOpponent = false;
         let unsubMyBet = null;
         let unsubGame = null;
-        let mmListenerInterval = null;
         let currentGameData = null;
 
         const promoCodes = { "SIMCITY": 100000, "LUCKY": 50000, "CASINO": 25000 };
         let usedPromos = JSON.parse(localStorage.getItem('used_promos')) || [];
+
+        // УРОВНИ И ОПЫТ (СЛОЖНЕЕ С КАЖДЫМ УРОВНЕМ)
+        function getXpNeeded(level) {
+            if (level <= 30) return level * 50; 
+            if (level <= 60) return 30 * 50 + (level - 30) * 150; 
+            return 30 * 50 + 30 * 150 + (level - 60) * 300; 
+        }
 
         const tierChances = {
             grey: { Обычный: 60, Необычный: 25, Редкий: 10, Эпический: 4, Легендарный: 0.9, Мифический: 0.1 },
@@ -661,7 +784,7 @@
             vip: { Обычный: 0, Необычный: 30, Редкий: 40, Эпический: 20, Легендарный: 8, Мифический: 2 },
             gov: { Обычный: 0, Необычный: 0, Редкий: 40, Эпический: 35, Легендарный: 20, Мифический: 5 }
         };
-        const baseRarities = { "Обычный": { color: "#8b92a5", price: 150 }, "Необычный": { color: "#10b981", price: 500 }, "Редкий": { color: "#3b82f6", price: 2000 }, "Эпический": { color: "#8b5cf6", price: 10000 }, "Легендарный": { color: "#f97316", price: 50000 }, "Мифический": { color: "#fbbf24", price: 500000 } };
+        const baseRarities = { "Обычный": { color: "#8b92a5", price: 150 }, "Необычный": { color: "#10b981", price: 500 }, "Редкий": { color: "#3b82f6", price: 2000 }, "Эпический": { color: "#8b5cf6", price: 10000 }, "Легендарный": { color: "#f97316", price: 50000 }, "Мифический": { color: "#ef4444", price: 500000 } };
 
         const vipLots = [
             { id: 'vip_1', title: 'Топ-Секретный', badge: 'TIER 1', desc: 'Доступ к генерации красивых номеров. Минимальная ставка 100 млн.', features: ['Красивые цифры', 'Ставка от 100 000 000', 'Редкость: Эпическая'], starsCost: 500, btnClass: '' },
@@ -670,11 +793,25 @@
             { id: 'vip_4', title: 'Божественный', badge: 'MAX', desc: 'Максимальный доступ. Самые красивые номера на рынке.', features: ['Идеальные комбинации', 'Ставка от 1 000 000 000', 'Редкость: Божественная'], starsCost: 5000, btnClass: 'mythic' }
         ];
 
+        // КОЛЕСО ФОРТУНЫ
+        const wheelPrizes = [
+            { label: '1000 🪙', value: 1000, color: '#10b981', type: 'coins' },
+            { label: '5000 🪙', value: 5000, color: '#3b82f6', type: 'coins' },
+            { label: 'Редкий', value: 'Редкий', color: '#8b5cf6', type: 'number' },
+            { label: '10000 🪙', value: 10000, color: '#fbbf24', type: 'coins' },
+            { label: 'Эпик', value: 'Эпический', color: '#8b5cf6', type: 'number' },
+            { label: '50000 🪙', value: 50000, color: '#ef4444', type: 'coins' },
+            { label: 'Легенда', value: 'Легендарный', color: '#f97316', type: 'number' },
+            { label: 'Миф', value: 'Мифический', color: '#ef4444', type: 'number' }
+        ];
+        let wheelAngle = 0;
+        let wheelSpinning = false;
+
         function updateUI() {
             document.getElementById('userBalance').innerText = balance.toLocaleString('ru-RU');
             document.getElementById('statOpened').innerText = statOpened;
             document.getElementById('statValue').innerText = inventory.reduce((sum, item) => sum + item.price, 0).toLocaleString('ru-RU');
-            let xpNeeded = userLevel * 100;
+            let xpNeeded = getXpNeeded(userLevel);
             document.getElementById('userLevel').innerText = userLevel;
             document.getElementById('headerLvl').innerText = userLevel;
             document.getElementById('headerLvlBar').style.width = `${(userXp / xpNeeded) * 100}%`;
@@ -714,15 +851,97 @@
             
             if(tabId === 'inventory') renderInventory();
             if(tabId === 'chances') renderChances();
-            if(tabId === 'settings') loadAutoSellSettings();
+            if(tabId === 'settings') loadSettings();
             if(tabId === 'shop') renderVipShop();
+            if(tabId === 'wheel') initWheel();
         }
 
+        // КОЛЕСО ФОРТУНЫ
+        function initWheel() {
+            const wheel = document.getElementById('fortuneWheel');
+            if (!wheel) return;
+            wheel.innerHTML = '';
+            const segments = 8;
+            const anglePerSeg = 360 / segments;
+            
+            wheelPrizes.forEach((prize, i) => {
+                const seg = document.createElement('div');
+                seg.className = 'wheel-segment';
+                seg.style.background = prize.color;
+                seg.style.transform = `rotate(${i * anglePerSeg}deg)`;
+                seg.innerHTML = `<span>${prize.label}</span>`;
+                wheel.appendChild(seg);
+            });
+        }
+
+        window.spinWheel = function() {
+            if (wheelSpinning) return;
+            wheelSpinning = true;
+            
+            const wheel = document.getElementById('fortuneWheel');
+            const randomPrize = Math.floor(Math.random() * wheelPrizes.length);
+            const targetAngle = (360 * 5) + (randomPrize * 45) + 22.5;
+            
+            wheelAngle += targetAngle;
+            wheel.style.transform = `rotate(${wheelAngle}deg)`;
+            
+            setTimeout(() => {
+                wheelSpinning = false;
+                const prize = wheelPrizes[randomPrize];
+                if (prize.type === 'coins') {
+                    balance += prize.value;
+                    showToast(`Вы выиграли ${prize.value.toLocaleString('ru-RU')} монет!`, '💰');
+                } else {
+                    const numData = generateSpecificNumber(prize.value);
+                    inventory.push(numData);
+                    showToast(`Вы выиграли ${prize.value} номер!`, '📦');
+                }
+                updateUI();
+            }, 3000);
+        }
+
+        function generateSpecificNumber(rarity) {
+            const data = baseRarities[rarity];
+            let code = currentCountry.prefix || 7;
+            let p1 = Math.floor(Math.random() * 900) + 100;
+            let p2 = Math.floor(Math.random() * 90) + 10;
+            let p3 = Math.floor(Math.random() * 90) + 10;
+            return {
+                number: `+${code} ${p1} ${p2}-${p3}`,
+                rarity: rarity,
+                price: data.price,
+                color: data.color
+            };
+        }
+
+        window.loadSettings = function() {
+            document.getElementById('mythicAnimToggle').checked = mythicAnimEnabled;
+            for (let rarity in autoSellSettings) {
+                let el = document.getElementById('auto-sell-' + rarity);
+                if (el) el.checked = autoSellSettings[rarity];
+            }
+        }
+
+        window.saveSettings = function() {
+            mythicAnimEnabled = document.getElementById('mythicAnimToggle').checked;
+            localStorage.setItem('mythic_anim_enabled', mythicAnimEnabled);
+            showToast('Настройки сохранены', '⚙️');
+        }
+
+        // 3D АНИМАЦИЯ МИФА
+        window.closeMythicOverlay = function() {
+            document.getElementById('mythicOverlay').classList.remove('active');
+        }
+
+        function showMythicAnimation(number) {
+            document.getElementById('mythicNumberDisplay').innerText = number;
+            document.getElementById('mythicOverlay').classList.add('active');
+        }
+
+        // РЕНДЕР VIP
         function renderVipShop() {
             const grid = document.getElementById('vipShopGrid');
             if (!grid) return;
-            document.getElementById('starsCount').innerText = starsBalance;
-
             grid.innerHTML = vipLots.map(lot => `
                 <div class="vip-card">
                     <div class="vip-badge">${lot.badge}</div>
@@ -731,58 +950,11 @@
                     <div class="vip-features">
                         ${lot.features.map(f => `<div class="vip-feat"><span>✦</span> ${f}</div>`).join('')}
                     </div>
-                    <button class="btn-buy-stars ${lot.btnClass}" onclick="buyVipLot('${lot.id}')">
-                        Купить за ⭐ ${lot.starsCost}
-                    </button>
+                    <a href="https://t.me/TrillYummy" target="_blank" class="btn-buy-stars ${lot.btnClass}" style="text-decoration: none; display: flex;">
+                        Задонатить ⭐ ${lot.starsCost}
+                    </a>
                 </div>
             `).join('');
-        }
-
-        window.buyVipLot = function(lotId) {
-            const lot = vipLots.find(l => l.id === lotId);
-            if (!lot) return;
-
-            if (starsBalance < lot.starsCost) {
-                return showToast('Недостаточно звёзд для покупки!', '❌');
-            }
-
-            starsBalance -= lot.starsCost;
-            
-            let num = "";
-            let price = 0;
-            if (lotId === 'vip_1') { num = `+7 999 100-00-${Math.floor(Math.random() * 90) + 10}`; price = Math.floor(Math.random() * 200000000) + 100000000; }
-            if (lotId === 'vip_2') { num = `+7 999 300-00-${Math.floor(Math.random() * 90) + 10}`; price = Math.floor(Math.random() * 400000000) + 300000000; }
-            if (lotId === 'vip_3') { num = `+7 999 500-00-${Math.floor(Math.random() * 90) + 10}`; price = Math.floor(Math.random() * 600000000) + 500000000; }
-            if (lotId === 'vip_4') { num = `+7 999 777-77-77`; price = 1000000000; }
-
-            const newNumber = {
-                number: num,
-                rarity: lotId === 'vip_4' ? 'БОЖЕСТВЕННЫЙ' : 'ТОП-СЕКРЕТ',
-                price: price,
-                color: lotId === 'vip_4' ? '#ef4444' : '#fbbf24',
-                isVip: true
-            };
-            
-            inventory.push(newNumber);
-            updateUI();
-            renderVipShop();
-            showToast(`Куплен ${lot.title}! Номер в базе.`, '⭐');
-        }
-
-        window.loadAutoSellSettings = function() {
-            for (let rarity in autoSellSettings) {
-                let el = document.getElementById('auto-sell-' + rarity);
-                if (el) el.checked = autoSellSettings[rarity];
-            }
-        }
-
-        window.saveAutoSell = function() {
-            for (let rarity in autoSellSettings) {
-                let el = document.getElementById('auto-sell-' + rarity);
-                if (el) autoSellSettings[rarity] = el.checked;
-            }
-            localStorage.setItem('auto_sell_settings', JSON.stringify(autoSellSettings));
-            showToast('Настройки сохранены', '⚙️');
         }
 
         window.openTariffModal = function() { document.getElementById('tariffModal').classList.add('active'); }
@@ -823,7 +995,7 @@
             const list = document.getElementById('chancesList');
             let chances = tierChances[currentTier.key];
             list.innerHTML = Object.entries(chances).map(([name, chance]) => `
-                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px;">
                     <span style="color: ${baseRarities[name].color};">${name}</span><span>${chance.toFixed(2)}%</span>
                 </div>
             `).join('');
@@ -875,8 +1047,17 @@
                 document.getElementById('simResultRarity').innerText = item.rarity;
                 document.getElementById('simResultRarity').style.color = item.color;
                 document.getElementById('simResultPrice').innerText = `${item.price.toLocaleString('ru-RU')} 🪙`;
+                
                 if (autoSellSettings[item.rarity]) { balance += item.price; showToast(`Автопродажа: +${item.price.toLocaleString('ru-RU')} 🪙`, '💰'); } 
-                else { inventory.push(item); showToast(`Номер в базе!`, '📦'); }
+                else { 
+                    inventory.push(item); 
+                    if (item.rarity === 'Мифический' && mythicAnimEnabled) {
+                        showMythicAnimation(item.number);
+                    } else {
+                        showToast(`Номер в базе!`, '📦'); 
+                    }
+                }
+                userXp += 10;
             } else {
                 statOpened += count; let totalSold = 0; let totalAdded = 0; let results = [];
                 for (let i = 0; i < count; i++) {
@@ -893,7 +1074,18 @@
                 `).join('');
                 if (totalSold > 0) showToast(`Автопродажа: +${totalSold.toLocaleString('ru-RU')} 🪙`, '💰');
                 if (totalAdded > 0) showToast(`В базу добавлено: ${totalAdded} шт.`, '📦');
+                userXp += 10 * count;
             }
+            
+            // Проверка на повышение уровня
+            let xpNeeded = getXpNeeded(userLevel);
+            while (userXp >= xpNeeded) {
+                userXp -= xpNeeded;
+                userLevel++;
+                xpNeeded = getXpNeeded(userLevel);
+                showToast(`Новый уровень: ${userLevel}!`, '⭐');
+            }
+            
             updateUI();
         }
 
@@ -950,10 +1142,9 @@
             if (paneId === 'dice') loadLobby('dice');
             if (paneId === 'crash') {
                 if (rocketState === 'idle') startRocket();
+                subscribeLiveBets();
             } else {
-                if (rocketState === 'flying') {
-                     // Если уходим с краша во время полета, просто оставляем его работать на бэкграунде, но кнопки не трогаем
-                }
+                if (liveBetsUnsub) { liveBetsUnsub(); liveBetsUnsub = null; }
             }
         }
 
@@ -974,12 +1165,12 @@
             const list = document.getElementById(`${type}-lobby-list`);
             onValue(ref(db, 'matchmaking'), (snapshot) => {
                 const data = snapshot.val();
-                if (!data) { list.innerHTML = `<div style="text-align: center; color: var(--text-muted); margin-top: 20px; font-size: 12px;">Нет активных лотов</div>`; return; }
+                if (!data) { list.innerHTML = `<div style="text-align: center; color: var(--text-muted); margin-top: 20px; font-size: 11px;">Нет активных лотов</div>`; return; }
                 
                 let bets = Object.values(data).filter(b => b.type === type && b.status === 'waiting');
                 
                 if (bets.length === 0) {
-                    list.innerHTML = `<div style="text-align: center; color: var(--text-muted); margin-top: 20px; font-size: 12px;">Нет активных лотов</div>`;
+                    list.innerHTML = `<div style="text-align: center; color: var(--text-muted); margin-top: 20px; font-size: 11px;">Нет активных лотов</div>`;
                     return;
                 }
 
@@ -1321,7 +1512,7 @@
         }
 
         // ==========================================
-        // ========== ЛОГИКА КРАША ==================
+        // ========== ЛОГИКА КРАША (РЕАЛЬНЫЕ СТАВКИ) =
         // ==========================================
         
         window.setAutoCashout = function() {
@@ -1370,7 +1561,35 @@
             graphFill.setAttribute('d', `M0,100 Q${ctrlX},${ctrlY} ${xPercent},${yPercent} L${xPercent},100 Z`);
         }
 
-        // Запуск ракеты (может быть вызван кнопкой или автостартом)
+        // Подписка на живые ставки из Firebase
+        function subscribeLiveBets() {
+            if (liveBetsUnsub) return;
+            const betsRef = ref(db, 'crash_bets');
+            liveBetsUnsub = onValue(betsRef, (snapshot) => {
+                const data = snapshot.val();
+                const list = document.getElementById('liveBetsList');
+                const count = document.getElementById('liveBetsCount');
+                if (!list) return;
+                
+                if (!data) {
+                    list.innerHTML = '<div style="text-align: center; color: #555; font-size: 10px;">Пока нет ставок</div>';
+                    if (count) count.innerText = '0';
+                    return;
+                }
+
+                const bets = Object.values(data);
+                if (count) count.innerText = bets.length;
+                
+                list.innerHTML = bets.map(bet => `
+                    <div class="live-bet-row">
+                        <div class="live-bet-user">👤 ${bet.name}</div>
+                        <div class="live-bet-amount">${bet.amount.toLocaleString('ru-RU')}</div>
+                        <div class="live-bet-mult">${bet.cashedOut ? 'x' + bet.mult.toFixed(2) : '...'}</div>
+                    </div>
+                `).join('');
+            });
+        }
+
         function startRocket() {
             if (rocketState !== 'idle' && rocketState !== 'crashed') return;
             if (autoStartTimeout) { clearTimeout(autoStartTimeout); autoStartTimeout = null; }
@@ -1401,10 +1620,8 @@
             profitText.classList.remove('show');
             profitText.innerText = '+0 🪙';
 
-            // Если игрок сделал ставку, показываем профит
-            if (balance >= rocketBet && myActiveBetAmount > 0) {
-                 // Ставка уже была списана в handleRocket, просто начинаем считать
-            }
+            // Очищаем старые ставки в базе для нового раунда
+            set(ref(db, 'crash_bets'), null);
 
             const random = Math.random();
             currentCrashPoint = Math.max(1.0, (0.99 / (1.0 - random))); 
@@ -1420,7 +1637,6 @@
                 
                 drawGraph(rocketMult, rocketTime);
 
-                // Отображение профита в реальном времени
                 if (myActiveBetAmount > 0 && !hasCashedOut) {
                     let currentProfit = Math.floor(myActiveBetAmount * rocketMult) - myActiveBetAmount;
                     profitText.innerText = `+${currentProfit.toLocaleString('ru-RU')} 🪙`;
@@ -1462,7 +1678,7 @@
                     if (myActiveBetAmount > 0) {
                         showToast(`Вы не успели! Упала на x${currentCrashPoint.toFixed(2)}`, '💥');
                     }
-                    myActiveBetAmount = 0; // Сбрасываем ставку
+                    myActiveBetAmount = 0;
 
                     setTimeout(() => {
                         if (rocketState === 'crashed') {
@@ -1479,9 +1695,9 @@
                             // Автозапуск следующего раунда
                             autoStartTimeout = setTimeout(() => {
                                 startRocket();
-                            }, 5000); 
+                            }, 3000); 
                         }
-                    }, 3000);
+                    }, 2000);
                 }
             }, 50);
         }
@@ -1491,7 +1707,6 @@
             if (!btn) return;
 
             if (rocketState === 'idle' || rocketState === 'crashed') {
-                // Сделать ставку
                 if (rocketBet < 100) return showToast('Минимальная ставка 100', '⚠️');
                 if (balance < rocketBet) return showToast('Недостаточно монет!', '❌');
                 
@@ -1499,14 +1714,29 @@
                 myActiveBetAmount = rocketBet;
                 updateUI();
                 
-                startRocket();
-
+                // Записываем ставку в базу для всех
+                set(ref(db, 'crash_bets/' + myId), {
+                    name: currentUserName,
+                    amount: rocketBet,
+                    cashedOut: false,
+                    mult: 0
+                });
+                
+                if (rocketState === 'idle') {
+                    startRocket();
+                }
             } else if (rocketState === 'flying' && !hasCashedOut) {
-                // Забрать
-                if (myActiveBetAmount === 0) return; // Если не ставил
+                if (myActiveBetAmount === 0) return; 
                 hasCashedOut = true;
                 let winAmount = Math.floor(myActiveBetAmount * rocketMult);
                 balance += winAmount; 
+                
+                // Обновляем ставку в базе
+                update(ref(db, 'crash_bets/' + myId), {
+                    cashedOut: true,
+                    mult: rocketMult
+                });
+                
                 myActiveBetAmount = 0;
                 updateUI();
                 showToast(`Вы забрали ${winAmount.toLocaleString('ru-RU')} 🪙 (x${rocketMult.toFixed(2)})`, '🚀');
@@ -1522,6 +1752,7 @@
         setTimeout(() => {
             if (document.getElementById('pane-crash').classList.contains('active')) {
                 startRocket();
+                subscribeLiveBets();
             }
         }, 1000);
 
