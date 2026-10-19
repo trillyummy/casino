@@ -106,7 +106,8 @@
 
         .crash-graph-container { width: 100%; height: 180px; background: #000; border-radius: var(--radius-md); position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 10px; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 25% 50%; }
         .crash-graph-svg { width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
-        .crash-big-mult { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 48px; font-weight: 900; color: white; z-index: 2; text-shadow: 0 5px 15px rgba(0,0,0,0.8); letter-spacing: -1px; }
+        .crash-big-mult { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 48px; font-weight: 900; color: white; z-index: 2; text-shadow: 0 5px 15px rgba(0,0,0,0.8); letter-spacing: -1px; transition: color 0.2s; }
+        .crash-big-mult.crashed { color: var(--danger); }
         .history-strip { display: flex; gap: 4px; overflow-x: auto; margin-bottom: 10px; padding-bottom: 5px;}
         .h-strip-badge { padding: 3px 6px; border-radius: 5px; font-size: 10px; font-weight: 800; background: rgba(255,255,255,0.1); color: white; white-space: nowrap;}
         .h-strip-badge.high { color: var(--success); background: rgba(16,185,129,0.2);}
@@ -590,6 +591,7 @@
             { code: "+7", flag: "🇷🇺 Россия", prefix: 7 }, { code: "+375", flag: "🇧🇾 Беларусь", prefix: 375 }, { code: "+380", flag: "🇺🇦 Украина", prefix: 380 }, { code: "+1", flag: "🇺🇸 США", prefix: 1 }, { code: "+49", flag: "🇩🇪 Германия", prefix: 49 }, { code: "+44", flag: "🇬🇧 Англия", prefix: 44 }, { code: "+971", flag: "🇦🇪 ОАЭ", prefix: 971 }
         ];
         
+        // === ПЕРЕМЕННЫЕ КРАША ===
         let rocketHistory = JSON.parse(localStorage.getItem('rocket_history')) || [];
         let rocketBet = 5000;
         let rocketState = 'idle'; 
@@ -599,6 +601,7 @@
         let hasCashedOut = false;
         let rocketTime = 0;
         let autoCashout = 0;
+        const MAX_BET = 10000000; // Максимальная ставка
 
         let myActiveBetId = null;
         let myActiveBetAmount = 0; 
@@ -842,7 +845,6 @@
             if(element) element.classList.add('active');
             document.getElementById('pane-' + paneId).classList.add('active');
             
-            if (paneId === 'crash') startBackgroundCrash(); else stopBackgroundCrash();
             if (paneId === 'coin') loadLobby('coin');
             if (paneId === 'dice') loadLobby('dice');
         }
@@ -1159,59 +1161,10 @@
             }
         }
 
-        let backgroundCrashInterval = null;
-        let isBackgroundFlying = false;
-        function startBackgroundCrash() {
-            if (backgroundCrashInterval) return;
-            backgroundCrashInterval = setInterval(() => {
-                if (!isBackgroundFlying && !document.getElementById('pane-crash').classList.contains('active')) return;
-                if (!isBackgroundFlying) runBackgroundRocket();
-            }, 5000);
-        }
-        function stopBackgroundCrash() { clearInterval(backgroundCrashInterval); backgroundCrashInterval = null; }
+        // ==========================================
+        // ========== ЛОГИКА КРАША =================
+        // ==========================================
         
-        function runBackgroundRocket() {
-            if (isBackgroundFlying) return;
-            isBackgroundFlying = true;
-            const multText = document.getElementById('rocketMultiplier');
-            const graphPath = document.getElementById('graphPath');
-            const graphFill = document.getElementById('graphFill');
-            if (!multText || !graphPath || !graphFill) return;
-            
-            rocketMult = 1.0; rocketTime = 0;
-            multText.classList.remove('crashed');
-            graphPath.setAttribute('d', 'M0,100 L0,100'); graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
-
-            const random = Math.random();
-            let localCrashPoint = Math.max(1.0, (0.99 / (1.0 - random))); 
-            localCrashPoint = Math.floor(localCrashPoint * 100) / 100;
-            if (localCrashPoint < 1.01) localCrashPoint = 1.01;
-
-            let time = 0;
-            let interval = setInterval(() => {
-                time += 0.1;
-                rocketMult = Math.pow(1.06, time); 
-                if (rocketMult > 100) rocketMult = 100;
-                multText.innerText = `x${rocketMult.toFixed(2).replace('.', ',')}`;
-                
-                let xPercent = Math.min((time / 40) * 100, 100);
-                let yPercent = 100 - Math.min((rocketMult / 41) * 100, 95); 
-                graphPath.setAttribute('d', `M0,100 Q${xPercent/2},${100} ${xPercent},${yPercent}`);
-                graphFill.setAttribute('d', `M0,100 Q${xPercent/2},${100} ${xPercent},${yPercent} L${xPercent},100 Z`);
-
-                if (rocketMult >= localCrashPoint) {
-                    clearInterval(interval); isBackgroundFlying = false;
-                    multText.classList.add('crashed');
-                    multText.innerText = `x${localCrashPoint.toFixed(2).replace('.', ',')}`;
-                    setTimeout(() => {
-                        multText.innerText = 'x1,00';
-                        graphPath.setAttribute('d', 'M0,100 L0,100');
-                        graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
-                    }, 3000);
-                }
-            }, 100);
-        }
-
         window.setAutoCashout = function() {
             let val = parseFloat(document.getElementById('autoCashoutInput').value);
             if (val && val > 1.0) { autoCashout = val; showToast(`Автозабор на x${val.toFixed(2)}`, '🤖'); } 
@@ -1229,8 +1182,8 @@
 
         window.updateManualBet = function(val) {
             rocketBet = parseInt(val) || 0;
-            if (rocketBet > 10000000) {
-                rocketBet = 10000000;
+            if (rocketBet > MAX_BET) {
+                rocketBet = MAX_BET;
                 document.getElementById('manualBetInput').value = rocketBet;
                 showToast('Максимальная ставка 10 000 000!', '⚠️');
             }
@@ -1243,6 +1196,22 @@
             if(btn) btn.classList.add('active');
         }
 
+        // Функция плавной отрисовки
+        function drawGraph(mult, time) {
+            const graphPath = document.getElementById('graphPath');
+            const graphFill = document.getElementById('graphFill');
+            if (!graphPath || !graphFill) return;
+
+            let xPercent = Math.min((time / 20) * 100, 95); 
+            let yPercent = 100 - Math.min((mult - 1) * 3, 95); 
+
+            let ctrlX = xPercent * 0.5;
+            let ctrlY = 100; 
+
+            graphPath.setAttribute('d', `M0,100 Q${ctrlX},${ctrlY} ${xPercent},${yPercent}`);
+            graphFill.setAttribute('d', `M0,100 Q${ctrlX},${ctrlY} ${xPercent},${yPercent} L${xPercent},100 Z`);
+        }
+
         window.handleRocket = function() {
             const btn = document.getElementById('rocketBtn');
             const multText = document.getElementById('rocketMultiplier');
@@ -1252,17 +1221,25 @@
 
             if (!btn || !multText || !graphPath || !graphFill) return;
 
-            if (rocketState === 'idle' && !hasCashedOut) {
+            if (rocketState === 'idle' || rocketState === 'crashed') {
                 if (rocketBet < 100) return showToast('Минимальная ставка 100', '⚠️');
                 if (balance < rocketBet) return showToast('Недостаточно монет!', '❌');
                 
                 balance -= rocketBet; updateUI();
                 
-                rocketState = 'flying'; rocketMult = 1.0; rocketTime = 0; hasCashedOut = false;
-                multText.classList.remove('crashed'); multText.innerText = 'x1,00';
-                btn.innerText = 'Забрать'; btn.classList.remove('disabled'); btn.classList.add('cashout');
+                rocketState = 'flying'; 
+                rocketMult = 1.0; 
+                rocketTime = 0; 
+                hasCashedOut = false;
                 
-                graphPath.setAttribute('d', 'M0,100 L0,100'); graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
+                multText.classList.remove('crashed'); 
+                multText.innerText = 'x1,00';
+                btn.innerText = 'Забрать'; 
+                btn.classList.remove('disabled'); 
+                btn.classList.add('cashout');
+                
+                graphPath.setAttribute('d', 'M0,100 L0,100'); 
+                graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
 
                 if(liveBets) {
                     liveBets.innerHTML = `
@@ -1279,15 +1256,13 @@
                 if (currentCrashPoint < 1.01) currentCrashPoint = 1.01;
 
                 rocketInterval = setInterval(() => {
-                    rocketTime += 0.1;
-                    rocketMult = Math.pow(1.06, rocketTime); 
+                    rocketTime += 0.05; 
+                    rocketMult = Math.pow(1.07, rocketTime); 
                     if (rocketMult > 100) rocketMult = 100;
+
                     multText.innerText = `x${rocketMult.toFixed(2).replace('.', ',')}`;
                     
-                    let xPercent = Math.min((rocketTime / 40) * 100, 100);
-                    let yPercent = 100 - Math.min((rocketMult / 41) * 100, 95); 
-                    graphPath.setAttribute('d', `M0,100 Q${xPercent/2},${100} ${xPercent},${yPercent}`);
-                    graphFill.setAttribute('d', `M0,100 Q${xPercent/2},${100} ${xPercent},${yPercent} L${xPercent},100 Z`);
+                    drawGraph(rocketMult, rocketTime);
 
                     if (autoCashout > 0 && !hasCashedOut && rocketMult >= autoCashout) {
                         hasCashedOut = true;
@@ -1302,16 +1277,24 @@
                     }
 
                     if (rocketMult >= currentCrashPoint) {
-                        clearInterval(rocketInterval); rocketState = 'idle';
-                        multText.classList.add('crashed'); multText.innerText = `УПАЛА НА x${currentCrashPoint.toFixed(2).replace('.', ',')}`;
-                        btn.innerText = 'Запустить'; btn.classList.remove('cashout'); btn.classList.remove('disabled');
+                        clearInterval(rocketInterval); 
+                        rocketState = 'crashed';
                         
+                        multText.classList.add('crashed'); 
+                        multText.innerText = `УПАЛА НА x${currentCrashPoint.toFixed(2).replace('.', ',')}`;
+                        btn.innerText = 'Запустить'; 
+                        btn.classList.remove('cashout'); 
+                        btn.classList.remove('disabled');
+                        
+                        let currentX = Math.min((rocketTime / 20) * 100, 95);
+                        graphPath.setAttribute('d', `M0,100 L${currentX},100`);
+                        graphFill.setAttribute('d', `M0,100 L${currentX},100 L${currentX},100 Z`);
+
                         rocketHistory.unshift(currentCrashPoint);
                         if(rocketHistory.length > 10) rocketHistory.pop();
                         updateUI();
                         
-                        if (hasCashedOut) showToast(`Ракета улетела на x${currentCrashPoint.toFixed(2)}`, '💥');
-                        else {
+                        if (!hasCashedOut) {
                             showToast(`Вы не успели! Упала на x${currentCrashPoint.toFixed(2)}`, '💥');
                             if(document.getElementById('myWinDisplay')) {
                                 document.getElementById('myWinDisplay').innerText = `x0,00 · 0`;
@@ -1320,12 +1303,16 @@
                         }
 
                         setTimeout(() => {
-                            multText.innerText = 'x1,00';
-                            graphPath.setAttribute('d', 'M0,100 L0,100');
-                            graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
+                            if (rocketState === 'crashed') {
+                                rocketState = 'idle';
+                                multText.classList.remove('crashed');
+                                multText.innerText = 'x1,00';
+                                graphPath.setAttribute('d', 'M0,100 L0,100');
+                                graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
+                            }
                         }, 3000);
                     }
-                }, 100);
+                }, 50);
 
             } else if (rocketState === 'flying' && !hasCashedOut) {
                 hasCashedOut = true;
