@@ -105,6 +105,13 @@
         .tariff-item.active { border-color: var(--accent); background: rgba(59, 130, 246, 0.1); }
         .toast-container { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); z-index: 10000; transition: top 0.3s; display: flex; align-items: center; gap: 10px; background: var(--accent); color: white; padding: 12px 20px; border-radius: 30px; font-size: 13px; font-weight: 800; }
         .toast-container.show { top: 20px; }
+
+        /* СТИЛИ ДЛЯ X5 СПИСКА */
+        .x5-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; max-height: 40vh; overflow-y: auto; padding-right: 5px;}
+        .x5-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); padding: 10px 15px; border-radius: var(--radius-sm); border-left: 4px solid; }
+        .x5-item h5 { font-size: 14px; font-weight: 800; }
+        .x5-item p { font-size: 11px; color: var(--text-muted); font-weight: 600;}
+        .x5-price { font-size: 13px; font-weight: 800; color: var(--gold); }
     </style>
 </head>
 <body>
@@ -232,6 +239,16 @@
         </div>
     </div>
 
+    <!-- МОДАЛКА ДЛЯ X5 -->
+    <div class="modal-overlay" id="x5Overlay">
+        <div class="bottom-sheet">
+            <h3 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; color: var(--purple); font-size: 16px; text-align: center;">Результат x5</h3>
+            <div class="x5-list" id="x5List"></div>
+            <button class="btn-main" style="width: 100%;" onclick="claimX5()">Забрать всё</button>
+            <button class="btn-main" style="width: 100%; background: linear-gradient(135deg, #fbbf24, #d97706); color: black; margin-top: 10px;" onclick="sellX5()">Продать всё</button>
+        </div>
+    </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 
@@ -249,13 +266,14 @@
         const tg = window.Telegram.WebApp;
         tg.expand(); tg.setHeaderColor("#090a0f");
 
-        // --- СОСТОЯНИЕ ИГРЫ ---
         let balance = parseInt(localStorage.getItem('casino_balance')) || 5000;
         let inventory = JSON.parse(localStorage.getItem('casino_inventory')) || [];
         let statOpened = parseInt(localStorage.getItem('stat_opened')) || 0;
         let isSpinning = false;
         let currentQuickSellItem = null;
         let currentTier = { key: 'grey', cost: 500 };
+        
+        let x5Results = []; // Для хранения результатов x5
 
         const rarities = {
             "Обычный": { color: "#8b92a5", price: 150, chance: 60 },
@@ -275,7 +293,6 @@
             localStorage.setItem('stat_opened', statOpened);
         }
 
-        // --- НАВИГАЦИЯ ---
         window.toggleMenu = function() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebarOverlay');
@@ -293,7 +310,6 @@
             if(tabId === 'profile') updateUI();
         }
 
-        // --- СИНТЕЗ НОМЕРОВ ---
         window.openTariffModal = function() { document.getElementById('tariffModal').classList.add('active'); }
         window.closeTariffModal = function() { document.getElementById('tariffModal').classList.remove('active'); }
         
@@ -304,6 +320,22 @@
             document.getElementById('currentTierName').innerText = el.querySelector('h4').innerText;
             document.getElementById('currentTierCost').innerText = cost.toLocaleString('ru-RU') + ' 🪙';
             closeTariffModal();
+        }
+
+        // Генерация одного номера
+        function generateNumberData() {
+            let random = Math.random() * 100;
+            let selectedRarity = "Обычный";
+            let currentChance = 0;
+            
+            for (let [name, data] of Object.entries(rarities)) {
+                currentChance += data.chance;
+                if (random <= currentChance) { selectedRarity = name; break; }
+            }
+
+            const data = rarities[selectedRarity];
+            const number = "+" + Math.floor(Math.random() * 90000000000 + 10000000000);
+            return { number, rarity: selectedRarity, price: data.price, color: data.color };
         }
 
         window.spin = function(count) {
@@ -324,42 +356,53 @@
                 if (spinCount > 10) {
                     clearInterval(interval);
                     isSpinning = false;
-                    finishSpin();
+                    finishSpin(count);
                 }
             }, 50);
         }
 
-        function finishSpin() {
-            // Выбираем редкость (упрощенный рандом)
-            let random = Math.random() * 100;
-            let selectedRarity = "Обычный";
-            let currentChance = 0;
-            
-            for (let [name, data] of Object.entries(rarities)) {
-                currentChance += data.chance;
-                if (random <= currentChance) { selectedRarity = name; break; }
+        function finishSpin(count) {
+            if (count === 1) {
+                const item = generateNumberData();
+                statOpened++;
+                
+                document.getElementById('numberDisplay').innerText = item.number;
+                document.getElementById('countryDisplay').innerText = "🌍 Россия";
+                document.getElementById('rarityDisplay').innerText = item.rarity;
+                document.getElementById('rarityDisplay').style.color = item.color;
+                
+                currentQuickSellItem = item;
+                document.getElementById('revealTitle').innerText = item.rarity;
+                document.getElementById('revealTitle').style.color = item.color;
+                document.getElementById('revealNumber').innerText = item.number;
+                document.getElementById('revealCountry').innerText = "🌍 Россия";
+                document.getElementById('btnQuickSell').innerText = `Продать за ${item.price.toLocaleString('ru-RU')} 🪙`;
+                document.getElementById('revealOverlay').classList.add('active');
+            } else {
+                // Логика для x5
+                statOpened += count;
+                x5Results = [];
+                for (let i = 0; i < count; i++) {
+                    x5Results.push(generateNumberData());
+                }
+                
+                const list = document.getElementById('x5List');
+                list.innerHTML = x5Results.map(item => `
+                    <div class="x5-item" style="border-left-color: ${item.color};">
+                        <div>
+                            <h5 style="color: ${item.color};">${item.number}</h5>
+                            <p>${item.rarity}</p>
+                        </div>
+                        <div class="x5-price">${item.price.toLocaleString('ru-RU')} 🪙</div>
+                    </div>
+                `).join('');
+                
+                document.getElementById('x5Overlay').classList.add('active');
+                // Очищаем основной экран
+                document.getElementById('numberDisplay').innerText = "+0 000 000-00-00";
+                document.getElementById('countryDisplay').innerText = "🌍 Ожидание сигнала";
+                document.getElementById('rarityDisplay').innerText = "";
             }
-
-            const data = rarities[selectedRarity];
-            const number = "+" + Math.floor(Math.random() * 90000000000 + 10000000000);
-            
-            document.getElementById('numberDisplay').innerText = number;
-            document.getElementById('countryDisplay').innerText = "🌍 Россия";
-            document.getElementById('rarityDisplay').innerText = selectedRarity;
-            document.getElementById('rarityDisplay').style.color = data.color;
-            
-            statOpened++;
-            const item = { number, rarity: selectedRarity, price: data.price, color: data.color };
-            
-            // Показываем модалку
-            currentQuickSellItem = item;
-            document.getElementById('revealTitle').innerText = selectedRarity;
-            document.getElementById('revealTitle').style.color = data.color;
-            document.getElementById('revealNumber').innerText = number;
-            document.getElementById('revealCountry').innerText = "🌍 Россия";
-            document.getElementById('btnQuickSell').innerText = `Продать за ${data.price.toLocaleString('ru-RU')} 🪙`;
-            document.getElementById('revealOverlay').classList.add('active');
-            
             updateUI();
         }
 
@@ -379,6 +422,25 @@
                 updateUI();
                 showToast('Номер продан!', '💰');
             }
+        }
+
+        // --- ЗАБРАТЬ ИЛИ ПРОДАТЬ X5 ---
+        window.claimX5 = function() {
+            inventory.push(...x5Results);
+            x5Results = [];
+            document.getElementById('x5Overlay').classList.remove('active');
+            updateUI();
+            showToast('Все номера в базе!', '📦');
+            if(document.getElementById('screen-inventory').classList.contains('active')) renderInventory();
+        }
+
+        window.sellX5 = function() {
+            let total = x5Results.reduce((sum, item) => sum + item.price, 0);
+            balance += total;
+            x5Results = [];
+            document.getElementById('x5Overlay').classList.remove('active');
+            updateUI();
+            showToast(`Продано на ${total.toLocaleString('ru-RU')} 🪙`, '💰');
         }
 
         // --- БАЗА ---
@@ -417,7 +479,7 @@
             showToast(`Продано всё за ${total.toLocaleString('ru-RU')} 🪙`, '💰');
         }
 
-        // --- РАКЕТА (СПУТНИК) ---
+        // --- РАКЕТА (ПОЛНЫЙ РАНДОМ) ---
         let rocketBet = 10000;
         let rocketState = 'idle';
         let rocketMult = 1.0;
@@ -453,26 +515,51 @@
                 btn.innerText = 'Забрать';
                 btn.classList.add('cashout');
                 
-                let crashPoint = (Math.random() * 5) + 1.1; // Рандомный краш от 1.1 до 6.1
+                // Честный рандом (обратное распределение).
+                // Чем выше множитель, тем меньше шанс.
+                // Формула дает шанс упасть на x2 = 50%, на x10 = 10%, на x100 = 1%.
+                // Но может улететь и на x1000 (0.1% шанс).
+                const random = Math.random();
+                // Предотвращаем слишком быстрый краш (меньше 1.0)
+                let crashPoint = Math.max(1.0, (0.99 / (1.0 - random))); 
+                // Добавим немного "соли", чтобы не падало ровно на целых числах (например, ровно на 2.00)
+                crashPoint = Math.floor(crashPoint * 100) / 100;
                 
+                // Если выпало меньше 1.01, принудительно ставим 1.01, чтобы было время на реакцию
+                if (crashPoint < 1.01) crashPoint = 1.01;
+
                 rocketInterval = setInterval(() => {
-                    rocketMult += 0.05;
+                    // Скорость роста зависит от текущего множителя
+                    let speed = 0.01; 
+                    if (rocketMult > 10) speed = 0.05;
+                    if (rocketMult > 50) speed = 0.2;
+                    
+                    rocketMult += speed;
                     multText.innerText = `x${rocketMult.toFixed(2)}`;
                     
-                    let moveX = (rocketMult - 1) * 30;
-                    let moveY = (rocketMult - 1) * 20;
+                    let moveX = (rocketMult - 1) * 15;
+                    let moveY = (rocketMult - 1) * 10;
+                    
+                    // Ограничиваем полет, чтобы ракета не улетела за экран
+                    if (moveX > 250) moveX = 250;
+                    if (moveY > 100) moveY = 100;
+                    
                     rocket.style.transform = `translate(${moveX}px, -${moveY}px)`;
 
                     if (rocketMult >= crashPoint) {
                         clearInterval(rocketInterval);
                         rocketState = 'idle';
                         multText.classList.add('crashed');
-                        multText.innerText = 'УПАЛА!';
+                        multText.innerText = `УПАЛА НА x${crashPoint.toFixed(2)}`;
                         btn.innerText = 'Запустить';
                         btn.classList.remove('cashout');
-                        setTimeout(() => multText.innerText = 'x1.00', 2000);
+                        
+                        setTimeout(() => {
+                            multText.innerText = 'x1.00';
+                            rocket.style.transform = `translate(0, 0)`;
+                        }, 3000);
                     }
-                }, 100);
+                }, 50);
 
             } else if (rocketState === 'flying') {
                 clearInterval(rocketInterval);
@@ -481,7 +568,7 @@
                 let winAmount = Math.floor(rocketBet * rocketMult);
                 balance += winAmount;
                 updateUI();
-                showToast(`Вы забрали ${winAmount.toLocaleString('ru-RU')} 🪙`, '🚀');
+                showToast(`Вы забрали ${winAmount.toLocaleString('ru-RU')} 🪙 (x${rocketMult.toFixed(2)})`, '🚀');
                 
                 btn.innerText = 'Запустить';
                 btn.classList.remove('cashout');
@@ -493,7 +580,6 @@
             }
         }
 
-        // --- БОНУСЫ ---
         window.claimDaily = function() {
             balance += 50000;
             updateUI();
@@ -510,7 +596,6 @@
             setTimeout(() => toast.classList.remove('show'), 2500);
         }
 
-        // ИНИЦИАЛИЗАЦИЯ
         if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
             document.getElementById('userName').innerText = tg.initDataUnsafe.user.first_name || "Игрок";
             if(tg.initDataUnsafe.user.photo_url) {
