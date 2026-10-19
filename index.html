@@ -22,6 +22,7 @@
         }
         body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(5,5,5,0.6), rgba(5,5,5,0.95)); z-index: -1; }
         
+        /* ШАПКА */
         .top-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; pointer-events: none; backdrop-filter: blur(10px); background: rgba(0,0,0,0.3); }
         .user-info { display: flex; align-items: center; gap: 8px; pointer-events: auto;}
         .header-avatar { width: 32px; height: 32px; border-radius: 50%; background: #333; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.1); }
@@ -34,10 +35,12 @@
         .menu-btn:active { transform: scale(0.9); }
         .menu-btn svg { width: 16px; height: 16px; fill: var(--text); }
 
+        /* УВЕДОМЛЕНИЯ */
         .toast-container { position: fixed; top: -50px; left: 50%; transform: translateX(-50%); z-index: 10000; transition: top 0.3s; display: flex; align-items: center; gap: 6px; background: rgba(30, 30, 30, 0.95); color: white; padding: 8px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.5); white-space: nowrap; max-width: 90%; overflow: hidden; text-overflow: ellipsis;}
         .toast-container.show { top: 15px; }
         .toast-icon { font-size: 14px; }
 
+        /* МЕНЮ */
         .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(5px); }
         .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
         .sidebar { position: fixed; bottom: -100%; left: 0; right: 0; width: 100%; max-width: 500px; margin: 0 auto; height: 85vh; background: #111111; border-top: 1px solid rgba(255,255,255,0.1); border-radius: 20px 20px 0 0; z-index: 999; display: flex; flex-direction: column; transition: bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow-y: auto; box-shadow: 0 -10px 40px rgba(0,0,0,0.8); }
@@ -67,6 +70,7 @@
         .small-btn span { font-size: 11px; font-weight: 600; color: var(--text); }
         .small-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 14px; flex-shrink: 0;}
 
+        /* ЭКРАНЫ */
         .screen { display: none; flex: 1; padding: 60px 15px 15px 15px; flex-direction: column; animation: fadeIn 0.2s ease; position: relative; height: 100%;}
         .screen.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
@@ -101,6 +105,7 @@
         .btn-x5 { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.5); flex: 0.4; }
         .btn-x5.active { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; box-shadow: 0 0 15px rgba(139, 92, 246, 0.5); border-color: transparent;}
 
+        /* ИГРЫ */
         .games-container { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); border: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; backdrop-filter: blur(10px); height: 100%; max-height: 600px;}
         .game-tabs { display: flex; background: rgba(0,0,0,0.4); border-bottom: 1px solid var(--border); overflow-x: auto;}
         .game-tab { flex: 1; padding: 12px 10px; text-align: center; font-size: 12px; font-weight: 800; color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: 0.2s; border-bottom: 2px solid transparent;}
@@ -122,14 +127,16 @@
         .search-overlay.active { display: flex; }
         .spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .play-result { font-size: 48px; font-weight: 900; min-height: 60px; display: flex; justify-content: center; align-items: center; gap: 20px; margin: 15px 0;}
-        .play-vs { font-size: 16px; color: var(--text-muted); font-weight: 800; text-transform: uppercase;}
-        .btn-play { background: var(--accent); color: white; border: none; border-radius: var(--radius-md); padding: 14px; font-size: 14px; font-weight: 800; cursor: pointer; width: 100%; text-transform: uppercase; margin-bottom: 10px;}
-        .btn-play:active { transform: scale(0.96); }
-        .btn-play.disabled { background: rgba(255,255,255,0.1); color: var(--text-muted); }
-        .opponent-info { display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; }
-        .opponent-avatar { width: 30px; height: 30px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 14px;}
+        
+        .opponent-info { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-weight: 700; width: 100%; margin-bottom: 15px;}
+        .opponent-card { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 10px; text-align: center; width: 45%;}
+        .opponent-avatar { width: 40px; height: 40px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 16px; margin: 0 auto 5px auto;}
+        .opponent-name { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+        .opponent-label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; margin-top: 2px;}
 
+        .vs-text { font-size: 12px; color: var(--text-muted); font-weight: 800; }
+        .play-result { font-size: 48px; font-weight: 900; min-height: 80px; display: flex; justify-content: center; align-items: center; gap: 20px; margin: 10px 0;}
+        
         .bet-input-large { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); color: white; border-radius: var(--radius-md); padding: 15px; font-size: 18px; font-weight: 900; outline: none; margin-bottom: 10px; text-align: center;}
         .bet-presets { display: flex; gap: 6px; margin-bottom: 10px; overflow-x: auto; padding-bottom: 5px; justify-content: center;}
         .btn-preset { padding: 8px 12px; border-radius: 8px; background: rgba(255,255,255,0.05); border: none; color: white; font-size: 12px; font-weight: 800; white-space: nowrap; cursor: pointer; transition: 0.2s;}
@@ -188,6 +195,38 @@
         .modal-title { font-size: 16px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 15px; }
         .tariff-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: var(--radius-md); margin-bottom: 8px; cursor: pointer; border: 1px solid transparent;}
         .tariff-item.active { border-color: var(--accent); background: rgba(59, 130, 246, 0.1); }
+
+        /* НОВЫЕ СТИЛИ ДЛЯ ЛОББИ */
+        .lobby-tabs { display: flex; gap: 15px; border-bottom: 1px solid var(--border); margin-bottom: 15px; }
+        .lobby-tab { font-size: 14px; font-weight: 800; color: var(--text-muted); padding-bottom: 8px; cursor: pointer; position: relative;}
+        .lobby-tab.active { color: white; }
+        .lobby-tab.active::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background: white; }
+        
+        .lobby-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
+        .lobby-item:active { background: rgba(255,255,255,0.05); }
+        .lobby-avatar { width: 40px; height: 40px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 16px; position: relative;}
+        .lobby-status { position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--success); border: 2px solid #000; }
+        .lobby-info { flex: 1; margin-left: 12px; }
+        .lobby-name { font-size: 14px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px;}
+        .lobby-sub { font-size: 10px; color: var(--text-muted); font-weight: 600;}
+        .lobby-bet { text-align: right; }
+        .lobby-amount { font-size: 14px; font-weight: 800;}
+        .lobby-win { font-size: 10px; color: var(--text-muted); font-weight: 600;}
+
+        .game-board { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
+        .dice-visual { display: flex; gap: 20px; margin: 20px 0; }
+        .dice { width: 80px; height: 80px; background: white; border-radius: 16px; display: flex; justify-content: center; align-items: center; font-size: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .coin-visual { width: 100px; height: 100px; background: linear-gradient(135deg, #fbbf24, #d97706); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); margin: 20px 0; border: 4px solid #fcd34d; }
+        
+        .game-stats { width: 100%; background: rgba(255,255,255,0.03); border-radius: var(--radius-md); padding: 15px; margin-bottom: 20px; border: 1px solid var(--border);}
+        .game-stat-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; font-weight: 600;}
+        .game-stat-row:last-child { margin-bottom: 0;}
+        .game-stat-row span:first-child { color: var(--text-muted); }
+        .game-stat-row span:last-child { color: white; font-weight: 800;}
+
+        .btn-throw { background: white; color: black; border: none; border-radius: var(--radius-md); padding: 18px; font-size: 16px; font-weight: 900; width: 100%; text-transform: uppercase; margin-bottom: 10px; transition: 0.2s; }
+        .btn-throw:active { transform: scale(0.96); }
+        .btn-throw:disabled { background: rgba(255,255,255,0.2); color: var(--text-muted); }
     </style>
 </head>
 <body>
@@ -249,29 +288,17 @@
     <!-- ЭКРАНЫ -->
     <div id="screen-game" class="screen active">
         <div class="sim-card-container">
-            <div class="sim-chip">
-                <div class="sim-chip-line"></div>
-                <div class="sim-chip-line"></div>
-                <div class="sim-chip-line"></div>
-                <div class="sim-chip-center"></div>
-            </div>
+            <div class="sim-chip"><div class="sim-chip-line"></div><div class="sim-chip-line"></div><div class="sim-chip-line"></div><div class="sim-chip-center"></div></div>
             <div class="sim-logo">SIM</div>
-            
             <div class="sim-display-area">
-                <div class="sim-dashes" id="simDashes">
-                    <div class="sim-dash"></div><div class="sim-dash"></div><div class="sim-dash"></div>
-                    <div class="sim-dash"></div><div class="sim-dash"></div>
-                </div>
-                
+                <div class="sim-dashes" id="simDashes"><div class="sim-dash"></div><div class="sim-dash"></div><div class="sim-dash"></div><div class="sim-dash"></div><div class="sim-dash"></div></div>
                 <div class="sim-result-box" id="simResultBox">
                     <div class="sim-result-number" id="simResultNumber">+7 999 000-00-00</div>
                     <div class="sim-result-rarity" id="simResultRarity">Обычный</div>
                     <div class="sim-result-price" id="simResultPrice">150 🪙</div>
                 </div>
-
                 <div class="sim-x5-grid" id="simX5Grid"></div>
             </div>
-            
             <div class="sim-controls">
                 <button class="btn-select" onclick="openTariffModal()"><span>Архив: <span id="currentTierName" style="color: var(--accent);">Серый рынок</span></span><span id="currentTierCost" style="color: var(--gold);">500 🪙</span></button>
                 <button class="btn-select" onclick="openRoamingModal()" style="border-color: rgba(16,185,129,0.3);">
@@ -300,35 +327,105 @@
             <div class="game-content">
                 <!-- МОНЕТКА -->
                 <div id="pane-coin" class="game-pane active">
-                    <div class="play-area">
+                    <!-- Лобби -->
+                    <div id="coin-lobby" style="display: flex; flex-direction: column; height: 100%;">
+                        <div class="lobby-tabs">
+                            <div class="lobby-tab active" onclick="switchLobbyTab('coin', 'lobby', this)">Лобби</div>
+                            <div class="lobby-tab" onclick="switchLobbyTab('coin', 'my', this)">Мои</div>
+                            <div class="lobby-tab" onclick="switchLobbyTab('coin', 'history', this)">История</div>
+                        </div>
+                        <div id="coin-lobby-list" style="flex: 1; overflow-y: auto;">
+                            <!-- Сюда будут грузиться лоты -->
+                            <div style="text-align: center; color: var(--text-muted); margin-top: 20px; font-size: 12px;">Загрузка лотов...</div>
+                        </div>
+                        <div style="margin-top: auto; padding-top: 15px;">
+                            <input type="number" id="coinBetInput" class="bet-input-large" value="1000" placeholder="Ставка">
+                            <button class="btn-throw" id="coinCreateBtn" onclick="createBet('coin')">Создать лот</button>
+                        </div>
+                    </div>
+
+                    <!-- Экран игры -->
+                    <div id="coin-game" style="display: none; flex-direction: column; height: 100%;">
                         <div class="opponent-info">
-                            <div class="opponent-avatar">👤</div>
-                            <span>Соперник: <span id="coinOpponentName">Ожидание...</span></span>
+                            <div class="opponent-card" id="coin-my-card">
+                                <div class="opponent-avatar">${currentUserAvatar}</div>
+                                <div class="opponent-name">${currentUserName}</div>
+                                <div class="opponent-label">Вы</div>
+                            </div>
+                            <div class="vs-text">VS</div>
+                            <div class="opponent-card" id="coin-opp-card">
+                                <div class="opponent-avatar">?</div>
+                                <div class="opponent-name">Ожидание</div>
+                                <div class="opponent-label">Соперник</div>
+                            </div>
                         </div>
-                        <div class="play-result">
-                            <span id="coinPlayerRes">?</span>
-                            <span class="play-vs">VS</span>
-                            <span id="coinOpponentRes">?</span>
+                        
+                        <div class="game-board">
+                            <div class="coin-visual" id="coin-visual">?</div>
+                            <div style="font-size: 14px; font-weight: 800; color: var(--text-muted); margin-bottom: 20px;" id="coin-status-text">Ожидание соперника...</div>
                         </div>
-                        <input type="number" id="coinBetInput" class="bet-input-large" value="1000" placeholder="Ставка">
-                        <button class="btn-play" id="coinPlayBtn" onclick="createBet('coin')">Создать лот</button>
+
+                        <div class="game-stats">
+                            <div class="game-stat-row"><span>Ставка каждого</span><span id="coin-bet-display">0</span></div>
+                            <div class="game-stat-row"><span>Выигрыш</span><span id="coin-win-display" style="color: var(--gold);">0</span></div>
+                            <div class="game-stat-row"><span>Ход</span><span id="coin-turn-display">15 с, иначе автобросок</span></div>
+                        </div>
+
+                        <button class="btn-throw" id="coinThrowBtn" onclick="throwPvP(currentGameId, 'coin')" disabled>Бросить монетку</button>
+                        <button class="btn-main" style="background: rgba(255,255,255,0.1); width: 100%;" onclick="leaveGame('coin')">Выйти</button>
                     </div>
                 </div>
 
                 <!-- КОСТИ -->
                 <div id="pane-dice" class="game-pane">
-                    <div class="play-area">
+                    <!-- Лобби -->
+                    <div id="dice-lobby" style="display: flex; flex-direction: column; height: 100%;">
+                        <div class="lobby-tabs">
+                            <div class="lobby-tab active" onclick="switchLobbyTab('dice', 'lobby', this)">Лобби</div>
+                            <div class="lobby-tab" onclick="switchLobbyTab('dice', 'my', this)">Мои</div>
+                            <div class="lobby-tab" onclick="switchLobbyTab('dice', 'history', this)">История</div>
+                        </div>
+                        <div id="dice-lobby-list" style="flex: 1; overflow-y: auto;">
+                            <div style="text-align: center; color: var(--text-muted); margin-top: 20px; font-size: 12px;">Загрузка лотов...</div>
+                        </div>
+                        <div style="margin-top: auto; padding-top: 15px;">
+                            <input type="number" id="diceBetInput" class="bet-input-large" value="1000" placeholder="Ставка">
+                            <button class="btn-throw" id="diceCreateBtn" onclick="createBet('dice')">Создать лот</button>
+                        </div>
+                    </div>
+
+                    <!-- Экран игры -->
+                    <div id="dice-game" style="display: none; flex-direction: column; height: 100%;">
                         <div class="opponent-info">
-                            <div class="opponent-avatar">👤</div>
-                            <span>Соперник: <span id="diceOpponentName">Ожидание...</span></span>
+                            <div class="opponent-card" id="dice-my-card">
+                                <div class="opponent-avatar">${currentUserAvatar}</div>
+                                <div class="opponent-name">${currentUserName}</div>
+                                <div class="opponent-label">Вы</div>
+                            </div>
+                            <div class="vs-text">VS</div>
+                            <div class="opponent-card" id="dice-opp-card">
+                                <div class="opponent-avatar">?</div>
+                                <div class="opponent-name">Ожидание</div>
+                                <div class="opponent-label">Соперник</div>
+                            </div>
                         </div>
-                        <div class="play-result">
-                            <span id="dicePlayerRes">?</span>
-                            <span class="play-vs">VS</span>
-                            <span id="diceOpponentRes">?</span>
+                        
+                        <div class="game-board">
+                            <div class="dice-visual">
+                                <div class="dice" id="dice-visual-1">🎲</div>
+                                <div class="dice" id="dice-visual-2">🎲</div>
+                            </div>
+                            <div style="font-size: 14px; font-weight: 800; color: var(--text-muted); margin-bottom: 20px;" id="dice-status-text">Ожидание соперника...</div>
                         </div>
-                        <input type="number" id="diceBetInput" class="bet-input-large" value="1000" placeholder="Ставка">
-                        <button class="btn-play" id="dicePlayBtn" onclick="createBet('dice')">Создать лот</button>
+
+                        <div class="game-stats">
+                            <div class="game-stat-row"><span>Ставка каждого</span><span id="dice-bet-display">0</span></div>
+                            <div class="game-stat-row"><span>Выигрыш</span><span id="dice-win-display" style="color: var(--gold);">0</span></div>
+                            <div class="game-stat-row"><span>Ход</span><span id="dice-turn-display">15 с, иначе автобросок</span></div>
+                        </div>
+
+                        <button class="btn-throw" id="diceThrowBtn" onclick="throwPvP(currentGameId, 'dice')" disabled>Бросить кости</button>
+                        <button class="btn-main" style="background: rgba(255,255,255,0.1); width: 100%;" onclick="leaveGame('dice')">Выйти</button>
                     </div>
                 </div>
 
@@ -525,6 +622,7 @@
         let unsubMyBet = null;
         let unsubGame = null;
         let mmListenerInterval = null;
+        let currentGameData = null;
 
         const promoCodes = { "SIMCITY": 100000, "LUCKY": 50000, "CASINO": 25000 };
         let usedPromos = JSON.parse(localStorage.getItem('used_promos')) || [];
@@ -760,92 +858,52 @@
             document.getElementById('pane-' + paneId).classList.add('active');
             
             if (paneId === 'crash') startBackgroundCrash(); else stopBackgroundCrash();
-            if (paneId === 'coin') startMatchmakingListener('coin');
-            if (paneId === 'dice') startMatchmakingListener('dice');
+            if (paneId === 'coin') loadLobby('coin');
+            if (paneId === 'dice') loadLobby('dice');
         }
 
-        function startMatchmakingListener(type) {
-            if (mmListenerInterval) clearInterval(mmListenerInterval);
-            mmListenerInterval = setInterval(() => {
-                if (currentGameId || isWaitingForOpponent) return;
-                const mmRef = ref(db, 'matchmaking');
-                get(mmRef).then((snapshot) => {
-                    const data = snapshot.val();
-                    if (!data) { resetGameUI(type); return; }
-                    let bets = Object.values(data).filter(b => b.type === type && b.status === 'waiting' && b.creatorId !== myId);
-                    if (bets.length > 0) {
-                        let bet = bets[0];
-                        let playBtn = document.getElementById(type + 'PlayBtn');
-                        playBtn.innerText = `Принять (${bet.creatorName} на ${bet.amount} 🪙)`;
-                        playBtn.onclick = () => acceptBet(bet.id, bet.type);
-                        playBtn.classList.remove('disabled');
-                        playBtn.disabled = false;
-                    } else {
-                        resetGameUI(type);
-                    }
-                }).catch(e => console.log(e));
-            }, 2000);
+        // --- ЛОББИ И PVP ---
+        window.switchLobbyTab = function(type, tabName, element) {
+            document.querySelectorAll(`#pane-${type} .lobby-tab`).forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+            // Показываем только лобби, остальное скрываем
+            document.getElementById(`${type}-lobby`).style.display = 'flex';
+            document.getElementById(`${type}-game`).style.display = 'none';
+            loadLobby(type);
         }
 
-        window.createBet = function(type) {
-            if (isWaitingForOpponent || currentGameId) return;
-            let betInput = document.getElementById(type + 'BetInput');
-            let bet = parseInt(betInput.value);
-            if (!bet || bet < 100) return showToast('Минимальная ставка 100', '⚠️');
-            if (balance < bet) return showToast('Недостаточно монет!', '❌');
-
-            balance -= bet; updateUI();
-            
-            myActiveBetId = 'bet_' + myId + '_' + Date.now();
-            const betData = { id: myActiveBetId, creatorId: myId, creatorName: currentUserName, creatorAvatar: currentUserAvatar, amount: bet, type: type, status: 'waiting', gameId: null, timestamp: Date.now() };
-
-            set(ref(db, 'matchmaking/' + myActiveBetId), betData).then(() => {
-                document.getElementById('searchOverlay').classList.add('active');
-                document.getElementById('searchText').innerText = "Ожидание соперника...";
-                isWaitingForOpponent = true;
-                listenMyBet(myActiveBetId, type);
-            }).catch(e => {
-                showToast('Ошибка базы: ' + e.message, '❌');
-                balance += bet; updateUI();
-            });
-        }
-
-        function listenMyBet(betId, type) {
-            if (unsubMyBet) unsubMyBet();
-            const betRef = ref(db, 'matchmaking/' + betId);
-            unsubMyBet = onValue(betRef, (snapshot) => {
+        function loadLobby(type) {
+            const list = document.getElementById(`${type}-lobby-list`);
+            const mmRef = ref(db, 'matchmaking');
+            onValue(mmRef, (snapshot) => {
                 const data = snapshot.val();
-                if (data && data.status === 'playing' && data.gameId) {
-                    if (unsubMyBet) unsubMyBet();
-                    remove(betRef);
-                    isWaitingForOpponent = false;
-                    document.getElementById('searchOverlay').classList.remove('active');
-                    
-                    if (currentGameId !== data.gameId) {
-                        showToast(`Соперник найден! Зайдите в игру.`, '⚔️');
-                        currentGameId = data.gameId;
-                        startPvPGame(data.gameId, true, data.type, data.amount);
-                    }
+                if (!data) { list.innerHTML = `<div style="text-align: center; color: var(--text-muted); margin-top: 20px; font-size: 12px;">Нет активных лотов</div>`; return; }
+                
+                let bets = Object.values(data).filter(b => b.type === type && b.status === 'waiting');
+                
+                if (bets.length === 0) {
+                    list.innerHTML = `<div style="text-align: center; color: var(--text-muted); margin-top: 20px; font-size: 12px;">Нет активных лотов</div>`;
+                    return;
                 }
+
+                list.innerHTML = bets.map(bet => `
+                    <div class="lobby-item" onclick="joinBet('${bet.id}', '${bet.type}')">
+                        <div class="lobby-avatar">${bet.creatorAvatar}<div class="lobby-status"></div></div>
+                        <div class="lobby-info">
+                            <div class="lobby-name">${bet.creatorName}</div>
+                            <div class="lobby-sub">в сети</div>
+                        </div>
+                        <div class="lobby-bet">
+                            <div class="lobby-amount">${bet.amount.toLocaleString('ru-RU')}</div>
+                            <div class="lobby-win">выигрыш ${(bet.amount * 1.9).toLocaleString('ru-RU')}</div>
+                        </div>
+                    </div>
+                `).join('');
             });
         }
 
-        window.cancelSearch = function() {
-            if (myActiveBetId) remove(ref(db, 'matchmaking/' + myActiveBetId));
-            if (unsubMyBet) unsubMyBet();
-            isWaitingForOpponent = false;
-            myActiveBetId = null;
-            document.getElementById('searchOverlay').classList.remove('active');
-            
-            let type = document.querySelector('.game-tab.active').innerText === 'Монетка' ? 'coin' : 'dice';
-            let bet = parseInt(document.getElementById(type + 'BetInput').value) || 0;
-            if (bet > 0) { balance += bet; updateUI(); } 
-            resetGameUI(type);
-            showToast('Поиск отменен, деньги возвращены', '❌');
-        }
-
-        window.acceptBet = function(betId, type) {
-            if (currentGameId) return;
+        window.joinBet = function(betId, type) {
+            if (currentGameId) return showToast('Вы уже в игре', '❌');
             const betRef = ref(db, 'matchmaking/' + betId);
             get(betRef).then((snapshot) => {
                 const data = snapshot.val();
@@ -870,46 +928,115 @@
             });
         }
 
+        window.createBet = function(type) {
+            if (isWaitingForOpponent || currentGameId) return;
+            let betInput = document.getElementById(type + 'BetInput');
+            let bet = parseInt(betInput.value);
+            if (!bet || bet < 100) return showToast('Минимальная ставка 100', '⚠️');
+            if (balance < bet) return showToast('Недостаточно монет!', '❌');
+
+            balance -= bet; updateUI();
+            
+            myActiveBetId = 'bet_' + myId + '_' + Date.now();
+            const betData = { id: myActiveBetId, creatorId: myId, creatorName: currentUserName, creatorAvatar: currentUserAvatar, amount: bet, type: type, status: 'waiting', gameId: null, timestamp: Date.now() };
+
+            set(ref(db, 'matchmaking/' + myActiveBetId), betData).then(() => {
+                isWaitingForOpponent = true;
+                document.getElementById(`${type}-lobby`).style.display = 'none';
+                document.getElementById(`${type}-game`).style.display = 'flex';
+                document.getElementById(`${type}-bet-display`).innerText = bet.toLocaleString('ru-RU');
+                document.getElementById(`${type}-win-display`).innerText = (bet * 1.9).toLocaleString('ru-RU');
+                document.getElementById(`${type}-status-text`).innerText = "Ожидание соперника...";
+                document.getElementById(`${type}-ThrowBtn`).disabled = true;
+                
+                listenMyBet(myActiveBetId, type);
+            }).catch(e => {
+                showToast('Ошибка базы: ' + e.message, '❌');
+                balance += bet; updateUI();
+            });
+        }
+
+        function listenMyBet(betId, type) {
+            if (unsubMyBet) unsubMyBet();
+            const betRef = ref(db, 'matchmaking/' + betId);
+            unsubMyBet = onValue(betRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data && data.status === 'playing' && data.gameId) {
+                    if (unsubMyBet) unsubMyBet();
+                    remove(betRef);
+                    isWaitingForOpponent = false;
+                    
+                    if (currentGameId !== data.gameId) {
+                        showToast(`Соперник найден!`, '⚔️');
+                        currentGameId = data.gameId;
+                        startPvPGame(data.gameId, true, data.type, data.amount);
+                    }
+                }
+            });
+        }
+
+        window.leaveGame = function(type) {
+            if (myActiveBetId) remove(ref(db, 'matchmaking/' + myActiveBetId));
+            if (unsubMyBet) unsubMyBet();
+            if (unsubGame) unsubGame();
+            isWaitingForOpponent = false;
+            myActiveBetId = null;
+            currentGameId = null;
+            
+            document.getElementById(`${type}-lobby`).style.display = 'flex';
+            document.getElementById(`${type}-game`).style.display = 'none';
+            resetGameUI(type);
+            loadLobby(type);
+        }
+
         function startPvPGame(gameId, isCreator, type, amount) {
-            switchGamePane(type, document.querySelector(`.game-tab[onclick*="${type}"]`));
+            document.getElementById(`${type}-lobby`).style.display = 'none';
+            document.getElementById(`${type}-game`).style.display = 'flex';
             
-            let playBtn = document.getElementById(type + 'PlayBtn');
-            playBtn.innerText = 'Бросить!';
-            playBtn.onclick = () => throwPvP(gameId, type);
-            playBtn.classList.remove('disabled');
+            document.getElementById(`${type}-bet-display`).innerText = amount.toLocaleString('ru-RU');
+            document.getElementById(`${type}-win-display`).innerText = (amount * 1.9).toLocaleString('ru-RU');
+            
+            let playBtn = document.getElementById(`${type}-ThrowBtn`);
+            playBtn.innerText = (type === 'coin') ? 'Бросить монетку' : 'Бросить кости';
             playBtn.disabled = false;
+            playBtn.classList.remove('disabled');
+
+            document.getElementById(`${type}-status-text`).innerText = "Соперник найден! Ваш ход.";
             
-            document.getElementById(type + 'PlayerRes').innerText = '?';
-            document.getElementById(type + 'OpponentRes').innerText = '?';
-            
+            // Обновляем карточку соперника
+            if (!isCreator) {
+                document.getElementById(`${type}-my-card`).innerHTML = `<div class="opponent-avatar">${currentUserAvatar}</div><div class="opponent-name">${currentUserName}</div><div class="opponent-label">Вы</div>`;
+            }
+
             if (unsubGame) unsubGame();
             const gameRef = ref(db, 'games/' + gameId);
             unsubGame = onValue(gameRef, (snapshot) => {
                 const data = snapshot.val();
                 if (!data) return;
+                currentGameData = data;
                 
                 let me = isCreator ? data.player1 : data.player2;
                 let opp = isCreator ? data.player2 : data.player1;
                 
-                document.getElementById(type + 'OpponentName').innerText = opp.name;
-                
+                // Обновляем карточку соперника
+                let oppCard = document.getElementById(`${type}-opp-card`);
+                oppCard.innerHTML = `<div class="opponent-avatar">${opp.avatar}</div><div class="opponent-name">${opp.name}</div><div class="opponent-label">Соперник</div>`;
+
                 if (data.status === 'finished') {
                     let myScore = me.score;
                     let oppScore = opp.score;
                     
-                    let resultEl = document.getElementById(type + 'PlayerRes');
-                    let oppResultEl = document.getElementById(type + 'OpponentRes');
-                    
                     if (type === 'coin') {
-                        resultEl.innerText = myScore === 1 ? '🦅' : '🪙';
-                        oppResultEl.innerText = oppScore === 1 ? '🦅' : '🪙';
+                        document.getElementById('coin-visual').innerText = myScore === 1 ? '🦅' : '🪙';
+                        document.getElementById(`${type}-status-text`).innerText = `Вы: ${myScore === 1 ? 'Орел' : 'Решка'} | Соперник: ${oppScore === 1 ? 'Орел' : 'Решка'}`;
                     } else {
-                        resultEl.innerText = '🎲' + myScore;
-                        oppResultEl.innerText = '🎲' + oppScore;
+                        document.getElementById('dice-visual-1').innerText = '🎲' + myScore;
+                        document.getElementById('dice-visual-2').innerText = '🎲' + oppScore;
+                        document.getElementById(`${type}-status-text`).innerText = `Вы: ${myScore} | Соперник: ${oppScore}`;
                     }
 
                     if (myScore > oppScore) {
-                        let win = amount * 2;
+                        let win = Math.floor(amount * 1.9);
                         balance += win;
                         showToast(`Вы победили! +${win} 🪙`, '🏆');
                     } else if (myScore === oppScore) {
@@ -922,7 +1049,7 @@
                     
                     currentGameId = null;
                     if (unsubGame) unsubGame();
-                    setTimeout(() => resetGameUI(type), 4000);
+                    setTimeout(() => leaveGame(type), 4000);
                     return;
                 }
                 
@@ -930,12 +1057,14 @@
                     playBtn.innerText = 'Ожидание соперника...';
                     playBtn.disabled = true;
                     playBtn.classList.add('disabled');
+                    document.getElementById(`${type}-status-text`).innerText = "Вы сделали ход. Ждем соперника...";
                 }
             });
         }
 
-        function throwPvP(gameId, type) {
-            let playBtn = document.getElementById(type + 'PlayBtn');
+        window.throwPvP = function(gameId, type) {
+            if (!gameId) return;
+            let playBtn = document.getElementById(`${type}-ThrowBtn`);
             playBtn.disabled = true;
             playBtn.classList.add('disabled');
             
@@ -964,14 +1093,14 @@
         }
 
         function resetGameUI(type) {
-            let playBtn = document.getElementById(type + 'PlayBtn');
-            playBtn.innerText = 'Создать лот';
-            playBtn.onclick = () => createBet(type);
-            playBtn.classList.remove('disabled');
-            playBtn.disabled = false;
-            document.getElementById(type + 'PlayerRes').innerText = '?';
-            document.getElementById(type + 'OpponentRes').innerText = '?';
-            document.getElementById(type + 'OpponentName').innerText = 'Ожидание...';
+            document.getElementById(`${type}-status-text`).innerText = "Ожидание соперника...";
+            document.getElementById(`${type}-opp-card`).innerHTML = `<div class="opponent-avatar">?</div><div class="opponent-name">Ожидание</div><div class="opponent-label">Соперник</div>`;
+            if (type === 'coin') {
+                document.getElementById('coin-visual').innerText = '?';
+            } else {
+                document.getElementById('dice-visual-1').innerText = '🎲';
+                document.getElementById('dice-visual-2').innerText = '🎲';
+            }
         }
 
         let backgroundCrashInterval = null;
