@@ -262,7 +262,6 @@
             animation: x5ItemFadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
         
-        /* Каскадное появление элементов x5 */
         .sim-x5-item:nth-child(1) { animation-delay: 0.1s; }
         .sim-x5-item:nth-child(2) { animation-delay: 0.2s; }
         .sim-x5-item:nth-child(3) { animation-delay: 0.3s; }
@@ -1149,7 +1148,7 @@
             vip: { Обычный: 0, Необычный: 30, Редкий: 40, Эпический: 20, Легендарный: 8, Мифический: 2 },
             gov: { Обычный: 0, Необычный: 0, Редкий: 0, Эпический: 70, Легендарный: 29.81, Мифический: 0.19 }
         };
-        const baseRarities = { "Обычный": { color: "#8b92a5", price: 150 }, "Необычный": { color: "#10b981", price: 500 }, "Редкий": { color: "#3b82f6", price: 2000 }, "Эпический": { color: "#8b5cf6", price: 10000 }, "Легендарный": { color: "#f97316", price: 50000 }, "Мифический": { color: "#ef4444", price: 500000 } };
+        const baseRarities = { "Обычный": { color: "#8b92a5", min: 150, max: 300 }, "Необычный": { color: "#10b981", min: 500, max: 1500 }, "Редкий": { color: "#3b82f6", min: 2000, max: 8000 }, "Эпический": { color: "#8b5cf6", min: 10000, max: 50000 }, "Легендарный": { color: "#f97316", min: 50000, max: 250000 }, "Мифический": { color: "#ef4444", min: 500000, max: 5000000 } };
 
         const vipLots = [
             { id: 'vip_1', title: 'Топ-Секретный (3 цифры)', badge: 'TIER 1', desc: 'Мифический номер. Только 3 цифры. Цена от 100 млн до 1 млрд.', features: ['3 цифры', 'Мифический', 'Цена: 100 млн - 1 млрд'], starsCost: 250, btnClass: 'mythic' },
@@ -1468,10 +1467,14 @@
             let p1 = Math.floor(Math.random() * 900) + 100;
             let p2 = Math.floor(Math.random() * 90) + 10;
             let p3 = Math.floor(Math.random() * 90) + 10;
+            
+            // НЕРОВНАЯ ЦЕНА: от min до max
+            let price = Math.floor(Math.random() * (data.max - data.min + 1)) + data.min;
+            
             return {
                 number: `+${code} ${p1} ${p2}-${p3}`,
                 rarity: rarity,
-                price: data.price,
+                price: price,
                 color: data.color
             };
         }
@@ -1625,7 +1628,11 @@
             }
             
             const data = baseRarities[selectedRarity];
-            return { number: generatePhoneNumber(), rarity: selectedRarity, price: data.price, color: data.color };
+            
+            // НЕРОВНАЯ ЦЕНА: от min до max
+            let price = Math.floor(Math.random() * (data.max - data.min + 1)) + data.min;
+            
+            return { number: generatePhoneNumber(), rarity: selectedRarity, price: price, color: data.color };
         }
 
         function finishSpin(count) {
