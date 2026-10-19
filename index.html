@@ -15,7 +15,6 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
         
-        /* ФОН */
         body { 
             background-color: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden;
             background-image: url('https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1000&auto=format&fit=crop');
@@ -23,7 +22,6 @@
         }
         body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(5,5,5,0.6), rgba(5,5,5,0.95)); z-index: -1; }
         
-        /* ШАПКА */
         .top-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; pointer-events: none; backdrop-filter: blur(10px); background: rgba(0,0,0,0.3); }
         .user-info { display: flex; align-items: center; gap: 8px; pointer-events: auto;}
         .header-avatar { width: 32px; height: 32px; border-radius: 50%; background: #333; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.1); }
@@ -36,12 +34,10 @@
         .menu-btn:active { transform: scale(0.9); }
         .menu-btn svg { width: 16px; height: 16px; fill: var(--text); }
 
-        /* УВЕДОМЛЕНИЯ */
         .toast-container { position: fixed; top: -50px; left: 50%; transform: translateX(-50%); z-index: 10000; transition: top 0.3s; display: flex; align-items: center; gap: 6px; background: rgba(30, 30, 30, 0.95); color: white; padding: 8px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.5); white-space: nowrap;}
         .toast-container.show { top: 15px; }
         .toast-icon { font-size: 14px; }
 
-        /* МЕНЮ */
         .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(5px); }
         .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
         .sidebar { position: fixed; bottom: -100%; left: 0; right: 0; width: 100%; max-width: 500px; margin: 0 auto; height: 85vh; background: #111111; border-top: 1px solid rgba(255,255,255,0.1); border-radius: 20px 20px 0 0; z-index: 999; display: flex; flex-direction: column; transition: bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow-y: auto; box-shadow: 0 -10px 40px rgba(0,0,0,0.8); }
@@ -71,12 +67,10 @@
         .small-btn span { font-size: 11px; font-weight: 600; color: var(--text); }
         .small-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 14px; flex-shrink: 0;}
 
-        /* ЭКРАНЫ */
         .screen { display: none; flex: 1; padding: 60px 15px 15px 15px; flex-direction: column; animation: fadeIn 0.2s ease; position: relative; height: 100%;}
         .screen.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* СИНТЕЗ */
         #screen-game { justify-content: center; padding-bottom: 25px; }
         .sim-card-container { background: linear-gradient(135deg, #1a1a24, #0a0a0f); border-radius: 24px; border: 1px solid rgba(255,255,255,0.15); padding: 20px; position: relative; display: flex; flex-direction: column; box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.2); overflow: hidden; margin-bottom: 15px; }
         .sim-chip { width: 45px; height: 35px; background: linear-gradient(135deg, #fbbf24, #d97706); border-radius: 8px; position: absolute; top: 15px; left: 15px; box-shadow: 0 3px 10px rgba(251, 191, 36, 0.4); display: flex; flex-direction: column; justify-content: space-between; padding: 5px; }
@@ -107,7 +101,6 @@
         .btn-x5 { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.5); flex: 0.4; }
         .btn-x5.active { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; box-shadow: 0 0 15px rgba(139, 92, 246, 0.5); border-color: transparent;}
 
-        /* ИГРЫ */
         .games-container { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); border: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; backdrop-filter: blur(10px); height: 100%; max-height: 600px;}
         .game-tabs { display: flex; background: rgba(0,0,0,0.4); border-bottom: 1px solid var(--border); overflow-x: auto;}
         .game-tab { flex: 1; padding: 12px 10px; text-align: center; font-size: 12px; font-weight: 800; color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: 0.2s; border-bottom: 2px solid transparent;}
@@ -116,7 +109,6 @@
         .game-pane { display: none; flex-direction: column; height: 100%;}
         .game-pane.active { display: flex; }
 
-        /* Краш */
         .crash-graph-container { width: 100%; height: 180px; background: #000; border-radius: var(--radius-md); position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 10px; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 25% 50%; }
         .crash-graph-svg { width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
         .crash-big-mult { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 48px; font-weight: 900; color: white; z-index: 2; text-shadow: 0 5px 15px rgba(0,0,0,0.8); letter-spacing: -1px; }
@@ -134,6 +126,7 @@
         .play-vs { font-size: 16px; color: var(--text-muted); font-weight: 800; text-transform: uppercase;}
         .btn-play { background: var(--accent); color: white; border: none; border-radius: var(--radius-md); padding: 14px; font-size: 14px; font-weight: 800; cursor: pointer; width: 100%; text-transform: uppercase; margin-bottom: 10px;}
         .btn-play:active { transform: scale(0.96); }
+        .btn-play.disabled { background: rgba(255,255,255,0.1); color: var(--text-muted); }
         .opponent-info { display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; }
         .opponent-avatar { width: 30px; height: 30px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 14px;}
 
@@ -155,7 +148,6 @@
         .empty-pane { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-weight: 700; gap: 10px;}
         .empty-pane span { font-size: 40px; }
 
-        /* РОУМИНГ */
         .country-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .country-item { background: rgba(255,255,255,0.05); padding: 12px; border-radius: var(--radius-md); display: flex; align-items: center; gap: 8px; cursor: pointer; border: 1px solid transparent; transition: 0.2s;}
         .country-item:active { background: rgba(255,255,255,0.1); transform: scale(0.95);}
@@ -163,14 +155,12 @@
         .country-item span { font-size: 18px; }
         .country-item p { font-size: 12px; font-weight: 700; }
 
-        /* БАТЛ ПАСС */
         .bp-card { background: rgba(0,0,0,0.4); border-radius: var(--radius-md); padding: 12px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;}
         .bp-card h4 { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 4px;}
         .bp-card p { font-size: 11px; color: var(--text-muted); font-weight: 600;}
         .bp-reward { text-align: right; }
         .bp-list-container { max-height: 55vh; overflow-y: auto; padding-right: 5px; }
 
-        /* БАЗА */
         .inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 5px;}
         .btn-sell-all { background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; border: none; border-radius: var(--radius-sm); padding: 6px 12px; font-size: 10px; font-weight: 800; cursor: pointer; text-transform: uppercase;}
         .inventory-item { background: rgba(0,0,0,0.5); border-radius: var(--radius-md); padding: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 3px solid var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(5px);}
@@ -178,7 +168,6 @@
         .inv-info p { font-size: 10px; color: var(--text-muted); font-weight: 600; margin-bottom: 2px;}
         .btn-sell { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 10px; margin-top: 5px; cursor: pointer; text-transform: uppercase; }
 
-        /* ПРОФИЛЬ */
         .profile-layout { display: flex; flex-direction: column; gap: 10px; padding-bottom: 15px;}
         .profile-card { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); padding: 15px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);}
         .avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #8b5cf6); display: flex; justify-content: center; align-items: center; font-size: 24px; margin: 0 auto 8px auto; border: 2px solid rgba(255,255,255,0.1); overflow: hidden;}
@@ -189,11 +178,9 @@
         .stat-box span { display: block; font-size: 9px; color: var(--text-muted); font-weight: 700; margin-bottom: 4px; text-transform: uppercase;}
         .stat-box strong { font-size: 14px; font-weight: 900; color: var(--text); }
 
-        /* МАГАЗИН */
         .shop-card { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); padding: 15px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 10px; backdrop-filter: blur(10px);}
         .btn-buy { background: linear-gradient(135deg, #0088cc, #006699); color: white; border: none; border-radius: var(--radius-md); padding: 12px; font-size: 14px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; margin-top: 8px;}
 
-        /* МОДАЛКИ */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 9998; display: flex; justify-content: center; align-items: flex-end; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
         .bottom-sheet { width: 100%; max-width: 500px; background: #111111; border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 20px 15px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1); max-height: 85vh; overflow-y: auto; border: 1px solid var(--border); }
@@ -539,6 +526,7 @@
         let isWaitingForOpponent = false;
         let unsubMyBet = null;
         let unsubGame = null;
+        let unsubMatchmaking = null;
 
         const promoCodes = { "SIMCITY": 100000, "LUCKY": 50000, "CASINO": 25000 };
         let usedPromos = JSON.parse(localStorage.getItem('used_promos')) || [];
@@ -780,11 +768,35 @@
             document.getElementById('pane-' + paneId).classList.add('active');
             
             if (paneId === 'crash') startBackgroundCrash(); else stopBackgroundCrash();
-            if (paneId === 'coin') checkActiveBet('coin');
-            if (paneId === 'dice') checkActiveBet('dice');
+            if (paneId === 'coin') startMatchmakingListener('coin');
+            if (paneId === 'dice') startMatchmakingListener('dice');
         }
 
-        // --- НАСТОЯЩИЙ PVP (МОНЕТКА И КОСТИ) ---
+        // --- НАСТОЯЩИЙ PVP ---
+        function startMatchmakingListener(type) {
+            if (unsubMatchmaking) unsubMatchmaking();
+            const mmRef = ref(db, 'matchmaking');
+            unsubMatchmaking = onValue(mmRef, (snapshot) => {
+                if (currentGameId || isWaitingForOpponent) return; // Если мы уже в игре или ждем, не ищем
+                
+                const data = snapshot.val();
+                if (!data) { resetGameUI(type); return; }
+                
+                let bets = Object.values(data).filter(b => b.type === type && b.status === 'waiting' && b.creatorId !== myId);
+                
+                if (bets.length > 0) {
+                    let bet = bets[0];
+                    let playBtn = document.getElementById(type + 'PlayBtn');
+                    playBtn.innerText = `Принять (${bet.creatorName} на ${bet.amount} 🪙)`;
+                    playBtn.onclick = () => acceptBet(bet.id, bet.type);
+                    playBtn.classList.remove('disabled');
+                    playBtn.disabled = false;
+                } else {
+                    resetGameUI(type);
+                }
+            });
+        }
+
         window.createBet = function(type) {
             if (isWaitingForOpponent || currentGameId) return;
             let betInput = document.getElementById(type + 'BetInput');
@@ -833,15 +845,16 @@
             isWaitingForOpponent = false;
             myActiveBetId = null;
             document.getElementById('searchOverlay').classList.remove('active');
-            // Возврат денег
+            
             let type = document.querySelector('.game-tab.active').innerText === 'Монетка' ? 'coin' : 'dice';
             let bet = parseInt(document.getElementById(type + 'BetInput').value) || 0;
-            if (bet > 0) { balance += bet; updateUI(); } // Грубовато, но работает для отмены
+            if (bet > 0) { balance += bet; updateUI(); } 
             resetGameUI(type);
-            showToast('Поиск отменен', '❌');
+            showToast('Поиск отменен, деньги возвращены', '❌');
         }
 
-        window.acceptBet = function(betId) {
+        window.acceptBet = function(betId, type) {
+            if (currentGameId) return;
             const betRef = ref(db, 'matchmaking/' + betId);
             get(betRef).then((snapshot) => {
                 const data = snapshot.val();
@@ -872,6 +885,7 @@
             let playBtn = document.getElementById(type + 'PlayBtn');
             playBtn.innerText = 'Бросить!';
             playBtn.onclick = () => throwPvP(gameId, type);
+            playBtn.classList.remove('disabled');
             playBtn.disabled = false;
             
             document.getElementById(type + 'PlayerRes').innerText = '?';
@@ -903,11 +917,11 @@
                         oppResultEl.innerText = '🎲' + oppScore;
                     }
 
-                    if (me.score > opp.score) {
+                    if (myScore > oppScore) {
                         let win = amount * 2;
                         balance += win;
                         showToast(`Вы победили! +${win} 🪙`, '🏆');
-                    } else if (me.score === opp.score) {
+                    } else if (myScore === oppScore) {
                         balance += amount;
                         showToast('Ничья!', '🤝');
                     } else {
@@ -924,6 +938,7 @@
                 if (me.ready && !opp.ready) {
                     playBtn.innerText = 'Ожидание соперника...';
                     playBtn.disabled = true;
+                    playBtn.classList.add('disabled');
                 }
             });
         }
@@ -931,6 +946,7 @@
         function throwPvP(gameId, type) {
             let playBtn = document.getElementById(type + 'PlayBtn');
             playBtn.disabled = true;
+            playBtn.classList.add('disabled');
             
             const gameRef = ref(db, 'games/' + gameId);
             get(gameRef).then((snapshot) => {
@@ -960,32 +976,11 @@
             let playBtn = document.getElementById(type + 'PlayBtn');
             playBtn.innerText = 'Создать лот';
             playBtn.onclick = () => createBet(type);
+            playBtn.classList.remove('disabled');
             playBtn.disabled = false;
             document.getElementById(type + 'PlayerRes').innerText = '?';
             document.getElementById(type + 'OpponentRes').innerText = '?';
             document.getElementById(type + 'OpponentName').innerText = 'Ожидание...';
-        }
-
-        function checkActiveBet(type) {
-            if (myActiveBetId || currentGameId) return;
-            
-            const mmRef = ref(db, 'matchmaking');
-            onValue(mmRef, (snapshot) => {
-                const data = snapshot.val();
-                if (!data) { resetGameUI(type); return; }
-                
-                let bets = Object.values(data).filter(b => b.type === type && b.status === 'waiting' && b.creatorId !== myId);
-                
-                if (bets.length > 0) {
-                    let bet = bets[0];
-                    let playBtn = document.getElementById(type + 'PlayBtn');
-                    playBtn.innerText = `Принять (${bet.creatorName} на ${bet.amount} 🪙)`;
-                    playBtn.onclick = () => acceptBet(bet.id);
-                    playBtn.disabled = false;
-                } else {
-                     resetGameUI(type);
-                }
-            });
         }
 
         // --- КРАШ (ФОН) ---
