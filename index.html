@@ -939,7 +939,7 @@
                 document.getElementById(`${type}-status-text`).innerText = "Ожидание соперника...";
                 document.getElementById(`${type}-ThrowBtn`).disabled = true;
                 
-                // Обновляем карточку игрока (вставляем аватар и ник)
+                // Проверка, существует ли элемент, прежде чем менять его innerHTML
                 let myCard = document.getElementById(`${type}-my-card`);
                 if (myCard) {
                     myCard.innerHTML = `<div class="opponent-avatar">${currentUserAvatar}</div><div class="opponent-name">${currentUserName}</div><div class="opponent-label">Вы</div>`;
