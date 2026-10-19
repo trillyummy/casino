@@ -15,7 +15,6 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
         
-        /* ФОН */
         body { 
             background-color: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden;
             background-image: url('https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1000&auto=format&fit=crop');
@@ -78,34 +77,20 @@
 
         /* --- СИНТЕЗ (ИГРА) --- */
         #screen-game { justify-content: flex-end; padding-bottom: 25px; }
-        
-        /* Центральная SIM-карта */
         .sim-center-area { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; width: 100%; }
-        
-        .sim-card { 
-            width: 85%; max-width: 320px; height: 180px; 
-            background: linear-gradient(135deg, #1c1c26, #0a0a0f); 
-            border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); 
-            position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1); overflow: hidden;
-        }
-        /* Чип */
+        .sim-card { width: 85%; max-width: 320px; height: 180px; background: linear-gradient(135deg, #1c1c26, #0a0a0f); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1); overflow: hidden; }
         .sim-chip { position: absolute; top: 15px; left: 15px; width: 40px; height: 32px; background: linear-gradient(135deg, #fcd34d, #b45309); border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.5); display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: 4px;}
         .sim-chip div { background: rgba(0,0,0,0.2); border-radius: 2px; }
-        /* Логотип */
         .sim-logo { position: absolute; top: 15px; right: 15px; font-size: 24px; font-weight: 900; color: rgba(255,255,255,0.05); font-style: italic;}
-        /* Текст по центру */
         .sim-display { text-align: center; z-index: 2; width: 100%; padding: 0 20px;}
         .sim-number-text { font-size: 24px; font-weight: 900; letter-spacing: 2px; color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.8); margin-bottom: 5px; transition: 0.2s;}
         .sim-rarity-text { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); height: 16px;}
         
-        /* Оверлей загрузки (Задержка) */
         .search-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,10,15,0.95); z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; opacity: 0; pointer-events: none; transition: opacity 0.2s; backdrop-filter: blur(5px);}
         .search-overlay.active { opacity: 1; pointer-events: auto; }
         .spinner { width: 36px; height: 36px; border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        /* Кнопки управления */
         .sim-controls { display: flex; flex-direction: column; gap: 8px; width: 100%; margin-top: 20px;}
         .btn-select { background: rgba(255,255,255,0.08); color: white; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px 14px; font-size: 12px; font-weight: 700; width: 100%; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; }
         .btn-select:active { transform: scale(0.98); background: rgba(255,255,255,0.15); }
@@ -115,23 +100,22 @@
         .btn-main:active { transform: scale(0.96); }
         .btn-main:disabled { background: #2d3041; color: var(--text-muted); box-shadow: none; transform: none; }
         
-        /* Кнопка x5 (Залипание) */
         .btn-x5 { background: rgba(139, 92, 246, 0.1); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.3); flex: 0.35; }
         .btn-x5.active { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4); border-color: transparent;}
 
-        /* --- ОБЩЕЕ ОКНО ИГР --- */
+        /* --- ИГРЫ (КРАШ, МОНЕТКА, КОСТИ, АПГРЕЙД) --- */
         .games-container { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); border: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; backdrop-filter: blur(10px); height: 100%; max-height: 650px;}
-        .game-tabs { display: flex; background: rgba(0,0,0,0.4); border-bottom: 1px solid var(--border); overflow-x: auto;}
-        .game-tab { flex: 1; padding: 12px 10px; text-align: center; font-size: 12px; font-weight: 800; color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: 0.2s; border-bottom: 2px solid transparent;}
+        .game-tabs { display: flex; background: rgba(0,0,0,0.4); border-bottom: 1px solid var(--border); overflow-x: auto; flex-shrink: 0;}
+        .game-tab { flex: 1; padding: 12px 8px; text-align: center; font-size: 11px; font-weight: 800; color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: 0.2s; border-bottom: 2px solid transparent;}
         .game-tab.active { color: white; border-bottom-color: var(--accent); background: rgba(255,255,255,0.05);}
         .game-content { flex: 1; padding: 15px; display: flex; flex-direction: column; overflow-y: auto; position: relative;}
         .game-pane { display: none; flex-direction: column; height: 100%;}
         .game-pane.active { display: flex; }
 
-        /* --- СПУТНИК --- */
-        .crash-graph-container { width: 100%; height: 180px; background: #000; border-radius: var(--radius-md); position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 10px; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 25% 50%; }
+        /* Краш */
+        .crash-graph-container { width: 100%; height: 160px; background: #000; border-radius: var(--radius-md); position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 10px; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 25% 50%; }
         .crash-graph-svg { width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
-        .crash-big-mult { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 42px; font-weight: 900; color: white; z-index: 2; text-shadow: 0 5px 15px rgba(0,0,0,0.8); letter-spacing: -1px; }
+        .crash-big-mult { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 40px; font-weight: 900; color: white; z-index: 2; text-shadow: 0 5px 15px rgba(0,0,0,0.8); letter-spacing: -1px; }
         .crash-big-mult.crashed { color: var(--danger); }
         
         .history-strip { display: flex; gap: 4px; overflow-x: auto; margin-bottom: 10px; padding-bottom: 5px;}
@@ -139,8 +123,9 @@
         .h-strip-badge.high { color: var(--success); background: rgba(16,185,129,0.2);}
         .h-strip-badge.low { color: var(--danger); background: rgba(239,68,68,0.2);}
         
-        .bet-input-large { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); color: white; border-radius: var(--radius-md); padding: 12px; font-size: 16px; font-weight: 900; outline: none; margin-bottom: 8px; text-align: center;}
-        .bet-presets { display: flex; gap: 6px; margin-bottom: 10px; overflow-x: auto; padding-bottom: 5px; justify-content: center;}
+        .crash-controls { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;}
+        .bet-input-large { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); color: white; border-radius: var(--radius-md); padding: 12px; font-size: 16px; font-weight: 900; outline: none; text-align: center;}
+        .bet-presets { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 5px; justify-content: center;}
         .btn-preset { padding: 6px 10px; border-radius: 6px; background: rgba(255,255,255,0.05); border: none; color: white; font-size: 11px; font-weight: 800; white-space: nowrap; cursor: pointer; transition: 0.2s;}
         .btn-preset.active { background: white; color: black; }
         
@@ -148,14 +133,38 @@
         .btn-crash-main.cashout { background: #fbbf24; color: black; }
         .btn-crash-main.disabled { background: rgba(255,255,255,0.1); color: var(--text-muted); }
         
-        /* Live лента */
-        .crash-live-bets { background: rgba(0,0,0,0.3); border-radius: var(--radius-md); padding: 10px; border: 1px solid rgba(255,255,255,0.05); margin-top: auto; height: 120px; overflow-y: auto;}
+        .crash-live-bets { background: rgba(0,0,0,0.3); border-radius: var(--radius-md); padding: 10px; border: 1px solid rgba(255,255,255,0.05); margin-top: auto; height: 100px; overflow-y: auto;}
         .crash-bets-header { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; display: flex; justify-content: space-between;}
         .crash-bet-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 12px;}
         .crash-bet-row:last-child { border-bottom: none; }
         .crash-user { display: flex; align-items: center; gap: 6px; font-weight: 700; color: white;}
         .crash-user-avatar { width: 20px; height: 20px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 10px; overflow: hidden;}
+
+        /* Монетка, Кости, Апгрейд */
+        .pvp-area { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 15px;}
+        .pvp-vs { font-size: 14px; font-weight: 900; color: var(--text-muted); }
         
+        .coin-visual { width: 100px; height: 100px; background: linear-gradient(135deg, #fcd34d, #b45309); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 40px; font-weight: 900; color: #000; box-shadow: 0 10px 20px rgba(0,0,0,0.5); border: 4px solid #fef08a; transition: transform 0.6s ease-out;}
+        .coin-visual.flipping { animation: flip 0.6s ease-out; }
+        @keyframes flip { 0% { transform: rotateY(0deg) scale(1); } 50% { transform: rotateY(180deg) scale(1.2); } 100% { transform: rotateY(360deg) scale(1); } }
+        
+        .dice-visual { display: flex; gap: 10px; }
+        .die { width: 50px; height: 50px; background: white; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 24px; font-weight: 900; color: #000; box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: transform 0.5s;}
+        .die.rolling { animation: rollDice 0.5s ease-out; }
+        @keyframes rollDice { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.2); } 100% { transform: rotate(360deg) scale(1); } }
+        
+        .upgrade-visual { font-size: 50px; font-weight: 900; color: var(--success); text-shadow: 0 0 20px rgba(16,185,129,0.5); margin: 20px 0;}
+        
+        .pvp-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-top: auto;}
+        .btn-pvp { padding: 15px; border-radius: var(--radius-md); background: rgba(255,255,255,0.1); border: none; color: white; font-size: 14px; font-weight: 800; cursor: pointer; transition: 0.2s;}
+        .btn-pvp.heads { background: rgba(59, 130, 246, 0.2); border: 1px solid var(--accent);}
+        .btn-pvp.tails { background: rgba(239, 68, 68, 0.2); border: 1px solid var(--danger);}
+        .btn-pvp:active { transform: scale(0.95); }
+        
+        .upgrade-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; width: 100%; margin-bottom: 10px;}
+        .btn-upgrade-opt { padding: 10px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; font-weight: 800; cursor: pointer; text-align: center;}
+        .btn-upgrade-opt.active { border-color: var(--success); background: rgba(16,185,129,0.1); color: var(--success);}
+
         /* --- БАЗА --- */
         .inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 5px;}
         .btn-sell-all { background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; border: none; border-radius: var(--radius-sm); padding: 6px 12px; font-size: 10px; font-weight: 800; cursor: pointer; text-transform: uppercase;}
@@ -196,7 +205,6 @@
         .country-item span { font-size: 18px; }
         .country-item p { font-size: 12px; font-weight: 700; }
 
-        /* --- x5 Результаты и Редкие дропы --- */
         .modal-result { width: 100%; max-width: 340px; background: var(--card); border-radius: var(--radius-lg); padding: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(20px); margin: auto;}
         .res-title { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: 900; margin-bottom: 8px; }
         .res-number { font-size: 24px; font-weight: 900; margin-bottom: 4px; text-shadow: 0 0 20px currentColor; letter-spacing: 1px;}
@@ -240,7 +248,6 @@
     <div class="sidebar" id="sidebar">
         <div class="swipe-bar"></div>
         <div class="menu-content">
-            <!-- Верхняя сетка -->
             <div class="grid-4">
                 <div class="menu-box-btn" onclick="switchTab('game', this)">
                     <div class="icon-box ic-purple">🔮</div>
@@ -252,7 +259,7 @@
                 </div>
                 <div class="menu-box-btn" onclick="switchTab('minigames', this)">
                     <div class="icon-box ic-gold">🎡</div>
-                    <span>Спутник</span>
+                    <span>Игры</span>
                 </div>
                 <div class="menu-box-btn" onclick="switchTab('profile', this)">
                     <div class="icon-box ic-cyan">📱</div>
@@ -260,25 +267,23 @@
                 </div>
             </div>
 
-            <!-- Широкие кнопки -->
             <div class="grid-2">
                 <div class="wide-btn" onclick="switchTab('battlepass', this)">
                     <div class="icon-box ic-gold">👑</div>
                     <div>
-                        <h4>Пропуск · 50</h4>
-                        <p>забрать 3</p>
+                        <h4>Пропуск</h4>
+                        <p>Сезон 1</p>
                     </div>
                 </div>
                 <div class="wide-btn" onclick="switchTab('shop', this)">
                     <div class="icon-box ic-grey">🛍️</div>
                     <div>
                         <h4>Магазин</h4>
-                        <p>VIP, удача, тег...</p>
+                        <p>Донат, VIP</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Категория Игрок -->
             <div class="menu-category">
                 <div class="category-title">Игрок</div>
                 <div class="grid-2">
@@ -286,34 +291,33 @@
                         <div class="small-icon ic-blue">👤</div>
                         <span>Профиль</span>
                     </div>
-                    <div class="small-btn">
+                    <div class="small-btn" onclick="showToast('В разработке', '🚧')">
                         <div class="small-icon ic-red">👥</div>
                         <span>Друзья</span>
                     </div>
-                    <div class="small-btn">
+                    <div class="small-btn" onclick="showToast('В разработке', '🚧')">
                         <div class="small-icon ic-gold">🏛️</div>
                         <span>Рейтинг</span>
                     </div>
-                    <div class="small-btn">
+                    <div class="small-btn" onclick="showToast('В разработке', '🚧')">
                         <div class="small-icon ic-gold">🏅</div>
                         <span>Достижения</span>
                     </div>
-                    <div class="small-btn">
+                    <div class="small-btn" onclick="showToast('В разработке', '🚧')">
                         <div class="small-icon ic-purple">📜</div>
                         <span>История</span>
                     </div>
-                    <div class="small-btn">
+                    <div class="small-btn" onclick="showToast('В разработке', '🚧')">
                         <div class="small-icon ic-green">🏪</div>
                         <span>Салоны</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Категория Сервисы -->
             <div class="menu-category">
                 <div class="category-title">Сервисы</div>
                 <div class="grid-2">
-                    <div class="small-btn">
+                    <div class="small-btn" onclick="showToast('В разработке', '🚧')">
                         <div class="small-icon ic-grey">🏷️</div>
                         <span>Скупщик</span>
                     </div>
@@ -321,7 +325,7 @@
                         <div class="small-icon ic-blue">🔍</div>
                         <span>Проверка<br>номера</span>
                     </div>
-                    <div class="small-btn">
+                    <div class="small-btn" onclick="showToast('В разработке', '🚧')">
                         <div class="small-icon ic-purple">🎟️</div>
                         <span>Промокод</span>
                     </div>
@@ -333,20 +337,14 @@
 
     <!-- ЭКРАН: СИНТЕЗ -->
     <div id="screen-game" class="screen active">
-        <!-- Симка по центру -->
         <div class="sim-center-area">
             <div class="sim-card">
-                <div class="sim-chip">
-                    <div></div><div></div><div></div><div></div>
-                </div>
+                <div class="sim-chip"><div></div><div></div><div></div><div></div></div>
                 <div class="sim-logo">SIM</div>
-                
                 <div class="sim-display">
                     <div class="sim-number-text" id="numberDisplay">+0 000 000-00-00</div>
                     <div class="sim-rarity-text" id="rarityDisplay"></div>
                 </div>
-
-                <!-- Оверлей загрузки -->
                 <div class="search-overlay" id="searchOverlay">
                     <div class="spinner"></div>
                     <div style="font-size: 12px; font-weight: 800; color: var(--accent);" id="searchText">ПОИСК...</div>
@@ -354,7 +352,6 @@
             </div>
         </div>
 
-        <!-- Кнопки -->
         <div class="sim-controls">
             <button class="btn-select" onclick="openTariffModal()">
                 <span>Архив: <span id="currentTierName" style="color: var(--accent);">Серый рынок</span></span>
@@ -372,13 +369,18 @@
         </div>
     </div>
 
-    <!-- ЭКРАН: СПУТНИК (КРАШ) -->
+    <!-- ЭКРАН: ИГРЫ (КРАШ, МОНЕТКА, КОСТИ, АПГРЕЙД) -->
     <div id="screen-minigames" class="screen">
         <div class="games-container">
             <div class="game-tabs">
-                <div class="game-tab active">🚀 Спутник</div>
+                <div class="game-tab active" onclick="switchGameTab('crash', this)">Краш</div>
+                <div class="game-tab" onclick="switchGameTab('coin', this)">Монетка</div>
+                <div class="game-tab" onclick="switchGameTab('dice', this)">Кости</div>
+                <div class="game-tab" onclick="switchGameTab('upgrade', this)">Апгрейд</div>
             </div>
+            
             <div class="game-content">
+                <!-- КРАШ -->
                 <div class="game-pane active" id="pane-crash">
                     <div class="history-strip" id="crashHistory"></div>
                     
@@ -386,21 +388,21 @@
                         <svg class="crash-graph-svg" id="crashSvg">
                             <polyline id="crashLine" fill="none" stroke="#10b981" stroke-width="3" points="0,160" />
                         </svg>
-                        <div class="crash-big-mult" id="crashBigMult">x1.00</div>
+                        <div class="crash-big-mult" id="crashBigMult">Ожидание...</div>
                     </div>
                     
-                    <input type="number" id="crashBetInput" class="bet-input-large" value="10000">
-                    <div class="bet-presets">
-                        <button class="btn-preset" onclick="setCrashBet(10000)">10K</button>
-                        <button class="btn-preset" onclick="setCrashBet(50000)">50K</button>
-                        <button class="btn-preset" onclick="setCrashBet(100000)">100K</button>
-                        <button class="btn-preset" onclick="setCrashBet(500000)">500K</button>
-                        <button class="btn-preset" onclick="setCrashBet('ALL')">MAX</button>
+                    <div class="crash-controls">
+                        <input type="number" id="crashBetInput" class="bet-input-large" value="10000" max="10000000">
+                        <div class="bet-presets">
+                            <button class="btn-preset" onclick="setCrashBet(10000)">10K</button>
+                            <button class="btn-preset" onclick="setCrashBet(100000)">100K</button>
+                            <button class="btn-preset" onclick="setCrashBet(1000000)">1M</button>
+                            <button class="btn-preset" onclick="setCrashBet('ALL')">MAX</button>
+                        </div>
                     </div>
                     
-                    <button class="btn-crash-main" id="crashBtn" onclick="handleCrash()">Запустить</button>
+                    <button class="btn-crash-main" id="crashBtn" onclick="handleCrash()">Сделать ставку</button>
                     
-                    <!-- Live ставки -->
                     <div class="crash-live-bets">
                         <div class="crash-bets-header">
                             <span>Игрок</span>
@@ -409,6 +411,52 @@
                         <div id="liveBetsList">
                             <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px;">Ожидание ставок...</div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- МОНЕТКА -->
+                <div class="game-pane" id="pane-coin">
+                    <div class="pvp-area">
+                        <input type="number" id="coinBetInput" class="bet-input-large" value="10000" max="10000000">
+                        <div class="pvp-vs" id="coinStatus">Выбери сторону</div>
+                        <div class="coin-visual" id="coinVisual">?</div>
+                    </div>
+                    <div class="pvp-buttons">
+                        <button class="btn-pvp heads" onclick="playCoin('Орел')">Орел</button>
+                        <button class="btn-pvp tails" onclick="playCoin('Решка')">Решка</button>
+                    </div>
+                </div>
+
+                <!-- КОСТИ -->
+                <div class="game-pane" id="pane-dice">
+                    <div class="pvp-area">
+                        <input type="number" id="diceBetInput" class="bet-input-large" value="10000" max="10000000">
+                        <div class="pvp-vs" id="diceStatus">Кинь кости</div>
+                        <div class="dice-visual">
+                            <div class="die" id="myDie">?</div>
+                            <div class="die" id="oppDie">?</div>
+                        </div>
+                    </div>
+                    <div class="pvp-buttons" style="grid-template-columns: 1fr;">
+                        <button class="btn-pvp" style="background: linear-gradient(135deg, #3b82f6, #2563eb);" onclick="playDice()">Бросить кости</button>
+                    </div>
+                </div>
+
+                <!-- АПГРЕЙД -->
+                <div class="game-pane" id="pane-upgrade">
+                    <div class="pvp-area">
+                        <input type="number" id="upgBetInput" class="bet-input-large" value="10000" max="10000000">
+                        <div class="upgrade-visual" id="upgVisual">x2.00</div>
+                        <div class="upgrade-grid">
+                            <button class="btn-upgrade-opt" onclick="setUpgMult(1.5, this)">x1.5</button>
+                            <button class="btn-upgrade-opt active" onclick="setUpgMult(2, this)">x2</button>
+                            <button class="btn-upgrade-opt" onclick="setUpgMult(5, this)">x5</button>
+                            <button class="btn-upgrade-opt" onclick="setUpgMult(10, this)">x10</button>
+                            <button class="btn-upgrade-opt" onclick="setUpgMult(50, this)">x50</button>
+                        </div>
+                    </div>
+                    <div class="pvp-buttons" style="grid-template-columns: 1fr;">
+                        <button class="btn-pvp" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);" onclick="playUpgrade()">Апгрейд</button>
                     </div>
                 </div>
             </div>
@@ -515,7 +563,6 @@
         </div>
     </div>
 
-    <!-- Результат одиночной крутки -->
     <div class="modal-overlay" id="revealOverlay">
         <div class="modal-result">
             <div class="res-title" id="revealTitle">РЕДКОСТЬ</div>
@@ -526,7 +573,6 @@
         </div>
     </div>
 
-    <!-- Результат x5 -->
     <div class="modal-overlay" id="x5Overlay">
         <div class="modal-result">
             <h3 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; color: var(--purple); font-size: 16px;">Результат x5</h3>
@@ -559,7 +605,7 @@
 
         let currentUserTgId = tg.initDataUnsafe?.user?.id || "unknown";
         let currentUserName = tg.initDataUnsafe?.user?.first_name || "Игрок";
-
+        
         if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
             document.getElementById('profileName').innerText = currentUserName;
             if(tg.initDataUnsafe.user.photo_url) {
@@ -568,12 +614,7 @@
             }
         }
 
-        const countries = [
-            { code: "+7", flag: "🇷🇺 Россия" }, { code: "+375", flag: "🇧🇾 Беларусь" }, 
-            { code: "+380", flag: "🇺🇦 Украина" }, { code: "+1", flag: "🇺🇸 США" }, 
-            { code: "+49", flag: "🇩🇪 Германия" }, { code: "+44", flag: "🇬🇧 Англия" }, 
-            { code: "+971", flag: "🇦🇪 ОАЭ" }, { code: "+377", flag: "🇲🇨 Монако" }
-        ];
+        const countries = [{ code: "+7", flag: "🇷🇺 Россия" }, { code: "+375", flag: "🇧🇾 Беларусь" }, { code: "+380", flag: "🇺🇦 Украина" }, { code: "+1", flag: "🇺🇸 США" }, { code: "+49", flag: "🇩🇪 Германия" }, { code: "+44", flag: "🇬🇧 Англия" }, { code: "+971", flag: "🇦🇪 ОАЭ" }, { code: "+377", flag: "🇲🇨 Монако" }];
         const rarities = { "Обычный": { color: "#888888", basePrice: 150 }, "Необычный": { color: "#10b981", basePrice: 500 }, "Редкий": { color: "#3b82f6", basePrice: 2000 }, "Эпический": { color: "#8b5cf6", basePrice: 10000 }, "Легендарный": { color: "#f97316", basePrice: 50000 }, "Мифический": { color: "#fbbf24", basePrice: 500000 }, "Секретный": { color: "#ef4444", basePrice: 100000000 } };
 
         let currentTierKey = 'grey';
@@ -582,19 +623,15 @@
         let ownedSecretCases = parseInt(localStorage.getItem('owned_secret_cases')) || 0;
         
         let isSpinning = false;
-        let isX5Mode = false; // Режим x5
+        let isX5Mode = false;
         let currentQuickSellItem = null;
         let selectedCountry = null; 
 
-        // БАТЛ ПАСС
         let bpLevel = parseInt(localStorage.getItem('bp_level')) || 1;
         let bpXp = parseInt(localStorage.getItem('bp_xp')) || 0;
         let bpClaimed = JSON.parse(localStorage.getItem('bp_claimed')) || [];
 
-        updateUI();
-        renderRoamingGrid();
-        updateSecretCasesUI();
-        updateHeaderLevel();
+        updateUI(); renderRoamingGrid(); updateSecretCasesUI(); updateHeaderLevel();
 
         // --- УВЕДОМЛЕНИЯ ---
         let toastTimeout;
@@ -628,13 +665,20 @@
             if(tabId === 'inventory') renderInventory();
             if(tabId === 'profile') { updateProfile(); }
             if(tabId === 'battlepass') { renderBattlePass(); }
-            if(tabId === 'minigames') { subscribeLiveBets(); } // Подписка на ставки в краше
+            if(tabId === 'minigames') { subscribeLiveBets(); startGlobalCrashLoop(); }
+        }
+
+        window.switchGameTab = function(gameId, element) {
+            haptic.impactOccurred('light');
+            document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.game-pane').forEach(p => p.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('pane-' + gameId).classList.add('active');
         }
 
         // --- РОУМИНГ ---
         window.openRoamingModal = function() { haptic.impactOccurred('light'); document.getElementById('roamingModal').classList.add('active'); }
         window.closeRoamingModal = function() { haptic.impactOccurred('light'); document.getElementById('roamingModal').classList.remove('active'); }
-        
         function renderRoamingGrid() {
             const grid = document.getElementById('countryGrid');
             grid.innerHTML = `<div class="country-item ${selectedCountry === null ? 'active' : ''}" onclick="selectCountry(null, '🌍 Любая')"><span>🌍</span><p>Любая</p></div>`;
@@ -643,29 +687,18 @@
             });
         }
         window.selectCountry = function(code, flag) {
-            haptic.impactOccurred('medium');
-            selectedCountry = code;
+            haptic.impactOccurred('medium'); selectedCountry = code;
             document.getElementById('currentRoamingText').innerText = flag;
-            renderRoamingGrid();
-            closeRoamingModal();
+            renderRoamingGrid(); closeRoamingModal();
         }
 
-        // --- ЛОГИКА СИНТЕЗА (КРУТКИ) ---
-        
-        // Переключатель x5
+        // --- ЛОГИКА СИНТЕЗА ---
         window.toggleX5 = function() {
-            haptic.impactOccurred('light');
-            isX5Mode = !isX5Mode;
+            haptic.impactOccurred('light'); isX5Mode = !isX5Mode;
             const btn = document.getElementById('spinBtnX5');
-            if(isX5Mode) {
-                btn.classList.add('active');
-                updateSpinBtnText();
-            } else {
-                btn.classList.remove('active');
-                updateSpinBtnText();
-            }
+            if(isX5Mode) { btn.classList.add('active'); updateSpinBtnText(); } 
+            else { btn.classList.remove('active'); updateSpinBtnText(); }
         }
-
         function updateSpinBtnText() {
             const count = isX5Mode ? 5 : 1;
             const cost = tiers[currentTierKey].cost * count;
@@ -687,48 +720,32 @@
             }
 
             haptic.impactOccurred('medium'); isSpinning = true;
-            
-            // Показываем задержку (Спиннер на симке)
             document.getElementById('searchOverlay').classList.add('active');
             document.getElementById('numberDisplay').style.opacity = '0';
             document.getElementById('rarityDisplay').innerText = "";
             document.getElementById('searchText').innerText = "ПОИСК СИГНАЛА...";
 
-            // Ждем 1.5 секунды для интриги
             setTimeout(async () => {
                 const tier = tiers[currentTierKey]; let results = []; let hasRare = false;
                 for (let i = 0; i < count; i++) {
                     const roll = Math.random() * 100; let cumulativeChance = 0; let selectedRarity = tier.drops[0].rarity;
                     for (let drop of tier.drops) { cumulativeChance += drop.chance; if (roll <= cumulativeChance) { selectedRarity = drop.rarity; break; } }
-                    
                     const result = await generateNumber(selectedRarity); 
                     results.push(result); inventory.push(result);
                     if (result.rarity === "Легендарный" || result.rarity === "Мифический" || result.rarity === "Секретный") { hasRare = true; }
                 }
-                
                 document.getElementById('searchOverlay').classList.remove('active');
                 document.getElementById('numberDisplay').style.opacity = '1';
-                
                 if (count === 1) {
                     const res = results[0];
                     document.getElementById('numberDisplay').innerText = res.num;
                     document.getElementById('numberDisplay').style.color = res.color;
                     document.getElementById('rarityDisplay').innerText = res.rarity;
                     document.getElementById('rarityDisplay').style.color = res.color;
-                    
-                    if (hasRare) { 
-                        showReveal(res); 
-                    } else {
-                        if(res.rarity === "Эпический") haptic.notificationOccurred('success'); else haptic.impactOccurred('light');
-                    }
-                } else { 
-                    showX5Reveal(results); 
-                }
-                
-                saveData();
-                isSpinning = false;
-                if (hasRare) addXp(50);
-                
+                    if (hasRare) { showReveal(res); } 
+                    else { if(res.rarity === "Эпический") haptic.notificationOccurred('success'); else haptic.impactOccurred('light'); }
+                } else { showX5Reveal(results); }
+                saveData(); isSpinning = false; if (hasRare) addXp(50);
             }, 1500);
         }
 
@@ -756,13 +773,11 @@
                 let cleanNum = numStr.replace(/\D/g, ''); let dbRef = ref(db, 'numbers/' + cleanNum);
                 try { let snapshot = await get(dbRef); if (!snapshot.exists()) { await set(dbRef, { owner: currentUserTgId, ownerName: currentUserName, original: numStr }); isUnique = true; } } catch (e) { isUnique = true; }
             }
-            
             const base = rarities[rarityName].basePrice; 
             let finalPrice = Math.floor(base * beautyMultiplier);
             if (rarityName === "Секретный") { finalPrice = 100000000 + Math.floor(Math.random() * 800000000); } 
             else if (isBeautiful) { finalPrice += Math.floor(Math.random() * 9999999); } 
             else { finalPrice += Math.floor(Math.random() * 1000); }
-            
             if (finalPrice < base) finalPrice = base + Math.floor(Math.random() * 500);
             return { id: Date.now() + Math.floor(Math.random() * 1000), num: numStr, country: country.flag, price: finalPrice, color: rarities[rarityName].color, rarity: rarityName };
         }
@@ -776,25 +791,18 @@
         };
 
         window.openTariffModal = function() { 
-            haptic.impactOccurred('light'); 
-            document.getElementById('tariffModal').classList.add('active'); 
-            document.querySelectorAll('.tariff-item').forEach(el => el.classList.remove('active')); 
-            document.getElementById('tier-' + currentTierKey).classList.add('active'); 
-            updateSecretCasesUI();
+            haptic.impactOccurred('light'); document.getElementById('tariffModal').classList.add('active'); 
+            document.querySelectorAll('.tariff-item').forEach(el => el.classList.remove('active')); document.getElementById('tier-' + currentTierKey).classList.add('active'); updateSecretCasesUI();
         }
         window.closeTariffModal = function() { haptic.impactOccurred('light'); document.getElementById('tariffModal').classList.remove('active'); }
         
         window.selectTier = function(key, element) {
-            if (key === 'secret_case' && ownedSecretCases <= 0) {
-                haptic.notificationOccurred('error'); tg.showAlert("У вас нет Топ Секретных билетов!"); return;
-            }
+            if (key === 'secret_case' && ownedSecretCases <= 0) { haptic.notificationOccurred('error'); tg.showAlert("У вас нет Топ Секретных билетов!"); return; }
             haptic.impactOccurred('medium'); currentTierKey = key;
             document.getElementById('currentTierName').innerText = tiers[key].name;
-            updateSpinBtnText();
-            closeTariffModal();
+            updateSpinBtnText(); closeTariffModal();
         }
 
-        // --- МОДАЛКИ ВЫПАДЕНИЯ ---
         function showReveal(item) {
             currentQuickSellItem = item;
             document.getElementById('revealTitle').innerText = item.rarity; document.getElementById('revealTitle').style.color = item.color;
@@ -841,20 +849,13 @@
             let total = inventory.reduce((sum, item) => sum + item.price, 0); 
             document.getElementById('statValue').innerText = total.toLocaleString('ru-RU') + ' 🪙'; 
             document.getElementById('statOpened').innerText = localStorage.getItem('stat_opened') || "0";
-            const ranks = [
-                { name: "🥉 Новичок", min: 0, max: 10000 }, { name: "🥈 Коллекционер", min: 10000, max: 100000 },
-                { name: "🥇 Барон", min: 100000, max: 1000000 }, { name: "💎 Магнат", min: 1000000, max: 10000000 },
-                { name: "👑 Легенда", min: 10000000, max: Infinity }
-            ];
+            const ranks = [{ name: "🥉 Новичок", min: 0, max: 10000 }, { name: "🥈 Коллекционер", min: 10000, max: 100000 }, { name: "🥇 Барон", min: 100000, max: 1000000 }, { name: "💎 Магнат", min: 1000000, max: 10000000 }, { name: "👑 Легенда", min: 10000000, max: Infinity }];
             let currentRank = ranks[0];
             for(let r of ranks) { if(total >= r.min && total < r.max) { currentRank = r; break; } }
             document.getElementById('rankTitle').innerText = currentRank.name;
             let progressBar = document.getElementById('rankProgress');
             if (currentRank.max === Infinity) { progressBar.style.width = "100%"; }
-            else {
-                let range = currentRank.max - currentRank.min; let current = total - currentRank.min; let percent = (current / range) * 100;
-                progressBar.style.width = `${percent}%`;
-            }
+            else { let range = currentRank.max - currentRank.min; let current = total - currentRank.min; let percent = (current / range) * 100; progressBar.style.width = `${percent}%`; }
         }
 
         window.searchNumber = async function() {
@@ -864,25 +865,14 @@
             box.style.display = 'block'; status.innerText = "ПОИСК..."; status.style.color = "var(--accent)"; owner.innerText = "Стучимся в базу...";
             try {
                 let dbRef = ref(db, 'numbers/' + clean); let snapshot = await get(dbRef);
-                if (snapshot.exists()) {
-                    let data = snapshot.val(); status.innerText = "ЗАНЯТ ❌"; status.style.color = "var(--danger)"; owner.innerText = `Владелец: ${data.ownerName || 'Неизвестный'}`; haptic.notificationOccurred('error');
-                } else {
-                    status.innerText = "СВОБОДЕН ✅"; status.style.color = "var(--success)"; owner.innerText = "Этот номер еще никто не выбил!"; haptic.notificationOccurred('success');
-                }
+                if (snapshot.exists()) { let data = snapshot.val(); status.innerText = "ЗАНЯТ ❌"; status.style.color = "var(--danger)"; owner.innerText = `Владелец: ${data.ownerName || 'Неизвестный'}`; haptic.notificationOccurred('error'); } 
+                else { status.innerText = "СВОБОДЕН ✅"; status.style.color = "var(--success)"; owner.innerText = "Этот номер еще никто не выбил!"; haptic.notificationOccurred('success'); }
             } catch(e) { status.innerText = "ОШИБКА"; owner.innerText = "Попробуйте позже."; }
         }
 
-        function updateUI() { 
-            document.getElementById('userBalance').innerText = balance.toLocaleString('ru-RU'); 
-            saveData(); 
-            if (currentUserTgId !== "unknown") { set(ref(db, 'users/' + currentUserTgId), { name: currentUserName, balance: balance }).catch(e => console.log(e)); }
-        }
+        function updateUI() { document.getElementById('userBalance').innerText = balance.toLocaleString('ru-RU'); saveData(); if (currentUserTgId !== "unknown") { set(ref(db, 'users/' + currentUserTgId), { name: currentUserName, balance: balance }).catch(e => console.log(e)); } }
         function saveData() { localStorage.setItem('casino_balance', balance); localStorage.setItem('casino_inventory', JSON.stringify(inventory)); }
-
-        function updateSecretCasesUI() {
-            document.getElementById('secretCaseCount').innerText = `Билет: ${ownedSecretCases} шт.`;
-            if (ownedSecretCases > 0) { document.getElementById('tier-secret_case').classList.remove('disabled'); } else { document.getElementById('tier-secret_case').classList.add('disabled'); }
-        }
+        function updateSecretCasesUI() { document.getElementById('secretCaseCount').innerText = `Билет: ${ownedSecretCases} шт.`; if (ownedSecretCases > 0) { document.getElementById('tier-secret_case').classList.remove('disabled'); } else { document.getElementById('tier-secret_case').classList.add('disabled'); } }
 
         // --- БАТЛ ПАСС ---
         function updateHeaderLevel() {
@@ -893,8 +883,7 @@
         function addXp(amount) {
             if (bpLevel >= 100) return; bpXp += amount; let needed = 1000 + (bpLevel * 200); let leveledUp = false;
             while (bpXp >= needed && bpLevel < 100) { bpXp -= needed; bpLevel++; needed = 1000 + (bpLevel * 200); leveledUp = true; }
-            localStorage.setItem('bp_level', bpLevel); localStorage.setItem('bp_xp', bpXp);
-            updateHeaderLevel();
+            localStorage.setItem('bp_level', bpLevel); localStorage.setItem('bp_xp', bpXp); updateHeaderLevel();
             if (leveledUp) { haptic.notificationOccurred('success'); showToast(`Сезон повышен! Уровень ${bpLevel}`, "👑"); renderBattlePass(); }
             if (document.getElementById('screen-battlepass').classList.contains('active')) { renderBattlePass(); }
         }
@@ -905,62 +894,29 @@
             const grid = document.getElementById('bpList'); grid.innerHTML = ''; let startLvl = Math.max(1, bpLevel - 2); let endLvl = Math.min(100, startLvl + 15);
             for (let i = startLvl; i <= endLvl; i++) {
                 let isClaimed = bpClaimed.includes(i); let isAvailable = (bpLevel >= i) && !isClaimed; let rewardText = ""; let rType = "coins"; let rAmount = 0;
-                if (i === 100) { rewardText = "100 000 000 🪙"; rAmount = 100000000; }
-                else if (i % 10 === 0) { rewardText = "1 Билет 🔥"; rType = "ticket"; rAmount = 1; }
-                else { rAmount = i * 15000; rewardText = `${rAmount.toLocaleString('ru-RU')} 🪙`; }
-                
+                if (i === 100) { rewardText = "100 000 000 🪙"; rAmount = 100000000; } else if (i % 10 === 0) { rewardText = "1 Билет 🔥"; rType = "ticket"; rAmount = 1; } else { rAmount = i * 15000; rewardText = `${rAmount.toLocaleString('ru-RU')} 🪙`; }
                 let btnHtml = isAvailable ? `<button class="btn-claim-bp" onclick="claimBp(${i}, '${rType}', ${rAmount})" style="background:var(--accent); color:white; border:none; padding:5px 10px; border-radius:5px; font-weight:800; font-size:10px;">Забрать</button>` : (isClaimed ? `<span style="font-size:10px; color:var(--text-muted); font-weight:800;">✓</span>` : `<span style="font-size:10px; color:#444; font-weight:800;">🔒</span>`);
                 grid.innerHTML += `<div class="bp-card" style="${isClaimed?'opacity:0.5':''}"><div><h4>Уровень ${i}</h4><p>Награда</p></div><div class="bp-reward"><span style="display:block; font-size:12px; font-weight:800; color:var(--gold); margin-bottom:5px;">${rewardText}</span>${btnHtml}</div></div>`;
             }
         }
         window.claimBp = function(lvl, type, amount) {
             if (bpLevel < lvl || bpClaimed.includes(lvl)) return;
-            if (type === 'coins') { balance += amount; updateUI(); }
-            else if (type === 'ticket') { ownedSecretCases += amount; localStorage.setItem('owned_secret_cases', ownedSecretCases); updateSecretCasesUI(); }
+            if (type === 'coins') { balance += amount; updateUI(); } else if (type === 'ticket') { ownedSecretCases += amount; localStorage.setItem('owned_secret_cases', ownedSecretCases); updateSecretCasesUI(); }
             bpClaimed.push(lvl); localStorage.setItem('bp_claimed', JSON.stringify(bpClaimed)); renderBattlePass(); showToast("Награда получена!", "🎁");
         }
 
         // --- МАГАЗИН ---
-        window.buySecretCase = function() {
-            tg.showConfirm("Купить Топ Секретный Архив за 250 Stars? (Тест)", (conf) => {
-                if (conf) { ownedSecretCases += 1; localStorage.setItem('owned_secret_cases', ownedSecretCases); updateSecretCasesUI(); showToast("Билет добавлен!", "🔥"); }
-            });
-        }
-        window.buyCoins = function(amount, stars) {
-            tg.showConfirm(`Купить ${amount.toLocaleString('ru-RU')} монет за ${stars} Stars? (Тест)`, (conf) => {
-                if (conf) { balance += amount; updateUI(); showToast("Монеты начислены!", "💰"); }
-            });
-        }
+        window.buySecretCase = function() { tg.showConfirm("Купить Топ Секретный Архив за 250 Stars? (Тест)", (conf) => { if (conf) { ownedSecretCases += 1; localStorage.setItem('owned_secret_cases', ownedSecretCases); updateSecretCasesUI(); showToast("Билет добавлен!", "🔥"); } }); }
+        window.buyCoins = function(amount, stars) { tg.showConfirm(`Купить ${amount.toLocaleString('ru-RU')} монет за ${stars} Stars? (Тест)`, (conf) => { if (conf) { balance += amount; updateUI(); showToast("Монеты начислены!", "💰"); } }); }
 
-        // --- СПУТНИК (КРАШ-ИГРА С РАЗГОНОМ И LIVE-ЛЕНТОЙ) ---
+        // --- КРАШ (ГЛОБАЛЬНЫЙ ТАЙМЕР) ---
         let isCrashFlying = false, crashInterval = null, currentMult = 1.00, crashPoint = 1.00, currentBetAmount = 10000;
-        let speed = 0.005; // Начальная скорость
+        let speed = 0.005;
         let crashHistory = []; let rocketLossStreak = 0; let rocketNextWin = 8;
-
-        // Подписка на Live ставки
-        function subscribeLiveBets() {
-            onValue(ref(db, 'active_bets'), (snapshot) => {
-                const list = document.getElementById('liveBetsList');
-                const bets = snapshot.val();
-                if (!bets) {
-                    list.innerHTML = '<div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px;">Ожидание ставок...</div>';
-                    return;
-                }
-                list.innerHTML = '';
-                for (const id in bets) {
-                    const b = bets[id];
-                    list.innerHTML += `
-                        <div class="crash-bet-row">
-                            <div class="crash-user">
-                                <div class="crash-user-avatar">👤</div>
-                                ${b.name}
-                            </div>
-                            <div style="color: var(--gold); font-weight: 800;">${b.amount.toLocaleString('ru-RU')} 🪙</div>
-                        </div>
-                    `;
-                }
-            });
-        }
+        let myCrashBet = 0; // Моя ставка в текущем раунде
+        let hasCashedOut = false;
+        let roundStartTime = 0;
+        const ROUND_DURATION = 15000; // 15 секунд на раунд (включая время ожидания)
 
         window.setCrashBet = function(amount) {
             haptic.impactOccurred('light'); if (isCrashFlying) return;
@@ -968,85 +924,103 @@
             document.getElementById('crashBetInput').value = currentBetAmount;
         }
 
-        window.handleCrash = function() { if (isCrashFlying) cashoutCrash(); else startCrash(); }
+        function subscribeLiveBets() {
+            onValue(ref(db, 'active_bets'), (snapshot) => {
+                const list = document.getElementById('liveBetsList');
+                const bets = snapshot.val();
+                if (!bets) { list.innerHTML = '<div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px;">Ожидание ставок...</div>'; return; }
+                list.innerHTML = '';
+                for (const id in bets) { const b = bets[id]; list.innerHTML += `<div class="crash-bet-row"><div class="crash-user"><div class="crash-user-avatar">👤</div>${b.name}</div><div style="color: var(--gold); font-weight: 800;">${b.amount.toLocaleString('ru-RU')} 🪙</div></div>`; }
+            });
+        }
+
+        // Глобальный цикл игры
+        function startGlobalCrashLoop() {
+            if (isCrashFlying) return; // Уже запущен
+            runGlobalRound();
+        }
 
         function getCrashPoint() {
+            // Простая математика для глобального раунда (чтобы не усложнять синхронизацию)
             if (rocketLossStreak < rocketNextWin) { rocketLossStreak++; return 1.00 + (Math.random() * 0.9); } 
             else { rocketLossStreak = 0; rocketNextWin = Math.floor(Math.random() * 5) + 7; return 2.00 + (Math.random() * 15.0); }
         }
 
-        function startCrash() {
-            let bet = parseInt(document.getElementById('crashBetInput').value);
-            if (isNaN(bet) || bet < 100) { haptic.notificationOccurred('error'); tg.showAlert("Мин. ставка: 100 🪙"); return; }
-            if (balance < bet) { haptic.notificationOccurred('error'); tg.showAlert("Недостаточно монет!"); return; }
+        async function runGlobalRound() {
+            if (isCrashFlying) return;
+            isCrashFlying = true; currentMult = 1.00; crashPoint = getCrashPoint(); speed = 0.005;
+            myCrashBet = 0; hasCashedOut = false;
             
-            balance -= bet; updateUI(); isCrashFlying = true; currentMult = 1.00; crashPoint = getCrashPoint(); 
-            speed = 0.005; // Сброс скорости
+            const btn = document.getElementById('crashBtn'); const multText = document.getElementById('crashBigMult'); const svgLine = document.getElementById('crashLine');
             
-            // Отправляем в Firebase
-            set(ref(db, 'active_bets/' + currentUserTgId), { name: currentUserName, amount: bet, status: 'playing' });
-
-            const btn = document.getElementById('crashBtn'); const multText = document.getElementById('crashBigMult');
-            const svgLine = document.getElementById('crashLine');
-            
-            btn.innerText = "ЗАБРАТЬ (x1.00)"; btn.className = 'btn-crash-main cashout';
-            multText.innerText = "x1.00"; multText.classList.remove('crashed');
+            multText.innerText = "Ожидание..."; multText.classList.remove('crashed');
             svgLine.setAttribute('points', '0,160'); svgLine.setAttribute('stroke', '#10b981');
-
-            haptic.impactOccurred('medium');
-
-            // Разгоняемся
-            crashInterval = setInterval(() => {
-                if (!isCrashFlying) return;
-                
-                currentMult += speed;
-                speed *= 1.015; // Плавное ускорение
-                
-                multText.innerText = "x" + currentMult.toFixed(2); 
-                btn.innerText = `ЗАБРАТЬ (${Math.floor(bet * currentMult).toLocaleString('ru-RU')} 🪙)`;
-
-                // Рисуем график
-                let x = Math.min((currentMult - 1) * 50, 300);
-                let y = Math.max(160 - (currentMult - 1) * 30, 0);
-                svgLine.setAttribute('points', `0,160 ${x},${y}`);
-
-                if (currentMult >= crashPoint) crashCrash();
-            }, 50); // 50мс для плавности
+            btn.innerText = "Сделать ставку"; btn.className = 'btn-crash-main'; btn.disabled = false;
+            
+            // Время на ставки: 3 секунды
+            let waitTime = 3;
+            let waitInterval = setInterval(() => {
+                multText.innerText = `Старт через ${waitTime}...`;
+                waitTime--;
+                if(waitTime < 0) {
+                    clearInterval(waitInterval);
+                    // Если мы поставили, записываем в Firebase
+                    if(myCrashBet > 0) { set(ref(db, 'active_bets/' + currentUserTgId), { name: currentUserName, amount: myCrashBet, status: 'playing' }); }
+                    
+                    // Поехали!
+                    multText.innerText = "x1.00"; btn.innerText = myCrashBet > 0 ? "ЗАБРАТЬ (x1.00)" : "В ИГРЕ..."; 
+                    if(myCrashBet > 0) btn.className = 'btn-crash-main cashout'; else btn.className = 'btn-crash-main disabled';
+                    
+                    crashInterval = setInterval(() => {
+                        currentMult += speed; speed *= 1.015;
+                        multText.innerText = "x" + currentMult.toFixed(2);
+                        if (myCrashBet > 0) btn.innerText = `ЗАБРАТЬ (${Math.floor(myCrashBet * currentMult).toLocaleString('ru-RU')} 🪙)`;
+                        let x = Math.min((currentMult - 1) * 50, 300); let y = Math.max(160 - (currentMult - 1) * 30, 0);
+                        svgLine.setAttribute('points', `0,160 ${x},${y}`);
+                        if (currentMult >= crashPoint) crashGlobalRound();
+                    }, 50);
+                }
+            }, 1000);
         }
 
-        function crashCrash() {
+        function crashGlobalRound() {
             clearInterval(crashInterval); isCrashFlying = false;
             addCrashHistory(Math.round(currentMult * 100) / 100);
-            
-            // Удаляем из Firebase
-            remove(ref(db, 'active_bets/' + currentUserTgId));
-
-            const btn = document.getElementById('crashBtn'); const multText = document.getElementById('crashBigMult');
-            const svgLine = document.getElementById('crashLine');
+            const btn = document.getElementById('crashBtn'); const multText = document.getElementById('crashBigMult'); const svgLine = document.getElementById('crashLine');
             
             multText.classList.add('crashed'); multText.innerText = "ВЗРЫВ! x" + currentMult.toFixed(2);
             svgLine.setAttribute('stroke', '#ef4444');
             
-            setTimeout(() => { btn.innerText = "Запустить"; btn.className = 'btn-crash-main disabled'; }, 500); 
-            haptic.notificationOccurred('error');
+            if(myCrashBet > 0 && !hasCashedOut) { haptic.notificationOccurred('error'); remove(ref(db, 'active_bets/' + currentUserTgId)); }
+            
+            btn.innerText = "Ожидание..."; btn.className = 'btn-crash-main disabled';
+            setTimeout(() => runGlobalRound(), 3000); // 3 сек до нового раунда
         }
 
-        function cashoutCrash() {
-            clearInterval(crashInterval); isCrashFlying = false;
-            addCrashHistory(Math.round(currentMult * 100) / 100);
-            
-            // Удаляем из Firebase
-            remove(ref(db, 'active_bets/' + currentUserTgId));
-
-            let bet = parseInt(document.getElementById('crashBetInput').value);
-            const winAmount = Math.floor(bet * currentMult); balance += winAmount; updateUI(); addXp(Math.floor(winAmount / 1000)); 
-            
-            const btn = document.getElementById('crashBtn'); const multText = document.getElementById('crashBigMult');
-            multText.innerText = "x" + currentMult.toFixed(2) + " ЗАБРАНО"; 
-            btn.innerText = `Успех! +${winAmount.toLocaleString('ru-RU')} 🪙`; btn.className = 'btn-crash-main disabled'; 
-            haptic.notificationOccurred('success');
-            
-            setTimeout(() => { multText.innerText = "x1.00"; btn.innerText = "Запустить"; btn.className = 'btn-crash-main'; }, 2500);
+        window.handleCrash = function() {
+            const betInput = document.getElementById('crashBetInput');
+            if (myCrashBet > 0 && !hasCashedOut) {
+                // Кэшаут
+                clearInterval(crashInterval);
+                hasCashedOut = true;
+                const winAmount = Math.floor(myCrashBet * currentMult); 
+                balance += winAmount; updateUI(); addXp(Math.floor(winAmount / 1000)); 
+                document.getElementById('crashBtn').innerText = `Успех! +${winAmount.toLocaleString('ru-RU')} 🪙`;
+                document.getElementById('crashBtn').className = 'btn-crash-main disabled';
+                remove(ref(db, 'active_bets/' + currentUserTgId));
+                haptic.notificationOccurred('success');
+            } else if (myCrashBet === 0) {
+                // Ставка
+                let bet = parseInt(betInput.value);
+                if (isNaN(bet) || bet < 100) { haptic.notificationOccurred('error'); tg.showAlert("Мин. ставка: 100 🪙"); return; }
+                if (bet > 10000000) { haptic.notificationOccurred('error'); tg.showAlert("Макс. ставка: 10 000 000 🪙"); return; }
+                if (balance < bet) { haptic.notificationOccurred('error'); tg.showAlert("Недостаточно монет!"); return; }
+                
+                balance -= bet; updateUI(); myCrashBet = bet;
+                document.getElementById('crashBtn').innerText = "В ИГРЕ... (Ждем)";
+                document.getElementById('crashBtn').className = 'btn-crash-main cashout';
+                haptic.impactOccurred('medium');
+            }
         }
 
         function addCrashHistory(multiplier) {
@@ -1054,7 +1028,105 @@
             const historyDiv = document.getElementById('crashHistory'); historyDiv.innerHTML = '';
             crashHistory.forEach(m => { const badge = document.createElement('div'); badge.className = `h-strip-badge ${m < 2 ? 'low' : 'high'}`; badge.innerText = `x${m.toFixed(2)}`; historyDiv.appendChild(badge); });
         }
-        
+
+        // --- МОНЕТКА, КОСТИ, АПГРЕЙД ---
+        const fakeNames = ["Alex", "Dima", "Igor", "Nikita", "Sasha", "Vlad", "Max", "Denis"];
+        const COMMISSION = 0.95; // 5% комиссия
+
+        window.playCoin = function(side) {
+            let bet = parseInt(document.getElementById('coinBetInput').value);
+            if (isNaN(bet) || bet < 100) { tg.showAlert("Мин. ставка 100"); return; }
+            if (bet > 10000000) { tg.showAlert("Макс. ставка 10 000 000"); return; }
+            if (balance < bet) { tg.showAlert("Недостаточно монет!"); return; }
+
+            balance -= bet; updateUI();
+            const coin = document.getElementById('coinVisual'); coin.innerText = "?"; coin.classList.remove('flipping'); void coin.offsetWidth; coin.classList.add('flipping');
+            document.getElementById('coinStatus').innerText = "Бросаем...";
+
+            const oppName = fakeNames[Math.floor(Math.random() * fakeNames.length)];
+            const oppSide = Math.random() > 0.5 ? 'Орел' : 'Решка';
+            const result = Math.random() > 0.5 ? 'Орел' : 'Решка';
+
+            setTimeout(() => {
+                coin.classList.remove('flipping');
+                coin.innerText = result === 'Орел' ? '🦅' : '🪙';
+                if (side === result) {
+                    const win = Math.floor(bet * 2 * COMMISSION); balance += win; updateUI();
+                    document.getElementById('coinStatus').innerHTML = `<span style="color:var(--success)">Выигрыш! (${win.toLocaleString()} 🪙)</span><br><span style="font-size:10px;color:var(--text-muted)">Оппонент ${oppName} выбрал ${oppSide}</span>`;
+                    haptic.notificationOccurred('success');
+                } else {
+                    document.getElementById('coinStatus').innerHTML = `<span style="color:var(--danger)">Проигрыш</span><br><span style="font-size:10px;color:var(--text-muted)">Оппонент ${oppName} выбрал ${oppSide}</span>`;
+                    haptic.notificationOccurred('error');
+                }
+            }, 600);
+        }
+
+        window.playDice = function() {
+            let bet = parseInt(document.getElementById('diceBetInput').value);
+            if (isNaN(bet) || bet < 100) { tg.showAlert("Мин. ставка 100"); return; }
+            if (bet > 10000000) { tg.showAlert("Макс. ставка 10 000 000"); return; }
+            if (balance < bet) { tg.showAlert("Недостаточно монет!"); return; }
+
+            balance -= bet; updateUI();
+            const myDie = document.getElementById('myDie'); const oppDie = document.getElementById('oppDie');
+            myDie.innerText = "?"; oppDie.innerText = "?"; myDie.classList.remove('rolling'); oppDie.classList.remove('rolling');
+            void myDie.offsetWidth; myDie.classList.add('rolling'); oppDie.classList.add('rolling');
+            document.getElementById('diceStatus').innerText = "Бросаем кости...";
+
+            const oppName = fakeNames[Math.floor(Math.random() * fakeNames.length)];
+            const myRoll = Math.floor(Math.random() * 6) + 1;
+            const oppRoll = Math.floor(Math.random() * 6) + 1;
+
+            setTimeout(() => {
+                myDie.classList.remove('rolling'); oppDie.classList.remove('rolling');
+                myDie.innerText = myRoll; oppDie.innerText = oppRoll;
+                
+                if (myRoll > oppRoll) {
+                    const win = Math.floor(bet * 2 * COMMISSION); balance += win; updateUI();
+                    document.getElementById('diceStatus').innerHTML = `<span style="color:var(--success)">Победа! (${win.toLocaleString()} 🪙)</span><br><span style="font-size:10px;color:var(--text-muted)">Против ${oppName}</span>`;
+                    haptic.notificationOccurred('success');
+                } else if (myRoll < oppRoll) {
+                    document.getElementById('diceStatus').innerHTML = `<span style="color:var(--danger)">Поражение</span><br><span style="font-size:10px;color:var(--text-muted)">Против ${oppName}</span>`;
+                    haptic.notificationOccurred('error');
+                } else {
+                    balance += bet; updateUI(); // Возврат
+                    document.getElementById('diceStatus').innerHTML = `<span style="color:var(--text-muted)">Ничья (возврат)</span><br><span style="font-size:10px;color:var(--text-muted)">Против ${oppName}</span>`;
+                }
+            }, 600);
+        }
+
+        let upgMult = 2;
+        window.setUpgMult = function(mult, el) {
+            upgMult = mult; document.querySelectorAll('.btn-upgrade-opt').forEach(b => b.classList.remove('active'));
+            el.classList.add('active'); document.getElementById('upgVisual').innerText = `x${mult.toFixed(2)}`;
+        }
+
+        window.playUpgrade = function() {
+            let bet = parseInt(document.getElementById('upgBetInput').value);
+            if (isNaN(bet) || bet < 100) { tg.showAlert("Мин. ставка 100"); return; }
+            if (bet > 10000000) { tg.showAlert("Макс. ставка 10 000 000"); return; }
+            if (balance < bet) { tg.showAlert("Недостаточно монет!"); return; }
+
+            balance -= bet; updateUI();
+            const visual = document.getElementById('upgVisual'); visual.innerText = "ПОИСК..."; visual.style.color = "var(--accent)";
+
+            // Шанс выигрыша обратно пропорционален множителю
+            const chance = (1 / upgMult) * 100; 
+            const roll = Math.random() * 100;
+
+            setTimeout(() => {
+                if (roll <= chance) {
+                    const win = Math.floor(bet * upgMult * COMMISSION); balance += win; updateUI();
+                    visual.innerText = `x${upgMult.toFixed(2)} УСПЕХ!`; visual.style.color = "var(--success)";
+                    tg.showAlert(`Выигрыш: ${win.toLocaleString()} 🪙`);
+                    haptic.notificationOccurred('success');
+                } else {
+                    visual.innerText = `x${upgMult.toFixed(2)} СГОРЕЛ`; visual.style.color = "var(--danger)";
+                    haptic.notificationOccurred('error');
+                }
+            }, 800);
+        }
+
     </script>
 </body>
 </html>
