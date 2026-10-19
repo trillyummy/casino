@@ -22,7 +22,6 @@
         }
         body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(5,5,5,0.6), rgba(5,5,5,0.95)); z-index: -1; }
         
-        /* ШАПКА */
         .top-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; pointer-events: none; backdrop-filter: blur(10px); background: rgba(0,0,0,0.3); }
         .user-info { display: flex; align-items: center; gap: 8px; pointer-events: auto;}
         .header-avatar { width: 32px; height: 32px; border-radius: 50%; background: #333; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.1); }
@@ -35,12 +34,10 @@
         .menu-btn:active { transform: scale(0.9); }
         .menu-btn svg { width: 16px; height: 16px; fill: var(--text); }
 
-        /* УВЕДОМЛЕНИЯ */
         .toast-container { position: fixed; top: -50px; left: 50%; transform: translateX(-50%); z-index: 10000; transition: top 0.3s; display: flex; align-items: center; gap: 6px; background: rgba(30, 30, 30, 0.95); color: white; padding: 8px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.5); white-space: nowrap; max-width: 90%; overflow: hidden; text-overflow: ellipsis;}
         .toast-container.show { top: 15px; }
         .toast-icon { font-size: 14px; }
 
-        /* МЕНЮ */
         .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(5px); }
         .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
         .sidebar { position: fixed; bottom: -100%; left: 0; right: 0; width: 100%; max-width: 500px; margin: 0 auto; height: 85vh; background: #111111; border-top: 1px solid rgba(255,255,255,0.1); border-radius: 20px 20px 0 0; z-index: 999; display: flex; flex-direction: column; transition: bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow-y: auto; box-shadow: 0 -10px 40px rgba(0,0,0,0.8); }
@@ -70,7 +67,6 @@
         .small-btn span { font-size: 11px; font-weight: 600; color: var(--text); }
         .small-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 14px; flex-shrink: 0;}
 
-        /* ЭКРАНЫ */
         .screen { display: none; flex: 1; padding: 60px 15px 15px 15px; flex-direction: column; animation: fadeIn 0.2s ease; position: relative; height: 100%;}
         .screen.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
@@ -105,7 +101,6 @@
         .btn-x5 { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.5); flex: 0.4; }
         .btn-x5.active { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; box-shadow: 0 0 15px rgba(139, 92, 246, 0.5); border-color: transparent;}
 
-        /* ИГРЫ */
         .games-container { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); border: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; backdrop-filter: blur(10px); height: 100%; max-height: 600px;}
         .game-tabs { display: flex; background: rgba(0,0,0,0.4); border-bottom: 1px solid var(--border); overflow-x: auto;}
         .game-tab { flex: 1; padding: 12px 10px; text-align: center; font-size: 12px; font-weight: 800; color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: 0.2s; border-bottom: 2px solid transparent;}
@@ -130,7 +125,7 @@
         
         .opponent-info { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-weight: 700; width: 100%; margin-bottom: 15px;}
         .opponent-card { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 10px; text-align: center; width: 45%;}
-        .opponent-avatar { width: 40px; height: 40px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 16px; margin: 0 auto 5px auto;}
+        .opponent-avatar { width: 40px; height: 40px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 16px; margin: 0 auto 5px auto; overflow: hidden;}
         .opponent-name { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
         .opponent-label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; margin-top: 2px;}
 
@@ -204,7 +199,7 @@
         
         .lobby-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
         .lobby-item:active { background: rgba(255,255,255,0.05); }
-        .lobby-avatar { width: 40px; height: 40px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 16px; position: relative;}
+        .lobby-avatar { width: 40px; height: 40px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 16px; position: relative; overflow: hidden;}
         .lobby-status { position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--success); border: 2px solid #000; }
         .lobby-info { flex: 1; margin-left: 12px; }
         .lobby-name { font-size: 14px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px;}
@@ -327,7 +322,6 @@
             <div class="game-content">
                 <!-- МОНЕТКА -->
                 <div id="pane-coin" class="game-pane active">
-                    <!-- Лобби -->
                     <div id="coin-lobby" style="display: flex; flex-direction: column; height: 100%;">
                         <div class="lobby-tabs">
                             <div class="lobby-tab active" onclick="switchLobbyTab('coin', 'lobby', this)">Лобби</div>
@@ -335,7 +329,6 @@
                             <div class="lobby-tab" onclick="switchLobbyTab('coin', 'history', this)">История</div>
                         </div>
                         <div id="coin-lobby-list" style="flex: 1; overflow-y: auto;">
-                            <!-- Сюда будут грузиться лоты -->
                             <div style="text-align: center; color: var(--text-muted); margin-top: 20px; font-size: 12px;">Загрузка лотов...</div>
                         </div>
                         <div style="margin-top: auto; padding-top: 15px;">
@@ -344,13 +337,10 @@
                         </div>
                     </div>
 
-                    <!-- Экран игры -->
                     <div id="coin-game" style="display: none; flex-direction: column; height: 100%;">
                         <div class="opponent-info">
                             <div class="opponent-card" id="coin-my-card">
-                                <div class="opponent-avatar">${currentUserAvatar}</div>
-                                <div class="opponent-name">${currentUserName}</div>
-                                <div class="opponent-label">Вы</div>
+                                <!-- JS заполнит -->
                             </div>
                             <div class="vs-text">VS</div>
                             <div class="opponent-card" id="coin-opp-card">
@@ -378,7 +368,6 @@
 
                 <!-- КОСТИ -->
                 <div id="pane-dice" class="game-pane">
-                    <!-- Лобби -->
                     <div id="dice-lobby" style="display: flex; flex-direction: column; height: 100%;">
                         <div class="lobby-tabs">
                             <div class="lobby-tab active" onclick="switchLobbyTab('dice', 'lobby', this)">Лобби</div>
@@ -394,13 +383,10 @@
                         </div>
                     </div>
 
-                    <!-- Экран игры -->
                     <div id="dice-game" style="display: none; flex-direction: column; height: 100%;">
                         <div class="opponent-info">
                             <div class="opponent-card" id="dice-my-card">
-                                <div class="opponent-avatar">${currentUserAvatar}</div>
-                                <div class="opponent-name">${currentUserName}</div>
-                                <div class="opponent-label">Вы</div>
+                                <!-- JS заполнит -->
                             </div>
                             <div class="vs-text">VS</div>
                             <div class="opponent-card" id="dice-opp-card">
@@ -948,6 +934,9 @@
                 document.getElementById(`${type}-win-display`).innerText = (bet * 1.9).toLocaleString('ru-RU');
                 document.getElementById(`${type}-status-text`).innerText = "Ожидание соперника...";
                 document.getElementById(`${type}-ThrowBtn`).disabled = true;
+                
+                // Заполняем карточку игрока
+                document.getElementById(`${type}-my-card`).innerHTML = `<div class="opponent-avatar">${currentUserAvatar}</div><div class="opponent-name">${currentUserName}</div><div class="opponent-label">Вы</div>`;
                 
                 listenMyBet(myActiveBetId, type);
             }).catch(e => {
