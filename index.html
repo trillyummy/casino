@@ -561,7 +561,6 @@
             localStorage.setItem('auto_sell_settings', JSON.stringify(autoSellSettings));
             
             updateRocketHistoryUI();
-            checkBetButton();
             renderBattlePass();
         }
 
@@ -1047,7 +1046,6 @@
                 document.getElementById('manualBetInput').value = rocketBet;
                 showToast('Максимальная ставка 10 000 000!', '⚠️');
             }
-            checkBetButton();
         }
 
         window.setBet = function(amount, btn) {
@@ -1055,7 +1053,6 @@
             document.getElementById('manualBetInput').value = rocketBet;
             document.querySelectorAll('.btn-preset').forEach(b => b.classList.remove('active'));
             if(btn) btn.classList.add('active');
-            checkBetButton();
         }
 
         window.handleRocket = function() {
@@ -1134,7 +1131,6 @@
                             multText.innerText = 'x1,00';
                             graphPath.setAttribute('d', 'M0,100 L0,100');
                             graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
-                            checkBetButton();
                         }, 3000);
                     }
                 }, 100);
