@@ -559,8 +559,7 @@
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    <script type="module">        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getDatabase, ref, set, onValue, remove, get, update } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
         const firebaseConfig = { apiKey: "AIzaSyALQK0FztkoJCDRc-dWgaWsOFrJyaBQUg", authDomain: "casino-numbers.firebaseapp.com", databaseURL: "https://casino-numbers-default-rtdb.firebaseio.com", projectId: "casino-numbers", storageBucket: "casino-numbers.firebasestorage.app", messagingSenderId: "163879101194", appId: "1:163879101194:web:90cd7c69d377327ae410f3" };
@@ -939,7 +938,7 @@
                 document.getElementById(`${type}-status-text`).innerText = "Ожидание соперника...";
                 document.getElementById(`${type}-ThrowBtn`).disabled = true;
                 
-                // Обновляем карточку игрока (вставляем аватар и ник)
+                // Проверка, существует ли элемент, прежде чем менять его innerHTML
                 let myCard = document.getElementById(`${type}-my-card`);
                 if (myCard) {
                     myCard.innerHTML = `<div class="opponent-avatar">${currentUserAvatar}</div><div class="opponent-name">${currentUserName}</div><div class="opponent-label">Вы</div>`;
