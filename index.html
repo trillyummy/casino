@@ -68,7 +68,7 @@
 
         #screen-game { justify-content: flex-start; padding-bottom: 20px; }
         
-        /* ИНТЕРФЕЙС КРУТКИ (Разделенный) */
+        /* ИНТЕРФЕЙС КРУТКИ */
         .sim-top-section { background: linear-gradient(135deg, #1a1a24, #0a0a0f); border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); padding: 15px; position: relative; display: flex; flex-direction: column; box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.2); overflow: hidden; margin-bottom: 15px; width: 100%; }
         .sim-chip { width: 35px; height: 28px; background: linear-gradient(135deg, #fbbf24, #d97706); border-radius: 6px; position: absolute; top: 12px; left: 12px; box-shadow: 0 3px 10px rgba(251, 191, 36, 0.4); display: flex; flex-direction: column; justify-content: space-between; padding: 4px; }
         .sim-chip-line { width: 100%; height: 1px; background: rgba(0,0,0,0.4); border-radius: 1px; }
@@ -81,7 +81,7 @@
         .sim-result-box { display: none; flex-direction: column; align-items: center; width: 100%; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .sim-result-box.show { display: flex; }
         .sim-result-square { 
-            width: 140px; height: 140px; 
+            width: 160px; height: 140px; 
             background: rgba(0,0,0,0.6); 
             border-radius: 18px; 
             border: 2px solid var(--border); 
@@ -90,9 +90,15 @@
             margin-bottom: 10px; 
             position: relative;
         }
-        .sim-result-number { font-size: 18px; font-weight: 900; letter-spacing: 1px; color: white; text-shadow: 0 0 15px currentColor; margin-bottom: 5px; text-align: center; padding: 0 5px; }
+        .sim-result-number { font-size: 16px; font-weight: 900; letter-spacing: 1px; color: white; text-shadow: 0 0 15px currentColor; margin-bottom: 5px; text-align: center; padding: 0 5px; }
         .sim-result-rarity { font-size: 9px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px;}
         .sim-result-price { font-size: 11px; font-weight: 300; color: var(--gold); letter-spacing: 0.5px; text-align: center; padding: 0 5px; }
+
+        /* АНИМАЦИЯ ПРОКРУТКИ НОМЕРА */
+        .sim-rolling-display { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
+        .sim-rolling-display.show { display: flex; }
+        .sim-rolling-number { font-size: 18px; font-weight: 900; letter-spacing: 1px; color: var(--accent); text-shadow: 0 0 15px rgba(59, 130, 246, 0.5); margin-bottom: 5px; }
+        .sim-rolling-label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
         .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; margin-top: 5px; animation: popIn 0.3s; }
         .sim-x5-grid.show { display: grid; }
@@ -106,7 +112,7 @@
             text-align: center;
             min-height: 80px;
         }
-        .sim-x5-item .num { font-size: 10px; font-weight: 800; color: white; margin-bottom: 3px; }
+        .sim-x5-item .num { font-size: 9px; font-weight: 800; color: white; margin-bottom: 3px; }
         .sim-x5-item .rar { font-size: 7px; font-weight: 700; text-transform: uppercase; margin-bottom: 3px; }
         .sim-x5-item .prc { font-size: 8px; font-weight: 300; color: var(--gold); }
 
@@ -228,7 +234,7 @@
         .lobby-amount { font-size: 12px; font-weight: 800;}
         .lobby-win { font-size: 9px; color: var(--text-muted); font-weight: 600;}
 
-        /* VIP МАГАЗИН (2 ЛОТА) */
+        /* VIP МАГАЗИН */
         .shop-grid { display: flex; flex-direction: column; gap: 12px; padding-bottom: 15px;}
         .vip-card { background: linear-gradient(135deg, #1a1a24, #0a0a0f); border-radius: var(--radius-lg); padding: 15px; border: 1px solid rgba(251, 191, 36, 0.3); position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .vip-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(251,191,36,0.1) 0%, transparent 60%); pointer-events: none; }
@@ -251,7 +257,7 @@
         .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 35px; height: 35px; background: var(--gold); border-radius: 50%; z-index: 10; display: flex; justify-content: center; align-items: center; font-size: 18px; box-shadow: 0 0 20px rgba(251,191,36,0.5); }
         .wheel-pointer { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 20px solid var(--danger); z-index: 11; filter: drop-shadow(0 0 5px rgba(239,68,68,0.8)); }
 
-        /* 3D АНИМАЦИЯ МИФИЧЕСКОГО НОМЕРА (КРАСНАЯ, НА ПОЛ ЭКРАНА) */
+        /* 3D АНИМАЦИЯ МИФА */
         .mythic-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s; perspective: 1200px; }
         .mythic-overlay.active { opacity: 1; pointer-events: auto; }
         
@@ -348,15 +354,12 @@
         .upgrade-info p { font-size: 10px; color: var(--text-muted); font-weight: 600;}
         .upgrade-cost { background: rgba(251,191,36,0.15); color: var(--gold); padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; }
 
-        /* МОДАЛКА ЗАМЕНЫ ЦИФРЫ */
-        .change-number-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s;}
-        .change-number-modal.active { opacity: 1; pointer-events: auto; }
-        .change-number-box { background: #111; border: 1px solid var(--accent); border-radius: 16px; padding: 20px; width: 90%; max-width: 350px; text-align: center;}
-        .change-number-box h3 { font-size: 14px; font-weight: 800; color: white; margin-bottom: 10px;}
-        .change-digits { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px;}
-        .digit-btn { width: 40px; height: 40px; background: #222; border: 1px solid #444; border-radius: 8px; color: white; font-size: 18px; font-weight: 800; display: flex; justify-content: center; align-items: center; cursor: pointer;}
-        .digit-btn:active { background: #333; }
-        .change-input { width: 100%; background: #000; border: 1px solid #333; border-radius: 8px; padding: 10px; color: white; font-size: 18px; text-align: center; font-weight: 800; margin-bottom: 15px;}
+        /* АУКЦИОН */
+        .auction-card { background: rgba(0,0,0,0.5); border-radius: var(--radius-md); padding: 12px; margin-bottom: 8px; border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .auction-info h4 { font-size: 14px; font-weight: 900; color: var(--gold); margin-bottom: 2px;}
+        .auction-info p { font-size: 10px; color: var(--text-muted); font-weight: 600;}
+        .auction-price { font-size: 14px; font-weight: 900; color: var(--success); text-align: right; }
+        .auction-buy { background: var(--success); color: black; border: none; border-radius: 8px; padding: 8px 12px; font-weight: 800; font-size: 11px; cursor: pointer; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -370,19 +373,6 @@
             <div class="mythic-price-label">СТОИМОСТЬ</div>
             <div class="mythic-price-big" id="mythicPriceDisplay">1 000 000 000 🪙</div>
             <button class="mythic-close" onclick="closeMythicOverlay()">ЗАБРАТЬ</button>
-        </div>
-    </div>
-
-    <!-- МОДАЛКА ЗАМЕНЫ ЦИФРЫ -->
-    <div class="change-number-modal" id="changeNumberModal">
-        <div class="change-number-box">
-            <h3>Изменить цифру</h3>
-            <p style="font-size: 10px; color: #888; margin-bottom: 10px;">Стоимость: 5 000 🪙</p>
-            <div class="change-input" id="changeNumberDisplay">+7 999 777-77-77</div>
-            <div class="change-digits" id="changeDigitsContainer">
-                <!-- Кнопки цифр -->
-            </div>
-            <button class="btn-main" style="width: 100%; margin-top: 10px;" onclick="closeChangeNumberModal()">Отмена</button>
         </div>
     </div>
 
@@ -425,7 +415,7 @@
                 <div class="category-title">Сервисы</div>
                 <div class="grid-2">
                     <div class="small-btn" onclick="switchTab('buyer', this)"><div class="small-icon ic-gold">🏷️</div><span>Скупщик</span></div>
-                    <div class="small-btn" onclick="switchTab('promo', this)"><div class="small-icon ic-purple">🎁</div><span>Промокод</span></div>
+                    <div class="small-btn" onclick="switchTab('auction', this)"><div class="small-icon ic-red">🔨</div><span>Аукцион</span></div>
                 </div>
             </div>
             <div class="menu-category">
@@ -446,6 +436,12 @@
             <div class="sim-logo">SIM</div>
             <div class="sim-display-area">
                 <div class="sim-dashes" id="simDashes"><div class="sim-dash"></div><div class="sim-dash"></div><div class="sim-dash"></div><div class="sim-dash"></div><div class="sim-dash"></div></div>
+                
+                <!-- Анимация прокрутки -->
+                <div class="sim-rolling-display" id="simRollingDisplay">
+                    <div class="sim-rolling-number" id="simRollingNumber">+7 999 000-00-00</div>
+                    <div class="sim-rolling-label">Набор номера...</div>
+                </div>
                 
                 <div class="sim-result-box" id="simResultBox">
                     <div class="sim-result-square" id="simResultSquare">
@@ -527,6 +523,26 @@
                     <p>+<span id="tradeBonus">0</span>% к продаже номеров</p>
                 </div>
                 <div class="upgrade-cost" id="tradeCost">Ур. 0 / 5</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- АУКЦИОН -->
+    <div id="screen-auction" class="screen">
+        <h1 style="font-size: 20px; font-weight: 900; color: var(--gold); text-transform: uppercase; text-align: center; margin-bottom: 15px; text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);">Аукцион</h1>
+        <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 15px;">Покупай и продавай номера с другими игроками</p>
+
+        <div class="profile-card" style="margin-bottom: 15px;">
+            <h3 style="font-size: 13px; font-weight: 800; color: var(--gold); margin-bottom: 10px;">Мои лоты</h3>
+            <div id="myAuctionList">
+                <p style="font-size: 11px; color: var(--text-muted); text-align: center;">У тебя пока нет активных лотов</p>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <h3 style="font-size: 13px; font-weight: 800; color: var(--gold); margin-bottom: 10px;">Лоты других игроков</h3>
+            <div id="otherAuctionList">
+                <p style="font-size: 11px; color: var(--text-muted); text-align: center;">Загрузка...</p>
             </div>
         </div>
     </div>
@@ -896,10 +912,7 @@
         
         // НАВЫКИ
         let skills = JSON.parse(localStorage.getItem('skills')) || {
-            frequent: 0, // 0-4 (70, 80, 90, 100 круток)
-            big: 0,      // 0-3 (20, 30, 40 круток на x40)
-            strong: 0,   // 0-3 (6, 7, 8 круток на x8)
-            trade: 0     // 0-5 (+0%, +3%, +6%, +9%, +12%, +15%)
+            frequent: 0, big: 0, strong: 0, trade: 0
         };
         
         let autoSellSettings = JSON.parse(localStorage.getItem('auto_sell_settings')) || { "Обычный": false, "Необычный": false, "Редкий": false, "Эпический": false, "Легендарный": false, "Мифический": false };
@@ -942,11 +955,12 @@
             return 30 * 50 + 30 * 150 + (level - 60) * 300; 
         }
 
+        // ШАНСЫ (Правительственный - 1 к 520)
         const tierChances = {
             grey: { Обычный: 60, Необычный: 25, Редкий: 10, Эпический: 4, Легендарный: 0.9, Мифический: 0.1 },
             hacker: { Обычный: 30, Необычный: 40, Редкий: 20, Эпический: 8, Легендарный: 1.8, Мифический: 0.2 },
             vip: { Обычный: 0, Необычный: 30, Редкий: 40, Эпический: 20, Легендарный: 8, Мифический: 2 },
-            gov: { Обычный: 0, Необычный: 0, Редкий: 40, Эпический: 35, Легендарный: 20, Мифический: 5 }
+            gov: { Обычный: 0, Необычный: 0, Редкий: 0, Эпический: 70, Легендарный: 29.81, Мифический: 0.19 }
         };
         const baseRarities = { "Обычный": { color: "#8b92a5", price: 150 }, "Необычный": { color: "#10b981", price: 500 }, "Редкий": { color: "#3b82f6", price: 2000 }, "Эпический": { color: "#8b5cf6", price: 10000 }, "Легендарный": { color: "#f97316", price: 50000 }, "Мифический": { color: "#ef4444", price: 500000 } };
 
@@ -969,6 +983,9 @@
         ];
         let wheelAngle = 0;
         let wheelSpinning = false;
+
+        // АУКЦИОН
+        let auctionUnsub = null;
 
         function updateUI() {
             document.getElementById('userBalance').innerText = balance.toLocaleString('ru-RU');
@@ -1032,6 +1049,7 @@
             if(tabId === 'shop') renderVipShop();
             if(tabId === 'wheel') initWheel();
             if(tabId === 'skills') updateUI();
+            if(tabId === 'auction') loadAuction();
         }
 
         // НАВЫКИ
@@ -1050,6 +1068,99 @@
                 return showToast('Максимальный уровень!', '⚠️');
             }
             updateUI();
+        }
+
+        // АУКЦИОН
+        function loadAuction() {
+            if (auctionUnsub) auctionUnsub();
+            const auctionRef = ref(db, 'auction');
+            auctionUnsub = onValue(auctionRef, (snapshot) => {
+                const data = snapshot.val();
+                const myList = document.getElementById('myAuctionList');
+                const otherList = document.getElementById('otherAuctionList');
+                
+                if (!data) {
+                    myList.innerHTML = '<p style="font-size: 11px; color: var(--text-muted); text-align: center;">У тебя пока нет активных лотов</p>';
+                    otherList.innerHTML = '<p style="font-size: 11px; color: var(--text-muted); text-align: center;">Нет активных лотов</p>';
+                    return;
+                }
+
+                const lots = Object.values(data);
+                const myLots = lots.filter(lot => String(lot.sellerId) === String(myId));
+                const otherLots = lots.filter(lot => String(lot.sellerId) !== String(myId));
+
+                if (myLots.length === 0) {
+                    myList.innerHTML = '<p style="font-size: 11px; color: var(--text-muted); text-align: center;">У тебя пока нет активных лотов</p>';
+                } else {
+                    myList.innerHTML = myLots.map(lot => `
+                        <div class="auction-card">
+                            <div class="auction-info">
+                                <h4>${lot.number}</h4>
+                                <p>${lot.rarity} · Цена: ${lot.price.toLocaleString('ru-RU')} 🪙</p>
+                            </div>
+                            <button class="btn-sell" style="background: rgba(239,68,68,0.2); color: var(--danger);" onclick="removeAuction('${lot.id}')">Убрать</button>
+                        </div>
+                    `).join('');
+                }
+
+                if (otherLots.length === 0) {
+                    otherList.innerHTML = '<p style="font-size: 11px; color: var(--text-muted); text-align: center;">Нет активных лотов</p>';
+                } else {
+                    otherList.innerHTML = otherLots.map(lot => `
+                        <div class="auction-card">
+                            <div class="auction-info">
+                                <h4>${lot.number}</h4>
+                                <p>${lot.rarity} · ${lot.sellerName}</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <div class="auction-price">${lot.price.toLocaleString('ru-RU')} 🪙</div>
+                                <button class="auction-buy" onclick="buyAuction('${lot.id}')">Купить</button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            });
+        }
+
+        window.removeAuction = function(lotId) {
+            remove(ref(db, 'auction/' + lotId));
+            showToast('Лот убран', '🗑️');
+        }
+
+        window.buyAuction = function(lotId) {
+            get(ref(db, 'auction/' + lotId)).then((snapshot) => {
+                const lot = snapshot.val();
+                if (!lot) return showToast('Лот уже продан', '❌');
+                if (balance < lot.price) return showToast('Недостаточно монет!', '❌');
+                
+                balance -= lot.price;
+                inventory.push({ number: lot.number, rarity: lot.rarity, price: lot.price, color: lot.color });
+                remove(ref(db, 'auction/' + lotId));
+                updateUI();
+                showToast(`Куплен номер ${lot.number}!`, '🎉');
+            });
+        }
+
+        window.listOnAuction = function(index) {
+            const item = inventory[index];
+            const price = prompt('Введите цену:', item.price);
+            if (!price || isNaN(price)) return;
+            
+            const lotId = 'lot_' + Date.now();
+            set(ref(db, 'auction/' + lotId), {
+                id: lotId,
+                sellerId: String(myId),
+                sellerName: currentUserName,
+                number: item.number,
+                rarity: item.rarity,
+                price: parseInt(price),
+                color: item.color
+            });
+            
+            inventory.splice(index, 1);
+            updateUI();
+            renderInventory();
+            showToast('Лот выставлен на аукцион!', '🔨');
         }
 
         // КОЛЕСО
@@ -1144,45 +1255,6 @@
             document.getElementById('mythicOverlay').classList.add('active');
         }
 
-        // ЗАМЕНА ЦИФРЫ
-        window.openChangeNumberModal = function(index) {
-            if (balance < 5000) return showToast('Нужно 5 000 🪙 для замены!', '❌');
-            const item = inventory[index];
-            document.getElementById('changeNumberDisplay').innerText = item.number;
-            const digitsContainer = document.getElementById('changeDigitsContainer');
-            digitsContainer.innerHTML = '';
-            for (let i = 0; i <= 9; i++) {
-                const btn = document.createElement('div');
-                btn.className = 'digit-btn';
-                btn.innerText = i;
-                btn.onclick = () => replaceDigit(index, i);
-                digitsContainer.appendChild(btn);
-            }
-            document.getElementById('changeNumberModal').classList.add('active');
-        }
-
-        window.closeChangeNumberModal = function() {
-            document.getElementById('changeNumberModal').classList.remove('active');
-        }
-
-        function replaceDigit(index, newDigit) {
-            const item = inventory[index];
-            // Меняем последнюю цифру в номере
-            let numStr = item.number;
-            let lastDigitMatch = numStr.match(/\d(?=\D*$)/);
-            if (lastDigitMatch) {
-                numStr = numStr.slice(0, -lastDigitMatch[0].length) + newDigit + numStr.slice(-lastDigitMatch[0].length + 1);
-                if (numStr.length < item.number.length) numStr = item.number.slice(0, -1) + newDigit;
-                else numStr = item.number.slice(0, -1) + newDigit;
-            }
-            item.number = numStr;
-            balance -= 5000;
-            updateUI();
-            closeChangeNumberModal();
-            renderInventory();
-            showToast(`Цифра заменена на ${newDigit}!`, '✏️');
-        }
-
         // РЕНДЕР VIP
         function renderVipShop() {
             const grid = document.getElementById('vipShopGrid');
@@ -1267,30 +1339,46 @@
             if (balance < totalCost) return showToast('Недостаточно монет!', '❌');
             
             balance -= totalCost; updateUI(); isSpinning = true;
-            document.getElementById('simDashes').style.display = 'flex';
+            document.getElementById('simDashes').style.display = 'none';
             document.getElementById('simResultBox').classList.remove('show');
             document.getElementById('simX5Grid').classList.remove('show');
             document.getElementById('simX5Grid').innerHTML = '';
+            document.getElementById('simRollingDisplay').classList.add('show');
 
             let spinTicks = 0;
+            let rollingNumber = document.getElementById('simRollingNumber');
+            
+            // Анимация набора номера
             let interval = setInterval(() => {
-                document.getElementById('simDashes').style.opacity = (spinTicks % 2 === 0) ? '1' : '0.3';
+                let randNum = `+7 999 ${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 90) + 10}-${Math.floor(Math.random() * 90) + 10}`;
+                rollingNumber.innerText = randNum;
                 spinTicks++;
-                if (spinTicks > 20) { clearInterval(interval); isSpinning = false; finishSpin(count); }
+                
+                if (spinTicks > 20) { 
+                    clearInterval(interval); 
+                    isSpinning = false; 
+                    document.getElementById('simRollingDisplay').classList.remove('show');
+                    finishSpin(count); 
+                }
             }, 75);
         }
 
         function generateNumberData() {
-            let isGuarantee = false; if ((statOpened + 1) % 1000 === 0) isGuarantee = true;
-            if (isGuarantee) return { number: generatePhoneNumber(), rarity: "СЕКРЕТНЫЙ (ГАРАНТ)", price: 100000000, color: "#ef4444" };
-            let chances = tierChances[currentTier.key]; let random = Math.random() * 100; let selectedRarity = "Обычный"; let currentChance = 0;
-            for (let [name, chance] of Object.entries(chances)) { currentChance += chance; if (random <= currentChance && chance > 0) { selectedRarity = name; break; } }
+            let chances = tierChances[currentTier.key]; 
+            let random = Math.random() * 100; 
+            let selectedRarity = "Обычный"; 
+            let currentChance = 0;
+            for (let [name, chance] of Object.entries(chances)) { 
+                currentChance += chance; 
+                if (random <= currentChance && chance > 0) { selectedRarity = name; break; } 
+            }
+            
+            // Если выпал Топ-Секретный (Гарант), даём визуальный х40, но реальная цена маленькая
             const data = baseRarities[selectedRarity];
             return { number: generatePhoneNumber(), rarity: selectedRarity, price: data.price, color: data.color };
         }
 
         function finishSpin(count) {
-            document.getElementById('simDashes').style.display = 'none';
             if (count === 1) {
                 const item = generateNumberData(); statOpened++;
                 document.getElementById('simResultBox').classList.add('show');
@@ -1350,7 +1438,7 @@
                     <div class="inv-info">
                         <h4 style="color: ${item.color};">${item.number}</h4><p>${item.rarity}</p>
                         <button class="btn-sell" onclick="sellItem(${index})">Продать за ${item.price.toLocaleString('ru-RU')} 🪙</button>
-                        <button class="btn-edit" onclick="openChangeNumberModal(${index})">Изменить</button>
+                        <button class="btn-edit" onclick="listOnAuction(${index})">Аукцион</button>
                     </div>
                 </div>
             `).join('');
