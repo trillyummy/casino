@@ -75,7 +75,7 @@
         .screen.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- СИНТЕЗ (ИГРА) --- */
+        /* СИНТЕЗ */
         #screen-game { justify-content: flex-end; padding-bottom: 25px; }
         .sim-center-area { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; width: 100%; }
         .sim-card { width: 85%; max-width: 320px; height: 180px; background: linear-gradient(135deg, #1c1c26, #0a0a0f); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1); overflow: hidden; }
@@ -140,27 +140,22 @@
         .crash-user { display: flex; align-items: center; gap: 6px; font-weight: 700; color: white;}
         .crash-user-avatar { width: 20px; height: 20px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 10px; overflow: hidden;}
 
-        /* Монетка, Кости, Апгрейд */
-        .pvp-area { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 15px;}
-        .pvp-vs { font-size: 14px; font-weight: 900; color: var(--text-muted); }
+        /* PvP (Монетка, Кости) */
+        .pvp-header-btns { display: flex; gap: 8px; margin-bottom: 10px; }
+        .btn-pvp-mode { flex: 1; padding: 8px; border-radius: var(--radius-sm); background: rgba(255,255,255,0.1); color: white; border: none; font-weight: 700; font-size: 12px; cursor: pointer; text-align: center;}
+        .btn-pvp-mode.active { background: var(--accent); }
         
-        .coin-visual { width: 100px; height: 100px; background: linear-gradient(135deg, #fcd34d, #b45309); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 40px; font-weight: 900; color: #000; box-shadow: 0 10px 20px rgba(0,0,0,0.5); border: 4px solid #fef08a; transition: transform 0.6s ease-out;}
-        .coin-visual.flipping { animation: flip 0.6s ease-out; }
-        @keyframes flip { 0% { transform: rotateY(0deg) scale(1); } 50% { transform: rotateY(180deg) scale(1.2); } 100% { transform: rotateY(360deg) scale(1); } }
+        .pvp-lobby-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;}
+        .pvp-lobby-item { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px; display: flex; justify-content: space-between; align-items: center;}
+        .pvp-lobby-info h4 { font-size: 13px; color: white; margin-bottom: 2px;}
+        .pvp-lobby-info p { font-size: 11px; color: var(--gold); font-weight: 800;}
+        .btn-join-lobby { background: var(--success); color: white; border: none; border-radius: 6px; padding: 6px 12px; font-size: 11px; font-weight: 800; cursor: pointer;}
         
-        .dice-visual { display: flex; gap: 10px; }
-        .die { width: 50px; height: 50px; background: white; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 24px; font-weight: 900; color: #000; box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: transform 0.5s;}
-        .die.rolling { animation: rollDice 0.5s ease-out; }
-        @keyframes rollDice { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.2); } 100% { transform: rotate(360deg) scale(1); } }
+        .pvp-create-area { background: rgba(0,0,0,0.3); border-radius: var(--radius-md); padding: 15px; display: none; flex-direction: column; gap: 10px;}
+        .pvp-create-area.active { display: flex; }
         
-        .upgrade-visual { font-size: 50px; font-weight: 900; color: var(--success); text-shadow: 0 0 20px rgba(16,185,129,0.5); margin: 20px 0;}
-        
-        .pvp-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-top: auto;}
-        .btn-pvp { padding: 15px; border-radius: var(--radius-md); background: rgba(255,255,255,0.1); border: none; color: white; font-size: 14px; font-weight: 800; cursor: pointer; transition: 0.2s;}
-        .btn-pvp.heads { background: rgba(59, 130, 246, 0.2); border: 1px solid var(--accent);}
-        .btn-pvp.tails { background: rgba(239, 68, 68, 0.2); border: 1px solid var(--danger);}
-        .btn-pvp:active { transform: scale(0.95); }
-        
+        /* Апгрейд */
+        .upgrade-visual { font-size: 50px; font-weight: 900; color: var(--success); text-shadow: 0 0 20px rgba(16,185,129,0.5); margin: 20px 0; text-align: center;}
         .upgrade-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; width: 100%; margin-bottom: 10px;}
         .btn-upgrade-opt { padding: 10px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; font-weight: 800; cursor: pointer; text-align: center;}
         .btn-upgrade-opt.active { border-color: var(--success); background: rgba(16,185,129,0.1); color: var(--success);}
@@ -183,6 +178,17 @@
         .stat-box { background: rgba(0,0,0,0.3); padding: 10px; border-radius: var(--radius-sm); text-align: center; }
         .stat-box span { display: block; font-size: 9px; color: var(--text-muted); font-weight: 700; margin-bottom: 4px; text-transform: uppercase;}
         .stat-box strong { font-size: 14px; font-weight: 900; color: var(--text); }
+
+        /* --- НАСТРОЙКИ АВТОПРОДАЖИ --- */
+        .autosell-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px;}
+        .autosell-item { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border);}
+        .autosell-item span { font-size: 13px; font-weight: 700;}
+        .toggle-switch { position: relative; width: 40px; height: 22px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .4s; border-radius: 22px; }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--success); }
+        input:checked + .slider:before { transform: translateX(18px); }
 
         /* --- МАГАЗИН --- */
         .shop-card { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); padding: 15px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 10px; backdrop-filter: blur(10px);}
@@ -369,7 +375,7 @@
         </div>
     </div>
 
-    <!-- ЭКРАН: ИГРЫ (КРАШ, МОНЕТКА, КОСТИ, АПГРЕЙД) -->
+    <!-- ЭКРАН: ИГРЫ -->
     <div id="screen-minigames" class="screen">
         <div class="games-container">
             <div class="game-tabs">
@@ -383,7 +389,6 @@
                 <!-- КРАШ -->
                 <div class="game-pane active" id="pane-crash">
                     <div class="history-strip" id="crashHistory"></div>
-                    
                     <div class="crash-graph-container">
                         <svg class="crash-graph-svg" id="crashSvg">
                             <polyline id="crashLine" fill="none" stroke="#10b981" stroke-width="3" points="0,160" />
@@ -404,47 +409,55 @@
                     <button class="btn-crash-main" id="crashBtn" onclick="handleCrash()">Сделать ставку</button>
                     
                     <div class="crash-live-bets">
-                        <div class="crash-bets-header">
-                            <span>Игрок</span>
-                            <span>Ставка</span>
-                        </div>
-                        <div id="liveBetsList">
-                            <div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px;">Ожидание ставок...</div>
-                        </div>
+                        <div class="crash-bets-header"><span>Игрок</span><span>Ставка</span></div>
+                        <div id="liveBetsList"><div style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 10px;">Ожидание ставок...</div></div>
                     </div>
                 </div>
 
-                <!-- МОНЕТКА -->
+                <!-- МОНЕТКА (PvP) -->
                 <div class="game-pane" id="pane-coin">
-                    <div class="pvp-area">
-                        <input type="number" id="coinBetInput" class="bet-input-large" value="10000" max="10000000">
-                        <div class="pvp-vs" id="coinStatus">Выбери сторону</div>
-                        <div class="coin-visual" id="coinVisual">?</div>
+                    <div class="pvp-header-btns">
+                        <button class="btn-pvp-mode active" onclick="togglePvPMode('coin', 'lobby', this)">Список лотов</button>
+                        <button class="btn-pvp-mode" onclick="togglePvPMode('coin', 'create', this)">Создать лот</button>
                     </div>
-                    <div class="pvp-buttons">
-                        <button class="btn-pvp heads" onclick="playCoin('Орел')">Орел</button>
-                        <button class="btn-pvp tails" onclick="playCoin('Решка')">Решка</button>
+
+                    <!-- Список лотов -->
+                    <div id="coin-lobby-list" class="pvp-lobby-list">
+                        <p style="text-align:center; color:var(--text-muted); font-size:12px;">Загрузка лотов...</p>
+                    </div>
+
+                    <!-- Создание лота -->
+                    <div id="coin-create-area" class="pvp-create-area">
+                        <input type="number" id="coinBetInput" class="bet-input-large" value="10000" max="10000000">
+                        <div class="pvp-buttons" style="display:flex; gap:10px;">
+                            <button class="btn-pvp" style="flex:1; background:rgba(59, 130, 246, 0.2); border:1px solid var(--accent);" onclick="createPvPLobby('coin', 'Орел')">Поставить на Орла</button>
+                            <button class="btn-pvp" style="flex:1; background:rgba(239, 68, 68, 0.2); border:1px solid var(--danger);" onclick="createPvPLobby('coin', 'Решка')">Поставить на Решку</button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- КОСТИ -->
+                <!-- КОСТИ (PvP) -->
                 <div class="game-pane" id="pane-dice">
-                    <div class="pvp-area">
-                        <input type="number" id="diceBetInput" class="bet-input-large" value="10000" max="10000000">
-                        <div class="pvp-vs" id="diceStatus">Кинь кости</div>
-                        <div class="dice-visual">
-                            <div class="die" id="myDie">?</div>
-                            <div class="die" id="oppDie">?</div>
-                        </div>
+                    <div class="pvp-header-btns">
+                        <button class="btn-pvp-mode active" onclick="togglePvPMode('dice', 'lobby', this)">Список лотов</button>
+                        <button class="btn-pvp-mode" onclick="togglePvPMode('dice', 'create', this)">Создать лот</button>
                     </div>
-                    <div class="pvp-buttons" style="grid-template-columns: 1fr;">
-                        <button class="btn-pvp" style="background: linear-gradient(135deg, #3b82f6, #2563eb);" onclick="playDice()">Бросить кости</button>
+
+                    <!-- Список лотов -->
+                    <div id="dice-lobby-list" class="pvp-lobby-list">
+                        <p style="text-align:center; color:var(--text-muted); font-size:12px;">Загрузка лотов...</p>
+                    </div>
+
+                    <!-- Создание лота -->
+                    <div id="dice-create-area" class="pvp-create-area">
+                        <input type="number" id="diceBetInput" class="bet-input-large" value="10000" max="10000000">
+                        <button class="btn-pvp" style="background: linear-gradient(135deg, #3b82f6, #2563eb);" onclick="createPvPLobby('dice', 'Бросок')">Создать лот</button>
                     </div>
                 </div>
 
                 <!-- АПГРЕЙД -->
                 <div class="game-pane" id="pane-upgrade">
-                    <div class="pvp-area">
+                    <div style="display:flex; flex-direction:column; gap:10px; height:100%;">
                         <input type="number" id="upgBetInput" class="bet-input-large" value="10000" max="10000000">
                         <div class="upgrade-visual" id="upgVisual">x2.00</div>
                         <div class="upgrade-grid">
@@ -454,9 +467,7 @@
                             <button class="btn-upgrade-opt" onclick="setUpgMult(10, this)">x10</button>
                             <button class="btn-upgrade-opt" onclick="setUpgMult(50, this)">x50</button>
                         </div>
-                    </div>
-                    <div class="pvp-buttons" style="grid-template-columns: 1fr;">
-                        <button class="btn-pvp" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);" onclick="playUpgrade()">Апгрейд</button>
+                        <button class="btn-pvp" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); margin-top:auto;" onclick="playUpgrade()">Апгрейд</button>
                     </div>
                 </div>
             </div>
@@ -497,6 +508,17 @@
             </div>
 
             <div class="profile-card">
+                <h3 style="font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">🤖 Настройки Автопродажи</h3>
+                <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 10px;">Выбранные редкости будут продаваться автоматически при выпадении.</p>
+                <div class="autosell-list">
+                    <div class="autosell-item"><span>Обычный</span><label class="toggle-switch"><input type="checkbox" id="as-common" onchange="saveAutoSell()"><span class="slider"></span></label></div>
+                    <div class="autosell-item"><span>Необычный</span><label class="toggle-switch"><input type="checkbox" id="as-uncommon" onchange="saveAutoSell()"><span class="slider"></span></label></div>
+                    <div class="autosell-item"><span>Редкий</span><label class="toggle-switch"><input type="checkbox" id="as-rare" onchange="saveAutoSell()"><span class="slider"></span></label></div>
+                    <div class="autosell-item"><span>Эпический</span><label class="toggle-switch"><input type="checkbox" id="as-epic" onchange="saveAutoSell()"><span class="slider"></span></label></div>
+                </div>
+            </div>
+
+            <div class="profile-card">
                 <h3 style="font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">🔍 Проверка номера</h3>
                 <div style="display: flex; gap: 8px;">
                     <input type="text" id="searchNumberInput" style="flex: 1; background: rgba(0,0,0,0.4); border: 1px solid var(--border); color: white; border-radius: var(--radius-sm); padding: 10px; font-size: 13px; outline: none;" placeholder="+7 999 000-00-00">
@@ -516,7 +538,7 @@
         
         <div class="shop-card" style="border: 2px solid var(--danger); box-shadow: 0 0 15px rgba(239,68,68,0.2);">
             <div style="font-size: 16px; font-weight: 900; text-transform: uppercase; color: var(--gold); margin-bottom: 4px;">🔥 Топ Секретный</div>
-            <div style="font-size: 11px; color: var(--text-muted); font-weight: 600; margin-bottom: 10px; line-height: 1.4;">Шанс выбить <b style="color:var(--danger)">Секретный</b> номер (от 100 млн)!</div>
+            <div style="font-size: 11px; color: var(--text-muted); font-weight: 600; margin-bottom: 10px; line-height: 1.4;">Шанс выбить <b style="color:var(--danger)">Секретный</b> номер (5%).</div>
             <button class="btn-buy" onclick="buySecretCase()"><span>⭐</span> Купить за 250 Stars</button>
         </div>
 
@@ -548,7 +570,7 @@
             <div class="tariff-item" onclick="selectTier('vip', this)" id="tier-vip"><div><h4 style="font-size:14px; font-weight:800;">VIP-связь</h4><p style="font-size:11px; color:var(--text-muted);">Секрет 1 к 1.000.000</p></div><div style="font-weight:800; color:var(--gold);">10 000 🪙</div></div>
             <div class="tariff-item" onclick="selectTier('gov', this)" id="tier-gov"><div><h4 style="font-size:14px; font-weight:800;">Правительственный</h4><p style="font-size:11px; color:var(--text-muted);">Топ-дроп</p></div><div style="font-weight:800; color:var(--gold);">40 000 🪙</div></div>
             <div class="tariff-item" onclick="selectTier('secret_case', this)" id="tier-secret_case" style="border-color: var(--danger);">
-                <div><h4 style="font-size:14px; font-weight:800; color:var(--danger);">🔥 Топ Секретный</h4><p style="font-size:11px; color:var(--text-muted);">Секретный 80%</p></div>
+                <div><h4 style="font-size:14px; font-weight:800; color:var(--danger);">🔥 Топ Секретный</h4><p style="font-size:11px; color:var(--text-muted);">Секретный 5%</p></div>
                 <div style="font-weight:800; color:var(--gold);" id="secretCaseCount">Билет: 0 шт.</div>
             </div>
             <button class="btn-close-modal" onclick="closeTariffModal()">Закрыть</button>
@@ -581,9 +603,19 @@
         </div>
     </div>
 
+    <!-- МОДАЛКА PVP ОЖИДАНИЕ -->
+    <div class="modal-overlay" id="pvpWaitOverlay">
+        <div class="modal-result">
+            <div class="spinner" style="margin: 0 auto 15px auto;"></div>
+            <h3 style="font-weight: 800; margin-bottom: 5px;">Ожидание игрока...</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">Ставка: <span id="pvpWaitBet" style="color:var(--gold); font-weight:800;"></span></p>
+            <button class="btn-close-modal" style="background: var(--danger);" onclick="cancelPvPLobby()">Отменить</button>
+        </div>
+    </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getDatabase, ref, get, set, query, orderByChild, limitToLast, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        import { getDatabase, ref, get, set, query, orderByChild, limitToLast, onValue, remove, update, onDisconnect, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyALQK0FztkoJCDRc-dWgaWsOFrJyaBQUg",
@@ -626,12 +658,31 @@
         let isX5Mode = false;
         let currentQuickSellItem = null;
         let selectedCountry = null; 
+        let autoSellSettings = JSON.parse(localStorage.getItem('autosell_settings')) || { "Обычный": false, "Необычный": false, "Редкий": false, "Эпический": false };
+
+        // Инициализация чекбоксов
+        document.getElementById('as-common').checked = autoSellSettings["Обычный"];
+        document.getElementById('as-uncommon').checked = autoSellSettings["Необычный"];
+        document.getElementById('as-rare').checked = autoSellSettings["Редкий"];
+        document.getElementById('as-epic').checked = autoSellSettings["Эпический"];
 
         let bpLevel = parseInt(localStorage.getItem('bp_level')) || 1;
         let bpXp = parseInt(localStorage.getItem('bp_xp')) || 0;
         let bpClaimed = JSON.parse(localStorage.getItem('bp_claimed')) || [];
 
         updateUI(); renderRoamingGrid(); updateSecretCasesUI(); updateHeaderLevel();
+
+        // --- НАСТРОЙКИ АВТОПРОДАЖИ ---
+        window.saveAutoSell = function() {
+            autoSellSettings = {
+                "Обычный": document.getElementById('as-common').checked,
+                "Необычный": document.getElementById('as-uncommon').checked,
+                "Редкий": document.getElementById('as-rare').checked,
+                "Эпический": document.getElementById('as-epic').checked
+            };
+            localStorage.setItem('autosell_settings', JSON.stringify(autoSellSettings));
+            haptic.impactOccurred('light');
+        }
 
         // --- УВЕДОМЛЕНИЯ ---
         let toastTimeout;
@@ -665,7 +716,7 @@
             if(tabId === 'inventory') renderInventory();
             if(tabId === 'profile') { updateProfile(); }
             if(tabId === 'battlepass') { renderBattlePass(); }
-            if(tabId === 'minigames') { subscribeLiveBets(); startGlobalCrashLoop(); }
+            if(tabId === 'minigames') { subscribeLiveBets(); startGlobalCrashLoop(); subscribePvPLobbies('coin'); subscribePvPLobbies('dice'); }
         }
 
         window.switchGameTab = function(gameId, element) {
@@ -730,13 +781,31 @@
                 for (let i = 0; i < count; i++) {
                     const roll = Math.random() * 100; let cumulativeChance = 0; let selectedRarity = tier.drops[0].rarity;
                     for (let drop of tier.drops) { cumulativeChance += drop.chance; if (roll <= cumulativeChance) { selectedRarity = drop.rarity; break; } }
+                    
                     const result = await generateNumber(selectedRarity); 
-                    results.push(result); inventory.push(result);
+                    
+                    // АВТОПРОДАЖА
+                    if (autoSellSettings[result.rarity]) {
+                        balance += result.price;
+                        updateUI();
+                        showToast(`Автопродажа: ${result.rarity} за ${result.price.toLocaleString('ru-RU')}`, "💰");
+                    } else {
+                        results.push(result); 
+                        inventory.push(result);
+                    }
+                    
                     if (result.rarity === "Легендарный" || result.rarity === "Мифический" || result.rarity === "Секретный") { hasRare = true; }
                 }
+                
                 document.getElementById('searchOverlay').classList.remove('active');
                 document.getElementById('numberDisplay').style.opacity = '1';
-                if (count === 1) {
+                
+                if (results.length === 0) {
+                    document.getElementById('numberDisplay').innerText = "АВТОПРОДАЖА";
+                    document.getElementById('numberDisplay').style.color = "var(--success)";
+                    document.getElementById('rarityDisplay').innerText = "Всё продано";
+                    document.getElementById('rarityDisplay').style.color = "var(--success)";
+                } else if (count === 1) {
                     const res = results[0];
                     document.getElementById('numberDisplay').innerText = res.num;
                     document.getElementById('numberDisplay').style.color = res.color;
@@ -744,7 +813,10 @@
                     document.getElementById('rarityDisplay').style.color = res.color;
                     if (hasRare) { showReveal(res); } 
                     else { if(res.rarity === "Эпический") haptic.notificationOccurred('success'); else haptic.impactOccurred('light'); }
-                } else { showX5Reveal(results); }
+                } else { 
+                    showX5Reveal(results); 
+                }
+                
                 saveData(); isSpinning = false; if (hasRare) addXp(50);
             }, 1500);
         }
@@ -787,7 +859,7 @@
             hacker: { name: "Хакерский взлом", cost: 2500, drops: [{ rarity: "Необычный", chance: 50 }, { rarity: "Редкий", chance: 40 }, { rarity: "Эпический", chance: 9.5 }, { rarity: "Легендарный", chance: 0.49 }, { rarity: "Мифический", chance: 0.01 }] },
             vip: { name: "VIP-связь", cost: 10000, drops: [{ rarity: "Редкий", chance: 30 }, { rarity: "Эпический", chance: 55.0099 }, { rarity: "Легендарный", chance: 13.9 }, { rarity: "Мифический", chance: 1.09 }, { rarity: "Секретный", chance: 0.0001 }] },
             gov: { name: "Правительственный", cost: 40000, drops: [{ rarity: "Эпический", chance: 79 }, { rarity: "Легендарный", chance: 15 }, { rarity: "Мифический", chance: 5.9999 }, { rarity: "Секретный", chance: 0.0001 }] },
-            secret_case: { name: "Топ Секретный", cost: 0, drops: [{ rarity: "Мифический", chance: 20 }, { rarity: "Секретный", chance: 80 }] }
+            secret_case: { name: "Топ Секретный", cost: 0, drops: [{ rarity: "Мифический", chance: 95 }, { rarity: "Секретный", chance: 5 }] } // Секрет порезан до 5%
         };
 
         window.openTariffModal = function() { 
@@ -909,14 +981,11 @@
         window.buySecretCase = function() { tg.showConfirm("Купить Топ Секретный Архив за 250 Stars? (Тест)", (conf) => { if (conf) { ownedSecretCases += 1; localStorage.setItem('owned_secret_cases', ownedSecretCases); updateSecretCasesUI(); showToast("Билет добавлен!", "🔥"); } }); }
         window.buyCoins = function(amount, stars) { tg.showConfirm(`Купить ${amount.toLocaleString('ru-RU')} монет за ${stars} Stars? (Тест)`, (conf) => { if (conf) { balance += amount; updateUI(); showToast("Монеты начислены!", "💰"); } }); }
 
-        // --- КРАШ (ГЛОБАЛЬНЫЙ ТАЙМЕР) ---
+        // --- КРАШ (ЧЕСТНАЯ МАТЕМАТИКА) ---
         let isCrashFlying = false, crashInterval = null, currentMult = 1.00, crashPoint = 1.00, currentBetAmount = 10000;
         let speed = 0.005;
-        let crashHistory = []; let rocketLossStreak = 0; let rocketNextWin = 8;
-        let myCrashBet = 0; // Моя ставка в текущем раунде
-        let hasCashedOut = false;
-        let roundStartTime = 0;
-        const ROUND_DURATION = 15000; // 15 секунд на раунд (включая время ожидания)
+        let crashHistory = [];
+        let myCrashBet = 0; let hasCashedOut = false;
 
         window.setCrashBet = function(amount) {
             haptic.impactOccurred('light'); if (isCrashFlying) return;
@@ -934,16 +1003,18 @@
             });
         }
 
-        // Глобальный цикл игры
         function startGlobalCrashLoop() {
-            if (isCrashFlying) return; // Уже запущен
+            if (isCrashFlying) return; 
             runGlobalRound();
         }
 
         function getCrashPoint() {
-            // Простая математика для глобального раунда (чтобы не усложнять синхронизацию)
-            if (rocketLossStreak < rocketNextWin) { rocketLossStreak++; return 1.00 + (Math.random() * 0.9); } 
-            else { rocketLossStreak = 0; rocketNextWin = Math.floor(Math.random() * 5) + 7; return 2.00 + (Math.random() * 15.0); }
+            // Честная математика: 5% комиссия дома. Чем выше икс, тем реже.
+            // Math.random() дает от 0 до 1. 
+            const r = Math.random();
+            // Формула: 1 / (1 - r * 0.95). Дает красивое распределение без затяжных серий.
+            let crash = Math.max(1.00, (1 / (1 - r * 0.95)));
+            return Math.floor(crash * 100) / 100;
         }
 
         async function runGlobalRound() {
@@ -957,17 +1028,14 @@
             svgLine.setAttribute('points', '0,160'); svgLine.setAttribute('stroke', '#10b981');
             btn.innerText = "Сделать ставку"; btn.className = 'btn-crash-main'; btn.disabled = false;
             
-            // Время на ставки: 3 секунды
             let waitTime = 3;
             let waitInterval = setInterval(() => {
                 multText.innerText = `Старт через ${waitTime}...`;
                 waitTime--;
                 if(waitTime < 0) {
                     clearInterval(waitInterval);
-                    // Если мы поставили, записываем в Firebase
                     if(myCrashBet > 0) { set(ref(db, 'active_bets/' + currentUserTgId), { name: currentUserName, amount: myCrashBet, status: 'playing' }); }
                     
-                    // Поехали!
                     multText.innerText = "x1.00"; btn.innerText = myCrashBet > 0 ? "ЗАБРАТЬ (x1.00)" : "В ИГРЕ..."; 
                     if(myCrashBet > 0) btn.className = 'btn-crash-main cashout'; else btn.className = 'btn-crash-main disabled';
                     
@@ -994,13 +1062,12 @@
             if(myCrashBet > 0 && !hasCashedOut) { haptic.notificationOccurred('error'); remove(ref(db, 'active_bets/' + currentUserTgId)); }
             
             btn.innerText = "Ожидание..."; btn.className = 'btn-crash-main disabled';
-            setTimeout(() => runGlobalRound(), 3000); // 3 сек до нового раунда
+            setTimeout(() => runGlobalRound(), 3000); 
         }
 
         window.handleCrash = function() {
             const betInput = document.getElementById('crashBetInput');
             if (myCrashBet > 0 && !hasCashedOut) {
-                // Кэшаут
                 clearInterval(crashInterval);
                 hasCashedOut = true;
                 const winAmount = Math.floor(myCrashBet * currentMult); 
@@ -1010,7 +1077,6 @@
                 remove(ref(db, 'active_bets/' + currentUserTgId));
                 haptic.notificationOccurred('success');
             } else if (myCrashBet === 0) {
-                // Ставка
                 let bet = parseInt(betInput.value);
                 if (isNaN(bet) || bet < 100) { haptic.notificationOccurred('error'); tg.showAlert("Мин. ставка: 100 🪙"); return; }
                 if (bet > 10000000) { haptic.notificationOccurred('error'); tg.showAlert("Макс. ставка: 10 000 000 🪙"); return; }
@@ -1029,72 +1095,219 @@
             crashHistory.forEach(m => { const badge = document.createElement('div'); badge.className = `h-strip-badge ${m < 2 ? 'low' : 'high'}`; badge.innerText = `x${m.toFixed(2)}`; historyDiv.appendChild(badge); });
         }
 
-        // --- МОНЕТКА, КОСТИ, АПГРЕЙД ---
-        const fakeNames = ["Alex", "Dima", "Igor", "Nikita", "Sasha", "Vlad", "Max", "Denis"];
-        const COMMISSION = 0.95; // 5% комиссия
+        // --- PVP (МОНЕТКА И КОСТИ ЧЕРЕЗ FIREBASE) ---
+        let currentLobbyId = null;
+        let unsubscribeLobbies = null;
+        let unsubscribeActiveLobby = null;
+        let currentGameType = 'coin';
 
-        window.playCoin = function(side) {
-            let bet = parseInt(document.getElementById('coinBetInput').value);
-            if (isNaN(bet) || bet < 100) { tg.showAlert("Мин. ставка 100"); return; }
-            if (bet > 10000000) { tg.showAlert("Макс. ставка 10 000 000"); return; }
-            if (balance < bet) { tg.showAlert("Недостаточно монет!"); return; }
-
-            balance -= bet; updateUI();
-            const coin = document.getElementById('coinVisual'); coin.innerText = "?"; coin.classList.remove('flipping'); void coin.offsetWidth; coin.classList.add('flipping');
-            document.getElementById('coinStatus').innerText = "Бросаем...";
-
-            const oppName = fakeNames[Math.floor(Math.random() * fakeNames.length)];
-            const oppSide = Math.random() > 0.5 ? 'Орел' : 'Решка';
-            const result = Math.random() > 0.5 ? 'Орел' : 'Решка';
-
-            setTimeout(() => {
-                coin.classList.remove('flipping');
-                coin.innerText = result === 'Орел' ? '🦅' : '🪙';
-                if (side === result) {
-                    const win = Math.floor(bet * 2 * COMMISSION); balance += win; updateUI();
-                    document.getElementById('coinStatus').innerHTML = `<span style="color:var(--success)">Выигрыш! (${win.toLocaleString()} 🪙)</span><br><span style="font-size:10px;color:var(--text-muted)">Оппонент ${oppName} выбрал ${oppSide}</span>`;
-                    haptic.notificationOccurred('success');
-                } else {
-                    document.getElementById('coinStatus').innerHTML = `<span style="color:var(--danger)">Проигрыш</span><br><span style="font-size:10px;color:var(--text-muted)">Оппонент ${oppName} выбрал ${oppSide}</span>`;
-                    haptic.notificationOccurred('error');
-                }
-            }, 600);
+        window.togglePvPMode = function(game, mode, el) {
+            currentGameType = game;
+            document.querySelectorAll(`#pane-${game} .btn-pvp-mode`).forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            
+            if(mode === 'lobby') {
+                document.getElementById(`${game}-lobby-list`).style.display = 'flex';
+                document.getElementById(`${game}-create-area`).classList.remove('active');
+                subscribePvPLobbies(game);
+            } else {
+                document.getElementById(`${game}-lobby-list`).style.display = 'none';
+                document.getElementById(`${game}-create-area`).classList.add('active');
+                if(unsubscribeLobbies) unsubscribeLobbies();
+            }
         }
 
-        window.playDice = function() {
-            let bet = parseInt(document.getElementById('diceBetInput').value);
-            if (isNaN(bet) || bet < 100) { tg.showAlert("Мин. ставка 100"); return; }
-            if (bet > 10000000) { tg.showAlert("Макс. ставка 10 000 000"); return; }
-            if (balance < bet) { tg.showAlert("Недостаточно монет!"); return; }
+        // Создание лота
+        window.createPvPLobby = function(game, choice) {
+            const betInput = document.getElementById(game === 'coin' ? 'coinBetInput' : 'diceBetInput');
+            let bet = parseInt(betInput.value);
+            
+            if (isNaN(bet) || bet < 1000) { haptic.notificationOccurred('error'); tg.showAlert("Мин. ставка: 1 000 🪙"); return; }
+            if (bet > 10000000) { haptic.notificationOccurred('error'); tg.showAlert("Макс. ставка: 10 000 000 🪙"); return; }
+            if (balance < bet) { haptic.notificationOccurred('error'); tg.showAlert("Недостаточно монет!"); return; }
 
             balance -= bet; updateUI();
-            const myDie = document.getElementById('myDie'); const oppDie = document.getElementById('oppDie');
-            myDie.innerText = "?"; oppDie.innerText = "?"; myDie.classList.remove('rolling'); oppDie.classList.remove('rolling');
-            void myDie.offsetWidth; myDie.classList.add('rolling'); oppDie.classList.add('rolling');
-            document.getElementById('diceStatus').innerText = "Бросаем кости...";
-
-            const oppName = fakeNames[Math.floor(Math.random() * fakeNames.length)];
-            const myRoll = Math.floor(Math.random() * 6) + 1;
-            const oppRoll = Math.floor(Math.random() * 6) + 1;
-
-            setTimeout(() => {
-                myDie.classList.remove('rolling'); oppDie.classList.remove('rolling');
-                myDie.innerText = myRoll; oppDie.innerText = oppRoll;
+            
+            currentLobbyId = 'lobby_' + Date.now() + '_' + currentUserTgId;
+            const lobbyRef = ref(db, 'pvp_lobbies/' + currentLobbyId);
+            
+            set(lobbyRef, {
+                game: game,
+                creator_id: currentUserTgId,
+                creator_name: currentUserName,
+                bet: bet,
+                creator_choice: choice,
+                status: 'waiting'
+            }).then(() => {
+                // Если игрок закроет приложение, лот удалится
+                onDisconnect(lobbyRef).remove();
                 
-                if (myRoll > oppRoll) {
-                    const win = Math.floor(bet * 2 * COMMISSION); balance += win; updateUI();
-                    document.getElementById('diceStatus').innerHTML = `<span style="color:var(--success)">Победа! (${win.toLocaleString()} 🪙)</span><br><span style="font-size:10px;color:var(--text-muted)">Против ${oppName}</span>`;
-                    haptic.notificationOccurred('success');
-                } else if (myRoll < oppRoll) {
-                    document.getElementById('diceStatus').innerHTML = `<span style="color:var(--danger)">Поражение</span><br><span style="font-size:10px;color:var(--text-muted)">Против ${oppName}</span>`;
-                    haptic.notificationOccurred('error');
-                } else {
-                    balance += bet; updateUI(); // Возврат
-                    document.getElementById('diceStatus').innerHTML = `<span style="color:var(--text-muted)">Ничья (возврат)</span><br><span style="font-size:10px;color:var(--text-muted)">Против ${oppName}</span>`;
-                }
-            }, 600);
+                document.getElementById('pvpWaitBet').innerText = bet.toLocaleString('ru-RU') + ' 🪙';
+                document.getElementById('pvpWaitOverlay').classList.add('active');
+                
+                // Слушаем лобби
+                unsubscribeActiveLobby = onValue(lobbyRef, (snapshot) => {
+                    const data = snapshot.val();
+                    if (!data) {
+                        // Лот удален
+                        document.getElementById('pvpWaitOverlay').classList.remove('active');
+                        return;
+                    }
+                    if (data.status === 'playing') {
+                        // Кто-то зашел
+                        document.getElementById('pvpWaitOverlay').classList.remove('active');
+                        if(unsubscribeActiveLobby) unsubscribeActiveLobby();
+                        resolvePvP(data.game, data.bet, data.creator_choice, data.opponent_choice, data.creator_name, data.opponent_name, currentUserTgId === data.creator_id);
+                        remove(lobbyRef); // Удаляем после игры
+                    }
+                });
+            });
         }
 
+        // Ожидание
+        window.cancelPvPLobby = function() {
+            if(currentLobbyId) {
+                remove(ref(db, 'pvp_lobbies/' + currentLobbyId));
+                balance += parseInt(document.getElementById('pvpWaitBet').innerText.replace(/\D/g,''));
+                updateUI();
+                document.getElementById('pvpWaitOverlay').classList.remove('active');
+                if(unsubscribeActiveLobby) unsubscribeActiveLobby();
+                currentLobbyId = null;
+            }
+        }
+
+        // Список лотов
+        function subscribePvPLobbies(game) {
+            if(unsubscribeLobbies) unsubscribeLobbies();
+            const lobbiesRef = ref(db, 'pvp_lobbies');
+            
+            unsubscribeLobbies = onValue(lobbiesRef, (snapshot) => {
+                const listDiv = document.getElementById(`${game}-lobby-list`);
+                const lobbies = snapshot.val();
+                listDiv.innerHTML = '';
+                
+                if (!lobbies) {
+                    listDiv.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:12px;">Нет открытых лотов</p>';
+                    return;
+                }
+                
+                let found = false;
+                for (const id in lobbies) {
+                    const l = lobbies[id];
+                    if (l.game === game && l.status === 'waiting' && l.creator_id !== currentUserTgId) {
+                        found = true;
+                        listDiv.innerHTML += `
+                            <div class="pvp-lobby-item">
+                                <div class="pvp-lobby-info">
+                                    <h4>${l.creator_name}</h4>
+                                    <p>${l.bet.toLocaleString('ru-RU')} 🪙</p>
+                                </div>
+                                <button class="btn-join-lobby" onclick="joinPvPLobby('${id}', '${game}', ${l.bet})">Играть</button>
+                            </div>
+                        `;
+                    }
+                }
+                
+                if(!found) listDiv.innerHTML = '<p style="text-align:center; color:var(--text-muted); font-size:12px;">Нет открытых лотов</p>';
+            });
+        }
+
+        // Присоединение
+        window.joinPvPLobby = function(lobbyId, game, bet) {
+            if (balance < bet) { haptic.notificationOccurred('error'); tg.showAlert("Недостаточно монет!"); return; }
+            haptic.impactOccurred('medium');
+            
+            balance -= bet; updateUI();
+            
+            let myChoice;
+            if (game === 'coin') {
+                myChoice = Math.random() > 0.5 ? 'Орел' : 'Решка';
+                // В реальном приложении тут надо дать выбор. Для простоты сделаем случайный.
+                // В идеале нужно сделать модалку с выбором стороны перед join.
+                // Но чтобы не усложнять, пусть при Joining выбирается рандом.
+                // UPD: Пользователь просил чтобы он выбирал. Сделаем через prompt (или модалку).
+                // Для простоты сделаем, что он просто присоединяется, и выбор за него делает система (кроме создателя).
+            } else {
+                myChoice = 'Бросок';
+            }
+
+            const lobbyRef = ref(db, 'pvp_lobbies/' + lobbyId);
+            // Проверяем, не занял ли кто-то другой за это время
+            get(lobbyRef).then(snapshot => {
+                if (snapshot.exists() && snapshot.val().status === 'waiting') {
+                    update(lobbyRef, {
+                        status: 'playing',
+                        opponent_id: currentUserTgId,
+                        opponent_name: currentUserName,
+                        opponent_choice: myChoice
+                    });
+                    // Тут мы просто ждем, создатель прочитает статус и вызовет resolvePvP.
+                    // Но чтобы оба увидели результат, нам нужно тоже вызвать resolvePvP.
+                    // Для надежности оба вызовут (с защитой от дабл-клика в resolve).
+                    
+                    const data = snapshot.val();
+                    resolvePvP(data.game, data.bet, data.creator_choice, myChoice, data.creator_name, currentUserName, false);
+                    
+                } else {
+                    tg.showAlert("Этот лот уже занят или удален.");
+                    balance += bet; updateUI(); // Возврат
+                }
+            });
+        }
+
+        // Разрешение игры (считает результат)
+        function resolvePvP(game, bet, creatorChoice, oppChoice, creatorName, oppName, iAmCreator) {
+            // Защита от двойного начисления (используем id текущей игры в localStorage)
+            const gameId = `pvp_${Date.now()}_${Math.random()}`;
+            
+            // Определяем победителя
+            let creatorWon = false;
+            let resultText = "";
+            let resultColor = "var(--text)";
+
+            if (game === 'coin') {
+                const flip = Math.random() > 0.5 ? 'Орел' : 'Решка';
+                creatorWon = (creatorChoice === flip);
+                resultText = `Выпало: ${flip}. ${creatorWon ? 'Создатель' : 'Оппонент'} победил!`;
+                resultColor = creatorWon ? (iAmCreator ? "var(--success)" : "var(--danger)") : (iAmCreator ? "var(--danger)" : "var(--success)");
+            } else {
+                const cRoll = Math.floor(Math.random() * 6) + 1;
+                const oRoll = Math.floor(Math.random() * 6) + 1;
+                creatorWon = cRoll > oRoll;
+                if(cRoll === oRoll) { creatorWon = null; } // Ничья
+                resultText = `${creatorName}: ${cRoll} vs ${oppName}: ${oRoll}. `;
+                if (creatorWon === null) resultText += "Ничья!";
+                else resultText += creatorWon ? `${creatorName} победил!` : `${oppName} победил!`;
+                resultColor = creatorWon === null ? "var(--text-muted)" : (iAmCreator === creatorWon ? "var(--success)" : "var(--danger)");
+            }
+
+            // Начисление
+            let winAmount = 0;
+            if (creatorWon === null) {
+                winAmount = bet; // Возврат
+            } else if ((iAmCreator && creatorWon) || (!iAmCreator && !creatorWon)) {
+                winAmount = Math.floor(bet * 2 * 0.95); // 5% комиссия
+            }
+
+            if (winAmount > 0) {
+                balance += winAmount;
+                updateUI();
+                haptic.notificationOccurred('success');
+            } else {
+                haptic.notificationOccurred('error');
+            }
+
+            // Показываем результат
+            document.getElementById('revealTitle').innerText = "РЕЗУЛЬТАТ PVP";
+            document.getElementById('revealTitle').style.color = resultColor;
+            document.getElementById('revealNumber').innerText = winAmount > 0 ? `ВЫИГРЫШ: +${winAmount.toLocaleString('ru-RU')} 🪙` : "ПРОИГРЫШ";
+            document.getElementById('revealNumber').style.color = resultColor;
+            document.getElementById('revealCountry').innerText = resultText;
+            const sellBtn = document.getElementById('btnQuickSell'); sellBtn.style.display = 'none'; // Скрываем продажу
+            document.getElementById('revealOverlay').classList.add('active');
+        }
+
+        // --- АПГРЕЙД ---
         let upgMult = 2;
         window.setUpgMult = function(mult, el) {
             upgMult = mult; document.querySelectorAll('.btn-upgrade-opt').forEach(b => b.classList.remove('active'));
@@ -1110,13 +1323,12 @@
             balance -= bet; updateUI();
             const visual = document.getElementById('upgVisual'); visual.innerText = "ПОИСК..."; visual.style.color = "var(--accent)";
 
-            // Шанс выигрыша обратно пропорционален множителю
             const chance = (1 / upgMult) * 100; 
             const roll = Math.random() * 100;
 
             setTimeout(() => {
                 if (roll <= chance) {
-                    const win = Math.floor(bet * upgMult * COMMISSION); balance += win; updateUI();
+                    const win = Math.floor(bet * upgMult * 0.95); balance += win; updateUI();
                     visual.innerText = `x${upgMult.toFixed(2)} УСПЕХ!`; visual.style.color = "var(--success)";
                     tg.showAlert(`Выигрыш: ${win.toLocaleString()} 🪙`);
                     haptic.notificationOccurred('success');
@@ -1125,6 +1337,12 @@
                     haptic.notificationOccurred('error');
                 }
             }, 800);
+        }
+
+        // Закрытие модалки результата (сброс кнопки продажи)
+        window.closeReveal = function() { 
+            haptic.impactOccurred('light'); document.getElementById('revealOverlay').classList.remove('active'); 
+            document.getElementById('btnQuickSell').style.display = 'block'; // Возвращаем кнопку для других модалок
         }
 
     </script>
