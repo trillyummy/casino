@@ -9,8 +9,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
         :root {
             --bg: #090a0f; 
-            --card: rgba(25, 28, 38, 0.75); 
-            --card-hover: rgba(35, 38, 50, 0.9);
+            --card: rgba(25, 28, 38, 0.85); 
             --text: #ffffff; 
             --text-muted: #8b92a5;
             --accent: #3b82f6; 
@@ -25,7 +24,6 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
         
-        /* НОВЫЙ КРАСИВЫЙ ФОН */
         body { 
             background-color: var(--bg); 
             color: var(--text); 
@@ -34,44 +32,79 @@
             flex-direction: column; 
             overflow: hidden; 
             background-image: 
-                radial-gradient(circle at 10% 10%, rgba(59, 130, 246, 0.2), transparent 40%), 
-                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.2), transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.1), transparent 50%);
-            background-size: cover;
+                radial-gradient(circle at 10% 10%, rgba(59, 130, 246, 0.15), transparent 40%), 
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.15), transparent 40%);
         }
         
-        .top-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(9,10,15,0.9), transparent); }
-        .balance { font-size: 15px; font-weight: 800; color: var(--gold); display: flex; align-items: center; gap: 6px; background: rgba(251, 191, 36, 0.15); padding: 8px 16px; border-radius: 30px; border: 1px solid rgba(251, 191, 36, 0.3); backdrop-filter: blur(10px); }
-        .menu-btn { width: 36px; height: 36px; border-radius: 50%; background: var(--card); border: 1px solid var(--border); display: flex; justify-content: center; align-items: center; cursor: pointer; backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.2s; }
+        /* ШАПКА */
+        .top-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; pointer-events: none;}
+        .user-info { display: flex; align-items: center; gap: 10px; pointer-events: auto;}
+        .header-avatar { width: 40px; height: 40px; border-radius: 50%; background: #333; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 2px solid rgba(255,255,255,0.1); }
+        .header-level { background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 5px; border: 1px solid var(--border); }
+        .header-level-bar { width: 30px; height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; overflow: hidden;}
+        .header-level-fill { height: 100%; background: var(--success); width: 50%; transition: width 0.3s;}
+        
+        .header-right { display: flex; align-items: center; gap: 10px; pointer-events: auto;}
+        .balance { font-size: 14px; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 4px; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); padding: 8px 12px; border-radius: 20px; border: 1px solid var(--border);}
+        .menu-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(0,0,0,0.5); border: 1px solid var(--border); display: flex; justify-content: center; align-items: center; cursor: pointer; backdrop-filter: blur(10px); transition: 0.2s; }
         .menu-btn:active { transform: scale(0.9); }
         .menu-btn svg { width: 20px; height: 20px; fill: var(--text); }
 
-        /* МЕНЮ СНИЗУ */
-        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        /* НИЖНЕЕ МЕНЮ */
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
+        
         .sidebar { 
             position: fixed; bottom: -100%; left: 0; right: 0; 
             width: 100%; max-width: 500px; margin: 0 auto;
-            background: var(--card); backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border); 
-            border-radius: 30px 30px 0 0;
-            z-index: 999; display: flex; flex-direction: column; padding: 20px 20px 30px 20px; 
+            height: 88vh;
+            background: #111318; 
+            border-top: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 24px 24px 0 0;
+            z-index: 999; display: flex; flex-direction: column; 
             transition: bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            max-height: 85vh; overflow-y: auto; 
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+            overflow-y: auto;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
         }
         .sidebar.active { bottom: 0; }
-        .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .sidebar-header h3 { font-size: 18px; font-weight: 900; text-transform: uppercase; }
-        .close-sidebar { background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; }
         
-        .menu-list { display: flex; flex-direction: column; gap: 8px; }
-        .menu-item { background: rgba(255,255,255,0.03); border: 1px solid transparent; border-radius: var(--radius-md); padding: 12px 15px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.2s; }
-        .menu-item:active { transform: scale(0.97); background: rgba(255,255,255,0.08); }
-        .menu-item.active { background: rgba(59, 130, 246, 0.1); border-color: var(--accent); }
-        .menu-item span { font-size: 14px; font-weight: 700; color: var(--text); }
-        .menu-item.active span { color: var(--accent); }
+        .swipe-bar { width: 40px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; margin: 10px auto 15px auto; flex-shrink: 0;}
+        
+        .menu-content { padding: 0 15px 30px 15px; display: flex; flex-direction: column; gap: 15px; }
 
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        
+        /* Кнопки меню */
+        .menu-box-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-md); padding: 12px 5px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s; position: relative;}
+        .menu-box-btn:active { transform: scale(0.95); background: rgba(255,255,255,0.08); }
+        .menu-box-btn span { font-size: 11px; font-weight: 600; color: var(--text); text-align: center; line-height: 1.2;}
+        
+        /* Иконки */
+        .icon-box { width: 42px; height: 42px; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; }
+        .ic-purple { background: rgba(139, 92, 246, 0.15); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.2); }
+        .ic-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.2); }
+        .ic-gold { background: rgba(251, 191, 36, 0.15); color: #fcd34d; border: 1px solid rgba(251, 191, 36, 0.2); }
+        .ic-red { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.2); }
+        .ic-green { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .ic-grey { background: rgba(255, 255, 255, 0.1); color: #d1d5db; border: 1px solid rgba(255, 255, 255, 0.1); }
+        
+        .wide-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-md); padding: 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.2s;}
+        .wide-btn:active { transform: scale(0.97); background: rgba(255,255,255,0.08); }
+        .wide-btn h4 { font-size: 13px; font-weight: 700; margin-bottom: 2px; color: var(--text);}
+        .wide-btn p { font-size: 10px; color: var(--text-muted); font-weight: 600;}
+        
+        .menu-category { display: flex; flex-direction: column; gap: 8px; margin-top: 5px; }
+        .category-title { font-size: 12px; font-weight: 800; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-left: 5px; margin-bottom: 2px;}
+        
+        .small-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-md); padding: 10px 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.2s;}
+        .small-btn:active { transform: scale(0.97); background: rgba(255,255,255,0.08); }
+        .small-btn span { font-size: 12px; font-weight: 600; color: var(--text); }
+        .small-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 16px; flex-shrink: 0;}
+
+        .badge { position: absolute; top: 8px; right: 8px; width: 10px; height: 10px; background: var(--danger); border-radius: 50%; border: 2px solid #111318;}
+
+        /* ЭКРАНЫ */
         .screen { display: none; flex: 1; padding: 75px 15px 15px 15px; flex-direction: column; overflow-y: auto; animation: fadeIn 0.2s ease; }
         .screen.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -130,7 +163,7 @@
         /* МОДАЛКИ */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 9998; display: flex; justify-content: center; align-items: flex-end; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .bottom-sheet { width: 100%; max-width: 500px; background: var(--card); backdrop-filter: blur(20px); border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 25px 20px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1); max-height: 85vh; overflow-y: auto; border: 1px solid var(--border); }
+        .bottom-sheet { width: 100%; max-width: 500px; background: #111318; border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 25px 20px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1); max-height: 85vh; overflow-y: auto; border: 1px solid var(--border); }
         .modal-overlay.active .bottom-sheet { transform: translateY(0); }
         .modal-title { font-size: 18px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 20px; }
         .tariff-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(0,0,0,0.3); border-radius: var(--radius-md); margin-bottom: 10px; cursor: pointer; border: 1px solid transparent;}
@@ -146,36 +179,137 @@
 
         .lvlup-btn { background: var(--gold); color: #000; padding: 8px 15px; border-radius: var(--radius-sm); font-weight: 800; border: none; cursor: pointer; margin-top: 10px; width: 100%; text-transform: uppercase;}
         .lvlup-btn:disabled { background: #2d3041; color: var(--text-muted); }
+
+        .empty-screen { display: flex; justify-content: center; align-items: center; height: 100%; color: var(--text-muted); font-weight: 700; flex-direction: column; gap: 10px;}
+        .empty-screen span { font-size: 40px; }
     </style>
 </head>
 <body>
     <div class="toast-container" id="toast"><span class="toast-icon">🎉</span><span id="toastText">Уведомление</span></div>
 
+    <!-- ШАПКА -->
     <div class="top-header">
-        <div style="font-weight: 900; font-size: 18px; letter-spacing: 1px;">SIM<span style="color:var(--accent)">CITY</span></div>
-        <div style="display: flex; gap: 10px; align-items: center;">
-            <div class="balance"><span id="userBalance">5 000</span> 🪙</div>
+        <div class="user-info">
+            <div class="header-avatar" id="headerAvatar">👤</div>
+            <div class="header-level">
+                Ур. <span id="headerLvl">1</span>
+                <div class="header-level-bar"><div class="header-level-fill" id="headerLvlBar"></div></div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="balance">🪙 <span id="userBalance">45 484</span></div>
             <div class="menu-btn" onclick="toggleMenu()"><svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></div>
         </div>
     </div>
 
-    <!-- МЕНЮ СНИЗУ -->
+    <!-- НИЖНЕЕ МЕНЮ -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
     <div class="sidebar" id="sidebar">
-        <div class="sidebar-header"><h3>Меню</h3><button class="close-sidebar" onclick="toggleMenu()">✕</button></div>
-        <div class="menu-list">
-            <div class="menu-item active" onclick="switchTab('game', this)"><span>Синтез</span></div>
-            <div class="menu-item" onclick="switchTab('minigames', this)"><span>Спутник</span></div>
-            <div class="menu-item" onclick="switchTab('inventory', this)"><span>База</span></div>
-            <div class="menu-item" onclick="switchTab('shop', this)"><span>Магазин</span></div>
-            <div class="menu-item" onclick="switchTab('profile', this)"><span>Профиль</span></div>
-            <div class="menu-item" onclick="switchTab('chances', this)"><span>Шансы</span></div>
-            <div class="menu-item" onclick="switchTab('promo', this)"><span>Промокоды</span></div>
-            <div class="menu-item" onclick="switchTab('buyer', this)"><span>Скупщик</span></div>
+        <div class="swipe-bar"></div>
+        <div class="menu-content">
+            
+            <div class="grid-4">
+                <div class="menu-box-btn" onclick="switchTab('game', this)">
+                    <div class="icon-box ic-purple">🎰</div>
+                    <span>Крутка</span>
+                </div>
+                <div class="menu-box-btn" onclick="switchTab('inventory', this)">
+                    <div class="icon-box ic-blue">📁</div>
+                    <span>Коллекция</span>
+                </div>
+                <div class="menu-box-btn" onclick="showToast('Рулетка скоро!', '🎡')">
+                    <div class="icon-box ic-gold">🎡</div>
+                    <span>Рулетка</span>
+                </div>
+                <div class="menu-box-btn" onclick="switchTab('minigames', this)">
+                    <div class="icon-box ic-gold">🎮</div>
+                    <span>Игры</span>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="wide-btn" onclick="switchTab('battlepass', this)">
+                    <div class="icon-box ic-gold" style="width: 32px; height: 32px; font-size: 16px;">👑</div>
+                    <div>
+                        <h4>Пропуск · 50</h4>
+                        <p style="color:var(--gold);">забрать 3</p>
+                    </div>
+                </div>
+                <div class="wide-btn" onclick="switchTab('shop', this)">
+                    <div class="icon-box ic-grey" style="width: 32px; height: 32px; font-size: 16px;">🛒</div>
+                    <div>
+                        <h4>Магазин</h4>
+                        <p>VIP, удача, тег...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <div class="category-title">Игрок</div>
+                <div class="grid-2">
+                    <div class="small-btn" onclick="switchTab('profile', this)">
+                        <div class="small-icon ic-blue">👤</div><span>Профиль</span>
+                    </div>
+                    <div class="small-btn" onclick="showToast('Скоро добавим!', '🚧')">
+                        <div class="small-icon ic-red">👥</div><span>Друзья</span>
+                    </div>
+                    <div class="small-btn" onclick="showToast('Скоро добавим!', '🚧')">
+                        <div class="small-icon ic-gold">🏆</div><span>Рейтинг</span>
+                    </div>
+                    <div class="small-btn" onclick="showToast('Скоро добавим!', '🚧')">
+                        <div class="small-icon ic-gold">🎖️</div><span>Достижения</span>
+                    </div>
+                    <div class="small-btn" onclick="showToast('Скоро добавим!', '🚧')">
+                        <div class="small-icon ic-purple">📜</div><span>История</span>
+                    </div>
+                    <div class="small-btn" onclick="showToast('Скоро добавим!', '🚧')">
+                        <div class="small-icon ic-green">🏪</div><span>Салоны</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <div class="category-title">Сервисы</div>
+                <div class="grid-2">
+                    <div class="small-btn" onclick="switchTab('buyer', this)">
+                        <div class="small-icon ic-gold">🏷️</div><span>Скупщик</span>
+                    </div>
+                    <div class="small-btn" onclick="showToast('Скоро добавим!', '🚧')">
+                        <div class="small-icon ic-blue">🔍</div><span>Проверка</span>
+                    </div>
+                    <div class="small-btn" onclick="switchTab('promo', this)" style="position:relative;">
+                        <div class="small-icon ic-purple">🎁</div><span>Промокод</span>
+                        <div class="badge" id="promoBadge"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-category">
+                <div class="category-title">Справка</div>
+                <div class="grid-2">
+                    <div class="small-btn" onclick="switchTab('chances', this)">
+                        <div class="small-icon ic-gold">📊</div><span>Шансы и правила</span>
+                    </div>
+                    <div class="small-btn" onclick="showToast('Скоро добавим!', '🚧')">
+                        <div class="small-icon ic-red">📕</div><span>Правила</span>
+                    </div>
+                    <div class="small-btn" onclick="showToast('Скоро добавим!', '🚧')">
+                        <div class="small-icon ic-grey">📄</div><span>Документы</span>
+                    </div>
+                    <div class="small-btn" onclick="showToast('Скоро добавим!', '🚧')">
+                        <div class="small-icon ic-grey">⚙️</div><span>Настройки</span>
+                    </div>
+                    <div class="small-btn" onclick="showToast('Скоро добавим!', '🚧')">
+                        <div class="small-icon ic-blue">🔊</div><span>Канал</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-main" style="margin-top: 10px; background: rgba(255,255,255,0.05); box-shadow: none; color: var(--text-muted);" onclick="toggleMenu()">Закрыть меню</button>
         </div>
     </div>
 
-    <!-- ЭКРАН: СИНТЕЗ -->
+    <!-- ЭКРАНЫ -->
     <div id="screen-game" class="screen active">
         <div class="case-container">
             <h3 style="margin-bottom: 10px; font-weight: 800; font-size: 16px; text-transform: uppercase;">Синтез Номера</h3>
@@ -191,7 +325,6 @@
         </div>
     </div>
 
-    <!-- ЭКРАН: СПУТНИК -->
     <div id="screen-minigames" class="screen">
         <div class="rocket-container">
             <div style="width: 100%; display: flex; gap: 10px; align-items: center;">
@@ -204,9 +337,7 @@
                 <button class="btn-bet" onclick="setBet('ALL')">MAX</button>
             </div>
             <p style="font-size: 12px; color: var(--text-muted); font-weight: 700; text-align: center;">Топливо: <span id="currentBetDisplay" style="color: var(--gold);">10 000</span> 🪙</p>
-            <div class="history-container" id="rocketHistory">
-                <!-- История полетов -->
-            </div>
+            <div class="history-container" id="rocketHistory"></div>
             <div class="rocket-display" id="rocketDisplay">
                 <div class="rocket-emoji" id="rocketEmoji">🚀</div>
                 <div class="rocket-multiplier" id="rocketMultiplier">x1.00</div>
@@ -215,13 +346,11 @@
         </div>
     </div>
 
-    <!-- ЭКРАН: БАЗА -->
     <div id="screen-inventory" class="screen">
         <div class="inventory-header"><h2 style="font-weight: 900; text-transform: uppercase; font-size: 18px;">Твоя База</h2><button class="btn-sell-all" onclick="sellAllNumbers()">Продать всё</button></div>
         <div id="inventoryList" style="padding-bottom: 20px;"></div>
     </div>
 
-    <!-- ЭКРАН: МАГАЗИН -->
     <div id="screen-shop" class="screen">
         <h2 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; font-size: 18px; text-align: center;">Магазин</h2>
         <div class="shop-card">
@@ -236,7 +365,6 @@
         </div>
     </div>
 
-    <!-- ЭКРАН: ПРОФИЛЬ -->
     <div id="screen-profile" class="screen">
         <div class="profile-layout">
             <div class="profile-card">
@@ -271,7 +399,6 @@
         </div>
     </div>
 
-    <!-- ЭКРАН: ШАНСЫ -->
     <div id="screen-chances" class="screen">
         <h2 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; font-size: 18px; text-align: center;">Шансы выпадения</h2>
         <div class="profile-card">
@@ -279,7 +406,6 @@
         </div>
     </div>
 
-    <!-- ЭКРАН: ПРОМОКОДЫ -->
     <div id="screen-promo" class="screen">
         <h2 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; font-size: 18px; text-align: center;">Промокоды</h2>
         <div class="profile-card">
@@ -288,13 +414,16 @@
         </div>
     </div>
 
-    <!-- ЭКРАН: СКУПЩИК -->
     <div id="screen-buyer" class="screen">
         <h2 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; font-size: 18px; text-align: center;">Скупщик</h2>
         <div class="profile-card">
             <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px; text-align: center;">Скупщик дает +20% к цене номеров из твоей базы, но забирает их все сразу.</p>
             <button class="btn-main" style="width: 100%; background: linear-gradient(135deg, #10b981, #059669);" onclick="sellToBuyer()">Сдать всю базу (+20%)</button>
         </div>
+    </div>
+    
+    <div id="screen-battlepass" class="screen">
+        <div class="empty-screen"><span>👑</span><br>Батл Пасс в разработке</div>
     </div>
 
     <!-- МОДАЛКИ -->
@@ -368,9 +497,8 @@
         };
         let usedPromos = JSON.parse(localStorage.getItem('used_promos')) || [];
 
-        // ИСПРАВЛЕННАЯ ГЕНЕРАЦИЯ НОМЕРА (ТОЛЬКО ЦИФРЫ)
         function generatePhoneNumber() {
-            let code = Math.floor(Math.random() * 9) + 1; // От 1 до 9
+            let code = Math.floor(Math.random() * 9) + 1;
             let p1 = Math.floor(Math.random() * 900) + 100;
             let p2 = Math.floor(Math.random() * 90) + 10;
             let p3 = Math.floor(Math.random() * 90) + 10;
@@ -384,6 +512,8 @@
             
             let xpNeeded = userLevel * 100;
             document.getElementById('userLevel').innerText = userLevel;
+            document.getElementById('headerLvl').innerText = userLevel;
+            document.getElementById('headerLvlBar').style.width = `${(userXp / xpNeeded) * 100}%`;
             document.getElementById('userXpText').innerText = `${userXp} / ${xpNeeded} XP`;
             document.getElementById('userXpBar').style.width = `${(userXp / xpNeeded) * 100}%`;
             
@@ -394,6 +524,12 @@
             let untilGuarantee = 1000 - (statOpened % 1000);
             if(untilGuarantee === 1000 && statOpened > 0) untilGuarantee = 0;
             document.getElementById('guaranteeCount').innerText = untilGuarantee;
+
+            // Бейдж на промокодах (если есть неиспользованные)
+            const badge = document.getElementById('promoBadge');
+            if (badge) {
+                 badge.style.display = (Object.keys(promoCodes).length > usedPromos.length) ? 'block' : 'none';
+            }
 
             localStorage.setItem('casino_balance', balance);
             localStorage.setItem('casino_inventory', JSON.stringify(inventory));
@@ -436,7 +572,7 @@
         window.switchTab = function(tabId, element) {
             toggleMenu();
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.menu-item').forEach(n => n.classList.remove('active'));
+            document.querySelectorAll('.menu-item, .menu-box-btn, .small-btn, .wide-btn').forEach(n => n.classList.remove('active'));
             document.getElementById('screen-' + tabId).classList.add('active');
             if(element) element.classList.add('active');
             
@@ -785,7 +921,6 @@
                 let winAmount = Math.floor(rocketBet * rocketMult);
                 balance += winAmount;
                 
-                // ЗАПИСЬ В ИСТОРИЮ ПРИ УСПЕШНОМ ЗАБОРЕ
                 rocketHistory.unshift(rocketMult);
                 if(rocketHistory.length > 10) rocketHistory.pop();
                 
@@ -814,6 +949,7 @@
             document.getElementById('userName').innerText = tg.initDataUnsafe.user.first_name || "Игрок";
             if(tg.initDataUnsafe.user.photo_url) {
                 document.getElementById('userAvatar').innerHTML = `<img src="${tg.initDataUnsafe.user.photo_url}" style="width:100%; height:100%; object-fit:cover;">`;
+                document.getElementById('headerAvatar').innerHTML = `<img src="${tg.initDataUnsafe.user.photo_url}" style="width:100%; height:100%; object-fit:cover;">`;
             }
         }
         updateUI();
