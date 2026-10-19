@@ -105,19 +105,24 @@
         .game-pane.active { display: flex; }
 
         /* КРАШ */
-        .crash-graph-container { width: 100%; height: 220px; background: radial-gradient(circle at center, #111 0%, #000 100%); border-radius: 16px; position: relative; overflow: hidden; border: 2px solid rgba(255,255,255,0.08); margin-bottom: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.8); background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 25% 50%; }
+        .crash-graph-container { width: 100%; height: 240px; background: radial-gradient(circle at center, #111 0%, #000 100%); border-radius: 16px; position: relative; overflow: hidden; border: 2px solid rgba(255,255,255,0.08); margin-bottom: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.8); background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 25% 50%; }
         .crash-graph-svg { width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1;}
-        .crash-big-mult { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 56px; font-weight: 900; color: white; z-index: 2; text-shadow: 0 0 20px rgba(255,255,255,0.3); letter-spacing: -1px; transition: color 0.2s; }
+        .crash-big-mult { position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); font-size: 64px; font-weight: 900; color: white; z-index: 2; text-shadow: 0 0 20px rgba(255,255,255,0.3); letter-spacing: -2px; transition: color 0.2s; }
         .crash-big-mult.crashed { color: var(--danger); text-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+        .crash-profit-display { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 18px; font-weight: 800; color: var(--success); z-index: 2; text-shadow: 0 0 10px rgba(16, 185, 129, 0.5); opacity: 0; transition: opacity 0.2s; }
+        .crash-profit-display.show { opacity: 1; }
+        
         .history-strip { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 12px; padding-bottom: 5px;}
         .h-strip-badge { padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; background: rgba(255,255,255,0.1); color: white; white-space: nowrap;}
         .h-strip-badge.high { color: var(--success); background: rgba(16,185,129,0.2);}
         .h-strip-badge.low { color: var(--danger); background: rgba(239,68,68,0.2);}
+        
         .crash-control-panel { background: rgba(255,255,255,0.03); border-radius: 16px; padding: 15px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; }
         .bet-input-large { width: 100%; background: #000; border: 1px solid #333; color: white; border-radius: 12px; padding: 12px; font-size: 22px; font-weight: 900; outline: none; margin-bottom: 12px; text-align: center; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);}
         .bet-presets { display: flex; gap: 8px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 5px; justify-content: center;}
         .btn-preset { padding: 10px 0; flex: 1; border-radius: 10px; background: #1a1a1a; border: none; color: white; font-size: 11px; font-weight: 800; white-space: nowrap; cursor: pointer; transition: 0.2s;}
         .btn-preset.active { background: white; color: black; }
+        
         .btn-crash-main { width: 100%; padding: 20px; border-radius: 16px; background: #10b981; color: white; font-size: 20px; font-weight: 900; border: none; text-transform: uppercase; transition: 0.1s; margin-bottom: 10px; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);}
         .btn-crash-main.cashout { background: #fbbf24; color: black; box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4); animation: pulseGold 1.5s infinite; }
         .btn-crash-main.disabled { background: rgba(255,255,255,0.1); color: var(--text-muted); box-shadow: none; animation: none; }
@@ -125,20 +130,15 @@
 
         /* 3D КУБИКИ И МОНЕТКА */
         .game-board { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; perspective: 1000px; }
-        
         .dice-container { display: flex; gap: 20px; margin: 20px 0; }
         .dice-3d { width: 80px; height: 80px; position: relative; transform-style: preserve-3d; transition: transform 0.1s; }
         .dice-face { position: absolute; width: 100%; height: 100%; background: #fff; border-radius: 12px; border: 2px solid #ddd; display: flex; justify-content: center; align-items: center; font-size: 40px; font-weight: 900; color: #111; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); backface-visibility: visible; }
-        
-        /* Грани кубика */
         .dice-1 { transform: rotateY(0deg) translateZ(40px); }
         .dice-6 { transform: rotateY(180deg) translateZ(40px); }
         .dice-2 { transform: rotateY(90deg) translateZ(40px); }
         .dice-5 { transform: rotateY(-90deg) translateZ(40px); }
         .dice-3 { transform: rotateX(90deg) translateZ(40px); }
         .dice-4 { transform: rotateX(-90deg) translateZ(40px); }
-
-        /* Анимация вращения кубиков */
         .dice-3d.rolling { animation: rollDice 1.2s ease-in-out infinite; }
         @keyframes rollDice {
             0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
@@ -147,14 +147,10 @@
             75% { transform: rotateX(540deg) rotateY(270deg) rotateZ(180deg); }
             100% { transform: rotateX(720deg) rotateY(360deg) rotateZ(0deg); }
         }
-
-        /* Монетка */
         .coin-container { width: 100px; height: 100px; position: relative; transform-style: preserve-3d; margin: 20px 0; transition: transform 0.1s; }
         .coin-face { position: absolute; width: 100%; height: 100%; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 50px; background: linear-gradient(135deg, #fbbf24, #d97706); border: 4px solid #fcd34d; box-shadow: 0 0 20px rgba(251, 191, 36, 0.5); backface-visibility: hidden; }
         .coin-front { transform: rotateY(0deg) translateZ(5px); }
         .coin-back { transform: rotateY(180deg) translateZ(5px); }
-
-        /* Анимация вращения монетки */
         .coin-container.rolling { animation: flipCoin 1.2s ease-in-out infinite; }
         @keyframes flipCoin {
             0% { transform: rotateY(0deg) rotateX(0deg); }
@@ -163,10 +159,6 @@
             75% { transform: rotateY(540deg) rotateX(180deg); }
             100% { transform: rotateY(720deg) rotateX(0deg); }
         }
-
-        /* Кнопка выигрыша (W) */
-        .win-label { font-size: 24px; font-weight: 900; color: var(--gold); margin-top: 10px; opacity: 0; transition: opacity 0.3s; }
-        .win-label.show { opacity: 1; }
 
         .opponent-info { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-weight: 700; width: 100%; margin-bottom: 15px;}
         .opponent-card { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 10px; text-align: center; width: 45%;}
@@ -376,7 +368,6 @@
                         </div>
                         
                         <div class="game-board">
-                            <!-- 3D МОНЕТКА -->
                             <div class="coin-container" id="coin-visual">
                                 <div class="coin-face coin-front">🦅</div>
                                 <div class="coin-face coin-back">🪙</div>
@@ -428,7 +419,6 @@
                         </div>
                         
                         <div class="game-board">
-                            <!-- 3D КУБИКИ -->
                             <div class="dice-container">
                                 <div class="dice-3d" id="dice-visual-1">
                                     <div class="dice-face dice-1">1</div>
@@ -464,13 +454,19 @@
                 <!-- КРАШ -->
                 <div id="pane-crash" class="game-pane">
                     <div class="history-strip" id="rocketHistory" style="gap: 6px; margin-bottom: 12px;"></div>
+                    
                     <div class="crash-graph-container">
+                        <!-- Огромный Икс -->
                         <div class="crash-big-mult" id="rocketMultiplier">x1,00</div>
+                        <!-- Профит -->
+                        <div class="crash-profit-display" id="rocketProfit">+0 🪙</div>
+                        
                         <svg class="crash-graph-svg" id="crashGraphSvg" viewBox="0 0 100 100" preserveAspectRatio="none">
                             <path id="graphFill" d="M0,100 L0,100 L0,100 Z" fill="rgba(59, 130, 246, 0.15)" />
                             <path id="graphPath" d="M0,100 L0,100" stroke="#3b82f6" stroke-width="2.5" fill="none" style="filter: drop-shadow(0 0 8px #3b82f6); transition: stroke 0.3s;" />
                         </svg>
                     </div>
+
                     <div class="crash-control-panel">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                             <span style="font-size: 12px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Ставка</span>
@@ -488,10 +484,8 @@
                             <button class="btn-preset" onclick="setAutoCashout()" style="flex: 0.3; background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.4); border-radius: 10px; font-size: 12px;">OK</button>
                         </div>
                     </div>
-                    <button class="btn-crash-main" id="rocketBtn" onclick="handleRocket()">ЗАПУСТИТЬ</button>
-                    <div class="crash-live-bets" style="background: transparent; border: none; padding: 0;">
-                        <div id="liveBetsContainer"></div>
-                    </div>
+
+                    <button class="btn-crash-main" id="rocketBtn" onclick="handleRocket()">СДЕЛАТЬ СТАВКУ</button>
                 </div>
 
                 <!-- АПГРЕЙД -->
@@ -636,16 +630,17 @@
             { code: "+7", flag: "🇷🇺 Россия", prefix: 7 }, { code: "+375", flag: "🇧🇾 Беларусь", prefix: 375 }, { code: "+380", flag: "🇺🇦 Украина", prefix: 380 }, { code: "+1", flag: "🇺🇸 США", prefix: 1 }, { code: "+49", flag: "🇩🇪 Германия", prefix: 49 }, { code: "+44", flag: "🇬🇧 Англия", prefix: 44 }, { code: "+971", flag: "🇦🇪 ОАЭ", prefix: 971 }
         ];
         
-        // КРАШ
+        // КРАШ ПЕРЕМЕННЫЕ
         let rocketHistory = JSON.parse(localStorage.getItem('rocket_history')) || [];
         let rocketBet = 5000;
-        let rocketState = 'idle'; 
+        let rocketState = 'idle'; // idle, flying, crashed
         let rocketMult = 1.0;
         let rocketInterval = null;
         let currentCrashPoint = 0;
         let hasCashedOut = false;
         let rocketTime = 0;
         let autoCashout = 0;
+        let autoStartTimeout = null;
         const MAX_BET = 10000000;
 
         let myActiveBetId = null;
@@ -668,7 +663,6 @@
         };
         const baseRarities = { "Обычный": { color: "#8b92a5", price: 150 }, "Необычный": { color: "#10b981", price: 500 }, "Редкий": { color: "#3b82f6", price: 2000 }, "Эпический": { color: "#8b5cf6", price: 10000 }, "Легендарный": { color: "#f97316", price: 50000 }, "Мифический": { color: "#fbbf24", price: 500000 } };
 
-        // VIP ЛОТЫ
         const vipLots = [
             { id: 'vip_1', title: 'Топ-Секретный', badge: 'TIER 1', desc: 'Доступ к генерации красивых номеров. Минимальная ставка 100 млн.', features: ['Красивые цифры', 'Ставка от 100 000 000', 'Редкость: Эпическая'], starsCost: 500, btnClass: '' },
             { id: 'vip_2', title: 'Правительственный', badge: 'TIER 2', desc: 'Закрытые линии связи. Красивые номера премиум-класса.', features: ['Зеркальные номера', 'Ставка от 300 000 000', 'Редкость: Легендарная'], starsCost: 1500, btnClass: 'legendary' },
@@ -954,6 +948,13 @@
             
             if (paneId === 'coin') loadLobby('coin');
             if (paneId === 'dice') loadLobby('dice');
+            if (paneId === 'crash') {
+                if (rocketState === 'idle') startRocket();
+            } else {
+                if (rocketState === 'flying') {
+                     // Если уходим с краша во время полета, просто оставляем его работать на бэкграунде, но кнопки не трогаем
+                }
+            }
         }
 
         // --- ЛОББИ И PVP ---
@@ -1141,7 +1142,6 @@
                     oppCard.innerHTML = `<div class="opponent-avatar">${opp.avatar || '👤'}</div><div class="opponent-name">${opp.name || 'Соперник'}</div><div class="opponent-label">Соперник</div>`;
                 }
 
-                // Если игра завершена
                 if (data.status === 'finished' || (me.ready && opp.ready)) {
                     if (gameResultShown) return;
                     gameResultShown = true;
@@ -1149,13 +1149,11 @@
                     let myScore = me.score;
                     let oppScore = opp.score;
 
-                    // АНИМАЦИЯ И ВЫВОД РЕЗУЛЬТАТА
                     let dice1 = document.getElementById('dice-visual-1');
                     let dice2 = document.getElementById('dice-visual-2');
                     let coin = document.getElementById('coin-visual');
 
                     if (type === 'coin') {
-                        // Вращение монетки перед показом
                         coin.classList.add('rolling');
                         setTimeout(() => {
                             coin.classList.remove('rolling');
@@ -1163,7 +1161,6 @@
                             document.getElementById(`${type}-status-text`).innerText = `Вы: ${myScore === 1 ? 'Орел' : 'Решка'} | Соперник: ${oppScore === 1 ? 'Орел' : 'Решка'}`;
                         }, 1000);
                     } else {
-                        // Вращение кубиков перед показом
                         dice1.classList.add('rolling');
                         dice2.classList.add('rolling');
                         
@@ -1171,8 +1168,6 @@
                             dice1.classList.remove('rolling');
                             dice2.classList.remove('rolling');
                             
-                            // Устанавливаем финальные грани кубиков
-                            // myScore - от 1 до 6. Поворачиваем кубик нужной гранью вперед.
                             let angleX = 0, angleY = 0;
                             if (myScore === 1) { angleX = 0; angleY = 0; }
                             if (myScore === 2) { angleX = 0; angleY = -90; }
@@ -1183,7 +1178,6 @@
                             
                             dice1.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg)`;
                             
-                            // Аналогично для второго кубика (но там результат соперника)
                             let angleX2 = 0, angleY2 = 0;
                             if (oppScore === 1) { angleX2 = 0; angleY2 = 0; }
                             if (oppScore === 2) { angleX2 = 0; angleY2 = -90; }
@@ -1223,7 +1217,6 @@
                     return;
                 }
                 
-                // Обновление кнопок если кто-то уже сходил
                 if (me.ready && !opp.ready) {
                     playBtn.innerText = 'Ожидание соперника...';
                     playBtn.disabled = true;
@@ -1254,7 +1247,6 @@
             playBtn.classList.add('disabled');
             playBtn.innerText = 'Бросаем...';
 
-            // Запускаем анимацию вращения
             if (type === 'dice') {
                 document.getElementById('dice-visual-1').classList.add('rolling');
                 document.getElementById('dice-visual-2').classList.add('rolling');
@@ -1286,7 +1278,6 @@
                 updates[myKey + '/score'] = myScore;
                 updates[myKey + '/ready'] = true;
                 
-                // Отправляем результат на сервер (но анимация еще идет 1.5 сек)
                 update(gameRef, updates).then(() => {
                     playBtn.innerText = 'Ожидание соперника...';
                 }).catch(e => {
@@ -1294,7 +1285,6 @@
                     playBtn.disabled = false;
                     playBtn.classList.remove('disabled');
                     playBtn.innerText = (type === 'coin') ? 'Бросить монетку' : 'Бросить кости';
-                    // Убираем анимацию
                     document.getElementById('dice-visual-1').classList.remove('rolling');
                     document.getElementById('dice-visual-2').classList.remove('rolling');
                     document.getElementById('coin-visual').classList.remove('rolling');
@@ -1331,7 +1321,7 @@
         }
 
         // ==========================================
-        // ========== ЛОГИКА КРАША =================
+        // ========== ЛОГИКА КРАША ==================
         // ==========================================
         
         window.setAutoCashout = function() {
@@ -1370,8 +1360,8 @@
             const graphFill = document.getElementById('graphFill');
             if (!graphPath || !graphFill) return;
 
-            let xPercent = Math.min((time / 20) * 100, 95); 
-            let yPercent = 100 - Math.min((mult - 1) * 3, 95); 
+            let xPercent = Math.min((time / 15) * 100, 95); 
+            let yPercent = 100 - Math.min((mult - 1) * 2.5, 95); 
 
             let ctrlX = xPercent * 0.5;
             let ctrlY = 100; 
@@ -1380,131 +1370,160 @@
             graphFill.setAttribute('d', `M0,100 Q${ctrlX},${ctrlY} ${xPercent},${yPercent} L${xPercent},100 Z`);
         }
 
-        window.handleRocket = function() {
-            const btn = document.getElementById('rocketBtn');
+        // Запуск ракеты (может быть вызван кнопкой или автостартом)
+        function startRocket() {
+            if (rocketState !== 'idle' && rocketState !== 'crashed') return;
+            if (autoStartTimeout) { clearTimeout(autoStartTimeout); autoStartTimeout = null; }
+
+            rocketState = 'flying'; 
+            rocketMult = 1.0; 
+            rocketTime = 0; 
+            hasCashedOut = false;
+            
             const multText = document.getElementById('rocketMultiplier');
+            const btn = document.getElementById('rocketBtn');
+            const profitText = document.getElementById('rocketProfit');
             const graphPath = document.getElementById('graphPath');
             const graphFill = document.getElementById('graphFill');
-            const liveBets = document.getElementById('liveBetsContainer');
 
-            if (!btn || !multText || !graphPath || !graphFill) return;
+            multText.classList.remove('crashed'); 
+            multText.innerText = 'x1,00';
+            btn.innerText = 'ЗАБРАТЬ'; 
+            btn.classList.remove('disabled'); 
+            btn.classList.add('cashout');
+            
+            graphPath.setAttribute('d', 'M0,100 L0,100'); 
+            graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
+            graphPath.style.stroke = '#3b82f6';
+            graphPath.style.filter = 'drop-shadow(0 0 8px #3b82f6)';
+            graphFill.setAttribute('fill', 'rgba(59, 130, 246, 0.15)');
+            
+            profitText.classList.remove('show');
+            profitText.innerText = '+0 🪙';
+
+            // Если игрок сделал ставку, показываем профит
+            if (balance >= rocketBet && myActiveBetAmount > 0) {
+                 // Ставка уже была списана в handleRocket, просто начинаем считать
+            }
+
+            const random = Math.random();
+            currentCrashPoint = Math.max(1.0, (0.99 / (1.0 - random))); 
+            currentCrashPoint = Math.floor(currentCrashPoint * 100) / 100;
+            if (currentCrashPoint < 1.01) currentCrashPoint = 1.01;
+
+            rocketInterval = setInterval(() => {
+                rocketTime += 0.05; 
+                rocketMult = Math.pow(1.07, rocketTime); 
+                if (rocketMult > 100) rocketMult = 100;
+
+                multText.innerText = `x${rocketMult.toFixed(2).replace('.', ',')}`;
+                
+                drawGraph(rocketMult, rocketTime);
+
+                // Отображение профита в реальном времени
+                if (myActiveBetAmount > 0 && !hasCashedOut) {
+                    let currentProfit = Math.floor(myActiveBetAmount * rocketMult) - myActiveBetAmount;
+                    profitText.innerText = `+${currentProfit.toLocaleString('ru-RU')} 🪙`;
+                    profitText.classList.add('show');
+                }
+
+                if (autoCashout > 0 && !hasCashedOut && myActiveBetAmount > 0 && rocketMult >= autoCashout) {
+                    hasCashedOut = true;
+                    let winAmount = Math.floor(myActiveBetAmount * autoCashout);
+                    balance += winAmount; 
+                    myActiveBetAmount = 0;
+                    updateUI();
+                    showToast(`АВТОЗАБОР: +${winAmount.toLocaleString('ru-RU')} 🪙 (x${autoCashout.toFixed(2)})`, '🤖');
+                    btn.innerText = 'Ожидание...'; btn.classList.remove('cashout'); btn.classList.add('disabled');
+                    profitText.classList.remove('show');
+                }
+
+                if (rocketMult >= currentCrashPoint) {
+                    clearInterval(rocketInterval); 
+                    rocketState = 'crashed';
+                    
+                    multText.classList.add('crashed'); 
+                    multText.innerText = `УПАЛА НА x${currentCrashPoint.toFixed(2).replace('.', ',')}`;
+                    btn.innerText = 'ЖДЕМ...'; 
+                    btn.classList.remove('cashout'); 
+                    btn.classList.add('disabled');
+                    
+                    let currentX = Math.min((rocketTime / 15) * 100, 95);
+                    graphPath.setAttribute('d', `M0,100 L${currentX},100`);
+                    graphFill.setAttribute('d', `M0,100 L${currentX},100 L${currentX},100 Z`);
+                    graphPath.style.stroke = '#ef4444';
+                    graphPath.style.filter = 'drop-shadow(0 0 8px #ef4444)';
+                    graphFill.setAttribute('fill', 'rgba(239, 68, 68, 0.15)');
+
+                    rocketHistory.unshift(currentCrashPoint);
+                    if(rocketHistory.length > 10) rocketHistory.pop();
+                    updateUI();
+                    
+                    if (myActiveBetAmount > 0) {
+                        showToast(`Вы не успели! Упала на x${currentCrashPoint.toFixed(2)}`, '💥');
+                    }
+                    myActiveBetAmount = 0; // Сбрасываем ставку
+
+                    setTimeout(() => {
+                        if (rocketState === 'crashed') {
+                            rocketState = 'idle';
+                            multText.classList.remove('crashed');
+                            multText.innerText = 'x1,00';
+                            graphPath.setAttribute('d', 'M0,100 L0,100');
+                            graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
+                            graphPath.style.stroke = '#3b82f6';
+                            graphPath.style.filter = 'drop-shadow(0 0 8px #3b82f6)';
+                            graphFill.setAttribute('fill', 'rgba(59, 130, 246, 0.15)');
+                            profitText.classList.remove('show');
+                            
+                            // Автозапуск следующего раунда
+                            autoStartTimeout = setTimeout(() => {
+                                startRocket();
+                            }, 5000); 
+                        }
+                    }, 3000);
+                }
+            }, 50);
+        }
+
+        window.handleRocket = function() {
+            const btn = document.getElementById('rocketBtn');
+            if (!btn) return;
 
             if (rocketState === 'idle' || rocketState === 'crashed') {
+                // Сделать ставку
                 if (rocketBet < 100) return showToast('Минимальная ставка 100', '⚠️');
                 if (balance < rocketBet) return showToast('Недостаточно монет!', '❌');
                 
-                balance -= rocketBet; updateUI();
+                balance -= rocketBet; 
+                myActiveBetAmount = rocketBet;
+                updateUI();
                 
-                rocketState = 'flying'; 
-                rocketMult = 1.0; 
-                rocketTime = 0; 
-                hasCashedOut = false;
-                
-                multText.classList.remove('crashed'); 
-                multText.innerText = 'x1,00';
-                btn.innerText = 'ЗАБРАТЬ'; 
-                btn.classList.remove('disabled'); 
-                btn.classList.add('cashout');
-                
-                graphPath.setAttribute('d', 'M0,100 L0,100'); 
-                graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
-                graphPath.style.stroke = '#3b82f6';
-                graphPath.style.filter = 'drop-shadow(0 0 8px #3b82f6)';
-                graphFill.setAttribute('fill', 'rgba(59, 130, 246, 0.15)');
-
-                if(liveBets) {
-                    liveBets.innerHTML = `
-                        <div class="crash-bet-row" id="myBetRow">
-                            <div class="crash-user"><div class="crash-user-avatar">${currentUserAvatar}</div>${currentUserName}</div>
-                            <div class="crash-user-amounts"><span>${rocketBet.toLocaleString('ru-RU')}</span><span style="color:var(--text-muted);" id="myWinDisplay">...</span></div>
-                        </div>
-                    `;
-                }
-
-                const random = Math.random();
-                currentCrashPoint = Math.max(1.0, (0.99 / (1.0 - random))); 
-                currentCrashPoint = Math.floor(currentCrashPoint * 100) / 100;
-                if (currentCrashPoint < 1.01) currentCrashPoint = 1.01;
-
-                rocketInterval = setInterval(() => {
-                    rocketTime += 0.05; 
-                    rocketMult = Math.pow(1.07, rocketTime); 
-                    if (rocketMult > 100) rocketMult = 100;
-
-                    multText.innerText = `x${rocketMult.toFixed(2).replace('.', ',')}`;
-                    
-                    drawGraph(rocketMult, rocketTime);
-
-                    if (autoCashout > 0 && !hasCashedOut && rocketMult >= autoCashout) {
-                        hasCashedOut = true;
-                        let winAmount = Math.floor(rocketBet * autoCashout);
-                        balance += winAmount; updateUI();
-                        showToast(`АВТОЗАБОР: +${winAmount.toLocaleString('ru-RU')} 🪙 (x${autoCashout.toFixed(2)})`, '🤖');
-                        btn.innerText = 'Ожидание...'; btn.classList.remove('cashout'); btn.classList.add('disabled');
-                        if (document.getElementById('myWinDisplay')) {
-                            document.getElementById('myWinDisplay').innerText = `x${autoCashout.toFixed(2)} · ${winAmount.toLocaleString('ru-RU')}`;
-                            document.getElementById('myWinDisplay').style.color = 'var(--success)';
-                        }
-                    }
-
-                    if (rocketMult >= currentCrashPoint) {
-                        clearInterval(rocketInterval); 
-                        rocketState = 'crashed';
-                        
-                        multText.classList.add('crashed'); 
-                        multText.innerText = `УПАЛА НА x${currentCrashPoint.toFixed(2).replace('.', ',')}`;
-                        btn.innerText = 'ЗАПУСТИТЬ'; 
-                        btn.classList.remove('cashout'); 
-                        btn.classList.remove('disabled');
-                        
-                        let currentX = Math.min((rocketTime / 20) * 100, 95);
-                        graphPath.setAttribute('d', `M0,100 L${currentX},100`);
-                        graphFill.setAttribute('d', `M0,100 L${currentX},100 L${currentX},100 Z`);
-                        graphPath.style.stroke = '#ef4444';
-                        graphPath.style.filter = 'drop-shadow(0 0 8px #ef4444)';
-                        graphFill.setAttribute('fill', 'rgba(239, 68, 68, 0.15)');
-
-                        rocketHistory.unshift(currentCrashPoint);
-                        if(rocketHistory.length > 10) rocketHistory.pop();
-                        updateUI();
-                        
-                        if (!hasCashedOut) {
-                            showToast(`Вы не успели! Упала на x${currentCrashPoint.toFixed(2)}`, '💥');
-                            if(document.getElementById('myWinDisplay')) {
-                                document.getElementById('myWinDisplay').innerText = `x0,00 · 0`;
-                                document.getElementById('myWinDisplay').style.color = 'var(--danger)';
-                            }
-                        }
-
-                        setTimeout(() => {
-                            if (rocketState === 'crashed') {
-                                rocketState = 'idle';
-                                multText.classList.remove('crashed');
-                                multText.innerText = 'x1,00';
-                                graphPath.setAttribute('d', 'M0,100 L0,100');
-                                graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
-                                graphPath.style.stroke = '#3b82f6';
-                                graphPath.style.filter = 'drop-shadow(0 0 8px #3b82f6)';
-                                graphFill.setAttribute('fill', 'rgba(59, 130, 246, 0.15)');
-                            }
-                        }, 3000);
-                    }
-                }, 50);
+                startRocket();
 
             } else if (rocketState === 'flying' && !hasCashedOut) {
+                // Забрать
+                if (myActiveBetAmount === 0) return; // Если не ставил
                 hasCashedOut = true;
-                let winAmount = Math.floor(rocketBet * rocketMult);
-                balance += winAmount; updateUI();
+                let winAmount = Math.floor(myActiveBetAmount * rocketMult);
+                balance += winAmount; 
+                myActiveBetAmount = 0;
+                updateUI();
                 showToast(`Вы забрали ${winAmount.toLocaleString('ru-RU')} 🪙 (x${rocketMult.toFixed(2)})`, '🚀');
                 
-                btn.innerText = 'Ожидание...'; btn.classList.remove('cashout'); btn.classList.add('disabled');
-
-                if (document.getElementById('myWinDisplay')) {
-                    document.getElementById('myWinDisplay').innerText = `x${rocketMult.toFixed(2).replace('.', ',')} · ${winAmount.toLocaleString('ru-RU')}`;
-                    document.getElementById('myWinDisplay').style.color = 'var(--success)';
-                }
+                btn.innerText = 'Ожидание...'; 
+                btn.classList.remove('cashout'); 
+                btn.classList.add('disabled');
+                document.getElementById('rocketProfit').classList.remove('show');
             }
         }
+
+        // Запускаем первый раунд при загрузке
+        setTimeout(() => {
+            if (document.getElementById('pane-crash').classList.contains('active')) {
+                startRocket();
+            }
+        }, 1000);
 
         window.showToast = function(text, icon = "🎉") {
             const toast = document.getElementById('toast');
