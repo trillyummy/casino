@@ -602,6 +602,7 @@
         let autoCashout = 0;
 
         let myActiveBetId = null;
+        let myActiveBetAmount = 0; // ИСПРАВЛЕНО: Добавлена переменная для хранения ставки при выходе
         let currentGameId = null;
         let isWaitingForOpponent = false;
         let unsubMyBet = null;
@@ -906,6 +907,7 @@
 
                 update(ref(db), updates).then(() => {
                     currentGameId = gameId;
+                    myActiveBetAmount = data.amount; // ИСПРАВЛЕНО
                     startPvPGame(gameId, false, data.type, data.amount);
                 });
             });
@@ -921,6 +923,7 @@
             balance -= bet; updateUI();
             
             myActiveBetId = 'bet_' + myId + '_' + Date.now();
+            myActiveBetAmount = bet; // ИСПРАВЛЕНО
             const betData = { id: myActiveBetId, creatorId: myId, creatorName: currentUserName, creatorAvatar: currentUserAvatar, amount: bet, type: type, status: 'waiting', gameId: null, timestamp: Date.now() };
 
             set(ref(db, 'matchmaking/' + myActiveBetId), betData).then(() => {
@@ -930,9 +933,10 @@
                 document.getElementById(`${type}-bet-display`).innerText = bet.toLocaleString('ru-RU');
                 document.getElementById(`${type}-win-display`).innerText = (bet * 1.9).toLocaleString('ru-RU');
                 document.getElementById(`${type}-status-text`).innerText = "Ожидание соперника...";
-                document.getElementById(`${type}-ThrowBtn`).disabled = true;
                 
-                // Проверка, существует ли элемент, прежде чем менять его innerHTML
+                // ИСПРАВЛЕНО: Убран лишний дефис в ID кнопки
+                document.getElementById(type + 'ThrowBtn').disabled = true;
+                
                 let myCard = document.getElementById(`${type}-my-card`);
                 if (myCard) {
                     myCard.innerHTML = `<div class="opponent-avatar">${currentUserAvatar}</div><div class="opponent-name">${currentUserName}</div><div class="opponent-label">Вы</div>`;
@@ -966,7 +970,10 @@
 
         window.leaveGame = function(type) {
             if (myActiveBetId) {
-                balance += betAmount; updateUI(); 
+                if (isWaitingForOpponent) { // Возврат ставки, только если мы всё еще ждали
+                    balance += myActiveBetAmount; 
+                    updateUI(); 
+                }
                 remove(ref(db, 'matchmaking/' + myActiveBetId));
             }
             if (unsubMyBet) unsubMyBet();
@@ -974,8 +981,10 @@
             myActiveBetId = null;
             currentGameId = null;
             isWaitingForOpponent = false;
+            myActiveBetAmount = 0;
             document.getElementById(`${type}-lobby`).style.display = 'flex';
             document.getElementById(`${type}-game`).style.display = 'none';
+            resetGameUI(type); // ИСПРАВЛЕНО: Сбрасываем интерфейс при выходе
         }
 
         function startPvPGame(gameId, isCreator, type, amount) {
@@ -985,14 +994,14 @@
             document.getElementById(`${type}-bet-display`).innerText = amount.toLocaleString('ru-RU');
             document.getElementById(`${type}-win-display`).innerText = (amount * 1.9).toLocaleString('ru-RU');
             
-            let playBtn = document.getElementById(`${type}-ThrowBtn`);
+            // ИСПРАВЛЕНО: Убран лишний дефис в ID кнопки
+            let playBtn = document.getElementById(type + 'ThrowBtn');
             playBtn.innerText = (type === 'coin') ? 'Бросить монетку' : 'Бросить кости';
             playBtn.disabled = false;
             playBtn.classList.remove('disabled');
 
             document.getElementById(`${type}-status-text`).innerText = "Соперник найден! Ваш ход.";
             
-            // Обновляем карточку соперника
             if (!isCreator) {
                 let myCard = document.getElementById(`${type}-my-card`);
                 if (myCard) {
@@ -1010,7 +1019,6 @@
                 let me = isCreator ? data.player1 : data.player2;
                 let opp = isCreator ? data.player2 : data.player1;
                 
-                // Обновляем карточку соперника
                 let oppCard = document.getElementById(`${type}-opp-card`);
                 if (oppCard) {
                     oppCard.innerHTML = `<div class="opponent-avatar">${opp.avatar}</div><div class="opponent-name">${opp.name}</div><div class="opponent-label">Соперник</div>`;
@@ -1042,6 +1050,7 @@
                     updateUI();
                     
                     currentGameId = null;
+                    myActiveBetAmount = 0;
                     if (unsubGame) unsubGame();
                     setTimeout(() => leaveGame(type), 4000);
                     return;
@@ -1058,7 +1067,8 @@
 
         window.throwPvP = function(gameId, type) {
             if (!gameId) return;
-            let playBtn = document.getElementById(`${type}-ThrowBtn`);
+            // ИСПРАВЛЕНО: Убран лишний дефис в ID кнопки
+            let playBtn = document.getElementById(type + 'ThrowBtn');
             playBtn.disabled = true;
             playBtn.classList.add('disabled');
             
