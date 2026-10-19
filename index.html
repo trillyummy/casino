@@ -33,9 +33,7 @@
         .menu-item { background: rgba(255,255,255,0.03); border: 1px solid transparent; border-radius: var(--radius-md); padding: 12px 15px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.2s; }
         .menu-item:active { transform: scale(0.97); background: rgba(255,255,255,0.08); }
         .menu-item.active { background: rgba(59, 130, 246, 0.1); border-color: var(--accent); }
-        .menu-item svg { width: 22px; height: 22px; fill: var(--text-muted); transition: 0.2s; }
         .menu-item span { font-size: 14px; font-weight: 700; color: var(--text); }
-        .menu-item.active svg { fill: var(--accent); }
         .menu-item.active span { color: var(--accent); }
 
         .screen { display: none; flex: 1; padding: 75px 15px 15px 15px; flex-direction: column; overflow-y: auto; animation: fadeIn 0.2s ease; }
@@ -43,7 +41,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* СИНТЕЗ */
-        .case-container { background: var(--card); border-radius: var(--radius-lg); padding: 20px; text-align: center; border: 1px solid var(--border); box-shadow: 0 15px 35px rgba(0,0,0,0.5); margin-top: auto; margin-bottom: auto; position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 12px;}
+        .case-container { background: var(--card); border-radius: var(--radius-lg); padding: 20px; text-align: center; border: 1px solid var(--border); box-shadow: 0 15px 35px rgba(0,0,0,0.5); margin-top: auto; margin-bottom: auto; position: relative; display: flex; flex-direction: column; gap: 12px;}
         .btn-select { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px 16px; font-size: 13px; font-weight: 700; width: 100%; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; }
         .btn-select:active { transform: scale(0.98); background: rgba(255,255,255,0.1); }
         .number-display { font-size: 26px; font-weight: 900; margin: 10px 0; letter-spacing: 1px; min-height: 35px; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
@@ -55,19 +53,20 @@
         .btn-main:disabled { background: #2d3041; color: var(--text-muted); box-shadow: none; transform: none; }
         .btn-x5 { background: linear-gradient(135deg, #8b5cf6, #7c3aed); box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3); flex: 0.4; }
 
-        /* СПУТНИК (РАКЕТА) */
-        .rocket-container { background: var(--card); border-radius: var(--radius-lg); padding: 15px; text-align: center; border: 1px solid var(--border); margin-top: auto; margin-bottom: auto; display: flex; flex-direction: column; align-items: center; box-shadow: 0 15px 35px rgba(0,0,0,0.5); gap: 10px;}
+        /* СПУТНИК */
+        .rocket-container { background: var(--card); border-radius: var(--radius-lg); padding: 15px; text-align: center; border: 1px solid var(--border); margin-top: auto; margin-bottom: auto; display: flex; flex-direction: column; align-items: center; gap: 10px;}
         .bet-input { flex: 1; background: rgba(0,0,0,0.4); border: 1px solid var(--border); color: white; border-radius: var(--radius-sm); padding: 10px 15px; font-size: 14px; font-weight: 700; outline: none; text-align: center;}
         .bet-buttons { display: flex; gap: 6px; width: 100%; flex-wrap: wrap; justify-content: center;}
         .btn-bet { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border); padding: 8px 12px; border-radius: var(--radius-sm); font-weight: 700; font-size: 11px; cursor: pointer; transition: 0.2s; flex: 1; min-width: 50px; }
         .btn-bet:active { background: rgba(255,255,255,0.15); transform: scale(0.95); }
-        .rocket-display { width: 100%; height: 140px; background: #050608; border-radius: var(--radius-md); position: relative; overflow: hidden; border: 1px solid var(--border); box-shadow: inset 0 0 20px rgba(0,0,0,0.9); background-image: linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px); background-size: 20px 20px; }
+        .rocket-display { width: 100%; height: 140px; background: #050608; border-radius: var(--radius-md); position: relative; overflow: hidden; border: 1px solid var(--border); }
         .rocket-multiplier { font-size: 36px; font-weight: 900; color: var(--success); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; text-shadow: 0 0 20px rgba(16, 185, 129, 0.6); transition: 0.1s; }
         .rocket-multiplier.crashed { color: var(--danger); text-shadow: 0 0 20px rgba(239, 68, 68, 0.6); }
-        .rocket-emoji { font-size: 18px; position: absolute; bottom: 10px; left: 10px; z-index: 2; filter: drop-shadow(0 0 5px rgba(255,255,255,0.8)); transition: transform 0.1s linear; }
-        .btn-rocket { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: var(--radius-md); padding: 14px; font-size: 14px; font-weight: 800; width: 100%; cursor: pointer; transition: 0.2s; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4); text-transform: uppercase; }
-        .btn-rocket:active { transform: scale(0.96); }
-        .btn-rocket.cashout { background: linear-gradient(135deg, #fbbf24, #d97706); color: #000; box-shadow: 0 8px 20px rgba(251, 191, 36, 0.4); }
+        .rocket-emoji { font-size: 18px; position: absolute; bottom: 10px; left: 10px; z-index: 2; transition: transform 0.1s linear; }
+        .btn-rocket { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: var(--radius-md); padding: 14px; font-size: 14px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; }
+        .btn-rocket.cashout { background: linear-gradient(135deg, #fbbf24, #d97706); color: #000; }
+        .history-container { display: flex; gap: 4px; width: 100%; overflow-x: auto; justify-content: center; flex-wrap: wrap;}
+        .history-badge { font-size: 9px; font-weight: 800; padding: 3px 6px; border-radius: 6px; color: white; background: rgba(255,255,255,0.1); }
 
         /* БАЗА */
         .inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 0 5px;}
@@ -75,25 +74,23 @@
         .inventory-item { background: var(--card); border-radius: var(--radius-md); padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--text-muted); border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .inv-info h4 { font-size: 15px; margin-bottom: 4px; font-weight: 800; letter-spacing: 1px; }
         .inv-info p { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-bottom: 2px;}
-        .inv-price { font-size: 15px; font-weight: 800; color: var(--gold); }
         .btn-sell { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.4); padding: 6px 12px; border-radius: 8px; font-weight: 700; font-size: 11px; margin-top: 8px; cursor: pointer; text-transform: uppercase; }
 
-        /* ПРОФИЛЬ */
+        /* ПРОФИЛЬ И УРОВНИ */
         .profile-layout { display: flex; flex-direction: column; gap: 15px; padding-bottom: 20px;}
         .profile-card { background: var(--card); border-radius: var(--radius-lg); padding: 20px; border: 1px solid var(--border); }
         .avatar { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #8b5cf6); display: flex; justify-content: center; align-items: center; font-size: 30px; margin: 0 auto 10px auto; border: 3px solid rgba(255,255,255,0.1); overflow: hidden;}
+        .progress-container { width: 100%; background: rgba(0,0,0,0.4); height: 12px; border-radius: 6px; margin-bottom: 10px; overflow: hidden; border: 1px solid var(--border); position: relative;}
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #3b82f6, #8b5cf6); width: 0%; transition: width 0.3s; }
+        .progress-text { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; font-size: 8px; font-weight: 800; color: white;}
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;}
         .stat-box { background: rgba(0,0,0,0.3); padding: 12px; border-radius: var(--radius-sm); text-align: center; }
         .stat-box span { display: block; font-size: 10px; color: var(--text-muted); font-weight: 700; margin-bottom: 5px; text-transform: uppercase;}
         .stat-box strong { font-size: 16px; font-weight: 900; color: var(--text); }
-        .daily-bonus { background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(217, 119, 6, 0.15)); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: var(--radius-lg); padding: 15px; text-align: center;}
-        .btn-daily { background: var(--gold); color: #000; border: none; border-radius: var(--radius-md); padding: 10px; font-weight: 800; font-size: 13px; cursor: pointer; width: 100%; margin-top: 10px;}
-        .btn-daily:disabled { background: #2d3041; color: var(--text-muted); }
 
-        /* МАГАЗИН И БП */
+        /* МАГАЗИН */
         .shop-card { background: var(--card); border-radius: var(--radius-lg); padding: 20px; border: 1px solid var(--border); margin-bottom: 15px; }
         .btn-buy { background: linear-gradient(135deg, var(--stars), #006699); color: white; border: none; border-radius: var(--radius-md); padding: 15px; font-size: 15px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; margin-top: 10px;}
-        .bp-header { background: var(--card); border-radius: var(--radius-lg); padding: 20px; border: 1px solid var(--border); text-align: center; margin-bottom: 15px;}
 
         /* МОДАЛКИ */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 9998; display: flex; justify-content: center; align-items: flex-end; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
@@ -106,12 +103,14 @@
         .toast-container { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); z-index: 10000; transition: top 0.3s; display: flex; align-items: center; gap: 10px; background: var(--accent); color: white; padding: 12px 20px; border-radius: 30px; font-size: 13px; font-weight: 800; }
         .toast-container.show { top: 20px; }
 
-        /* СТИЛИ ДЛЯ X5 СПИСКА */
         .x5-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; max-height: 40vh; overflow-y: auto; padding-right: 5px;}
         .x5-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); padding: 10px 15px; border-radius: var(--radius-sm); border-left: 4px solid; }
         .x5-item h5 { font-size: 14px; font-weight: 800; }
         .x5-item p { font-size: 11px; color: var(--text-muted); font-weight: 600;}
         .x5-price { font-size: 13px; font-weight: 800; color: var(--gold); }
+
+        .lvlup-btn { background: var(--gold); color: #000; padding: 8px 15px; border-radius: var(--radius-sm); font-weight: 800; border: none; cursor: pointer; margin-top: 10px; width: 100%; text-transform: uppercase;}
+        .lvlup-btn:disabled { background: #2d3041; color: var(--text-muted); }
     </style>
 </head>
 <body>
@@ -133,8 +132,10 @@
             <div class="menu-item" onclick="switchTab('minigames', this)"><span>Спутник</span></div>
             <div class="menu-item" onclick="switchTab('inventory', this)"><span>База</span></div>
             <div class="menu-item" onclick="switchTab('shop', this)"><span>Магазин</span></div>
-            <div class="menu-item" onclick="switchTab('battlepass', this)"><span>Сезон</span></div>
             <div class="menu-item" onclick="switchTab('profile', this)"><span>Профиль</span></div>
+            <div class="menu-item" onclick="switchTab('chances', this)"><span>Шансы</span></div>
+            <div class="menu-item" onclick="switchTab('promo', this)"><span>Промокоды</span></div>
+            <div class="menu-item" onclick="switchTab('buyer', this)"><span>Скупщик</span></div>
         </div>
     </div>
 
@@ -150,6 +151,7 @@
                 <button class="btn-main" id="spinBtn" onclick="spin(1)">Сканировать</button>
                 <button class="btn-main btn-x5" id="spinBtnX5" onclick="spin(5)">x5</button>
             </div>
+            <div style="font-size: 10px; color: var(--text-muted); margin-top: 5px;">До гаранта (1000 круток): <span id="guaranteeCount">1000</span></div>
         </div>
     </div>
 
@@ -166,6 +168,9 @@
                 <button class="btn-bet" onclick="setBet('ALL')">MAX</button>
             </div>
             <p style="font-size: 12px; color: var(--text-muted); font-weight: 700; text-align: center;">Топливо: <span id="currentBetDisplay" style="color: var(--gold);">10 000</span> 🪙</p>
+            <div class="history-container" id="rocketHistory">
+                <!-- История полетов -->
+            </div>
             <div class="rocket-display" id="rocketDisplay">
                 <div class="rocket-emoji" id="rocketEmoji">🚀</div>
                 <div class="rocket-multiplier" id="rocketMultiplier">x1.00</div>
@@ -188,15 +193,11 @@
             <p style="font-size: 12px; color: var(--text-muted); margin: 10px 0;">Шанс выбить Секретный номер!</p>
             <button class="btn-buy" onclick="showToast('Покупки отключены в демо', '⚠️')">⭐ Купить за 250 Stars</button>
         </div>
-    </div>
-
-    <!-- ЭКРАН: БП -->
-    <div id="screen-battlepass" class="screen">
-        <div class="bp-header">
-            <div style="font-size: 14px; color: var(--text-muted); font-weight: 700;">Твой Сезон</div>
-            <div style="font-size: 28px; font-weight: 900; color: var(--accent); margin: 10px 0;">Уровень <span id="bpLevelDisplay">1</span></div>
+        <div class="shop-card" style="border-color: var(--gold);">
+            <h3 style="color: var(--gold); font-size: 16px; text-transform: uppercase;">👑 Правительственный (Скупка)</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin: 10px 0;">Высокие шансы на Эпик, Легенду и Мифик.</p>
+            <button class="btn-buy" style="background: linear-gradient(135deg, var(--gold), #d97706); color: black;" onclick="openTariffModal()">Выбрать в Синтезе</button>
         </div>
-        <p style="text-align: center; color: var(--text-muted); font-size: 12px;">Награды выдаются автоматически (в разработке)</p>
     </div>
 
     <!-- ЭКРАН: ПРОФИЛЬ -->
@@ -205,16 +206,58 @@
             <div class="profile-card">
                 <div class="avatar" id="userAvatar">👤</div>
                 <h3 style="text-align: center; font-size: 18px; margin-bottom: 2px; font-weight: 800;" id="userName">Игрок</h3>
-                <div class="stats-grid">
+                
+                <div style="margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; margin-bottom: 5px;">
+                        <span>Уровень <span id="userLevel">1</span></span>
+                        <span id="userXpText">0 / 100 XP</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="userXpBar"></div>
+                    </div>
+                </div>
+
+                <div class="stats-grid" style="margin-top: 15px;">
                     <div class="stat-box"><span>Открыто кейсов</span><strong id="statOpened">0</strong></div>
                     <div class="stat-box"><span>Ценность базы</span><strong id="statValue" style="color: var(--gold);">0</strong></div>
                 </div>
             </div>
-            <div class="daily-bonus">
-                <h4 style="font-size: 13px; font-weight: 900; color: var(--gold); margin-bottom: 5px; text-transform: uppercase;">Ежедневный Бонус</h4>
-                <p style="font-size: 11px; color: var(--text-muted); font-weight: 600;">50 000 🪙 раз в 24 часа</p>
-                <button class="btn-daily" id="btnDaily" onclick="claimDaily()">Забрать</button>
+
+            <div class="profile-card" style="background: rgba(59, 130, 246, 0.1); border-color: var(--accent);">
+                <h4 style="font-size: 14px; font-weight: 800; margin-bottom: 5px; text-align: center;">🍀 Прокачка Удачи</h4>
+                <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 10px;">Увеличивает шанс выпадения редких номеров!</p>
+                <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; margin-bottom: 5px;">
+                    <span>Удача: <span id="luckLevel">0</span> ур.</span>
+                    <span>Очки: <span id="skillPoints" style="color: var(--gold);">0</span></span>
+                </div>
+                <button class="lvlup-btn" id="btnUpgradeLuck" onclick="upgradeLuck()">Прокачать (1 очко)</button>
             </div>
+        </div>
+    </div>
+
+    <!-- ЭКРАН: ШАНСЫ -->
+    <div id="screen-chances" class="screen">
+        <h2 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; font-size: 18px; text-align: center;">Шансы выпадения</h2>
+        <div class="profile-card">
+            <div id="chancesList"></div>
+        </div>
+    </div>
+
+    <!-- ЭКРАН: ПРОМОКОДЫ -->
+    <div id="screen-promo" class="screen">
+        <h2 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; font-size: 18px; text-align: center;">Промокоды</h2>
+        <div class="profile-card">
+            <input type="text" id="promoInput" style="width: 100%; padding: 15px; border-radius: 10px; background: rgba(0,0,0,0.5); border: 1px solid var(--border); color: white; font-weight: 800; margin-bottom: 10px; text-transform: uppercase;" placeholder="ВВЕДИ КОД">
+            <button class="btn-main" style="width: 100%;" onclick="activatePromo()">Активировать</button>
+        </div>
+    </div>
+
+    <!-- ЭКРАН: СКУПЩИК -->
+    <div id="screen-buyer" class="screen">
+        <h2 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; font-size: 18px; text-align: center;">Скупщик</h2>
+        <div class="profile-card">
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px; text-align: center;">Скупщик дает +20% к цене номеров из твоей базы, но забирает их все сразу.</p>
+            <button class="btn-main" style="width: 100%; background: linear-gradient(135deg, #10b981, #059669);" onclick="sellToBuyer()">Сдать всю базу (+20%)</button>
         </div>
     </div>
 
@@ -225,21 +268,21 @@
             <div class="tariff-item active" onclick="selectTier('grey', this, 500)"><div><h4>Серый рынок</h4></div><div style="color:var(--gold);">500 🪙</div></div>
             <div class="tariff-item" onclick="selectTier('hacker', this, 2500)"><div><h4>Хакерский взлом</h4></div><div style="color:var(--gold);">2 500 🪙</div></div>
             <div class="tariff-item" onclick="selectTier('vip', this, 10000)"><div><h4>VIP-связь</h4></div><div style="color:var(--gold);">10 000 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('gov', this, 50000)"><div><h4>Правительственный</h4></div><div style="color:var(--gold);">50 000 🪙</div></div>
             <button class="btn-main" style="margin-top: 15px; background: rgba(255,255,255,0.1); box-shadow: none;" onclick="closeTariffModal()">Закрыть</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="revealOverlay">
         <div class="bottom-sheet" style="text-align: center;">
-            <div class="reveal-glow" style="font-size:12px; font-weight:900; text-transform:uppercase;" id="revealTitle">РЕДКОСТЬ</div>
+            <div style="font-size:12px; font-weight:900; text-transform:uppercase;" id="revealTitle">РЕДКОСТЬ</div>
             <div style="font-size: 26px; font-weight: 900; margin: 15px 0;" id="revealNumber">+0 000 000-00-00</div>
             <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;" id="revealCountry">🌍 Страна</div>
             <button class="btn-main" style="width: 100%; margin-bottom: 10px;" onclick="closeReveal()">Забрать в Базу</button>
-            <button class="btn-main" style="width: 100%; background: linear-gradient(135deg, #fbbf24, #d97706); color: black;" id="btnQuickSell" onclick="quickSell()">Продать за 0 🪙</button>
+            <button class="btn-main" style="width: 100%; background: linear-gradient(135deg, #fbbf24, #d97706); color: black;" id="btnQuickSell" onclick="quickSell()">Продать</button>
         </div>
     </div>
 
-    <!-- МОДАЛКА ДЛЯ X5 -->
     <div class="modal-overlay" id="x5Overlay">
         <div class="bottom-sheet">
             <h3 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; color: var(--purple); font-size: 16px; text-align: center;">Результат x5</h3>
@@ -266,38 +309,90 @@
         const tg = window.Telegram.WebApp;
         tg.expand(); tg.setHeaderColor("#090a0f");
 
+        // Состояния
         let balance = parseInt(localStorage.getItem('casino_balance')) || 5000;
         let inventory = JSON.parse(localStorage.getItem('casino_inventory')) || [];
         let statOpened = parseInt(localStorage.getItem('stat_opened')) || 0;
+        
+        // Уровни и Удача
+        let userLevel = parseInt(localStorage.getItem('user_level')) || 1;
+        let userXp = parseInt(localStorage.getItem('user_xp')) || 0;
+        let skillPoints = parseInt(localStorage.getItem('skill_points')) || 0;
+        let luckLevel = parseInt(localStorage.getItem('luck_level')) || 0;
+        
         let isSpinning = false;
         let currentQuickSellItem = null;
-        let currentTier = { key: 'grey', cost: 500 };
+        let currentTier = { key: 'grey', cost: 500, name: 'Серый рынок' };
+        let x5Results = [];
         
-        let x5Results = []; // Для хранения результатов x5
+        // История ракеты
+        let rocketHistory = JSON.parse(localStorage.getItem('rocket_history')) || [];
 
-        const rarities = {
-            "Обычный": { color: "#8b92a5", price: 150, chance: 60 },
-            "Необычный": { color: "#10b981", price: 500, chance: 25 },
-            "Редкий": { color: "#3b82f6", price: 2000, chance: 10 },
-            "Эпический": { color: "#8b5cf6", price: 10000, chance: 4 },
-            "Легендарный": { color: "#f97316", price: 50000, chance: 0.9 },
-            "Мифический": { color: "#fbbf24", price: 500000, chance: 0.1 }
+        // Промокоды (Можешь добавлять свои сюда. Формат: "КОД": сумма)
+        const promoCodes = {
+            "SIMCITY": 100000,
+            "LUCKY": 50000,
+            "CASINO": 25000
         };
+        let usedPromos = JSON.parse(localStorage.getItem('used_promos')) || [];
 
         function updateUI() {
             document.getElementById('userBalance').innerText = balance.toLocaleString('ru-RU');
             document.getElementById('statOpened').innerText = statOpened;
             document.getElementById('statValue').innerText = inventory.reduce((sum, item) => sum + item.price, 0).toLocaleString('ru-RU');
+            
+            // Прогресс уровня
+            let xpNeeded = userLevel * 100;
+            document.getElementById('userLevel').innerText = userLevel;
+            document.getElementById('userXpText').innerText = `${userXp} / ${xpNeeded} XP`;
+            document.getElementById('userXpBar').style.width = `${(userXp / xpNeeded) * 100}%`;
+            
+            document.getElementById('luckLevel').innerText = luckLevel;
+            document.getElementById('skillPoints').innerText = skillPoints;
+            document.getElementById('btnUpgradeLuck').disabled = skillPoints <= 0;
+            
+            // Гарант
+            let untilGuarantee = 1000 - (statOpened % 1000);
+            if(untilGuarantee === 1000 && statOpened > 0) untilGuarantee = 0; // Если только что выпал
+            document.getElementById('guaranteeCount').innerText = untilGuarantee;
+
+            // Сохранение
             localStorage.setItem('casino_balance', balance);
             localStorage.setItem('casino_inventory', JSON.stringify(inventory));
             localStorage.setItem('stat_opened', statOpened);
+            localStorage.setItem('user_level', userLevel);
+            localStorage.setItem('user_xp', userXp);
+            localStorage.setItem('skill_points', skillPoints);
+            localStorage.setItem('luck_level', luckLevel);
+            localStorage.setItem('rocket_history', JSON.stringify(rocketHistory));
+            localStorage.setItem('used_promos', JSON.stringify(usedPromos));
+            
+            updateRocketHistoryUI();
+        }
+
+        function addXp(amount) {
+            userXp += amount;
+            let xpNeeded = userLevel * 100;
+            if (userXp >= xpNeeded) {
+                userXp -= xpNeeded;
+                userLevel++;
+                skillPoints++;
+                showToast(`Новый уровень: ${userLevel}! (+1 очко)`, '🏆');
+            }
+        }
+
+        window.upgradeLuck = function() {
+            if (skillPoints > 0) {
+                skillPoints--;
+                luckLevel++;
+                showToast('Удача улучшена!', '🍀');
+                updateUI();
+            }
         }
 
         window.toggleMenu = function() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            sidebar.classList.toggle('active');
-            overlay.classList.toggle('active');
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
         }
 
         window.switchTab = function(tabId, element) {
@@ -306,7 +401,9 @@
             document.querySelectorAll('.menu-item').forEach(n => n.classList.remove('active'));
             document.getElementById('screen-' + tabId).classList.add('active');
             if(element) element.classList.add('active');
+            
             if(tabId === 'inventory') renderInventory();
+            if(tabId === 'chances') renderChances();
             if(tabId === 'profile') updateUI();
         }
 
@@ -314,28 +411,65 @@
         window.closeTariffModal = function() { document.getElementById('tariffModal').classList.remove('active'); }
         
         window.selectTier = function(key, el, cost) {
-            currentTier = { key, cost };
+            currentTier = { key, cost, name: el.querySelector('h4').innerText };
             document.querySelectorAll('.tariff-item').forEach(i => i.classList.remove('active'));
             el.classList.add('active');
-            document.getElementById('currentTierName').innerText = el.querySelector('h4').innerText;
+            document.getElementById('currentTierName').innerText = currentTier.name;
             document.getElementById('currentTierCost').innerText = cost.toLocaleString('ru-RU') + ' 🪙';
             closeTariffModal();
         }
 
-        // Генерация одного номера
-        function generateNumberData() {
-            let random = Math.random() * 100;
-            let selectedRarity = "Обычный";
-            let currentChance = 0;
-            
-            for (let [name, data] of Object.entries(rarities)) {
-                currentChance += data.chance;
-                if (random <= currentChance) { selectedRarity = name; break; }
-            }
+        // Базовые шансы
+        const baseRarities = {
+            "Обычный": { color: "#8b92a5", price: 150, chance: 60 },
+            "Необычный": { color: "#10b981", price: 500, chance: 25 },
+            "Редкий": { color: "#3b82f6", price: 2000, chance: 10 },
+            "Эпический": { color: "#8b5cf6", price: 10000, chance: 4 },
+            "Легендарный": { color: "#f97316", price: 50000, chance: 0.9 },
+            "Мифический": { color: "#fbbf24", price: 500000, chance: 0.1 }
+        };
 
-            const data = rarities[selectedRarity];
-            const number = "+" + Math.floor(Math.random() * 90000000000 + 10000000000);
-            return { number, rarity: selectedRarity, price: data.price, color: data.color };
+        function getCalculatedRarities() {
+            let calc = JSON.parse(JSON.stringify(baseRarities));
+            
+            // Бонус к удаче: каждый уровень +0.5% к шансу редких (отнимаем от обычных)
+            let luckBonus = luckLevel * 0.5;
+            calc["Обычный"].chance -= luckBonus;
+            calc["Редкий"].chance += luckBonus * 0.6;
+            calc["Эпический"].chance += luckBonus * 0.3;
+            calc["Легендарный"].chance += luckBonus * 0.1;
+
+            // Модификаторы для архивов
+            if (currentTier.key === 'hacker') {
+                calc["Обычный"].chance -= 20;
+                calc["Редкий"].chance += 15;
+                calc["Эпический"].chance += 5;
+            } else if (currentTier.key === 'vip') {
+                calc["Обычный"].chance -= 40;
+                calc["Редкий"].chance += 20;
+                calc["Эпический"].chance += 15;
+                calc["Легендарный"].chance += 5;
+            } else if (currentTier.key === 'gov') {
+                calc["Обычный"].chance = 0;
+                calc["Необычный"].chance = 10;
+                calc["Редкий"].chance = 40;
+                calc["Эпический"].chance = 35;
+                calc["Легендарный"].chance = 14;
+                calc["Мифический"].chance = 1;
+            }
+            
+            return calc;
+        }
+
+        function renderChances() {
+            const list = document.getElementById('chancesList');
+            let calc = getCalculatedRarities();
+            list.innerHTML = Object.entries(calc).map(([name, data]) => `
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px;">
+                    <span style="color: ${data.color};">${name}</span>
+                    <span>${data.chance.toFixed(2)}%</span>
+                </div>
+            `).join('');
         }
 
         window.spin = function(count) {
@@ -344,6 +478,7 @@
             if (balance < totalCost) return showToast('Недостаточно монет!', '❌');
             
             balance -= totalCost;
+            addXp(count * 10); // Даем опыт за крутки
             updateUI();
             isSpinning = true;
             
@@ -361,13 +496,40 @@
             }, 50);
         }
 
+        function generateNumberData() {
+            let isGuarantee = false;
+            // Проверка на 1000-ю крутку
+            if ((statOpened + 1) % 1000 === 0) {
+                isGuarantee = true;
+            }
+
+            if (isGuarantee) {
+                // 1000-я крутка - гарант x100 (Секретный)
+                const number = "+" + Math.floor(Math.random() * 90000000000 + 10000000000);
+                return { number, rarity: "СЕКРЕТНЫЙ (ГАРАНТ)", price: 100000000, color: "#ef4444" };
+            }
+
+            let calcRarities = getCalculatedRarities();
+            let random = Math.random() * 100;
+            let selectedRarity = "Обычный";
+            let currentChance = 0;
+            
+            for (let [name, data] of Object.entries(calcRarities)) {
+                currentChance += data.chance;
+                if (random <= currentChance && data.chance > 0) { selectedRarity = name; break; }
+            }
+
+            const data = baseRarities[selectedRarity];
+            const number = "+" + Math.floor(Math.random() * 90000000000 + 10000000000);
+            return { number, rarity: selectedRarity, price: data.price, color: data.color };
+        }
+
         function finishSpin(count) {
             if (count === 1) {
                 const item = generateNumberData();
                 statOpened++;
                 
                 document.getElementById('numberDisplay').innerText = item.number;
-                document.getElementById('countryDisplay').innerText = "🌍 Россия";
                 document.getElementById('rarityDisplay').innerText = item.rarity;
                 document.getElementById('rarityDisplay').style.color = item.color;
                 
@@ -375,33 +537,26 @@
                 document.getElementById('revealTitle').innerText = item.rarity;
                 document.getElementById('revealTitle').style.color = item.color;
                 document.getElementById('revealNumber').innerText = item.number;
-                document.getElementById('revealCountry').innerText = "🌍 Россия";
                 document.getElementById('btnQuickSell').innerText = `Продать за ${item.price.toLocaleString('ru-RU')} 🪙`;
                 document.getElementById('revealOverlay').classList.add('active');
             } else {
-                // Логика для x5
                 statOpened += count;
                 x5Results = [];
                 for (let i = 0; i < count; i++) {
                     x5Results.push(generateNumberData());
+                    // Для x5 тоже проверяем, не выпал ли гарант
+                    statOpened++; 
                 }
                 
                 const list = document.getElementById('x5List');
                 list.innerHTML = x5Results.map(item => `
                     <div class="x5-item" style="border-left-color: ${item.color};">
-                        <div>
-                            <h5 style="color: ${item.color};">${item.number}</h5>
-                            <p>${item.rarity}</p>
-                        </div>
+                        <div><h5 style="color: ${item.color};">${item.number}</h5><p>${item.rarity}</p></div>
                         <div class="x5-price">${item.price.toLocaleString('ru-RU')} 🪙</div>
                     </div>
                 `).join('');
                 
                 document.getElementById('x5Overlay').classList.add('active');
-                // Очищаем основной экран
-                document.getElementById('numberDisplay').innerText = "+0 000 000-00-00";
-                document.getElementById('countryDisplay').innerText = "🌍 Ожидание сигнала";
-                document.getElementById('rarityDisplay').innerText = "";
             }
             updateUI();
         }
@@ -424,14 +579,12 @@
             }
         }
 
-        // --- ЗАБРАТЬ ИЛИ ПРОДАТЬ X5 ---
         window.claimX5 = function() {
             inventory.push(...x5Results);
             x5Results = [];
             document.getElementById('x5Overlay').classList.remove('active');
             updateUI();
             showToast('Все номера в базе!', '📦');
-            if(document.getElementById('screen-inventory').classList.contains('active')) renderInventory();
         }
 
         window.sellX5 = function() {
@@ -443,7 +596,6 @@
             showToast(`Продано на ${total.toLocaleString('ru-RU')} 🪙`, '💰');
         }
 
-        // --- БАЗА ---
         function renderInventory() {
             const list = document.getElementById('inventoryList');
             if (inventory.length === 0) {
@@ -479,11 +631,50 @@
             showToast(`Продано всё за ${total.toLocaleString('ru-RU')} 🪙`, '💰');
         }
 
-        // --- РАКЕТА (ПОЛНЫЙ РАНДОМ) ---
+        window.sellToBuyer = function() {
+            if (inventory.length === 0) return showToast('База пуста!', '❌');
+            let total = inventory.reduce((sum, item) => sum + item.price, 0);
+            let bonus = Math.floor(total * 1.2); // +20%
+            balance += bonus;
+            inventory = [];
+            updateUI();
+            if(document.getElementById('screen-inventory').classList.contains('active')) renderInventory();
+            showToast(`Скупщик заплатил ${bonus.toLocaleString('ru-RU')} 🪙 (+20%)`, '🤑');
+        }
+
+        // --- ПРОМОКОДЫ ---
+        window.activatePromo = function() {
+            let input = document.getElementById('promoInput').value.trim().toUpperCase();
+            if (!input) return;
+            
+            if (usedPromos.includes(input)) {
+                return showToast('Ты уже использовал этот код!', '❌');
+            }
+
+            if (promoCodes[input]) {
+                balance += promoCodes[input];
+                usedPromos.push(input);
+                updateUI();
+                document.getElementById('promoInput').value = '';
+                showToast(`Промокод активирован! +${promoCodes[input].toLocaleString('ru-RU')} 🪙`, '🎁');
+            } else {
+                showToast('Неверный промокод', '❌');
+            }
+        }
+
+        // --- РАКЕТА ---
         let rocketBet = 10000;
         let rocketState = 'idle';
         let rocketMult = 1.0;
         let rocketInterval = null;
+
+        function updateRocketHistoryUI() {
+            const container = document.getElementById('rocketHistory');
+            container.innerHTML = rocketHistory.slice(0, 10).map(mult => {
+                let colorClass = mult < 2 ? 'low' : 'high';
+                return `<div class="history-badge ${colorClass}">x${mult.toFixed(2)}</div>`;
+            }).join('');
+        }
 
         window.updateManualBet = function(val) {
             rocketBet = parseInt(val) || 0;
@@ -507,6 +698,7 @@
                 if (balance < rocketBet) return showToast('Недостаточно монет!', '❌');
                 
                 balance -= rocketBet;
+                addXp(5);
                 updateUI();
                 rocketState = 'flying';
                 rocketMult = 1.0;
@@ -515,21 +707,12 @@
                 btn.innerText = 'Забрать';
                 btn.classList.add('cashout');
                 
-                // Честный рандом (обратное распределение).
-                // Чем выше множитель, тем меньше шанс.
-                // Формула дает шанс упасть на x2 = 50%, на x10 = 10%, на x100 = 1%.
-                // Но может улететь и на x1000 (0.1% шанс).
                 const random = Math.random();
-                // Предотвращаем слишком быстрый краш (меньше 1.0)
                 let crashPoint = Math.max(1.0, (0.99 / (1.0 - random))); 
-                // Добавим немного "соли", чтобы не падало ровно на целых числах (например, ровно на 2.00)
                 crashPoint = Math.floor(crashPoint * 100) / 100;
-                
-                // Если выпало меньше 1.01, принудительно ставим 1.01, чтобы было время на реакцию
                 if (crashPoint < 1.01) crashPoint = 1.01;
 
                 rocketInterval = setInterval(() => {
-                    // Скорость роста зависит от текущего множителя
                     let speed = 0.01; 
                     if (rocketMult > 10) speed = 0.05;
                     if (rocketMult > 50) speed = 0.2;
@@ -537,13 +720,8 @@
                     rocketMult += speed;
                     multText.innerText = `x${rocketMult.toFixed(2)}`;
                     
-                    let moveX = (rocketMult - 1) * 15;
-                    let moveY = (rocketMult - 1) * 10;
-                    
-                    // Ограничиваем полет, чтобы ракета не улетела за экран
-                    if (moveX > 250) moveX = 250;
-                    if (moveY > 100) moveY = 100;
-                    
+                    let moveX = Math.min((rocketMult - 1) * 15, 250);
+                    let moveY = Math.min((rocketMult - 1) * 10, 100);
                     rocket.style.transform = `translate(${moveX}px, -${moveY}px)`;
 
                     if (rocketMult >= crashPoint) {
@@ -553,6 +731,10 @@
                         multText.innerText = `УПАЛА НА x${crashPoint.toFixed(2)}`;
                         btn.innerText = 'Запустить';
                         btn.classList.remove('cashout');
+                        
+                        rocketHistory.unshift(crashPoint);
+                        if(rocketHistory.length > 10) rocketHistory.pop();
+                        updateUI();
                         
                         setTimeout(() => {
                             multText.innerText = 'x1.00';
@@ -578,14 +760,6 @@
                     rocket.style.transform = `translate(0, 0)`;
                 }, 1500);
             }
-        }
-
-        window.claimDaily = function() {
-            balance += 50000;
-            updateUI();
-            document.getElementById('btnDaily').disabled = true;
-            document.getElementById('btnDaily').innerText = 'Получено';
-            showToast('Бонус получен!', '🎁');
         }
 
         window.showToast = function(text, icon = "🎉") {
