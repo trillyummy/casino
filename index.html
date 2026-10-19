@@ -8,27 +8,63 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
         :root {
-            --bg: #090a0f; --card: rgba(25, 28, 38, 0.85); --text: #ffffff; --text-muted: #8b92a5;
-            --accent: #3b82f6; --gold: #fbbf24; --border: rgba(255,255,255,0.08);
-            --danger: #ef4444; --success: #10b981; --purple: #8b5cf6; --stars: #0088cc;
-            --radius-lg: 24px; --radius-md: 16px; --radius-sm: 12px;
+            --bg: #090a0f; 
+            --card: rgba(25, 28, 38, 0.75); 
+            --card-hover: rgba(35, 38, 50, 0.9);
+            --text: #ffffff; 
+            --text-muted: #8b92a5;
+            --accent: #3b82f6; 
+            --gold: #fbbf24; 
+            --border: rgba(255,255,255,0.08);
+            --danger: #ef4444; 
+            --success: #10b981; 
+            --purple: #8b5cf6; 
+            --radius-lg: 24px; 
+            --radius-md: 16px; 
+            --radius-sm: 12px;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; background-image: radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.15), transparent 30%), radial-gradient(circle at 85% 90%, rgba(139, 92, 246, 0.15), transparent 30%); }
         
-        .top-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        /* НОВЫЙ КРАСИВЫЙ ФОН */
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden; 
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(59, 130, 246, 0.2), transparent 40%), 
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.2), transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.1), transparent 50%);
+            background-size: cover;
+        }
+        
+        .top-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(9,10,15,0.9), transparent); }
         .balance { font-size: 15px; font-weight: 800; color: var(--gold); display: flex; align-items: center; gap: 6px; background: rgba(251, 191, 36, 0.15); padding: 8px 16px; border-radius: 30px; border: 1px solid rgba(251, 191, 36, 0.3); backdrop-filter: blur(10px); }
         .menu-btn { width: 36px; height: 36px; border-radius: 50%; background: var(--card); border: 1px solid var(--border); display: flex; justify-content: center; align-items: center; cursor: pointer; backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: 0.2s; }
         .menu-btn:active { transform: scale(0.9); }
         .menu-btn svg { width: 20px; height: 20px; fill: var(--text); }
 
+        /* МЕНЮ СНИЗУ */
         .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(3px); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
-        .sidebar { position: fixed; top: 0; right: -100%; width: 260px; height: 100%; background: var(--bg); border-left: 1px solid var(--border); z-index: 999; display: flex; flex-direction: column; padding: 20px; transition: right 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow-y: auto; box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
-        .sidebar.active { right: 0; }
-        .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .sidebar { 
+            position: fixed; bottom: -100%; left: 0; right: 0; 
+            width: 100%; max-width: 500px; margin: 0 auto;
+            background: var(--card); backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border); 
+            border-radius: 30px 30px 0 0;
+            z-index: 999; display: flex; flex-direction: column; padding: 20px 20px 30px 20px; 
+            transition: bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            max-height: 85vh; overflow-y: auto; 
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+        }
+        .sidebar.active { bottom: 0; }
+        .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .sidebar-header h3 { font-size: 18px; font-weight: 900; text-transform: uppercase; }
         .close-sidebar { background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer; }
+        
         .menu-list { display: flex; flex-direction: column; gap: 8px; }
         .menu-item { background: rgba(255,255,255,0.03); border: 1px solid transparent; border-radius: var(--radius-md); padding: 12px 15px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.2s; }
         .menu-item:active { transform: scale(0.97); background: rgba(255,255,255,0.08); }
@@ -41,7 +77,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* СИНТЕЗ */
-        .case-container { background: var(--card); border-radius: var(--radius-lg); padding: 20px; text-align: center; border: 1px solid var(--border); box-shadow: 0 15px 35px rgba(0,0,0,0.5); margin-top: auto; margin-bottom: auto; position: relative; display: flex; flex-direction: column; gap: 12px;}
+        .case-container { background: var(--card); backdrop-filter: blur(15px); border-radius: var(--radius-lg); padding: 20px; text-align: center; border: 1px solid var(--border); box-shadow: 0 15px 35px rgba(0,0,0,0.5); margin-top: auto; margin-bottom: auto; position: relative; display: flex; flex-direction: column; gap: 12px;}
         .btn-select { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px 16px; font-size: 13px; font-weight: 700; width: 100%; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; }
         .btn-select:active { transform: scale(0.98); background: rgba(255,255,255,0.1); }
         .number-display { font-size: 26px; font-weight: 900; margin: 10px 0; letter-spacing: 1px; min-height: 35px; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
@@ -54,7 +90,7 @@
         .btn-x5 { background: linear-gradient(135deg, #8b5cf6, #7c3aed); box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3); flex: 0.4; }
 
         /* СПУТНИК */
-        .rocket-container { background: var(--card); border-radius: var(--radius-lg); padding: 15px; text-align: center; border: 1px solid var(--border); margin-top: auto; margin-bottom: auto; display: flex; flex-direction: column; align-items: center; gap: 10px;}
+        .rocket-container { background: var(--card); backdrop-filter: blur(15px); border-radius: var(--radius-lg); padding: 15px; text-align: center; border: 1px solid var(--border); margin-top: auto; margin-bottom: auto; display: flex; flex-direction: column; align-items: center; gap: 10px;}
         .bet-input { flex: 1; background: rgba(0,0,0,0.4); border: 1px solid var(--border); color: white; border-radius: var(--radius-sm); padding: 10px 15px; font-size: 14px; font-weight: 700; outline: none; text-align: center;}
         .bet-buttons { display: flex; gap: 6px; width: 100%; flex-wrap: wrap; justify-content: center;}
         .btn-bet { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border); padding: 8px 12px; border-radius: var(--radius-sm); font-weight: 700; font-size: 11px; cursor: pointer; transition: 0.2s; flex: 1; min-width: 50px; }
@@ -71,31 +107,30 @@
         /* БАЗА */
         .inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 0 5px;}
         .btn-sell-all { background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; border: none; border-radius: var(--radius-sm); padding: 8px 15px; font-size: 11px; font-weight: 800; cursor: pointer; text-transform: uppercase;}
-        .inventory-item { background: var(--card); border-radius: var(--radius-md); padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--text-muted); border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .inventory-item { background: var(--card); backdrop-filter: blur(10px); border-radius: var(--radius-md); padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--text-muted); border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .inv-info h4 { font-size: 15px; margin-bottom: 4px; font-weight: 800; letter-spacing: 1px; }
         .inv-info p { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-bottom: 2px;}
         .btn-sell { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.4); padding: 6px 12px; border-radius: 8px; font-weight: 700; font-size: 11px; margin-top: 8px; cursor: pointer; text-transform: uppercase; }
 
         /* ПРОФИЛЬ И УРОВНИ */
         .profile-layout { display: flex; flex-direction: column; gap: 15px; padding-bottom: 20px;}
-        .profile-card { background: var(--card); border-radius: var(--radius-lg); padding: 20px; border: 1px solid var(--border); }
+        .profile-card { background: var(--card); backdrop-filter: blur(10px); border-radius: var(--radius-lg); padding: 20px; border: 1px solid var(--border); }
         .avatar { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #8b5cf6); display: flex; justify-content: center; align-items: center; font-size: 30px; margin: 0 auto 10px auto; border: 3px solid rgba(255,255,255,0.1); overflow: hidden;}
         .progress-container { width: 100%; background: rgba(0,0,0,0.4); height: 12px; border-radius: 6px; margin-bottom: 10px; overflow: hidden; border: 1px solid var(--border); position: relative;}
         .progress-bar { height: 100%; background: linear-gradient(90deg, #3b82f6, #8b5cf6); width: 0%; transition: width 0.3s; }
-        .progress-text { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; font-size: 8px; font-weight: 800; color: white;}
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;}
         .stat-box { background: rgba(0,0,0,0.3); padding: 12px; border-radius: var(--radius-sm); text-align: center; }
         .stat-box span { display: block; font-size: 10px; color: var(--text-muted); font-weight: 700; margin-bottom: 5px; text-transform: uppercase;}
         .stat-box strong { font-size: 16px; font-weight: 900; color: var(--text); }
 
         /* МАГАЗИН */
-        .shop-card { background: var(--card); border-radius: var(--radius-lg); padding: 20px; border: 1px solid var(--border); margin-bottom: 15px; }
-        .btn-buy { background: linear-gradient(135deg, var(--stars), #006699); color: white; border: none; border-radius: var(--radius-md); padding: 15px; font-size: 15px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; margin-top: 10px;}
+        .shop-card { background: var(--card); backdrop-filter: blur(10px); border-radius: var(--radius-lg); padding: 20px; border: 1px solid var(--border); margin-bottom: 15px; }
+        .btn-buy { background: linear-gradient(135deg, #0088cc, #006699); color: white; border: none; border-radius: var(--radius-md); padding: 15px; font-size: 15px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; margin-top: 10px;}
 
         /* МОДАЛКИ */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 9998; display: flex; justify-content: center; align-items: flex-end; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .bottom-sheet { width: 100%; max-width: 500px; background: var(--card); border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 25px 20px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1); max-height: 85vh; overflow-y: auto; border: 1px solid var(--border); }
+        .bottom-sheet { width: 100%; max-width: 500px; background: var(--card); backdrop-filter: blur(20px); border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 25px 20px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1); max-height: 85vh; overflow-y: auto; border: 1px solid var(--border); }
         .modal-overlay.active .bottom-sheet { transform: translateY(0); }
         .modal-title { font-size: 18px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 20px; }
         .tariff-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(0,0,0,0.3); border-radius: var(--radius-md); margin-bottom: 10px; cursor: pointer; border: 1px solid transparent;}
@@ -124,6 +159,7 @@
         </div>
     </div>
 
+    <!-- МЕНЮ СНИЗУ -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header"><h3>Меню</h3><button class="close-sidebar" onclick="toggleMenu()">✕</button></div>
@@ -162,9 +198,9 @@
                 <input type="number" id="manualBetInput" class="bet-input" placeholder="Своя сумма..." oninput="updateManualBet(this.value)">
             </div>
             <div class="bet-buttons">
-                <button class="btn-bet" onclick="setBet(10000)">10K</button>
-                <button class="btn-bet" onclick="setBet(50000)">50K</button>
                 <button class="btn-bet" onclick="setBet(100000)">100K</button>
+                <button class="btn-bet" onclick="setBet(1000000)">1M</button>
+                <button class="btn-bet" onclick="setBet(5000000)">5M</button>
                 <button class="btn-bet" onclick="setBet('ALL')">MAX</button>
             </div>
             <p style="font-size: 12px; color: var(--text-muted); font-weight: 700; text-align: center;">Топливо: <span id="currentBetDisplay" style="color: var(--gold);">10 000</span> 🪙</p>
@@ -309,12 +345,10 @@
         const tg = window.Telegram.WebApp;
         tg.expand(); tg.setHeaderColor("#090a0f");
 
-        // Состояния
         let balance = parseInt(localStorage.getItem('casino_balance')) || 5000;
         let inventory = JSON.parse(localStorage.getItem('casino_inventory')) || [];
         let statOpened = parseInt(localStorage.getItem('stat_opened')) || 0;
         
-        // Уровни и Удача
         let userLevel = parseInt(localStorage.getItem('user_level')) || 1;
         let userXp = parseInt(localStorage.getItem('user_xp')) || 0;
         let skillPoints = parseInt(localStorage.getItem('skill_points')) || 0;
@@ -325,10 +359,8 @@
         let currentTier = { key: 'grey', cost: 500, name: 'Серый рынок' };
         let x5Results = [];
         
-        // История ракеты
         let rocketHistory = JSON.parse(localStorage.getItem('rocket_history')) || [];
 
-        // Промокоды (Можешь добавлять свои сюда. Формат: "КОД": сумма)
         const promoCodes = {
             "SIMCITY": 100000,
             "LUCKY": 50000,
@@ -336,12 +368,20 @@
         };
         let usedPromos = JSON.parse(localStorage.getItem('used_promos')) || [];
 
+        // ИСПРАВЛЕННАЯ ГЕНЕРАЦИЯ НОМЕРА (ТОЛЬКО ЦИФРЫ)
+        function generatePhoneNumber() {
+            let code = Math.floor(Math.random() * 9) + 1; // От 1 до 9
+            let p1 = Math.floor(Math.random() * 900) + 100;
+            let p2 = Math.floor(Math.random() * 90) + 10;
+            let p3 = Math.floor(Math.random() * 90) + 10;
+            return `+${code} ${p1} ${p2}-${p3}`;
+        }
+
         function updateUI() {
             document.getElementById('userBalance').innerText = balance.toLocaleString('ru-RU');
             document.getElementById('statOpened').innerText = statOpened;
             document.getElementById('statValue').innerText = inventory.reduce((sum, item) => sum + item.price, 0).toLocaleString('ru-RU');
             
-            // Прогресс уровня
             let xpNeeded = userLevel * 100;
             document.getElementById('userLevel').innerText = userLevel;
             document.getElementById('userXpText').innerText = `${userXp} / ${xpNeeded} XP`;
@@ -351,12 +391,10 @@
             document.getElementById('skillPoints').innerText = skillPoints;
             document.getElementById('btnUpgradeLuck').disabled = skillPoints <= 0;
             
-            // Гарант
             let untilGuarantee = 1000 - (statOpened % 1000);
-            if(untilGuarantee === 1000 && statOpened > 0) untilGuarantee = 0; // Если только что выпал
+            if(untilGuarantee === 1000 && statOpened > 0) untilGuarantee = 0;
             document.getElementById('guaranteeCount').innerText = untilGuarantee;
 
-            // Сохранение
             localStorage.setItem('casino_balance', balance);
             localStorage.setItem('casino_inventory', JSON.stringify(inventory));
             localStorage.setItem('stat_opened', statOpened);
@@ -419,7 +457,6 @@
             closeTariffModal();
         }
 
-        // Базовые шансы
         const baseRarities = {
             "Обычный": { color: "#8b92a5", price: 150, chance: 60 },
             "Необычный": { color: "#10b981", price: 500, chance: 25 },
@@ -431,15 +468,12 @@
 
         function getCalculatedRarities() {
             let calc = JSON.parse(JSON.stringify(baseRarities));
-            
-            // Бонус к удаче: каждый уровень +0.5% к шансу редких (отнимаем от обычных)
             let luckBonus = luckLevel * 0.5;
             calc["Обычный"].chance -= luckBonus;
             calc["Редкий"].chance += luckBonus * 0.6;
             calc["Эпический"].chance += luckBonus * 0.3;
             calc["Легендарный"].chance += luckBonus * 0.1;
 
-            // Модификаторы для архивов
             if (currentTier.key === 'hacker') {
                 calc["Обычный"].chance -= 20;
                 calc["Редкий"].chance += 15;
@@ -457,7 +491,6 @@
                 calc["Легендарный"].chance = 14;
                 calc["Мифический"].chance = 1;
             }
-            
             return calc;
         }
 
@@ -478,13 +511,13 @@
             if (balance < totalCost) return showToast('Недостаточно монет!', '❌');
             
             balance -= totalCost;
-            addXp(count * 10); // Даем опыт за крутки
+            addXp(count * 10);
             updateUI();
             isSpinning = true;
             
             let spinCount = 0;
             let interval = setInterval(() => {
-                document.getElementById('numberDisplay').innerText = "+" + Math.floor(Math.random() * 90000000000 + 10000000000);
+                document.getElementById('numberDisplay').innerText = generatePhoneNumber();
                 document.getElementById('countryDisplay').innerText = "🌍 Поиск...";
                 spinCount++;
                 
@@ -498,15 +531,12 @@
 
         function generateNumberData() {
             let isGuarantee = false;
-            // Проверка на 1000-ю крутку
             if ((statOpened + 1) % 1000 === 0) {
                 isGuarantee = true;
             }
 
             if (isGuarantee) {
-                // 1000-я крутка - гарант x100 (Секретный)
-                const number = "+" + Math.floor(Math.random() * 90000000000 + 10000000000);
-                return { number, rarity: "СЕКРЕТНЫЙ (ГАРАНТ)", price: 100000000, color: "#ef4444" };
+                return { number: generatePhoneNumber(), rarity: "СЕКРЕТНЫЙ (ГАРАНТ)", price: 100000000, color: "#ef4444" };
             }
 
             let calcRarities = getCalculatedRarities();
@@ -520,8 +550,7 @@
             }
 
             const data = baseRarities[selectedRarity];
-            const number = "+" + Math.floor(Math.random() * 90000000000 + 10000000000);
-            return { number, rarity: selectedRarity, price: data.price, color: data.color };
+            return { number: generatePhoneNumber(), rarity: selectedRarity, price: data.price, color: data.color };
         }
 
         function finishSpin(count) {
@@ -544,7 +573,6 @@
                 x5Results = [];
                 for (let i = 0; i < count; i++) {
                     x5Results.push(generateNumberData());
-                    // Для x5 тоже проверяем, не выпал ли гарант
                     statOpened++; 
                 }
                 
@@ -634,7 +662,7 @@
         window.sellToBuyer = function() {
             if (inventory.length === 0) return showToast('База пуста!', '❌');
             let total = inventory.reduce((sum, item) => sum + item.price, 0);
-            let bonus = Math.floor(total * 1.2); // +20%
+            let bonus = Math.floor(total * 1.2);
             balance += bonus;
             inventory = [];
             updateUI();
@@ -642,7 +670,6 @@
             showToast(`Скупщик заплатил ${bonus.toLocaleString('ru-RU')} 🪙 (+20%)`, '🤑');
         }
 
-        // --- ПРОМОКОДЫ ---
         window.activatePromo = function() {
             let input = document.getElementById('promoInput').value.trim().toUpperCase();
             if (!input) return;
@@ -662,7 +689,6 @@
             }
         }
 
-        // --- РАКЕТА ---
         let rocketBet = 10000;
         let rocketState = 'idle';
         let rocketMult = 1.0;
@@ -678,12 +704,20 @@
 
         window.updateManualBet = function(val) {
             rocketBet = parseInt(val) || 0;
+            if (rocketBet > 10000000) {
+                rocketBet = 10000000;
+                document.getElementById('manualBetInput').value = rocketBet;
+                showToast('Максимальная ставка 10 000 000!', '⚠️');
+            }
             document.getElementById('currentBetDisplay').innerText = rocketBet.toLocaleString('ru-RU');
         }
 
         window.setBet = function(amount) {
-            if (amount === 'ALL') rocketBet = balance;
-            else rocketBet = amount;
+            if (amount === 'ALL') {
+                rocketBet = Math.min(balance, 10000000);
+            } else {
+                rocketBet = amount;
+            }
             document.getElementById('manualBetInput').value = rocketBet;
             document.getElementById('currentBetDisplay').innerText = rocketBet.toLocaleString('ru-RU');
         }
@@ -696,6 +730,7 @@
             if (rocketState === 'idle') {
                 if (rocketBet < 100) return showToast('Минимальная ставка 100', '⚠️');
                 if (balance < rocketBet) return showToast('Недостаточно монет!', '❌');
+                if (rocketBet > 10000000) return showToast('Максимум 10 000 000!', '⚠️');
                 
                 balance -= rocketBet;
                 addXp(5);
@@ -749,6 +784,11 @@
                 
                 let winAmount = Math.floor(rocketBet * rocketMult);
                 balance += winAmount;
+                
+                // ЗАПИСЬ В ИСТОРИЮ ПРИ УСПЕШНОМ ЗАБОРЕ
+                rocketHistory.unshift(rocketMult);
+                if(rocketHistory.length > 10) rocketHistory.pop();
+                
                 updateUI();
                 showToast(`Вы забрали ${winAmount.toLocaleString('ru-RU')} 🪙 (x${rocketMult.toFixed(2)})`, '🚀');
                 
