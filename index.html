@@ -15,7 +15,7 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
         
-        /* ЭСТЕТИЧНЫЙ ФОН */
+        /* ФОН */
         body { 
             background-color: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden;
             background-image: url('https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1000&auto=format&fit=crop');
@@ -76,34 +76,110 @@
         .screen.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* СИНТЕЗ */
+        /* СИНТЕЗ (Визуал СИМ-карты) */
         #screen-game { justify-content: flex-end; padding-bottom: 25px; }
-        .case-container { background: var(--card); border-radius: var(--radius-lg); padding: 15px; text-align: center; border: 1px solid var(--border); position: relative; display: flex; flex-direction: column; gap: 10px; backdrop-filter: blur(15px);}
+        
+        .sim-card-container {
+            background: linear-gradient(135deg, #1a1a24, #0a0a0f);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1);
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .sim-chip {
+            width: 40px; height: 32px;
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            border-radius: 6px;
+            position: absolute;
+            top: 15px; left: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column; justify-content: space-between; padding: 4px;
+        }
+        .sim-chip-line { width: 100%; height: 1px; background: rgba(0,0,0,0.3); }
+        .sim-chip-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 12px; height: 16px; border: 1px solid rgba(0,0,0,0.3); border-radius: 2px;}
+
+        .sim-logo { position: absolute; top: 15px; right: 15px; font-size: 20px; font-weight: 900; color: rgba(255,255,255,0.1); letter-spacing: 2px;}
+        
+        .sim-display-area {
+            margin-top: 35px;
+            margin-bottom: 10px;
+            text-align: center;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .sim-dashes {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+            opacity: 0.3;
+            transition: opacity 0.2s;
+        }
+        .sim-dashes.active { opacity: 1; }
+        .sim-dash { width: 20px; height: 4px; background: white; border-radius: 2px; }
+        
+        /* Выпавший номер */
+        .sim-result-box {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .sim-result-box.show { display: flex; }
+        
+        .sim-result-number {
+            font-size: 22px; font-weight: 900; letter-spacing: 1px;
+            color: white; text-shadow: 0 0 10px currentColor;
+            margin-bottom: 4px;
+        }
+        .sim-result-rarity { font-size: 11px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px;}
+        .sim-result-price { font-size: 14px; font-weight: 900; color: var(--gold); background: rgba(251,191,36,0.1); padding: 4px 12px; border-radius: 12px;}
+        
+        @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+        /* Кнопки управления */
+        .sim-controls { display: flex; flex-direction: column; gap: 8px; margin-top: auto;}
         .btn-select { background: rgba(255,255,255,0.08); color: white; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 10px 14px; font-size: 12px; font-weight: 700; width: 100%; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; }
         .btn-select:active { transform: scale(0.98); background: rgba(255,255,255,0.15); }
-        .number-display { font-size: 24px; font-weight: 900; margin: 5px 0; letter-spacing: 1px; min-height: 30px; }
-        .country-display { font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
-        .rarity-display { font-size: 11px; font-weight: 800; margin-bottom: 5px; height: 16px; text-transform: uppercase; }
-        .spin-actions { display: flex; gap: 8px; width: 100%; margin-top: 5px;}
+        
+        .spin-actions { display: flex; gap: 8px; width: 100%;}
         .btn-main { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; border-radius: var(--radius-md); padding: 14px; font-size: 13px; font-weight: 800; cursor: pointer; transition: 0.2s; flex: 1; text-transform: uppercase; }
         .btn-main:active { transform: scale(0.96); }
         .btn-main:disabled { background: #2d3041; color: var(--text-muted); box-shadow: none; transform: none; }
         .btn-x5 { background: linear-gradient(135deg, #8b5cf6, #7c3aed); flex: 0.4; }
 
+        /* НАСТРОЙКИ АВТОПРОДАЖИ */
+        .setting-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: var(--radius-md); margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.05); }
+        .setting-item span { font-size: 13px; font-weight: 700; }
+        .toggle-switch { position: relative; display: inline-block; width: 40px; height: 22px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .4s; border-radius: 22px; }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--success); }
+        input:checked + .slider:before { transform: translateX(18px); }
+
         /* ОБЩЕЕ ОКНО ИГР */
         .games-container { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); border: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; backdrop-filter: blur(10px); height: 100%; max-height: 600px;}
-        
-        /* Панель вкладок */
         .game-tabs { display: flex; background: rgba(0,0,0,0.4); border-bottom: 1px solid var(--border); overflow-x: auto;}
         .game-tab { flex: 1; padding: 12px 10px; text-align: center; font-size: 12px; font-weight: 800; color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: 0.2s; border-bottom: 2px solid transparent;}
         .game-tab.active { color: white; border-bottom-color: var(--accent); background: rgba(255,255,255,0.05);}
-        
-        /* Контент внутри окна */
         .game-content { flex: 1; padding: 15px; display: flex; flex-direction: column; overflow-y: auto; position: relative;}
         .game-pane { display: none; flex-direction: column; height: 100%;}
         .game-pane.active { display: flex; }
 
-        /* Краш внутри окна */
+        /* Краш, Монетка, Кости */
         .crash-graph-container { width: 100%; height: 160px; background: #000; border-radius: var(--radius-md); position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 10px; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 25% 50%; }
         .crash-graph-svg { width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
         .crash-big-mult { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 40px; font-weight: 900; color: white; z-index: 2; text-shadow: 0 5px 15px rgba(0,0,0,0.8); letter-spacing: -1px; }
@@ -112,7 +188,6 @@
         .h-strip-badge.high { color: var(--success); background: rgba(16,185,129,0.2);}
         .h-strip-badge.low { color: var(--danger); background: rgba(239,68,68,0.2);}
         
-        /* Монетка/Кости внутри окна */
         .play-area { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1;}
         .search-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 10; display: none; flex-direction: column; align-items: center; justify-content: center; border-radius: var(--radius-lg); gap: 15px;}
         .search-overlay.active { display: flex; }
@@ -134,7 +209,6 @@
         .btn-crash-main.cashout { background: #fbbf24; color: black; }
         .btn-crash-main.disabled { background: rgba(255,255,255,0.1); color: var(--text-muted); }
         
-        /* Краш история ставок */
         .crash-live-bets { background: rgba(0,0,0,0.3); border-radius: var(--radius-md); padding: 10px; border: 1px solid rgba(255,255,255,0.05); margin-top: auto;}
         .crash-bets-header { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; display: flex; justify-content: space-between;}
         .crash-bet-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 12px;}
@@ -142,9 +216,17 @@
         .crash-user { display: flex; align-items: center; gap: 8px; font-weight: 700; color: white;}
         .crash-user-avatar { width: 24px; height: 24px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 12px; overflow: hidden;}
 
-        /* Заглушка (Апгрейд) */
+        /* Заглушка */
         .empty-pane { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-weight: 700; gap: 10px;}
         .empty-pane span { font-size: 40px; }
+
+        /* РОУМИНГ */
+        .country-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .country-item { background: rgba(255,255,255,0.05); padding: 12px; border-radius: var(--radius-md); display: flex; align-items: center; gap: 8px; cursor: pointer; border: 1px solid transparent; transition: 0.2s;}
+        .country-item:active { background: rgba(255,255,255,0.1); transform: scale(0.95);}
+        .country-item.active { border-color: var(--accent); background: rgba(59,130,246,0.1);}
+        .country-item span { font-size: 18px; }
+        .country-item p { font-size: 12px; font-weight: 700; }
 
         /* БАТЛ ПАСС */
         .bp-card { background: rgba(0,0,0,0.4); border-radius: var(--radius-md); padding: 12px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;}
@@ -152,14 +234,6 @@
         .bp-card p { font-size: 11px; color: var(--text-muted); font-weight: 600;}
         .bp-reward { text-align: right; }
         .bp-list-container { max-height: 55vh; overflow-y: auto; padding-right: 5px; }
-
-        /* РОУМИНГ */
-        .country-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .country-item { background: rgba(0,0,0,0.4); padding: 12px; border-radius: var(--radius-md); display: flex; align-items: center; gap: 8px; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); transition: 0.2s;}
-        .country-item:active { background: rgba(255,255,255,0.1); transform: scale(0.95);}
-        .country-item.active { border-color: var(--accent); background: rgba(59,130,246,0.1);}
-        .country-item span { font-size: 18px; }
-        .country-item p { font-size: 12px; font-weight: 700; }
 
         /* БАЗА */
         .inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 5px;}
@@ -249,7 +323,7 @@
                 <div class="category-title">Справка</div>
                 <div class="grid-2">
                     <div class="small-btn" onclick="switchTab('chances', this)"><div class="small-icon ic-gold">📊</div><span>Шансы</span></div>
-                    <div class="small-btn" onclick="switchTab('roaming', this)"><div class="small-icon ic-green">🌍</div><span>Роуминг</span></div>
+                    <div class="small-btn" onclick="switchTab('settings', this)"><div class="small-icon ic-grey">⚙️</div><span>Настройки</span></div>
                 </div>
             </div>
             <button class="btn-main" style="margin-top: 10px; background: rgba(255,255,255,0.05); box-shadow: none; color: var(--text-muted);" onclick="toggleMenu()">Закрыть меню</button>
@@ -258,24 +332,51 @@
 
     <!-- ЭКРАНЫ -->
     <div id="screen-game" class="screen active">
-        <div class="case-container">
-            <h3 style="margin-bottom: 8px; font-weight: 800; font-size: 14px; text-transform: uppercase;">Синтез Номера</h3>
-            <button class="btn-select" onclick="openTariffModal()"><span>Архив: <span id="currentTierName" style="color: var(--accent);">Серый рынок</span></span><span id="currentTierCost" style="color: var(--gold);">500 🪙</span></button>
-            <div class="country-display" id="countryDisplay" style="margin-top: 10px;">🌍 Любая страна</div>
-            <div class="number-display" id="numberDisplay">+0 000 000-00-00</div>
-            <div class="rarity-display" id="rarityDisplay"></div>
-            <div class="spin-actions">
-                <button class="btn-main" id="spinBtn" onclick="spin(1)">Сканировать</button>
-                <button class="btn-main btn-x5" id="spinBtnX5" onclick="spin(5)">x5</button>
+        <div class="sim-card-container">
+            <div class="sim-chip">
+                <div class="sim-chip-line"></div>
+                <div class="sim-chip-line"></div>
+                <div class="sim-chip-line"></div>
+                <div class="sim-chip-center"></div>
             </div>
-            <div style="font-size: 10px; color: var(--text-muted); margin-top: 5px;">До гаранта: <span id="guaranteeCount">1000</span></div>
+            <div class="sim-logo">SIM</div>
+            
+            <div class="sim-display-area">
+                <!-- Чёрточки (по умолчанию) -->
+                <div class="sim-dashes" id="simDashes">
+                    <div class="sim-dash"></div>
+                    <div class="sim-dash"></div>
+                    <div class="sim-dash"></div>
+                    <div class="sim-dash"></div>
+                    <div class="sim-dash"></div>
+                </div>
+                
+                <!-- Результат (скрыт) -->
+                <div class="sim-result-box" id="simResultBox">
+                    <div class="sim-result-number" id="simResultNumber">+7 999 000-00-00</div>
+                    <div class="sim-result-rarity" id="simResultRarity">Обычный</div>
+                    <div class="sim-result-price" id="simResultPrice">150 🪙</div>
+                </div>
+            </div>
+            
+            <div class="sim-controls">
+                <button class="btn-select" onclick="openTariffModal()"><span>Архив: <span id="currentTierName" style="color: var(--accent);">Серый рынок</span></span><span id="currentTierCost" style="color: var(--gold);">500 🪙</span></button>
+                <button class="btn-select" onclick="openRoamingModal()" style="border-color: rgba(16,185,129,0.3);">
+                    <span>Роуминг: <span id="currentRoamingText" style="color: var(--success);">🌍 Любая</span></span>
+                    <span style="font-size: 16px;">✈️</span>
+                </button>
+                <div class="spin-actions">
+                    <button class="btn-main" id="spinBtn" onclick="spin(1)">Крутить</button>
+                    <button class="btn-main btn-x5" id="spinBtnX5" onclick="spin(5)">x5</button>
+                </div>
+                <div style="font-size: 10px; color: var(--text-muted); text-align: center; margin-top: 5px;">До гаранта: <span id="guaranteeCount">1000</span></div>
+            </div>
         </div>
     </div>
 
-    <!-- ОБЩИЙ ЭКРАН ИГР (Вкладки) -->
+    <!-- ОБЩИЙ ЭКРАН ИГР -->
     <div id="screen-games" class="screen">
         <div class="games-container">
-            <!-- Панель вкладок -->
             <div class="game-tabs">
                 <div class="game-tab active" onclick="switchGamePane('coin', this)">Монетка</div>
                 <div class="game-tab" onclick="switchGamePane('dice', this)">Кости</div>
@@ -348,7 +449,6 @@
                 </div>
             </div>
 
-            <!-- Оверлей поиска (для всех игр) -->
             <div class="search-overlay" id="searchOverlay">
                 <div class="spinner"></div>
                 <div style="font-weight: 800; font-size: 14px;" id="searchText">Поиск соперника...</div>
@@ -365,9 +465,38 @@
         <div class="bp-list-container" id="bpList"></div>
     </div>
 
-    <div id="screen-roaming" class="screen">
-        <h2 style="font-weight: 900; text-transform: uppercase; font-size: 18px; margin-bottom: 15px;">Роуминг</h2>
-        <div class="country-grid" id="countryGrid"></div>
+    <!-- НАСТРОЙКИ АВТОПРОДАЖИ -->
+    <div id="screen-settings" class="screen">
+        <h2 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; font-size: 18px; text-align: center;">Настройки</h2>
+        <div class="profile-card">
+            <h3 style="font-size: 14px; font-weight: 800; margin-bottom: 10px; color: var(--gold);">Автопродажа номеров</h3>
+            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 15px;">Если включено, эти номера будут сразу продаваться, не попадая в базу.</p>
+            
+            <div class="setting-item">
+                <span>Обычные</span>
+                <label class="toggle-switch"><input type="checkbox" id="auto-sell-Обычный" onchange="saveAutoSell()"><span class="slider"></span></label>
+            </div>
+            <div class="setting-item">
+                <span>Необычные</span>
+                <label class="toggle-switch"><input type="checkbox" id="auto-sell-Необычный" onchange="saveAutoSell()"><span class="slider"></span></label>
+            </div>
+            <div class="setting-item">
+                <span>Редкие</span>
+                <label class="toggle-switch"><input type="checkbox" id="auto-sell-Редкий" onchange="saveAutoSell()"><span class="slider"></span></label>
+            </div>
+            <div class="setting-item">
+                <span>Эпические</span>
+                <label class="toggle-switch"><input type="checkbox" id="auto-sell-Эпический" onchange="saveAutoSell()"><span class="slider"></span></label>
+            </div>
+            <div class="setting-item">
+                <span>Легендарные</span>
+                <label class="toggle-switch"><input type="checkbox" id="auto-sell-Легендарный" onchange="saveAutoSell()"><span class="slider"></span></label>
+            </div>
+            <div class="setting-item">
+                <span>Мифические</span>
+                <label class="toggle-switch"><input type="checkbox" id="auto-sell-Мифический" onchange="saveAutoSell()"><span class="slider"></span></label>
+            </div>
+        </div>
     </div>
 
     <div id="screen-inventory" class="screen">
@@ -435,22 +564,11 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="revealOverlay">
-        <div class="bottom-sheet" style="text-align: center;">
-            <div style="font-size:12px; font-weight:900; text-transform:uppercase;" id="revealTitle">РЕДКОСТЬ</div>
-            <div style="font-size: 26px; font-weight: 900; margin: 15px 0;" id="revealNumber">+0 000 000-00-00</div>
-            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;" id="revealCountry">🌍 Страна</div>
-            <button class="btn-main" style="width: 100%; margin-bottom: 10px;" onclick="closeReveal()">Забрать в Базу</button>
-            <button class="btn-main" style="width: 100%; background: linear-gradient(135deg, #fbbf24, #d97706); color: black;" id="btnQuickSell" onclick="quickSell()">Продать</button>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="x5Overlay">
+    <div class="modal-overlay" id="roamingModal">
         <div class="bottom-sheet">
-            <h3 style="margin-bottom: 15px; font-weight: 900; text-transform: uppercase; color: var(--purple); font-size: 16px; text-align: center;">Результат x5</h3>
-            <div class="x5-list" id="x5List"></div>
-            <button class="btn-main" style="width: 100%;" onclick="claimX5()">Забрать всё</button>
-            <button class="btn-main" style="width: 100%; background: linear-gradient(135deg, #fbbf24, #d97706); color: black; margin-top: 10px;" onclick="sellX5()">Продать всё</button>
+            <div class="modal-title">Роуминг</div>
+            <div class="country-grid" id="countryGrid"></div>
+            <button class="btn-main" style="margin-top: 20px; background: rgba(255,255,255,0.1); box-shadow: none;" onclick="closeRoamingModal()">Закрыть</button>
         </div>
     </div>
 
@@ -476,15 +594,22 @@
         let userLevel = parseInt(localStorage.getItem('user_level')) || 1;
         let userXp = parseInt(localStorage.getItem('user_xp')) || 0;
         let isSpinning = false;
-        let currentQuickSellItem = null;
         let currentTier = { key: 'grey', cost: 500, name: 'Серый рынок' };
-        let x5Results = [];
         
-        let currentCountry = { code: "+7", flag: "🇷🇺 Россия", prefix: 7 };
+        // Настройки автопродажи
+        let autoSellSettings = JSON.parse(localStorage.getItem('auto_sell_settings')) || {
+            "Обычный": false, "Необычный": false, "Редкий": false, "Эпический": false, "Легендарный": false, "Мифический": false
+        };
+
+        let currentCountry = { code: "any", flag: "🌍 Любая", prefix: null };
         const countries = [
-            { code: "+7", flag: "🇷🇺 Россия", prefix: 7 }, { code: "+375", flag: "🇧🇾 Беларусь", prefix: 375 }, 
-            { code: "+380", flag: "🇺🇦 Украина", prefix: 380 }, { code: "+1", flag: "🇺🇸 США", prefix: 1 }, 
-            { code: "+49", flag: "🇩🇪 Германия", prefix: 49 }, { code: "+44", flag: "🇬🇧 Англия", prefix: 44 }, 
+            { code: "any", flag: "🌍 Любая", prefix: null },
+            { code: "+7", flag: "🇷🇺 Россия", prefix: 7 }, 
+            { code: "+375", flag: "🇧🇾 Беларусь", prefix: 375 }, 
+            { code: "+380", flag: "🇺🇦 Украина", prefix: 380 }, 
+            { code: "+1", flag: "🇺🇸 США", prefix: 1 }, 
+            { code: "+49", flag: "🇩🇪 Германия", prefix: 49 }, 
+            { code: "+44", flag: "🇬🇧 Англия", prefix: 44 }, 
             { code: "+971", flag: "🇦🇪 ОАЭ", prefix: 971 }
         ];
         
@@ -539,6 +664,7 @@
             localStorage.setItem('user_xp', userXp);
             localStorage.setItem('rocket_history', JSON.stringify(rocketHistory));
             localStorage.setItem('used_promos', JSON.stringify(usedPromos));
+            localStorage.setItem('auto_sell_settings', JSON.stringify(autoSellSettings));
             
             updateRocketHistoryUI();
             checkBetButton();
@@ -564,7 +690,6 @@
         }
 
         window.switchTab = function(tabId, element) {
-            // Закрываем меню при любом переходе
             document.getElementById('sidebar').classList.remove('active');
             document.getElementById('sidebarOverlay').classList.remove('active');
 
@@ -575,19 +700,27 @@
             
             if(tabId === 'inventory') renderInventory();
             if(tabId === 'chances') renderChances();
-            if(tabId === 'roaming') renderRoaming();
+            if(tabId === 'settings') loadAutoSellSettings();
         }
 
-        // --- ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК ВНУТРИ ИГР ---
-        window.switchGamePane = function(paneId, element) {
-            document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.game-pane').forEach(p => p.classList.remove('active'));
-            
-            if(element) element.classList.add('active');
-            document.getElementById('pane-' + paneId).classList.add('active');
+        // --- АВТОПРОДАЖА ---
+        window.loadAutoSellSettings = function() {
+            for (let rarity in autoSellSettings) {
+                let el = document.getElementById('auto-sell-' + rarity);
+                if (el) el.checked = autoSellSettings[rarity];
+            }
         }
 
-        // --- КЕЙСЫ ---
+        window.saveAutoSell = function() {
+            for (let rarity in autoSellSettings) {
+                let el = document.getElementById('auto-sell-' + rarity);
+                if (el) autoSellSettings[rarity] = el.checked;
+            }
+            localStorage.setItem('auto_sell_settings', JSON.stringify(autoSellSettings));
+            showToast('Настройки сохранены', '⚙️');
+        }
+
+        // --- КЕЙСЫ И КРУТКА ---
         window.openTariffModal = function() { document.getElementById('tariffModal').classList.add('active'); }
         window.closeTariffModal = function() { document.getElementById('tariffModal').classList.remove('active'); }
         
@@ -598,6 +731,39 @@
             document.getElementById('currentTierName').innerText = currentTier.name;
             document.getElementById('currentTierCost').innerText = cost.toLocaleString('ru-RU') + ' 🪙';
             closeTariffModal();
+        }
+
+        window.openRoamingModal = function() { document.getElementById('roamingModal').classList.add('active'); }
+        window.closeRoamingModal = function() { document.getElementById('roamingModal').classList.remove('active'); }
+
+        function renderRoaming() {
+            const grid = document.getElementById('countryGrid');
+            grid.innerHTML = countries.map(c => `
+                <div class="country-item ${currentCountry.code === c.code ? 'active' : ''}" onclick="selectCountry('${c.code}')">
+                    <span>${c.flag.split(' ')[0]}</span>
+                    <p>${c.flag.split(' ')[1]}</p>
+                </div>
+            `).join('');
+        }
+
+        window.selectCountry = function(code) {
+            currentCountry = countries.find(c => c.code === code);
+            document.getElementById('currentRoamingText').innerText = currentCountry.flag;
+            renderRoaming();
+            closeRoamingModal();
+            showToast(`Роуминг: ${currentCountry.flag}`, '🌍');
+        }
+
+        function generatePhoneNumber() {
+            let code = currentCountry.prefix;
+            if (!code) {
+                let randomCountry = countries[Math.floor(Math.random() * (countries.length - 1)) + 1];
+                code = randomCountry.prefix;
+            }
+            let p1 = Math.floor(Math.random() * 900) + 100;
+            let p2 = Math.floor(Math.random() * 90) + 10;
+            let p3 = Math.floor(Math.random() * 90) + 10;
+            return `+${code} ${p1} ${p2}-${p3}`;
         }
 
         function renderChances() {
@@ -611,32 +777,6 @@
             `).join('');
         }
 
-        // --- РОУМИНГ ---
-        function renderRoaming() {
-            const grid = document.getElementById('countryGrid');
-            grid.innerHTML = countries.map(c => `
-                <div class="country-item ${currentCountry.code === c.code ? 'active' : ''}" onclick="selectCountry('${c.code}')">
-                    <span>${c.flag.split(' ')[0]}</span>
-                    <p>${c.flag.split(' ')[1]}</p>
-                </div>
-            `).join('');
-        }
-
-        window.selectCountry = function(code) {
-            currentCountry = countries.find(c => c.code === code);
-            document.getElementById('countryDisplay').innerText = currentCountry.flag;
-            renderRoaming();
-            showToast(`Выбрана страна: ${currentCountry.flag}`, '🌍');
-        }
-
-        function generatePhoneNumber() {
-            let code = currentCountry.prefix;
-            let p1 = Math.floor(Math.random() * 900) + 100;
-            let p2 = Math.floor(Math.random() * 90) + 10;
-            let p3 = Math.floor(Math.random() * 90) + 10;
-            return `+${code} ${p1} ${p2}-${p3}`;
-        }
-
         window.spin = function(count) {
             if (isSpinning) return;
             let totalCost = currentTier.cost * count;
@@ -645,13 +785,15 @@
             balance -= totalCost;
             updateUI();
             isSpinning = true;
+
+            // Скрываем результат, показываем анимацию
+            document.getElementById('simDashes').style.display = 'flex';
+            document.getElementById('simResultBox').classList.remove('show');
             
             let spinCount = 0;
             let interval = setInterval(() => {
-                document.getElementById('numberDisplay').innerText = generatePhoneNumber();
-                document.getElementById('countryDisplay').innerText = "🌍 Поиск...";
+                // Анимация: чёрточки мелькают
                 spinCount++;
-                
                 if (spinCount > 10) {
                     clearInterval(interval);
                     isSpinning = false;
@@ -687,243 +829,58 @@
                 const item = generateNumberData();
                 statOpened++;
                 
-                document.getElementById('numberDisplay').innerText = item.number;
-                document.getElementById('rarityDisplay').innerText = item.rarity;
-                document.getElementById('rarityDisplay').style.color = item.color;
-                
-                currentQuickSellItem = item;
-                document.getElementById('revealTitle').innerText = item.rarity;
-                document.getElementById('revealTitle').style.color = item.color;
-                document.getElementById('revealNumber').innerText = item.number;
-                document.getElementById('btnQuickSell').innerText = `Продать за ${item.price.toLocaleString('ru-RU')} 🪙`;
-                document.getElementById('revealOverlay').classList.add('active');
+                // Показываем результат на симке
+                document.getElementById('simDashes').style.display = 'none';
+                document.getElementById('simResultBox').classList.add('show');
+                document.getElementById('simResultNumber').innerText = item.number;
+                document.getElementById('simResultNumber').style.color = item.color;
+                document.getElementById('simResultRarity').innerText = item.rarity;
+                document.getElementById('simResultRarity').style.color = item.color;
+                document.getElementById('simResultPrice').innerText = `${item.price.toLocaleString('ru-RU')} 🪙`;
+
+                // Автопродажа или в базу
+                if (autoSellSettings[item.rarity]) {
+                    balance += item.price;
+                    showToast(`Автопродажа: +${item.price.toLocaleString('ru-RU')} 🪙`, '💰');
+                } else {
+                    inventory.push(item);
+                    showToast(`Номер в базе!`, '📦');
+                }
+
             } else {
                 statOpened += count;
-                x5Results = [];
+                let lastItem = null;
+                let totalSold = 0;
+                let totalAdded = 0;
+
                 for (let i = 0; i < count; i++) {
-                    x5Results.push(generateNumberData());
-                    statOpened++; 
+                    let item = generateNumberData();
+                    lastItem = item;
+                    statOpened++;
+
+                    if (autoSellSettings[item.rarity]) {
+                        totalSold += item.price;
+                    } else {
+                        inventory.push(item);
+                        totalAdded++;
+                    }
                 }
                 
-                const list = document.getElementById('x5List');
-                list.innerHTML = x5Results.map(item => `
-                    <div class="x5-item" style="border-left-color: ${item.color};">
-                        <div><h5 style="color: ${item.color};">${item.number}</h5><p>${item.rarity}</p></div>
-                        <div class="x5-price">${item.price.toLocaleString('ru-RU')} 🪙</div>
-                    </div>
-                `).join('');
-                
-                document.getElementById('x5Overlay').classList.add('active');
+                balance += totalSold;
+
+                // Показываем последний выпавший номер на симке (для визуала)
+                document.getElementById('simDashes').style.display = 'none';
+                document.getElementById('simResultBox').classList.add('show');
+                document.getElementById('simResultNumber').innerText = lastItem.number;
+                document.getElementById('simResultNumber').style.color = lastItem.color;
+                document.getElementById('simResultRarity').innerText = lastItem.rarity + " (последний)";
+                document.getElementById('simResultRarity').style.color = lastItem.color;
+                document.getElementById('simResultPrice').innerText = `Выпало за x5: ${count} шт.`;
+
+                if (totalSold > 0) showToast(`Автопродажа: +${totalSold.toLocaleString('ru-RU')} 🪙`, '💰');
+                if (totalAdded > 0) showToast(`В базу добавлено: ${totalAdded} шт.`, '📦');
             }
             updateUI();
-        }
-
-        window.closeReveal = function() {
-            if (currentQuickSellItem) inventory.push(currentQuickSellItem);
-            currentQuickSellItem = null;
-            document.getElementById('revealOverlay').classList.remove('active');
-            updateUI();
-            if(document.getElementById('screen-inventory').classList.contains('active')) renderInventory();
-        }
-
-        window.quickSell = function() {
-            if (currentQuickSellItem) {
-                balance += currentQuickSellItem.price;
-                currentQuickSellItem = null;
-                document.getElementById('revealOverlay').classList.remove('active');
-                updateUI();
-                showToast('Номер продан!', '💰');
-            }
-        }
-
-        window.claimX5 = function() {
-            inventory.push(...x5Results);
-            x5Results = [];
-            document.getElementById('x5Overlay').classList.remove('active');
-            updateUI();
-            showToast('Все номера в базе!', '📦');
-        }
-
-        window.sellX5 = function() {
-            let total = x5Results.reduce((sum, item) => sum + item.price, 0);
-            balance += total;
-            x5Results = [];
-            document.getElementById('x5Overlay').classList.remove('active');
-            updateUI();
-            showToast(`Продано на ${total.toLocaleString('ru-RU')} 🪙`, '💰');
-        }
-
-        // --- ИГРЫ ВНУТРИ ОКНА (МОНЕТКА) ---
-        window.startCoinGame = function() {
-            let bet = parseInt(document.getElementById('coinBetInput').value);
-            if (!bet || bet < 100) return showToast('Минимальная ставка 100', '⚠️');
-            if (balance < bet) return showToast('Недостаточно монет!', '❌');
-            
-            balance -= bet;
-            updateUI();
-            
-            // Показываем поиск
-            document.getElementById('searchOverlay').classList.add('active');
-            document.getElementById('searchText').innerText = "Поиск соперника...";
-            document.getElementById('coinPlayBtn').disabled = true;
-            
-            setTimeout(() => {
-                document.getElementById('searchText').innerText = "Соперник найден!";
-                let names = ["Vasya", "Ivan", "Foxy", "Makeover", "Danya", "Ruslan"];
-                document.getElementById('coinOpponentName').innerText = names[Math.floor(Math.random() * names.length)];
-                
-                setTimeout(() => {
-                    document.getElementById('searchOverlay').classList.remove('active');
-                    playCoinAnimation(bet);
-                }, 800);
-            }, 1500);
-        }
-
-        function playCoinAnimation(bet) {
-            let pRes = document.getElementById('coinPlayerRes');
-            let oRes = document.getElementById('coinOpponentRes');
-            let ticks = 0;
-            
-            let anim = setInterval(() => {
-                pRes.innerText = Math.random() > 0.5 ? '🦅' : '🪙';
-                oRes.innerText = Math.random() > 0.5 ? '🦅' : '🪙';
-                ticks++;
-                if (ticks > 10) {
-                    clearInterval(anim);
-                    finishCoinGame(bet);
-                }
-            }, 100);
-        }
-
-        function finishCoinGame(bet) {
-            let pRes = document.getElementById('coinPlayerRes');
-            let oRes = document.getElementById('coinOpponentRes');
-            let pScore = Math.random() > 0.5 ? 1 : 0;
-            let oScore = Math.random() > 0.5 ? 1 : 0;
-            
-            pRes.innerText = pScore === 1 ? '🦅' : '🪙';
-            oRes.innerText = oScore === 1 ? '🦅' : '🪙';
-            
-            setTimeout(() => {
-                document.getElementById('coinPlayBtn').disabled = false;
-                if (pScore > oScore) {
-                    balance += bet * 2;
-                    showToast(`Вы победили! +${bet * 2} 🪙`, '🏆');
-                } else if (pScore === oScore) {
-                    balance += bet;
-                    showToast('Ничья!', '🤝');
-                } else {
-                    showToast('Вы проиграли.', '💀');
-                }
-                updateUI();
-            }, 800);
-        }
-
-        // --- ИГРЫ ВНУТРИ ОКНА (КОСТИ) ---
-        window.startDiceGame = function() {
-            let bet = parseInt(document.getElementById('diceBetInput').value);
-            if (!bet || bet < 100) return showToast('Минимальная ставка 100', '⚠️');
-            if (balance < bet) return showToast('Недостаточно монет!', '❌');
-            
-            balance -= bet;
-            updateUI();
-            
-            document.getElementById('searchOverlay').classList.add('active');
-            document.getElementById('searchText').innerText = "Поиск соперника...";
-            document.getElementById('dicePlayBtn').disabled = true;
-            
-            setTimeout(() => {
-                document.getElementById('searchText').innerText = "Соперник найден!";
-                let names = ["Vasya", "Ivan", "Foxy", "Makeover", "Danya", "Ruslan"];
-                document.getElementById('diceOpponentName').innerText = names[Math.floor(Math.random() * names.length)];
-                
-                setTimeout(() => {
-                    document.getElementById('searchOverlay').classList.remove('active');
-                    playDiceAnimation(bet);
-                }, 800);
-            }, 1500);
-        }
-
-        function playDiceAnimation(bet) {
-            let pRes = document.getElementById('dicePlayerRes');
-            let oRes = document.getElementById('diceOpponentRes');
-            let ticks = 0;
-            
-            let anim = setInterval(() => {
-                pRes.innerText = '🎲' + (Math.floor(Math.random() * 6) + 1);
-                oRes.innerText = '🎲' + (Math.floor(Math.random() * 6) + 1);
-                ticks++;
-                if (ticks > 10) {
-                    clearInterval(anim);
-                    finishDiceGame(bet);
-                }
-            }, 100);
-        }
-
-        function finishDiceGame(bet) {
-            let pRes = document.getElementById('dicePlayerRes');
-            let oRes = document.getElementById('diceOpponentRes');
-            let pScore = Math.floor(Math.random() * 6) + 1;
-            let oScore = Math.floor(Math.random() * 6) + 1;
-            
-            pRes.innerText = '🎲' + pScore;
-            oRes.innerText = '🎲' + oScore;
-            
-            setTimeout(() => {
-                document.getElementById('dicePlayBtn').disabled = false;
-                if (pScore > oScore) {
-                    balance += bet * 2;
-                    showToast(`Вы победили! +${bet * 2} 🪙`, '🏆');
-                } else if (pScore === oScore) {
-                    balance += bet;
-                    showToast('Ничья!', '🤝');
-                } else {
-                    showToast('Вы проиграли.', '💀');
-                }
-                updateUI();
-            }, 800);
-        }
-
-        // --- БАТЛ ПАСС ---
-        window.renderBattlePass = function() {
-            let bpLvl = Math.floor(statOpened / 10) + 1;
-            document.getElementById('bpLevelDisplay').innerText = bpLvl;
-            
-            const bpList = document.getElementById('bpList');
-            let html = '';
-            for (let i = 1; i <= 50; i++) {
-                let reqLvl = i;
-                let isLocked = bpLvl < reqLvl;
-                let isClaimed = localStorage.getItem('bp_claimed_' + i) === 'true';
-                let reward = i * 2500; 
-                if (i % 10 === 0) reward = i * 10000; 
-                
-                html += `
-                    <div class="bp-card" style="${isLocked ? 'opacity: 0.5;' : ''}">
-                        <div>
-                            <h4>Уровень ${reqLvl}</h4>
-                            <p>Награда: ${reward.toLocaleString('ru-RU')} 🪙</p>
-                        </div>
-                        <div class="bp-reward">
-                            <button class="btn-main" style="padding: 6px 10px; font-size: 10px; flex: none; ${isLocked || isClaimed ? 'background: rgba(255,255,255,0.1); color: #888;' : ''}" 
-                                onclick="claimBP(${i}, ${reqLvl}, ${reward})" ${isLocked || isClaimed ? 'disabled' : ''}>
-                                ${isClaimed ? 'Получено' : 'Забрать'}
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }
-            bpList.innerHTML = html;
-        }
-
-        window.claimBP = function(id, reqLvl, reward) {
-            let bpLvl = Math.floor(statOpened / 10) + 1;
-            if (bpLvl >= reqLvl) {
-                balance += reward;
-                localStorage.setItem('bp_claimed_' + id, 'true');
-                updateUI();
-                showToast(`Получено ${reward.toLocaleString('ru-RU')} 🪙`, '👑');
-            }
         }
 
         // --- БАЗА ---
@@ -988,7 +945,186 @@
             }
         }
 
-        // --- РАКЕТА ---
+        // --- БАТЛ ПАСС ---
+        window.renderBattlePass = function() {
+            let bpLvl = Math.floor(statOpened / 10) + 1;
+            document.getElementById('bpLevelDisplay').innerText = bpLvl;
+            
+            const bpList = document.getElementById('bpList');
+            let html = '';
+            for (let i = 1; i <= 50; i++) {
+                let reqLvl = i;
+                let isLocked = bpLvl < reqLvl;
+                let isClaimed = localStorage.getItem('bp_claimed_' + i) === 'true';
+                let reward = i * 2500; 
+                if (i % 10 === 0) reward = i * 10000; 
+                
+                html += `
+                    <div class="bp-card" style="${isLocked ? 'opacity: 0.5;' : ''}">
+                        <div>
+                            <h4>Уровень ${reqLvl}</h4>
+                            <p>Награда: ${reward.toLocaleString('ru-RU')} 🪙</p>
+                        </div>
+                        <div class="bp-reward">
+                            <button class="btn-main" style="padding: 6px 10px; font-size: 10px; flex: none; ${isLocked || isClaimed ? 'background: rgba(255,255,255,0.1); color: #888;' : ''}" 
+                                onclick="claimBP(${i}, ${reqLvl}, ${reward})" ${isLocked || isClaimed ? 'disabled' : ''}>
+                                ${isClaimed ? 'Получено' : 'Забрать'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+            bpList.innerHTML = html;
+        }
+
+        window.claimBP = function(id, reqLvl, reward) {
+            let bpLvl = Math.floor(statOpened / 10) + 1;
+            if (bpLvl >= reqLvl) {
+                balance += reward;
+                localStorage.setItem('bp_claimed_' + id, 'true');
+                updateUI();
+                showToast(`Получено ${reward.toLocaleString('ru-RU')} 🪙`, '👑');
+            }
+        }
+
+        // --- ИГРЫ ---
+        window.switchGamePane = function(paneId, element) {
+            document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.game-pane').forEach(p => p.classList.remove('active'));
+            
+            if(element) element.classList.add('active');
+            document.getElementById('pane-' + paneId).classList.add('active');
+        }
+
+        window.startCoinGame = function() {
+            let bet = parseInt(document.getElementById('coinBetInput').value);
+            if (!bet || bet < 100) return showToast('Минимальная ставка 100', '⚠️');
+            if (balance < bet) return showToast('Недостаточно монет!', '❌');
+            
+            balance -= bet;
+            updateUI();
+            
+            document.getElementById('searchOverlay').classList.add('active');
+            document.getElementById('searchText').innerText = "Поиск соперника...";
+            document.getElementById('coinPlayBtn').disabled = true;
+            
+            setTimeout(() => {
+                document.getElementById('searchText').innerText = "Соперник найден!";
+                let names = ["Vasya", "Ivan", "Foxy", "Makeover", "Danya", "Ruslan"];
+                document.getElementById('coinOpponentName').innerText = names[Math.floor(Math.random() * names.length)];
+                
+                setTimeout(() => {
+                    document.getElementById('searchOverlay').classList.remove('active');
+                    playCoinAnimation(bet);
+                }, 800);
+            }, 1500);
+        }
+
+        function playCoinAnimation(bet) {
+            let pRes = document.getElementById('coinPlayerRes');
+            let oRes = document.getElementById('coinOpponentRes');
+            let ticks = 0;
+            
+            let anim = setInterval(() => {
+                pRes.innerText = Math.random() > 0.5 ? '🦅' : '🪙';
+                oRes.innerText = Math.random() > 0.5 ? '🦅' : '🪙';
+                ticks++;
+                if (ticks > 10) {
+                    clearInterval(anim);
+                    finishCoinGame(bet);
+                }
+            }, 100);
+        }
+
+        function finishCoinGame(bet) {
+            let pRes = document.getElementById('coinPlayerRes');
+            let oRes = document.getElementById('coinOpponentRes');
+            let pScore = Math.random() > 0.5 ? 1 : 0;
+            let oScore = Math.random() > 0.5 ? 1 : 0;
+            
+            pRes.innerText = pScore === 1 ? '🦅' : '🪙';
+            oRes.innerText = oScore === 1 ? '🦅' : '🪙';
+            
+            setTimeout(() => {
+                document.getElementById('coinPlayBtn').disabled = false;
+                if (pScore > oScore) {
+                    balance += bet * 2;
+                    showToast(`Вы победили! +${bet * 2} 🪙`, '🏆');
+                } else if (pScore === oScore) {
+                    balance += bet;
+                    showToast('Ничья!', '🤝');
+                } else {
+                    showToast('Вы проиграли.', '💀');
+                }
+                updateUI();
+            }, 800);
+        }
+
+        window.startDiceGame = function() {
+            let bet = parseInt(document.getElementById('diceBetInput').value);
+            if (!bet || bet < 100) return showToast('Минимальная ставка 100', '⚠️');
+            if (balance < bet) return showToast('Недостаточно монет!', '❌');
+            
+            balance -= bet;
+            updateUI();
+            
+            document.getElementById('searchOverlay').classList.add('active');
+            document.getElementById('searchText').innerText = "Поиск соперника...";
+            document.getElementById('dicePlayBtn').disabled = true;
+            
+            setTimeout(() => {
+                document.getElementById('searchText').innerText = "Соперник найден!";
+                let names = ["Vasya", "Ivan", "Foxy", "Makeover", "Danya", "Ruslan"];
+                document.getElementById('diceOpponentName').innerText = names[Math.floor(Math.random() * names.length)];
+                
+                setTimeout(() => {
+                    document.getElementById('searchOverlay').classList.remove('active');
+                    playDiceAnimation(bet);
+                }, 800);
+            }, 1500);
+        }
+
+        function playDiceAnimation(bet) {
+            let pRes = document.getElementById('dicePlayerRes');
+            let oRes = document.getElementById('diceOpponentRes');
+            let ticks = 0;
+            
+            let anim = setInterval(() => {
+                pRes.innerText = '🎲' + (Math.floor(Math.random() * 6) + 1);
+                oRes.innerText = '🎲' + (Math.floor(Math.random() * 6) + 1);
+                ticks++;
+                if (ticks > 10) {
+                    clearInterval(anim);
+                    finishDiceGame(bet);
+                }
+            }, 100);
+        }
+
+        function finishDiceGame(bet) {
+            let pRes = document.getElementById('dicePlayerRes');
+            let oRes = document.getElementById('diceOpponentRes');
+            let pScore = Math.floor(Math.random() * 6) + 1;
+            let oScore = Math.floor(Math.random() * 6) + 1;
+            
+            pRes.innerText = '🎲' + pScore;
+            oRes.innerText = '🎲' + oScore;
+            
+            setTimeout(() => {
+                document.getElementById('dicePlayBtn').disabled = false;
+                if (pScore > oScore) {
+                    balance += bet * 2;
+                    showToast(`Вы победили! +${bet * 2} 🪙`, '🏆');
+                } else if (pScore === oScore) {
+                    balance += bet;
+                    showToast('Ничья!', '🤝');
+                } else {
+                    showToast('Вы проиграли.', '💀');
+                }
+                updateUI();
+            }, 800);
+        }
+
+        // --- КРАШ (РАКЕТА) ---
         function updateRocketHistoryUI() {
             const container = document.getElementById('rocketHistory');
             container.innerHTML = rocketHistory.slice(0, 10).map(mult => {
@@ -1139,6 +1275,7 @@
             }
         }
         updateUI();
+        renderRoaming();
     </script>
 </body>
 </html>
