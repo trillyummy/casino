@@ -935,8 +935,11 @@
                 document.getElementById(`${type}-status-text`).innerText = "Ожидание соперника...";
                 document.getElementById(`${type}-ThrowBtn`).disabled = true;
                 
-                // Заполняем карточку игрока
-                document.getElementById(`${type}-my-card`).innerHTML = `<div class="opponent-avatar">${currentUserAvatar}</div><div class="opponent-name">${currentUserName}</div><div class="opponent-label">Вы</div>`;
+                // Проверка, существует ли элемент, прежде чем менять его innerHTML
+                let myCard = document.getElementById(`${type}-my-card`);
+                if (myCard) {
+                    myCard.innerHTML = `<div class="opponent-avatar">${currentUserAvatar}</div><div class="opponent-name">${currentUserName}</div><div class="opponent-label">Вы</div>`;
+                }
                 
                 listenMyBet(myActiveBetId, type);
             }).catch(e => {
@@ -994,7 +997,10 @@
             
             // Обновляем карточку соперника
             if (!isCreator) {
-                document.getElementById(`${type}-my-card`).innerHTML = `<div class="opponent-avatar">${currentUserAvatar}</div><div class="opponent-name">${currentUserName}</div><div class="opponent-label">Вы</div>`;
+                let myCard = document.getElementById(`${type}-my-card`);
+                if (myCard) {
+                    myCard.innerHTML = `<div class="opponent-avatar">${currentUserAvatar}</div><div class="opponent-name">${currentUserName}</div><div class="opponent-label">Вы</div>`;
+                }
             }
 
             if (unsubGame) unsubGame();
@@ -1009,7 +1015,9 @@
                 
                 // Обновляем карточку соперника
                 let oppCard = document.getElementById(`${type}-opp-card`);
-                oppCard.innerHTML = `<div class="opponent-avatar">${opp.avatar}</div><div class="opponent-name">${opp.name}</div><div class="opponent-label">Соперник</div>`;
+                if (oppCard) {
+                    oppCard.innerHTML = `<div class="opponent-avatar">${opp.avatar}</div><div class="opponent-name">${opp.name}</div><div class="opponent-label">Соперник</div>`;
+                }
 
                 if (data.status === 'finished') {
                     let myScore = me.score;
@@ -1082,13 +1090,20 @@
         }
 
         function resetGameUI(type) {
-            document.getElementById(`${type}-status-text`).innerText = "Ожидание соперника...";
-            document.getElementById(`${type}-opp-card`).innerHTML = `<div class="opponent-avatar">?</div><div class="opponent-name">Ожидание</div><div class="opponent-label">Соперник</div>`;
+            let statusText = document.getElementById(`${type}-status-text`);
+            if (statusText) statusText.innerText = "Ожидание соперника...";
+            
+            let oppCard = document.getElementById(`${type}-opp-card`);
+            if (oppCard) oppCard.innerHTML = `<div class="opponent-avatar">?</div><div class="opponent-name">Ожидание</div><div class="opponent-label">Соперник</div>`;
+            
             if (type === 'coin') {
-                document.getElementById('coin-visual').innerText = '?';
+                let cv = document.getElementById('coin-visual');
+                if (cv) cv.innerText = '?';
             } else {
-                document.getElementById('dice-visual-1').innerText = '🎲';
-                document.getElementById('dice-visual-2').innerText = '🎲';
+                let d1 = document.getElementById('dice-visual-1');
+                let d2 = document.getElementById('dice-visual-2');
+                if (d1) d1.innerText = '🎲';
+                if (d2) d2.innerText = '🎲';
             }
         }
 
@@ -1109,6 +1124,8 @@
             const multText = document.getElementById('rocketMultiplier');
             const graphPath = document.getElementById('graphPath');
             const graphFill = document.getElementById('graphFill');
+            if (!multText || !graphPath || !graphFill) return;
+            
             rocketMult = 1.0; rocketTime = 0;
             multText.classList.remove('crashed');
             graphPath.setAttribute('d', 'M0,100 L0,100'); graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
@@ -1151,6 +1168,7 @@
 
         function updateRocketHistoryUI() {
             const container = document.getElementById('rocketHistory');
+            if (!container) return;
             container.innerHTML = rocketHistory.slice(0, 10).map(mult => {
                 let colorClass = mult > 2 ? 'high' : (mult < 1.5 ? 'low' : '');
                 return `<div class="h-strip-badge ${colorClass}">x${mult.toFixed(2).replace('.', ',')}</div>`;
@@ -1180,6 +1198,8 @@
             const graphFill = document.getElementById('graphFill');
             const liveBets = document.getElementById('liveBetsContainer');
 
+            if (!btn || !multText || !graphPath || !graphFill) return;
+
             if (rocketState === 'idle' && !hasCashedOut) {
                 if (rocketBet < 100) return showToast('Минимальная ставка 100', '⚠️');
                 if (balance < rocketBet) return showToast('Недостаточно монет!', '❌');
@@ -1192,12 +1212,14 @@
                 
                 graphPath.setAttribute('d', 'M0,100 L0,100'); graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
 
-                liveBets.innerHTML = `
-                    <div class="crash-bet-row" id="myBetRow">
-                        <div class="crash-user"><div class="crash-user-avatar">${currentUserAvatar}</div>${currentUserName}</div>
-                        <div class="crash-user-amounts"><span>${rocketBet.toLocaleString('ru-RU')}</span><span style="color:var(--text-muted);" id="myWinDisplay">...</span></div>
-                    </div>
-                `;
+                if(liveBets) {
+                    liveBets.innerHTML = `
+                        <div class="crash-bet-row" id="myBetRow">
+                            <div class="crash-user"><div class="crash-user-avatar">${currentUserAvatar}</div>${currentUserName}</div>
+                            <div class="crash-user-amounts"><span>${rocketBet.toLocaleString('ru-RU')}</span><span style="color:var(--text-muted);" id="myWinDisplay">...</span></div>
+                        </div>
+                    `;
+                }
 
                 const random = Math.random();
                 currentCrashPoint = Math.max(1.0, (0.99 / (1.0 - random))); 
@@ -1270,6 +1292,7 @@
 
         window.showToast = function(text, icon = "🎉") {
             const toast = document.getElementById('toast');
+            if (!toast) return;
             document.getElementById('toastText').innerText = text;
             toast.querySelector('.toast-icon').innerText = icon;
             toast.classList.add('show');
