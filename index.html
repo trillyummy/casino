@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Number Casino</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --accent: #3b82f6;
+            --common: #94a3b8;
+            --uncommon: #4ade80;
+            --rare: #3b82f6;
+            --epic: #a855f7;
+            --legendary: #fbbf24;
+            --mythic: #ef4444;
+            --secret: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
+        }
+        body {
+            margin: 0; padding: 0; background-color: var(--bg); color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+        }
+        .header {
+            padding: 15px; text-align: center; background: #1e293b;
+            border-bottom: 1px solid #334155; font-weight: bold; font-size: 18px;
+        }
+        .balance { color: var(--legendary); }
+        .content {
+            flex: 1; overflow-y: auto; padding: 20px; display: none;
+        }
+        .content.active { display: block; }
+        
+        .nav-bar {
+            display: flex; background: #1e293b; border-top: 1px solid #334155;
+        }
+        .nav-item {
+            flex: 1; text-align: center; padding: 15px 5px; font-size: 12px;
+            color: #94a3b8; cursor: pointer; transition: 0.2s;
+        }
+        .nav-item.active { color: var(--accent); background: #0f172a; }
+        .nav-item span { display: block; font-size: 20px; margin-bottom: 5px; }
+
+        .case-container {
+            background: var(--card-bg); border-radius: 15px; padding: 20px;
+            text-align: center; margin-bottom: 20px; border: 1px solid #334155;
+        }
+        .win-display {
+            height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border: 2px dashed #475569; border-radius: 10px; margin: 20px 0; font-size: 24px;
+        }
+        .btn {
+            background: var(--accent); color: white; border: none; padding: 15px 30px;
+            font-size: 18px; font-weight: bold; border-radius: 10px; cursor: pointer; width: 100%;
+            box-shadow: 0 4px 0 #2563eb; transition: 0.1s;
+        }
+        .btn:active { transform: translateY(4px); box-shadow: 0 0 0 #2563eb; }
+        
+        .number-card {
+            background: var(--card-bg); border-radius: 10px; padding: 15px; margin-bottom: 10px;
+            border-left: 5px solid var(--common); display: flex; justify-content: space-between; align-items: center;
+        }
+        .number-card .details { display: flex; flex-direction: column; }
+        .number-card .rarity { font-size: 12px; text-transform: uppercase; font-weight: bold; }
+        .number-card .price { color: var(--legendary); font-weight: bold; }
+        
+        .c-common { border-color: var(--common); } .t-common { color: var(--common); }
+        .c-uncommon { border-color: var(--uncommon); } .t-uncommon { color: var(--uncommon); }
+        .c-rare { border-color: var(--rare); } .t-rare { color: var(--rare); }
+        .c-epic { border-color: var(--epic); } .t-epic { color: var(--epic); }
+        .c-legendary { border-color: var(--legendary); } .t-legendary { color: var(--legendary); }
+        .c-mythic { border-color: var(--mythic); } .t-mythic { color: var(--mythic); }
+        .c-secret { border-color: transparent; border-image: var(--secret) 1; border-left-width: 5px; border-left-style: solid;}
+        .t-secret { background: var(--secret); -webkit-background-clip: text; color: transparent; font-weight: bold; }
+
+        .profile-box { text-align: center; margin-bottom: 20px; }
+        .avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--accent); margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 40px;}
+        .shop-item { background: var(--card-bg); padding: 15px; border-radius: 10px; margin-bottom: 10px; text-align: center;}
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        Баланс: <span class="balance" id="userBalance">5000</span> 🪙
+    </div>
+
+    <div id="tab-game" class="content active">
+        <div class="case-container">
+            <h2>Открытие Номера</h2>
+            <p>Стоимость: 500 🪙</p>
+            <div class="win-display" id="winDisplay">
+                <span style="font-size:50px;">🎲</span>
+            </div>
+            <button class="btn" id="spinBtn" onclick="spin()">КРУТИТЬ</button>
+        </div>
+        <h3>Твоя коллекция:</h3>
+        <div id="inventoryList"></div>
+    </div>
+
+    <div id="tab-profile" class="content">
+        <div class="profile-box">
+            <div class="avatar">👤</div>
+            <h2 id="profileName">Игрок</h2>
+            <p>Собрано номеров: <b id="totalNumbers">0</b> / 20</p>
+            <p>Стоимость коллекции: <b id="collectionValue">0</b> 🪙</p>
+        </div>
+    </div>
+
+    <div id="tab-top" class="content">
+        <h3>🏆 Топ игроков</h3>
+        <div class="number-card c-legendary">
+            <div class="details"><span>1. @trill_boss</span><span class="rarity t-legendary">Мифический</span></div>
+            <div class="price">99999 🪙</div>
+        </div>
+        <div class="number-card c-epic">
+            <div class="details"><span>2. @sasha_pro</span><span class="rarity t-epic">Эпический</span></div>
+            <div class="price">45000 🪙</div>
+        </div>
+        <div class="number-card c-rare">
+            <div class="details"><span>3. @vlad_777</span><span class="rarity t-rare">Редкий</span></div>
+            <div class="price">12000 🪙</div>
+        </div>
+    </div>
+
+    <div id="tab-shop" class="content">
+        <h3>💎 Магазин</h3>
+        <div class="shop-item">
+            <h4>1 000 🪙 монет</h4>
+            <p>Цена: Бесплатно (тест)</p>
+            <button class="btn" style="background:#4ade80; box-shadow:0 4px 0 #22c55e;" onclick="addCoins(1000)">Купить</button>
+        </div>
+        <div class="shop-item">
+            <h4>5 000 🪙 монет</h4>
+            <p>Цена: Бесплатно (тест)</p>
+            <button class="btn" style="background:#4ade80; box-shadow:0 4px 0 #22c55e;" onclick="addCoins(5000)">Купить</button>
+        </div>
+        <div class="shop-item">
+            <h4>Сбросить прогресс</h4>
+            <button class="btn" style="background:#ef4444; box-shadow:0 4px 0 #b91c1c;" onclick="resetGame()">Сбросить</button>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        <div class="nav-item active" onclick="switchTab('game', this)"><span>🎰</span>Игра</div>
+        <div class="nav-item" onclick="switchTab('profile', this)"><span>👤</span>Профиль</div>
+        <div class="nav-item" onclick="switchTab('top', this)"><span>🏆</span>Топ</div>
+        <div class="nav-item" onclick="switchTab('shop', this)"><span>💎</span>Донат</div>
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.setHeaderColor("#1e293b");
+
+        const numbersDB = [
+            { num: "+375 29 111-22-33", country: "🇧🇾 Беларусь", rarity: "Common", name: "Обычный", price: 100, class: "common" },
+            { num: "+380 50 123-45-67", country: "🇺🇦 Украина", rarity: "Common", name: "Обычный", price: 100, class: "common" },
+            { num: "+7 999 000-11-22", country: "🇷🇺 Россия", rarity: "Common", name: "Обычный", price: 100, class: "common" },
+            { num: "+49 151 2345678", country: "🇩🇪 Германия", rarity: "Uncommon", name: "Необычный", price: 300, class: "uncommon" },
+            { num: "+1 212 555-0198", country: "🇺🇸 США", rarity: "Uncommon", name: "Необычный", price: 300, class: "uncommon" },
+            { num: "+44 7700 900077", country: "🇬🇧 Англия", rarity: "Uncommon", name: "Необычный", price: 350, class: "uncommon" },
+            { num: "+33 6 12 34 56 78", country: "🇫🇷 Франция", rarity: "Rare", name: "Редкий", price: 800, class: "rare" },
+            { num: "+81 90 1234 5678", country: "🇯🇵 Япония", rarity: "Rare", name: "Редкий", price: 900, class: "rare" },
+            { num: "+82 10 1234 5678", country: "🇰🇷 Корея", rarity: "Rare", name: "Редкий", price: 1000, class: "rare" },
+            { num: "+55 11 91234-5678", country: "🇧🇷 Бразилия", rarity: "Rare", name: "Редкий", price: 1100, class: "rare" },
+            { num: "+971 50 123 4567", country: "🇦🇪 ОАЭ", rarity: "Epic", name: "Эпический", price: 2500, class: "epic" },
+            { num: "+61 400 123 456", country: "🇦🇺 Австралия", rarity: "Epic", name: "Эпический", price: 2800, class: "epic" },
+            { num: "+39 333 123 4567", country: "🇮🇹 Италия", rarity: "Epic", name: "Эпический", price: 3000, class: "epic" },
+            { num: "+34 612 34 56 78", country: "🇪🇸 Испания", rarity: "Epic", name: "Эпический", price: 3200, class: "epic" },
+            { num: "+65 8123 4567", country: "🇸🇬 Сингапур", rarity: "Legendary", name: "Легендарный", price: 7000, class: "legendary" },
+            { num: "+41 79 123 45 67", country: "🇨🇭 Швейцария", rarity: "Legendary", name: "Легендарный", price: 8000, class: "legendary" },
+            { num: "+1 649 123-4567", country: "🇹🇨 Тёркс и Кайкос", rarity: "Legendary", name: "Легендарный", price: 9000, class: "legendary" },
+            { num: "+377 6 12 34 56", country: "🇲🇨 Монако", rarity: "Mythic", name: "Мифический", price: 15000, class: "mythic" },
+            { num: "+47 900 12 345", country: "🇳🇴 Норвегия", rarity: "Mythic", name: "Мифический", price: 20000, class: "mythic" },
+            { num: "XXXX-XXXX-XXXX", country: "❓ СЕКРЕТ", rarity: "Secret", name: "Секретный", price: 99999, class: "secret" }
+        ];
+
+        let balance = parseInt(localStorage.getItem('nc_balance')) || 5000;
+        let inventory = JSON.parse(localStorage.getItem('nc_inventory')) || [];
+
+        updateUI();
+
+        function switchTab(tabId, element) {
+            document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            element.classList.add('active');
+            if(tabId === 'profile') updateProfile();
+        }
+
+        function spin() {
+            if (balance < 500) {
+                tg.showAlert("Недостаточно монет! Зайди в Донат.");
+                return;
+            }
+            
+            balance -= 500;
+            saveData();
+            updateUI();
+            document.getElementById('spinBtn').disabled = true;
+            
+            const display = document.getElementById('winDisplay');
+            let spins = 0;
+            
+            let interval = setInterval(() => {
+                let temp = numbersDB[Math.floor(Math.random() * numbersDB.length)];
+                display.innerHTML = `<span style="font-size:20px">${temp.country}</span><br><b>${temp.num}</b>`;
+                spins++;
+                if (spins > 15) {
+                    clearInterval(interval);
+                    finishSpin(display);
+                }
+            }, 80);
+        }
+
+        function finishSpin(display) {
+            const roll = Math.random() * 100;
+            let result;
+            
+            if (roll < 0.5) result = numbersDB[19];
+            else if (roll < 3) result = numbersDB[17 + Math.floor(Math.random()*2)];
+            else if (roll < 10) result = numbersDB[14 + Math.floor(Math.random()*3)];
+            else if (roll < 25) result = numbersDB[10 + Math.floor(Math.random()*4)];
+            else if (roll < 50) result = numbersDB[6 + Math.floor(Math.random()*4)];
+            else if (roll < 75) result = numbersDB[3 + Math.floor(Math.random()*3)];
+            else result = numbersDB[Math.floor(Math.random()*3)];
+
+            display.innerHTML = `
+                <span style="font-size:16px; color:#94a3b8">${result.country}</span>
+                <span style="font-size:28px; font-weight:bold; margin:10px 0;">${result.num}</span>
+                <span class="t-${result.class}">${result.name} (${result.price} 🪙)</span>
+            `;
+
+            inventory.push(result);
+            saveData();
+            updateUI();
+            
+            document.getElementById('spinBtn').disabled = false;
+        }
+
+        function addCoins(amount) {
+            balance += amount;
+            saveData();
+            updateUI();
+            tg.showAlert(`Успешно начислено ${amount} монет!`);
+        }
+
+        function resetGame() {
+            if(confirm("Точно удалить весь прогресс?")) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('nc_balance', balance);
+            localStorage.setItem('nc_inventory', JSON.stringify(inventory));
+        }
+
+        function updateUI() {
+            document.getElementById('userBalance').innerText = balance;
+            const invList = document.getElementById('inventoryList');
+            invList.innerHTML = '';
+            
+            const recent = [...inventory].reverse().slice(0, 5);
+            recent.forEach(item => {
+                invList.innerHTML += `
+                <div class="number-card c-${item.class}">
+                    <div class="details">
+                        <span style="font-size:12px;color:#94a3b8">${item.country}</span>
+                        <b>${item.num}</b>
+                    </div>
+                    <div class="t-${item.class}">${item.price} 🪙</div>
+                </div>`;
+            });
+        }
+
+        function updateProfile() {
+            document.getElementById('totalNumbers').innerText = inventory.length;
+            let total = inventory.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('collectionValue').innerText = total;
+        }
+    </script>
+</body>
+</html>
