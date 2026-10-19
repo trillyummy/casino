@@ -186,7 +186,6 @@
         .tariff-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: var(--radius-md); margin-bottom: 8px; cursor: pointer; border: 1px solid transparent;}
         .tariff-item.active { border-color: var(--accent); background: rgba(59, 130, 246, 0.1); }
 
-        /* НОВЫЕ СТИЛИ ДЛЯ ЛОББИ */
         .lobby-tabs { display: flex; gap: 15px; border-bottom: 1px solid var(--border); margin-bottom: 15px; }
         .lobby-tab { font-size: 14px; font-weight: 800; color: var(--text-muted); padding-bottom: 8px; cursor: pointer; position: relative;}
         .lobby-tab.active { color: white; }
@@ -602,7 +601,7 @@
         let autoCashout = 0;
 
         let myActiveBetId = null;
-        let myActiveBetAmount = 0; // ИСПРАВЛЕНО: Добавлена переменная для хранения ставки при выходе
+        let myActiveBetAmount = 0; 
         let currentGameId = null;
         let isWaitingForOpponent = false;
         let unsubMyBet = null;
@@ -907,8 +906,11 @@
 
                 update(ref(db), updates).then(() => {
                     currentGameId = gameId;
-                    myActiveBetAmount = data.amount; // ИСПРАВЛЕНО
+                    myActiveBetAmount = data.amount; 
                     startPvPGame(gameId, false, data.type, data.amount);
+                }).catch(e => {
+                    showToast('Ошибка: ' + e.message, '❌');
+                    balance += data.amount; updateUI();
                 });
             });
         }
@@ -923,7 +925,7 @@
             balance -= bet; updateUI();
             
             myActiveBetId = 'bet_' + myId + '_' + Date.now();
-            myActiveBetAmount = bet; // ИСПРАВЛЕНО
+            myActiveBetAmount = bet; 
             const betData = { id: myActiveBetId, creatorId: myId, creatorName: currentUserName, creatorAvatar: currentUserAvatar, amount: bet, type: type, status: 'waiting', gameId: null, timestamp: Date.now() };
 
             set(ref(db, 'matchmaking/' + myActiveBetId), betData).then(() => {
@@ -934,7 +936,6 @@
                 document.getElementById(`${type}-win-display`).innerText = (bet * 1.9).toLocaleString('ru-RU');
                 document.getElementById(`${type}-status-text`).innerText = "Ожидание соперника...";
                 
-                // ИСПРАВЛЕНО: Убран лишний дефис в ID кнопки
                 document.getElementById(type + 'ThrowBtn').disabled = true;
                 
                 let myCard = document.getElementById(`${type}-my-card`);
@@ -970,7 +971,7 @@
 
         window.leaveGame = function(type) {
             if (myActiveBetId) {
-                if (isWaitingForOpponent) { // Возврат ставки, только если мы всё еще ждали
+                if (isWaitingForOpponent) { 
                     balance += myActiveBetAmount; 
                     updateUI(); 
                 }
@@ -984,9 +985,10 @@
             myActiveBetAmount = 0;
             document.getElementById(`${type}-lobby`).style.display = 'flex';
             document.getElementById(`${type}-game`).style.display = 'none';
-            resetGameUI(type); // ИСПРАВЛЕНО: Сбрасываем интерфейс при выходе
+            resetGameUI(type); 
         }
 
+        // ФУНКЦИЯ START PVP GAME С ИСПРАВЛЕННОЙ ЛОГИКОЙ
         function startPvPGame(gameId, isCreator, type, amount) {
             document.getElementById(`${type}-lobby`).style.display = 'none';
             document.getElementById(`${type}-game`).style.display = 'flex';
@@ -994,13 +996,12 @@
             document.getElementById(`${type}-bet-display`).innerText = amount.toLocaleString('ru-RU');
             document.getElementById(`${type}-win-display`).innerText = (amount * 1.9).toLocaleString('ru-RU');
             
-            // ИСПРАВЛЕНО: Убран лишний дефис в ID кнопки
             let playBtn = document.getElementById(type + 'ThrowBtn');
             playBtn.innerText = (type === 'coin') ? 'Бросить монетку' : 'Бросить кости';
             playBtn.disabled = false;
             playBtn.classList.remove('disabled');
 
-            document.getElementById(`${type}-status-text`).innerText = "Соперник найден! Ваш ход.";
+            document.getElementById(`${type}-status-text`).innerText = "Сделайте ваш бросок!";
             
             if (!isCreator) {
                 let myCard = document.getElementById(`${type}-my-card`);
@@ -1010,6 +1011,8 @@
             }
 
             if (unsubGame) unsubGame();
+            let gameResultShown = false; // Флаг, чтобы не показать результат дважды
+
             const gameRef = ref(db, 'games/' + gameId);
             unsubGame = onValue(gameRef, (snapshot) => {
                 const data = snapshot.val();
@@ -1019,12 +1022,18 @@
                 let me = isCreator ? data.player1 : data.player2;
                 let opp = isCreator ? data.player2 : data.player1;
                 
+                if (!me || !opp) return; // Защита от неполных данных
+
                 let oppCard = document.getElementById(`${type}-opp-card`);
                 if (oppCard) {
-                    oppCard.innerHTML = `<div class="opponent-avatar">${opp.avatar}</div><div class="opponent-name">${opp.name}</div><div class="opponent-label">Соперник</div>`;
+                    oppCard.innerHTML = `<div class="opponent-avatar">${opp.avatar || '👤'}</div><div class="opponent-name">${opp.name || 'Соперник'}</div><div class="opponent-label">Соперник</div>`;
                 }
 
-                if (data.status === 'finished') {
+                // ГЛАВНЫЙ ФИКС: Если игра окончена ИЛИ оба игрока готовы (сходили) - завершаем игру
+                if (data.status === 'finished' || (me.ready && opp.ready)) {
+                    if (gameResultShown) return;
+                    gameResultShown = true;
+
                     let myScore = me.score;
                     let oppScore = opp.score;
                     
@@ -1049,6 +1058,11 @@
                     }
                     updateUI();
                     
+                    // Если база еще не знает, что игра окончена, сообщаем ей
+                    if (data.status !== 'finished') {
+                        update(gameRef, { status: 'finished' });
+                    }
+
                     currentGameId = null;
                     myActiveBetAmount = 0;
                     if (unsubGame) unsubGame();
@@ -1056,43 +1070,68 @@
                     return;
                 }
                 
+                // Обновление интерфейса в зависимости от того, кто сходил
                 if (me.ready && !opp.ready) {
                     playBtn.innerText = 'Ожидание соперника...';
                     playBtn.disabled = true;
                     playBtn.classList.add('disabled');
                     document.getElementById(`${type}-status-text`).innerText = "Вы сделали ход. Ждем соперника...";
+                } else if (!me.ready && opp.ready) {
+                    playBtn.innerText = (type === 'coin') ? 'Бросить монетку' : 'Бросить кости';
+                    playBtn.disabled = false;
+                    playBtn.classList.remove('disabled');
+                    document.getElementById(`${type}-status-text`).innerText = "Соперник уже бросил! Ваш черед.";
+                } else {
+                    playBtn.innerText = (type === 'coin') ? 'Бросить монетку' : 'Бросить кости';
+                    playBtn.disabled = false;
+                    playBtn.classList.remove('disabled');
+                    document.getElementById(`${type}-status-text`).innerText = "Сделайте ваш бросок!";
                 }
             });
         }
 
+        // ФУНКЦИЯ БРОСКА С ЗАЩИТОЙ ОТ ЗАВИСАНИЙ
         window.throwPvP = function(gameId, type) {
-            if (!gameId) return;
-            // ИСПРАВЛЕНО: Убран лишний дефис в ID кнопки
+            if (!gameId) return showToast('Игра не найдена', '❌');
+            
             let playBtn = document.getElementById(type + 'ThrowBtn');
             playBtn.disabled = true;
             playBtn.classList.add('disabled');
+            playBtn.innerText = 'Бросаем...';
             
             const gameRef = ref(db, 'games/' + gameId);
             get(gameRef).then((snapshot) => {
                 const data = snapshot.val();
-                if(!data) return;
+                if(!data || data.status === 'finished') {
+                    showToast('Игра уже окончена', '❌');
+                    return;
+                }
+                
                 const isCreator = data.player1.id === myId;
                 let myScore = type === 'coin' ? (Math.random() > 0.5 ? 1 : 0) : (Math.floor(Math.random() * 6) + 1);
                 
                 let myKey = isCreator ? 'player1' : 'player2';
-                let oppKey = isCreator ? 'player2' : 'player1';
                 
+                if (data[myKey].ready) return; // Защита от двойного клика
+
                 let updates = {};
                 updates[myKey + '/score'] = myScore;
                 updates[myKey + '/ready'] = true;
                 
-                if (data[oppKey].ready) {
-                    updates['status'] = 'finished';
-                }
-                
+                // НЕ СТАВИМ status = 'finished' ЗДЕСЬ! Это сделает onValue когда увидит, что оба ready.
                 update(gameRef, updates).then(() => {
                     playBtn.innerText = 'Ожидание соперника...';
+                }).catch(e => {
+                    showToast('Ошибка броска: ' + e.message, '❌');
+                    playBtn.disabled = false;
+                    playBtn.classList.remove('disabled');
+                    playBtn.innerText = (type === 'coin') ? 'Бросить монетку' : 'Бросить кости';
                 });
+            }).catch(e => {
+                showToast('Ошибка сети', '❌');
+                playBtn.disabled = false;
+                playBtn.classList.remove('disabled');
+                playBtn.innerText = (type === 'coin') ? 'Бросить монетку' : 'Бросить кости';
             });
         }
 
