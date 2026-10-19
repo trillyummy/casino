@@ -200,7 +200,7 @@
         
         .sim-result-square { 
             width: 170px; height: 150px; 
-            background: linear-gradient(135deg, #2a1040, #1a0a2e); /* Красивый фиолетовый градиент вместо чёрного */
+            background: linear-gradient(135deg, #2a1040, #1a0a2e);
             border-radius: 20px; 
             border: 2px solid rgba(139, 92, 246, 0.6); 
             display: flex; flex-direction: column; 
@@ -231,8 +231,23 @@
         .sim-result-rarity { font-size: 9px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px;}
         .sim-result-price { font-size: 12px; font-weight: 300; color: var(--gold); letter-spacing: 0.5px; text-align: center; padding: 0 5px; }
 
-        .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; margin-top: 5px; animation: popIn 0.3s; }
-        .sim-x5-grid.show { display: grid; }
+        /* СЕТКА X5 С ПЛАВНОЙ АНИМАЦИЕЙ */
+        .sim-x5-grid { 
+            display: none; 
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 6px; 
+            width: 100%; 
+            margin-top: 5px; 
+        }
+        .sim-x5-grid.show { 
+            display: grid; 
+            animation: x5GridFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes x5GridFadeIn {
+            0% { opacity: 0; transform: translateY(20px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
         .sim-x5-item { 
             background: rgba(26, 10, 46, 0.8); 
             border-radius: 10px; 
@@ -243,7 +258,22 @@
             text-align: center;
             min-height: 80px;
             box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+            opacity: 0;
+            animation: x5ItemFadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
+        
+        /* Каскадное появление элементов x5 */
+        .sim-x5-item:nth-child(1) { animation-delay: 0.1s; }
+        .sim-x5-item:nth-child(2) { animation-delay: 0.2s; }
+        .sim-x5-item:nth-child(3) { animation-delay: 0.3s; }
+        .sim-x5-item:nth-child(4) { animation-delay: 0.4s; }
+        .sim-x5-item:nth-child(5) { animation-delay: 0.5s; }
+        
+        @keyframes x5ItemFadeIn {
+            0% { opacity: 0; transform: scale(0.5) rotateY(90deg); }
+            100% { opacity: 1; transform: scale(1) rotateY(0deg); }
+        }
+        
         .sim-x5-item .num { font-size: 9px; font-weight: 800; color: white; margin-bottom: 3px; }
         .sim-x5-item .rar { font-size: 7px; font-weight: 700; text-transform: uppercase; margin-bottom: 3px; }
         .sim-x5-item .prc { font-size: 8px; font-weight: 300; color: var(--gold); }
