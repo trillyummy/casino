@@ -8,13 +8,13 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
         :root {
-            --bg: #090a0f; 
-            --card: rgba(25, 28, 38, 0.85); 
+            --bg: #050505; /* Темный фон как на скрине */
+            --card: #111111;
             --text: #ffffff; 
-            --text-muted: #8b92a5;
+            --text-muted: #888888;
             --accent: #3b82f6; 
             --gold: #fbbf24; 
-            --border: rgba(255,255,255,0.08);
+            --border: rgba(255,255,255,0.06);
             --danger: #ef4444; 
             --success: #10b981; 
             --purple: #8b5cf6; 
@@ -31,34 +31,31 @@
             display: flex; 
             flex-direction: column; 
             overflow: hidden; 
-            background-image: 
-                radial-gradient(circle at 10% 10%, rgba(59, 130, 246, 0.15), transparent 40%), 
-                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.15), transparent 40%);
         }
         
         /* ШАПКА */
         .top-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; pointer-events: none;}
         .user-info { display: flex; align-items: center; gap: 10px; pointer-events: auto;}
         .header-avatar { width: 40px; height: 40px; border-radius: 50%; background: #333; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 2px solid rgba(255,255,255,0.1); }
-        .header-level { background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 5px; border: 1px solid var(--border); }
+        .header-level { background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 5px; border: 1px solid var(--border); }
         .header-level-bar { width: 30px; height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; overflow: hidden;}
         .header-level-fill { height: 100%; background: var(--success); width: 50%; transition: width 0.3s;}
         
         .header-right { display: flex; align-items: center; gap: 10px; pointer-events: auto;}
-        .balance { font-size: 14px; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 4px; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); padding: 8px 12px; border-radius: 20px; border: 1px solid var(--border);}
-        .menu-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(0,0,0,0.5); border: 1px solid var(--border); display: flex; justify-content: center; align-items: center; cursor: pointer; backdrop-filter: blur(10px); transition: 0.2s; }
+        .balance { font-size: 14px; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 20px; border: 1px solid var(--border);}
+        .menu-btn { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid var(--border); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; }
         .menu-btn:active { transform: scale(0.9); }
         .menu-btn svg { width: 20px; height: 20px; fill: var(--text); }
 
         /* НИЖНЕЕ МЕНЮ */
-        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
         
         .sidebar { 
             position: fixed; bottom: -100%; left: 0; right: 0; 
             width: 100%; max-width: 500px; margin: 0 auto;
             height: 88vh;
-            background: #111318; 
+            background: #111111; 
             border-top: 1px solid rgba(255,255,255,0.1); 
             border-radius: 24px 24px 0 0;
             z-index: 999; display: flex; flex-direction: column; 
@@ -75,12 +72,10 @@
         .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         
-        /* Кнопки меню */
         .menu-box-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-md); padding: 12px 5px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s; position: relative;}
         .menu-box-btn:active { transform: scale(0.95); background: rgba(255,255,255,0.08); }
         .menu-box-btn span { font-size: 11px; font-weight: 600; color: var(--text); text-align: center; line-height: 1.2;}
         
-        /* Иконки */
         .icon-box { width: 42px; height: 42px; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; }
         .ic-purple { background: rgba(139, 92, 246, 0.15); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.2); }
         .ic-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.2); }
@@ -102,7 +97,7 @@
         .small-btn span { font-size: 12px; font-weight: 600; color: var(--text); }
         .small-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 16px; flex-shrink: 0;}
 
-        .badge { position: absolute; top: 8px; right: 8px; width: 10px; height: 10px; background: var(--danger); border-radius: 50%; border: 2px solid #111318;}
+        .badge { position: absolute; top: 8px; right: 8px; width: 10px; height: 10px; background: var(--danger); border-radius: 50%; border: 2px solid #111111;}
 
         /* ЭКРАНЫ */
         .screen { display: none; flex: 1; padding: 75px 15px 15px 15px; flex-direction: column; overflow-y: auto; animation: fadeIn 0.2s ease; }
@@ -110,57 +105,58 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* СИНТЕЗ */
-        .case-container { background: var(--card); backdrop-filter: blur(15px); border-radius: var(--radius-lg); padding: 20px; text-align: center; border: 1px solid var(--border); box-shadow: 0 15px 35px rgba(0,0,0,0.5); margin-top: auto; margin-bottom: auto; position: relative; display: flex; flex-direction: column; gap: 12px;}
+        .case-container { background: var(--card); border-radius: var(--radius-lg); padding: 20px; text-align: center; border: 1px solid var(--border); margin-top: auto; margin-bottom: auto; position: relative; display: flex; flex-direction: column; gap: 12px;}
         .btn-select { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px 16px; font-size: 13px; font-weight: 700; width: 100%; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; }
         .btn-select:active { transform: scale(0.98); background: rgba(255,255,255,0.1); }
-        .number-display { font-size: 26px; font-weight: 900; margin: 10px 0; letter-spacing: 1px; min-height: 35px; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        .number-display { font-size: 26px; font-weight: 900; margin: 10px 0; letter-spacing: 1px; min-height: 35px; }
         .country-display { font-size: 12px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
         .rarity-display { font-size: 12px; font-weight: 800; margin-bottom: 10px; height: 18px; text-transform: uppercase; }
         .spin-actions { display: flex; gap: 10px; width: 100%; }
-        .btn-main { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; border-radius: var(--radius-md); padding: 16px; font-size: 14px; font-weight: 800; cursor: pointer; transition: 0.2s; flex: 1; box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3); text-transform: uppercase; }
+        .btn-main { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; border-radius: var(--radius-md); padding: 16px; font-size: 14px; font-weight: 800; cursor: pointer; transition: 0.2s; flex: 1; text-transform: uppercase; }
         .btn-main:active { transform: scale(0.96); }
         .btn-main:disabled { background: #2d3041; color: var(--text-muted); box-shadow: none; transform: none; }
-        .btn-x5 { background: linear-gradient(135deg, #8b5cf6, #7c3aed); box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3); flex: 0.4; }
+        .btn-x5 { background: linear-gradient(135deg, #8b5cf6, #7c3aed); flex: 0.4; }
 
-        /* СПУТНИК (НОВЫЙ ДИЗАЙН) */
-        .crash-tabs { display: flex; overflow-x: auto; gap: 5px; margin-bottom: 10px; padding-bottom: 5px;}
-        .crash-tab { padding: 8px 12px; background: rgba(255,255,255,0.05); border-radius: var(--radius-sm); font-size: 11px; font-weight: 700; color: var(--text-muted); white-space: nowrap; cursor: pointer; border-bottom: 2px solid transparent;}
-        .crash-tab.active { background: rgba(255,255,255,0.1); color: white; border-bottom-color: var(--success);}
+        /* СПУТНИК */
+        .crash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .crash-title { font-size: 18px; font-weight: 900; color: white; }
         
         .history-strip { display: flex; gap: 5px; overflow-x: auto; margin-bottom: 15px; padding-bottom: 5px;}
         .h-strip-badge { padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; background: rgba(255,255,255,0.05); color: white; white-space: nowrap;}
         .h-strip-badge.high { color: var(--success); background: rgba(16,185,129,0.1);}
         
-        .crash-graph-container { width: 100%; height: 220px; background: rgba(0,0,0,0.4); border-radius: var(--radius-lg); position: relative; overflow: hidden; border: 1px solid var(--border); margin-bottom: 15px;}
+        .crash-graph-container { width: 100%; height: 220px; background: #000000; border-radius: var(--radius-lg); position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 20px;}
         .crash-graph-svg { width: 100%; height: 100%; position: absolute; top: 0; left: 0;}
-        .crash-big-mult { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 48px; font-weight: 900; color: white; text-shadow: 0 0 20px rgba(255,255,255,0.4); z-index: 2;}
+        .crash-big-mult { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 48px; font-weight: 900; color: white; z-index: 2;}
         
-        .bet-input-large { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: white; border-radius: var(--radius-md); padding: 20px; font-size: 24px; font-weight: 900; outline: none; margin-bottom: 10px;}
+        .bet-input-large { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05); color: white; border-radius: var(--radius-lg); padding: 25px 20px; font-size: 24px; font-weight: 900; outline: none; margin-bottom: 10px;}
         .bet-presets { display: flex; gap: 8px; margin-bottom: 15px; overflow-x: auto; padding-bottom: 5px;}
         .btn-preset { padding: 10px 15px; border-radius: 12px; background: rgba(255,255,255,0.05); border: none; color: white; font-size: 13px; font-weight: 800; white-space: nowrap; cursor: pointer;}
         .btn-preset.active { background: white; color: black; }
         
         .btn-crash-main { width: 100%; padding: 20px; border-radius: var(--radius-lg); background: linear-gradient(135deg, #10b981, #059669); color: white; font-size: 18px; font-weight: 900; border: none; text-transform: uppercase; transition: 0.1s;}
         .btn-crash-main.cashout { background: linear-gradient(135deg, #fbbf24, #d97706); color: black; }
-        .btn-crash-main.disabled { background: rgba(255,255,255,0.1); color: var(--text-muted); }
+        .btn-crash-main.disabled { background: rgba(255,255,255,0.05); color: var(--text-muted); }
         
-        .crash-live-bets { margin-top: 20px; background: rgba(255,255,255,0.02); border-radius: var(--radius-md); padding: 15px; border: 1px solid var(--border);}
-        .crash-bet-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px;}
+        .crash-live-bets { margin-top: 25px; background: transparent; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;}
+        .crash-bet-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px;}
         .crash-bet-row:last-child { border-bottom: none; }
-        .crash-user { display: flex; align-items: center; gap: 8px; font-weight: 700;}
-        .crash-user-avatar { width: 24px; height: 24px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 12px;}
+        .crash-user { display: flex; align-items: center; gap: 10px; font-weight: 700; color: white;}
+        .crash-user-avatar { width: 30px; height: 30px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 14px; overflow: hidden;}
+        .crash-user-amounts { display: flex; gap: 15px; font-weight: 700;}
+        .crash-user-amounts span { color: white; }
 
         /* БАЗА */
         .inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 0 5px;}
         .btn-sell-all { background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; border: none; border-radius: var(--radius-sm); padding: 8px 15px; font-size: 11px; font-weight: 800; cursor: pointer; text-transform: uppercase;}
-        .inventory-item { background: var(--card); backdrop-filter: blur(10px); border-radius: var(--radius-md); padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--text-muted); border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .inventory-item { background: var(--card); border-radius: var(--radius-md); padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--text-muted); border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .inv-info h4 { font-size: 15px; margin-bottom: 4px; font-weight: 800; letter-spacing: 1px; }
         .inv-info p { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-bottom: 2px;}
         .btn-sell { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.4); padding: 6px 12px; border-radius: 8px; font-weight: 700; font-size: 11px; margin-top: 8px; cursor: pointer; text-transform: uppercase; }
 
         /* ПРОФИЛЬ И УРОВНИ */
         .profile-layout { display: flex; flex-direction: column; gap: 15px; padding-bottom: 20px;}
-        .profile-card { background: var(--card); backdrop-filter: blur(10px); border-radius: var(--radius-lg); padding: 20px; border: 1px solid var(--border); }
+        .profile-card { background: var(--card); border-radius: var(--radius-lg); padding: 20px; border: 1px solid var(--border); }
         .avatar { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #8b5cf6); display: flex; justify-content: center; align-items: center; font-size: 30px; margin: 0 auto 10px auto; border: 3px solid rgba(255,255,255,0.1); overflow: hidden;}
         .progress-container { width: 100%; background: rgba(0,0,0,0.4); height: 12px; border-radius: 6px; margin-bottom: 10px; overflow: hidden; border: 1px solid var(--border); position: relative;}
         .progress-bar { height: 100%; background: linear-gradient(90deg, #3b82f6, #8b5cf6); width: 0%; transition: width 0.3s; }
@@ -170,22 +166,22 @@
         .stat-box strong { font-size: 16px; font-weight: 900; color: var(--text); }
 
         /* МАГАЗИН */
-        .shop-card { background: var(--card); backdrop-filter: blur(10px); border-radius: var(--radius-lg); padding: 20px; border: 1px solid var(--border); margin-bottom: 15px; }
+        .shop-card { background: var(--card); border-radius: var(--radius-lg); padding: 20px; border: 1px solid var(--border); margin-bottom: 15px; }
         .btn-buy { background: linear-gradient(135deg, #0088cc, #006699); color: white; border: none; border-radius: var(--radius-md); padding: 15px; font-size: 15px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; margin-top: 10px;}
 
         /* МОДАЛКИ */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 9998; display: flex; justify-content: center; align-items: flex-end; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 9998; display: flex; justify-content: center; align-items: flex-end; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .bottom-sheet { width: 100%; max-width: 500px; background: #111318; border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 25px 20px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1); max-height: 85vh; overflow-y: auto; border: 1px solid var(--border); }
+        .bottom-sheet { width: 100%; max-width: 500px; background: #111111; border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 25px 20px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1); max-height: 85vh; overflow-y: auto; border: 1px solid var(--border); }
         .modal-overlay.active .bottom-sheet { transform: translateY(0); }
         .modal-title { font-size: 18px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 20px; }
-        .tariff-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(0,0,0,0.3); border-radius: var(--radius-md); margin-bottom: 10px; cursor: pointer; border: 1px solid transparent;}
+        .tariff-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(255,255,255,0.05); border-radius: var(--radius-md); margin-bottom: 10px; cursor: pointer; border: 1px solid transparent;}
         .tariff-item.active { border-color: var(--accent); background: rgba(59, 130, 246, 0.1); }
         .toast-container { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); z-index: 10000; transition: top 0.3s; display: flex; align-items: center; gap: 10px; background: var(--accent); color: white; padding: 12px 20px; border-radius: 30px; font-size: 13px; font-weight: 800; }
         .toast-container.show { top: 20px; }
 
         .x5-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; max-height: 40vh; overflow-y: auto; padding-right: 5px;}
-        .x5-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.3); padding: 10px 15px; border-radius: var(--radius-sm); border-left: 4px solid; }
+        .x5-item { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 10px 15px; border-radius: var(--radius-sm); border-left: 4px solid; }
         .x5-item h5 { font-size: 14px; font-weight: 800; }
         .x5-item p { font-size: 11px; color: var(--text-muted); font-weight: 600;}
         .x5-price { font-size: 13px; font-weight: 800; color: var(--gold); }
@@ -279,17 +275,10 @@
         </div>
     </div>
 
-    <!-- НОВЫЙ ЭКРАН РАКЕТЫ -->
+    <!-- ЭКРАН СПУТНИК -->
     <div id="screen-minigames" class="screen">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <div style="font-size: 14px; font-weight: 900;">🚀 Краш (Спутник)</div>
-            <div style="display: flex; gap: 10px; font-size: 11px; color: var(--text-muted);">
-                <span>Дуэли</span>
-                <span>Монетка</span>
-                <span>Кости</span>
-                <span style="color: white; font-weight: 800;">Краш</span>
-                <span>Апгрейд</span>
-            </div>
+        <div class="crash-header">
+            <div class="crash-title">🚀 Краш (Спутник)</div>
         </div>
         
         <div class="history-strip" id="rocketHistory"></div>
@@ -299,9 +288,9 @@
             <svg class="crash-graph-svg" id="crashGraphSvg" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <path id="graphPath" d="M0,100 L0,100" stroke="white" stroke-width="1.5" fill="none" />
                 <path id="graphFill" d="M0,100 L0,100 L0,100 Z" fill="rgba(255,255,255,0.05)" />
-                <line x1="0" y1="100" x2="100" y2="100" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
-                <line x1="0" y1="50" x2="100" y2="50" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" stroke-dasharray="2,2"/>
-                <line x1="0" y1="0" x2="100" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
+                <line x1="0" y1="100" x2="100" y2="100" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" />
+                <line x1="0" y1="50" x2="100" y2="50" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" stroke-dasharray="2,2"/>
+                <line x1="0" y1="0" x2="100" y2="0" stroke="rgba(255,255,255,0.1)" stroke-width="0.5" />
             </svg>
             <div style="position: absolute; bottom: 10px; left: 10px; font-size: 10px; color: var(--text-muted);">x1</div>
             <div style="position: absolute; bottom: 50%; left: 10px; font-size: 10px; color: var(--text-muted);">x21</div>
@@ -324,24 +313,9 @@
 
         <button class="btn-crash-main" id="rocketBtn" onclick="handleRocket()">Запустить</button>
         
-        <div class="crash-live-bets">
-            <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">Ставки раунда</div>
-            <div class="crash-bet-row">
-                <div class="crash-user"><div class="crash-user-avatar">👤</div>Makeover</div>
-                <div style="font-weight: 700;">1 000 000 <span style="color:var(--text-muted); font-weight: 500;">x1.32 · 1 320 000</span></div>
-            </div>
-            <div class="crash-bet-row">
-                <div class="crash-user"><div class="crash-user-avatar">👤</div>Даня</div>
-                <div style="font-weight: 700;">1 000 000 <span style="color:var(--text-muted); font-weight: 500;">x1.55 · 1 550 000</span></div>
-            </div>
-            <div class="crash-bet-row">
-                <div class="crash-user"><div class="crash-user-avatar">👤</div>Foxy</div>
-                <div style="font-weight: 700;">400 000 <span style="color:var(--text-muted); font-weight: 500;">x1.54 · 616 000</span></div>
-            </div>
-            <div class="crash-bet-row">
-                <div class="crash-user"><div class="crash-user-avatar" style="background:#10b981;">Р</div>Руслан</div>
-                <div style="font-weight: 700;">1 000 <span style="color:var(--text-muted); font-weight: 500;">x1.37 · 1 370</span></div>
-            </div>
+        <!-- Сюда будут добавляться игроки ТОЛЬКО когда они делают ставку -->
+        <div class="crash-live-bets" id="liveBetsContainer">
+            <!-- Пусто по умолчанию -->
         </div>
     </div>
 
@@ -470,7 +444,17 @@
 
         const app = initializeApp(firebaseConfig);
         const tg = window.Telegram.WebApp;
-        tg.expand(); tg.setHeaderColor("#090a0f");
+        tg.expand(); tg.setHeaderColor("#050505");
+
+        let currentUserName = "Игрок";
+        let currentUserAvatar = "👤";
+        
+        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            currentUserName = tg.initDataUnsafe.user.first_name || "Игрок";
+            if(tg.initDataUnsafe.user.photo_url) {
+                currentUserAvatar = `<img src="${tg.initDataUnsafe.user.photo_url}" style="width:100%; height:100%; object-fit:cover;">`;
+            }
+        }
 
         let balance = parseInt(localStorage.getItem('casino_balance')) || 5000;
         let inventory = JSON.parse(localStorage.getItem('casino_inventory')) || [];
@@ -850,6 +834,7 @@
             const multText = document.getElementById('rocketMultiplier');
             const graphPath = document.getElementById('graphPath');
             const graphFill = document.getElementById('graphFill');
+            const liveBets = document.getElementById('liveBetsContainer');
 
             if (rocketState === 'idle') {
                 if (rocketBet < 100) return showToast('Минимальная ставка 100', '⚠️');
@@ -872,6 +857,20 @@
                 graphPath.setAttribute('d', 'M0,100 L0,100');
                 graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
 
+                // Добавляем игрока в список
+                liveBets.innerHTML = `
+                    <div class="crash-bet-row" id="myBetRow">
+                        <div class="crash-user">
+                            <div class="crash-user-avatar">${currentUserAvatar}</div>
+                            ${currentUserName}
+                        </div>
+                        <div class="crash-user-amounts">
+                            <span>${rocketBet.toLocaleString('ru-RU')}</span>
+                            <span style="color:var(--text-muted);" id="myWinDisplay">...</span>
+                        </div>
+                    </div>
+                `;
+
                 const random = Math.random();
                 currentCrashPoint = Math.max(1.0, (0.99 / (1.0 - random))); 
                 currentCrashPoint = Math.floor(currentCrashPoint * 100) / 100;
@@ -881,14 +880,12 @@
 
                 rocketInterval = setInterval(() => {
                     timeElapsed += 0.05;
-                    // Экспоненциальный рост для красивой кривой
                     rocketMult = Math.pow(1.06, timeElapsed * 10); 
                     
                     if (rocketMult > 100) rocketMult = 100;
                     
                     multText.innerText = `x${rocketMult.toFixed(2)}`;
                     
-                    // Рисуем график
                     let xPercent = Math.min((timeElapsed / 40) * 100, 100);
                     let yPercent = 100 - Math.min((rocketMult / 41) * 100, 95); 
                     
@@ -912,6 +909,8 @@
                             showToast(`Ракета улетела на x${currentCrashPoint.toFixed(2)}`, '💥');
                         } else {
                             showToast(`Вы не успели! Упала на x${currentCrashPoint.toFixed(2)}`, '💥');
+                            document.getElementById('myWinDisplay').innerText = `x0.00 · 0`;
+                            document.getElementById('myWinDisplay').style.color = 'var(--danger)';
                         }
 
                         setTimeout(() => {
@@ -932,6 +931,12 @@
                 btn.innerText = 'Ожидание...';
                 btn.classList.remove('cashout');
                 btn.classList.add('disabled');
+
+                // Обновляем инфу в списке (показываем выигрыш)
+                if (document.getElementById('myWinDisplay')) {
+                    document.getElementById('myWinDisplay').innerText = `x${rocketMult.toFixed(2)} · ${winAmount.toLocaleString('ru-RU')}`;
+                    document.getElementById('myWinDisplay').style.color = 'var(--success)';
+                }
             }
         }
 
@@ -944,10 +949,10 @@
         }
 
         if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-            document.getElementById('userName').innerText = tg.initDataUnsafe.user.first_name || "Игрок";
+            document.getElementById('userName').innerText = currentUserName;
             if(tg.initDataUnsafe.user.photo_url) {
-                document.getElementById('userAvatar').innerHTML = `<img src="${tg.initDataUnsafe.user.photo_url}" style="width:100%; height:100%; object-fit:cover;">`;
-                document.getElementById('headerAvatar').innerHTML = `<img src="${tg.initDataUnsafe.user.photo_url}" style="width:100%; height:100%; object-fit:cover;">`;
+                document.getElementById('userAvatar').innerHTML = currentUserAvatar;
+                document.getElementById('headerAvatar').innerHTML = currentUserAvatar;
             }
         }
         updateUI();
