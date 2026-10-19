@@ -66,38 +66,61 @@
         .screen.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        #screen-game { justify-content: center; padding-bottom: 20px; }
-        .sim-card-container { background: linear-gradient(135deg, #1a1a24, #0a0a0f); border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); padding: 15px; position: relative; display: flex; flex-direction: column; box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.2); overflow: hidden; margin-bottom: 12px; }
+        #screen-game { justify-content: flex-start; padding-bottom: 20px; }
+        
+        /* ИНТЕРФЕЙС КРУТКИ (Разделенный) */
+        .sim-top-section { background: linear-gradient(135deg, #1a1a24, #0a0a0f); border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); padding: 15px; position: relative; display: flex; flex-direction: column; box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.2); overflow: hidden; margin-bottom: 15px; width: 100%; }
         .sim-chip { width: 35px; height: 28px; background: linear-gradient(135deg, #fbbf24, #d97706); border-radius: 6px; position: absolute; top: 12px; left: 12px; box-shadow: 0 3px 10px rgba(251, 191, 36, 0.4); display: flex; flex-direction: column; justify-content: space-between; padding: 4px; }
         .sim-chip-line { width: 100%; height: 1px; background: rgba(0,0,0,0.4); border-radius: 1px; }
         .sim-chip-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 14px; border: 1px solid rgba(0,0,0,0.4); border-radius: 2px;}
         .sim-logo { position: absolute; top: 12px; right: 12px; font-size: 18px; font-weight: 900; color: rgba(255,255,255,0.15); letter-spacing: 2px; text-shadow: 1px 1px 0 rgba(0,0,0,0.5);}
-        .sim-display-area { margin-top: 35px; margin-bottom: 10px; text-align: center; min-height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 2; }
+        .sim-display-area { margin-top: 35px; margin-bottom: 10px; text-align: center; min-height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 2; width: 100%; }
         .sim-dashes { display: flex; gap: 8px; justify-content: center; align-items: center; opacity: 0.4; transition: opacity 0.2s; }
         .sim-dash { width: 20px; height: 5px; background: white; border-radius: 3px; box-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        
         .sim-result-box { display: none; flex-direction: column; align-items: center; width: 100%; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .sim-result-box.show { display: flex; }
-        .sim-result-number { font-size: 20px; font-weight: 900; letter-spacing: 1px; color: white; text-shadow: 0 0 15px currentColor; margin-bottom: 4px; }
-        .sim-result-rarity { font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px;}
-        .sim-result-price { font-size: 14px; font-weight: 900; color: var(--gold); background: rgba(251,191,36,0.15); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(251,191,36,0.3);}
-        .sim-x5-grid { display: none; grid-template-columns: 1fr; gap: 6px; width: 100%; max-height: 180px; overflow-y: auto; animation: popIn 0.3s; }
+        .sim-result-square { 
+            width: 140px; height: 140px; 
+            background: rgba(0,0,0,0.6); 
+            border-radius: 18px; 
+            border: 2px solid var(--border); 
+            display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; 
+            margin-bottom: 10px; 
+            position: relative;
+        }
+        .sim-result-number { font-size: 18px; font-weight: 900; letter-spacing: 1px; color: white; text-shadow: 0 0 15px currentColor; margin-bottom: 5px; text-align: center; padding: 0 5px; }
+        .sim-result-rarity { font-size: 9px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px;}
+        .sim-result-price { font-size: 11px; font-weight: 300; color: var(--gold); letter-spacing: 0.5px; text-align: center; padding: 0 5px; }
+
+        .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; margin-top: 5px; animation: popIn 0.3s; }
         .sim-x5-grid.show { display: grid; }
-        .sim-x5-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.6); padding: 8px 10px; border-radius: 8px; border-left: 3px solid; }
-        .sim-x5-item span:first-child { font-size: 12px; font-weight: 800; color: white;}
-        .sim-x5-item span:last-child { font-size: 11px; font-weight: 800; color: var(--gold);}
-        @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        
-        .sim-controls { display: flex; flex-direction: column; gap: 8px; margin-top: auto; z-index: 2; }
-        .sim-top-row { display: flex; gap: 8px; align-items: stretch; }
-        .btn-archive { flex: 1; background: rgba(255,255,255,0.08); color: white; border: 1px solid var(--border); border-radius: 10px; padding: 10px; font-size: 11px; font-weight: 700; display: flex; flex-direction: column; justify-content: center; cursor: pointer; transition: 0.2s; }
-        .btn-archive span:first-child { font-size: 9px; color: var(--text-muted); margin-bottom: 2px; }
-        .btn-archive span:last-child { font-size: 12px; color: var(--accent); font-weight: 800; }
-        .btn-roaming-square { width: 48px; height: 48px; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; flex-shrink: 0;}
+        .sim-x5-item { 
+            background: rgba(0,0,0,0.6); 
+            border-radius: 10px; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            padding: 5px 2px; 
+            display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; 
+            text-align: center;
+            min-height: 80px;
+        }
+        .sim-x5-item .num { font-size: 10px; font-weight: 800; color: white; margin-bottom: 3px; }
+        .sim-x5-item .rar { font-size: 7px; font-weight: 700; text-transform: uppercase; margin-bottom: 3px; }
+        .sim-x5-item .prc { font-size: 8px; font-weight: 300; color: var(--gold); }
+
+        .sim-controls-bottom { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: auto; }
+        .sim-top-row { display: flex; gap: 10px; align-items: stretch; width: 100%; }
+        .btn-archive { flex: 1; background: rgba(255,255,255,0.08); color: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px; font-size: 12px; font-weight: 700; display: flex; flex-direction: column; justify-content: center; cursor: pointer; transition: 0.2s; }
+        .btn-archive span:first-child { font-size: 10px; color: var(--text-muted); margin-bottom: 2px; }
+        .btn-archive span:last-child { font-size: 14px; color: var(--accent); font-weight: 800; }
+        .btn-roaming-square { width: 55px; height: 55px; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; flex-shrink: 0;}
         .btn-roaming-square:active { transform: scale(0.95); }
-        .btn-roaming-square span:first-child { font-size: 16px; }
-        .btn-roaming-square span:last-child { font-size: 7px; color: var(--success); font-weight: 800; margin-top: 1px;}
-        .spin-actions { display: flex; gap: 6px; width: 100%; margin-top: 4px;}
-        .btn-main { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; border-radius: var(--radius-sm); padding: 12px; font-size: 12px; font-weight: 800; cursor: pointer; transition: 0.2s; flex: 1; text-transform: uppercase; }
+        .btn-roaming-square span:first-child { font-size: 18px; }
+        .btn-roaming-square span:last-child { font-size: 8px; color: var(--success); font-weight: 800; margin-top: 2px;}
+        .spin-actions { display: flex; gap: 10px; width: 100%; }
+        .btn-main { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 800; cursor: pointer; transition: 0.2s; flex: 1; text-transform: uppercase; }
         .btn-main:active { transform: scale(0.96); }
         .btn-main:disabled { background: #2d3041; color: var(--text-muted); box-shadow: none; transform: none; }
         .btn-x5 { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.5); flex: 0.4; }
@@ -205,7 +228,7 @@
         .lobby-amount { font-size: 12px; font-weight: 800;}
         .lobby-win { font-size: 9px; color: var(--text-muted); font-weight: 600;}
 
-        /* VIP МАГАЗИН */
+        /* VIP МАГАЗИН (2 ЛОТА) */
         .shop-grid { display: flex; flex-direction: column; gap: 12px; padding-bottom: 15px;}
         .vip-card { background: linear-gradient(135deg, #1a1a24, #0a0a0f); border-radius: var(--radius-lg); padding: 15px; border: 1px solid rgba(251, 191, 36, 0.3); position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .vip-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(251,191,36,0.1) 0%, transparent 60%); pointer-events: none; }
@@ -217,7 +240,6 @@
         .vip-feat span { color: var(--gold); font-size: 12px; }
         .btn-buy-stars { width: 100%; padding: 12px; border-radius: 10px; border: none; background: linear-gradient(135deg, #fbbf24, #d97706); color: black; font-size: 13px; font-weight: 900; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 6px; transition: 0.2s; text-transform: uppercase; }
         .btn-buy-stars:active { transform: scale(0.96); }
-        .btn-buy-stars.legendary { background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white; }
         .btn-buy-stars.mythic { background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; }
 
         /* КОЛЕСО ФОРТУНЫ */
@@ -229,23 +251,40 @@
         .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 35px; height: 35px; background: var(--gold); border-radius: 50%; z-index: 10; display: flex; justify-content: center; align-items: center; font-size: 18px; box-shadow: 0 0 20px rgba(251,191,36,0.5); }
         .wheel-pointer { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 20px solid var(--danger); z-index: 11; filter: drop-shadow(0 0 5px rgba(239,68,68,0.8)); }
 
-        /* 3D АНИМАЦИЯ МИФИЧЕСКОГО НОМЕРА */
-        .mythic-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; perspective: 1000px; }
+        /* 3D АНИМАЦИЯ МИФИЧЕСКОГО НОМЕРА (КРАСНАЯ, НА ПОЛ ЭКРАНА) */
+        .mythic-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s; perspective: 1200px; }
         .mythic-overlay.active { opacity: 1; pointer-events: auto; }
-        .mythic-card { width: 80%; max-width: 320px; background: linear-gradient(135deg, #2a0a0a, #0a0a0f); border: 3px solid var(--danger); border-radius: 20px; padding: 25px 15px; text-align: center; transform: translateZ(-500px) rotateY(0deg); transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 0 50px rgba(239, 68, 68, 0.8); position: relative; }
-        .mythic-overlay.active .mythic-card { transform: translateZ(0) rotateY(0deg); animation: flyIn 0.6s forwards, pulseMythic 2s infinite 0.6s; }
-        @keyframes flyIn {
-            0% { transform: translateZ(-500px) rotateY(180deg) scale(0.5); }
-            100% { transform: translateZ(0) rotateY(0deg) scale(1); }
+        
+        .mythic-card-3d { 
+            width: 80%; max-width: 320px; height: 450px; 
+            background: linear-gradient(135deg, #2a0000, #0a0a0f); 
+            border: 3px solid var(--danger); 
+            border-radius: 30px; 
+            display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; 
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateY(180deg) scale(0.1);
+            opacity: 0;
+            box-shadow: 0 0 100px rgba(239, 68, 68, 0.8);
+            transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s;
+        }
+        .mythic-overlay.active .mythic-card-3d { 
+            transform: rotateY(0deg) scale(1); 
+            opacity: 1; 
+            animation: pulseMythic 2s infinite 1.2s;
         }
         @keyframes pulseMythic {
-            0% { box-shadow: 0 0 50px rgba(239, 68, 68, 0.8); }
-            50% { box-shadow: 0 0 100px rgba(239, 68, 68, 1); }
-            100% { box-shadow: 0 0 50px rgba(239, 68, 68, 0.8); }
+            0% { box-shadow: 0 0 100px rgba(239, 68, 68, 0.8); }
+            50% { box-shadow: 0 0 150px rgba(239, 68, 68, 1); }
+            100% { box-shadow: 0 0 100px rgba(239, 68, 68, 0.8); }
         }
-        .mythic-number { font-size: 28px; font-weight: 900; color: var(--danger); text-shadow: 0 0 20px rgba(239, 68, 68, 0.8); margin-bottom: 10px; letter-spacing: 2px;}
-        .mythic-title { font-size: 12px; font-weight: 800; color: var(--gold); text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px;}
-        .mythic-close { background: var(--danger); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 900; font-size: 13px; cursor: pointer; text-transform: uppercase; }
+        
+        .mythic-title-top { font-size: 14px; font-weight: 800; color: var(--danger); text-transform: uppercase; margin-bottom: 20px; letter-spacing: 2px; text-shadow: 0 0 10px rgba(239,68,68,0.5);}
+        .mythic-number-big { font-size: 32px; font-weight: 900; color: white; text-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 0 40px rgba(239, 68, 68, 0.6); margin-bottom: 20px; letter-spacing: 2px; text-align: center; padding: 0 10px;}
+        .mythic-price-label { font-size: 12px; font-weight: 300; color: #aaa; letter-spacing: 1px; margin-bottom: 5px;}
+        .mythic-price-big { font-size: 22px; font-weight: 300; color: var(--gold); letter-spacing: 1px; margin-bottom: 30px;}
+        .mythic-close { background: var(--danger); color: white; border: none; padding: 14px 30px; border-radius: 12px; font-weight: 900; font-size: 14px; cursor: pointer; text-transform: uppercase; box-shadow: 0 5px 20px rgba(239, 68, 68, 0.5);}
 
         /* ОСТАЛЬНОЕ */
         .empty-pane { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-weight: 700; gap: 8px;}
@@ -262,10 +301,13 @@
         .bp-list-container { max-height: 55vh; overflow-y: auto; padding-right: 5px; }
         .inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 0 5px;}
         .btn-sell-all { background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; border: none; border-radius: var(--radius-sm); padding: 5px 10px; font-size: 9px; font-weight: 800; cursor: pointer; text-transform: uppercase;}
+        
         .inventory-item { background: rgba(0,0,0,0.5); border-radius: var(--radius-sm); padding: 10px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; border-left: 3px solid var(--text-muted); border-top: 1px solid rgba(255,255,255,0.05); border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(5px);}
         .inv-info h4 { font-size: 13px; margin-bottom: 2px; font-weight: 800; letter-spacing: 1px; }
         .inv-info p { font-size: 9px; color: var(--text-muted); font-weight: 600; margin-bottom: 2px;}
         .btn-sell { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.4); padding: 3px 8px; border-radius: 5px; font-weight: 700; font-size: 9px; margin-top: 4px; cursor: pointer; text-transform: uppercase; }
+        .btn-edit { background: rgba(59, 130, 246, 0.15); color: var(--accent); border: 1px solid rgba(59, 130, 246, 0.4); padding: 3px 8px; border-radius: 5px; font-weight: 700; font-size: 9px; margin-top: 4px; cursor: pointer; text-transform: uppercase; }
+
         .profile-layout { display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px;}
         .profile-card { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); padding: 12px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);}
         .avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #8b5cf6); display: flex; justify-content: center; align-items: center; font-size: 20px; margin: 0 auto 6px auto; border: 2px solid rgba(255,255,255,0.1); overflow: hidden;}
@@ -275,6 +317,7 @@
         .stat-box { background: rgba(0,0,0,0.3); padding: 8px; border-radius: var(--radius-sm); text-align: center; }
         .stat-box span { display: block; font-size: 8px; color: var(--text-muted); font-weight: 700; margin-bottom: 3px; text-transform: uppercase;}
         .stat-box strong { font-size: 13px; font-weight: 900; color: var(--text); }
+        
         .shop-card { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); padding: 12px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 8px; backdrop-filter: blur(10px);}
         .btn-buy { background: linear-gradient(135deg, #0088cc, #006699); color: white; border: none; border-radius: var(--radius-md); padding: 10px; font-size: 12px; font-weight: 800; width: 100%; cursor: pointer; text-transform: uppercase; margin-top: 6px;}
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 9998; display: flex; justify-content: center; align-items: flex-end; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
@@ -297,6 +340,23 @@
         .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
         input:checked + .slider { background-color: var(--success); }
         input:checked + .slider:before { transform: translateX(18px); }
+
+        /* ПРОКАЧКА / НАВЫКИ */
+        .upgrade-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; padding: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s;}
+        .upgrade-btn:active { transform: scale(0.98); background: rgba(255,255,255,0.1); }
+        .upgrade-info h4 { font-size: 12px; font-weight: 800; color: var(--text); margin-bottom: 2px;}
+        .upgrade-info p { font-size: 10px; color: var(--text-muted); font-weight: 600;}
+        .upgrade-cost { background: rgba(251,191,36,0.15); color: var(--gold); padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; }
+
+        /* МОДАЛКА ЗАМЕНЫ ЦИФРЫ */
+        .change-number-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.3s;}
+        .change-number-modal.active { opacity: 1; pointer-events: auto; }
+        .change-number-box { background: #111; border: 1px solid var(--accent); border-radius: 16px; padding: 20px; width: 90%; max-width: 350px; text-align: center;}
+        .change-number-box h3 { font-size: 14px; font-weight: 800; color: white; margin-bottom: 10px;}
+        .change-digits { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px;}
+        .digit-btn { width: 40px; height: 40px; background: #222; border: 1px solid #444; border-radius: 8px; color: white; font-size: 18px; font-weight: 800; display: flex; justify-content: center; align-items: center; cursor: pointer;}
+        .digit-btn:active { background: #333; }
+        .change-input { width: 100%; background: #000; border: 1px solid #333; border-radius: 8px; padding: 10px; color: white; font-size: 18px; text-align: center; font-weight: 800; margin-bottom: 15px;}
     </style>
 </head>
 <body>
@@ -304,10 +364,25 @@
 
     <!-- 3D АНИМАЦИЯ МИФА -->
     <div class="mythic-overlay" id="mythicOverlay">
-        <div class="mythic-card">
-            <div class="mythic-title">✨ МИФИЧЕСКИЙ НОМЕР ✨</div>
-            <div class="mythic-number" id="mythicNumberDisplay">+7 999 777-77-77</div>
+        <div class="mythic-card-3d">
+            <div class="mythic-title-top">✨ МИФИЧЕСКИЙ ✨</div>
+            <div class="mythic-number-big" id="mythicNumberDisplay">+7 999 777-77-77</div>
+            <div class="mythic-price-label">СТОИМОСТЬ</div>
+            <div class="mythic-price-big" id="mythicPriceDisplay">1 000 000 000 🪙</div>
             <button class="mythic-close" onclick="closeMythicOverlay()">ЗАБРАТЬ</button>
+        </div>
+    </div>
+
+    <!-- МОДАЛКА ЗАМЕНЫ ЦИФРЫ -->
+    <div class="change-number-modal" id="changeNumberModal">
+        <div class="change-number-box">
+            <h3>Изменить цифру</h3>
+            <p style="font-size: 10px; color: #888; margin-bottom: 10px;">Стоимость: 5 000 🪙</p>
+            <div class="change-input" id="changeNumberDisplay">+7 999 777-77-77</div>
+            <div class="change-digits" id="changeDigitsContainer">
+                <!-- Кнопки цифр -->
+            </div>
+            <button class="btn-main" style="width: 100%; margin-top: 10px;" onclick="closeChangeNumberModal()">Отмена</button>
         </div>
     </div>
 
@@ -343,7 +418,7 @@
                 <div class="category-title">Игрок</div>
                 <div class="grid-2">
                     <div class="small-btn" onclick="switchTab('profile', this)"><div class="small-icon ic-blue">👤</div><span>Профиль</span></div>
-                    <div class="small-btn" onclick="showToast('Скоро добавим!', '🚧')"><div class="small-icon ic-gold">🏆</div><span>Рейтинг</span></div>
+                    <div class="small-btn" onclick="switchTab('skills', this)"><div class="small-icon ic-purple">🧠</div><span>Навыки</span></div>
                 </div>
             </div>
             <div class="menu-category">
@@ -366,34 +441,92 @@
 
     <!-- ЭКРАНЫ -->
     <div id="screen-game" class="screen active">
-        <div class="sim-card-container">
+        <div class="sim-top-section">
             <div class="sim-chip"><div class="sim-chip-line"></div><div class="sim-chip-line"></div><div class="sim-chip-line"></div><div class="sim-chip-center"></div></div>
             <div class="sim-logo">SIM</div>
             <div class="sim-display-area">
                 <div class="sim-dashes" id="simDashes"><div class="sim-dash"></div><div class="sim-dash"></div><div class="sim-dash"></div><div class="sim-dash"></div><div class="sim-dash"></div></div>
+                
                 <div class="sim-result-box" id="simResultBox">
-                    <div class="sim-result-number" id="simResultNumber">+7 999 000-00-00</div>
-                    <div class="sim-result-rarity" id="simResultRarity">Обычный</div>
-                    <div class="sim-result-price" id="simResultPrice">150 🪙</div>
+                    <div class="sim-result-square" id="simResultSquare">
+                        <div class="sim-result-number" id="simResultNumber">+7 999 000-00-00</div>
+                        <div class="sim-result-rarity" id="simResultRarity">Обычный</div>
+                        <div class="sim-result-price" id="simResultPrice">150 🪙</div>
+                    </div>
                 </div>
+                
                 <div class="sim-x5-grid" id="simX5Grid"></div>
             </div>
-            <div class="sim-controls">
-                <div class="sim-top-row">
-                    <button class="btn-archive" onclick="openTariffModal()">
-                        <span>Архив</span>
-                        <span id="currentTierName" style="color: var(--accent);">Серый рынок</span>
-                    </button>
-                    <button class="btn-roaming-square" onclick="openRoamingModal()">
-                        <span>✈️</span>
-                        <span id="currentRoamingText">🌍 Любая</span>
-                    </button>
+        </div>
+
+        <div class="sim-controls-bottom">
+            <div class="sim-top-row">
+                <button class="btn-archive" onclick="openTariffModal()">
+                    <span>Архив</span>
+                    <span id="currentTierName" style="color: var(--accent);">Серый рынок</span>
+                </button>
+                <button class="btn-roaming-square" onclick="openRoamingModal()">
+                    <span>✈️</span>
+                    <span id="currentRoamingText">🌍 Любая</span>
+                </button>
+            </div>
+            <div class="spin-actions">
+                <button class="btn-main" id="spinBtn" onclick="handleSpin()">Крутить</button>
+                <button class="btn-main btn-x5" id="spinBtnX5" onclick="toggleX5()">x5</button>
+            </div>
+            <div style="font-size: 9px; color: var(--text-muted); text-align: center; margin-top: 4px;">До гаранта: <span id="guaranteeCount">1000</span></div>
+        </div>
+    </div>
+
+    <!-- НАВЫКИ -->
+    <div id="screen-skills" class="screen">
+        <h1 style="font-size: 20px; font-weight: 900; color: var(--gold); text-transform: uppercase; text-align: center; margin-bottom: 15px; text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);">Дерево Навыков</h1>
+        <div class="profile-card" style="text-align: center; margin-bottom: 15px; border-color: rgba(251,191,36,0.3); background: rgba(251,191,36,0.05);">
+            <h3 style="font-size: 16px; font-weight: 900; color: var(--gold);">Очки навыков: <span id="skillPointsDisplay">0</span></h3>
+            <p style="font-size: 11px; color: #ccc; margin-top: 5px;">1 очко за каждый уровень</p>
+        </div>
+
+        <div class="profile-card" style="margin-bottom: 12px;">
+            <h3 style="font-size: 13px; font-weight: 800; color: var(--success); margin-bottom: 10px;">Частая удача</h3>
+            <div class="upgrade-btn" onclick="upgradeSkill('frequent')">
+                <div class="upgrade-info">
+                    <h4>Частая удача</h4>
+                    <p>Шанс выпадения хороших номеров: <span id="frequentChance">70</span> круток</p>
                 </div>
-                <div class="spin-actions">
-                    <button class="btn-main" id="spinBtn" onclick="handleSpin()">Крутить</button>
-                    <button class="btn-main btn-x5" id="spinBtnX5" onclick="toggleX5()">x5</button>
+                <div class="upgrade-cost" id="frequentCost">Ур. 0 / 4</div>
+            </div>
+        </div>
+
+        <div class="profile-card" style="margin-bottom: 12px;">
+            <h3 style="font-size: 13px; font-weight: 800; color: var(--accent); margin-bottom: 10px;">Большая удача</h3>
+            <div class="upgrade-btn" onclick="upgradeSkill('big')">
+                <div class="upgrade-info">
+                    <h4>Большая удача</h4>
+                    <p>Шанс на x40: <span id="bigChance">20</span> круток</p>
                 </div>
-                <div style="font-size: 9px; color: var(--text-muted); text-align: center; margin-top: 4px;">До гаранта: <span id="guaranteeCount">1000</span></div>
+                <div class="upgrade-cost" id="bigCost">Ур. 0 / 3</div>
+            </div>
+        </div>
+
+        <div class="profile-card" style="margin-bottom: 12px;">
+            <h3 style="font-size: 13px; font-weight: 800; color: var(--purple); margin-bottom: 10px;">Сильная удача</h3>
+            <div class="upgrade-btn" onclick="upgradeSkill('strong')">
+                <div class="upgrade-info">
+                    <h4>Сильная удача</h4>
+                    <p>Шанс на x8: <span id="strongChance">6</span> круток</p>
+                </div>
+                <div class="upgrade-cost" id="strongCost">Ур. 0 / 3</div>
+            </div>
+        </div>
+
+        <div class="profile-card" style="margin-bottom: 12px;">
+            <h3 style="font-size: 13px; font-weight: 800; color: var(--gold); margin-bottom: 10px;">Торговля</h3>
+            <div class="upgrade-btn" onclick="upgradeSkill('trade')">
+                <div class="upgrade-info">
+                    <h4>Торговля</h4>
+                    <p>+<span id="tradeBonus">0</span>% к продаже номеров</p>
+                </div>
+                <div class="upgrade-cost" id="tradeCost">Ур. 0 / 5</div>
             </div>
         </div>
     </div>
@@ -412,7 +545,7 @@
         </div>
     </div>
 
-    <!-- VIP МАГАЗИН -->
+    <!-- VIP МАГАЗИН (2 ЛОТА + СКИНЫ) -->
     <div id="screen-shop" class="screen">
         <div style="text-align: center; margin-bottom: 15px;">
             <h1 style="font-size: 20px; font-weight: 900; color: var(--gold); text-transform: uppercase; text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);">VIP Синтез</h1>
@@ -431,6 +564,28 @@
         </div>
 
         <div class="shop-grid" id="vipShopGrid"></div>
+        
+        <!-- СКИНЫ -->
+        <div class="profile-card" style="margin-top: 15px;">
+            <h3 style="font-size: 13px; font-weight: 800; color: var(--gold); margin-bottom: 10px;">Скины для карточек</h3>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <div class="upgrade-btn" onclick="buySkin('neon', 10000)" style="flex: 1; min-width: 100px; flex-direction: column; align-items: center; text-align: center;">
+                    <div style="font-size: 24px; margin-bottom: 5px;">🟢</div>
+                    <h4>Неон</h4>
+                    <p style="font-size: 9px;">10 000 🪙</p>
+                </div>
+                <div class="upgrade-btn" onclick="buySkin('gold', 25000)" style="flex: 1; min-width: 100px; flex-direction: column; align-items: center; text-align: center;">
+                    <div style="font-size: 24px; margin-bottom: 5px;">🟡</div>
+                    <h4>Золото</h4>
+                    <p style="font-size: 9px;">25 000 🪙</p>
+                </div>
+                <div class="upgrade-btn" onclick="buySkin('blood', 50000)" style="flex: 1; min-width: 100px; flex-direction: column; align-items: center; text-align: center;">
+                    <div style="font-size: 24px; margin-bottom: 5px;">🔴</div>
+                    <h4>Кровь</h4>
+                    <p style="font-size: 9px;">50 000 🪙</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- ОБЩИЙ ЭКРАН ИГР -->
@@ -733,10 +888,19 @@
         let statOpened = parseInt(localStorage.getItem('stat_opened')) || 0;
         let userLevel = parseInt(localStorage.getItem('user_level')) || 1;
         let userXp = parseInt(localStorage.getItem('user_xp')) || 0;
+        let skillPoints = parseInt(localStorage.getItem('skill_points')) || 0;
         let isSpinning = false;
         let isX5Active = false;
         let currentTier = { key: 'grey', cost: 500, name: 'Серый рынок' };
         let mythicAnimEnabled = localStorage.getItem('mythic_anim_enabled') !== 'false';
+        
+        // НАВЫКИ
+        let skills = JSON.parse(localStorage.getItem('skills')) || {
+            frequent: 0, // 0-4 (70, 80, 90, 100 круток)
+            big: 0,      // 0-3 (20, 30, 40 круток на x40)
+            strong: 0,   // 0-3 (6, 7, 8 круток на x8)
+            trade: 0     // 0-5 (+0%, +3%, +6%, +9%, +12%, +15%)
+        };
         
         let autoSellSettings = JSON.parse(localStorage.getItem('auto_sell_settings')) || { "Обычный": false, "Необычный": false, "Редкий": false, "Эпический": false, "Легендарный": false, "Мифический": false };
 
@@ -746,7 +910,7 @@
             { code: "+7", flag: "🇷🇺 Россия", prefix: 7 }, { code: "+375", flag: "🇧🇾 Беларусь", prefix: 375 }, { code: "+380", flag: "🇺🇦 Украина", prefix: 380 }, { code: "+1", flag: "🇺🇸 США", prefix: 1 }, { code: "+49", flag: "🇩🇪 Германия", prefix: 49 }, { code: "+44", flag: "🇬🇧 Англия", prefix: 44 }, { code: "+971", flag: "🇦🇪 ОАЭ", prefix: 971 }
         ];
         
-        // КРАШ ПЕРЕМЕННЫЕ (РЕАЛЬНЫЕ СТАВКИ)
+        // КРАШ
         let rocketHistory = JSON.parse(localStorage.getItem('rocket_history')) || [];
         let rocketBet = 5000;
         let rocketState = 'idle'; 
@@ -771,7 +935,7 @@
         const promoCodes = { "SIMCITY": 100000, "LUCKY": 50000, "CASINO": 25000 };
         let usedPromos = JSON.parse(localStorage.getItem('used_promos')) || [];
 
-        // УРОВНИ И ОПЫТ (СЛОЖНЕЕ С КАЖДЫМ УРОВНЕМ)
+        // УРОВНИ
         function getXpNeeded(level) {
             if (level <= 30) return level * 50; 
             if (level <= 60) return 30 * 50 + (level - 30) * 150; 
@@ -786,11 +950,10 @@
         };
         const baseRarities = { "Обычный": { color: "#8b92a5", price: 150 }, "Необычный": { color: "#10b981", price: 500 }, "Редкий": { color: "#3b82f6", price: 2000 }, "Эпический": { color: "#8b5cf6", price: 10000 }, "Легендарный": { color: "#f97316", price: 50000 }, "Мифический": { color: "#ef4444", price: 500000 } };
 
+        // VIP ЛОТЫ (2 штуки)
         const vipLots = [
-            { id: 'vip_1', title: 'Топ-Секретный', badge: 'TIER 1', desc: 'Доступ к генерации красивых номеров. Минимальная ставка 100 млн.', features: ['Красивые цифры', 'Ставка от 100 000 000', 'Редкость: Эпическая'], starsCost: 500, btnClass: '' },
-            { id: 'vip_2', title: 'Правительственный', badge: 'TIER 2', desc: 'Закрытые линии связи. Красивые номера премиум-класса.', features: ['Зеркальные номера', 'Ставка от 300 000 000', 'Редкость: Легендарная'], starsCost: 1500, btnClass: 'legendary' },
-            { id: 'vip_3', title: 'Спутниковый', badge: 'TIER 3', desc: 'Космическая связь. Секретные номера для избранных.', features: ['VIP-паттерны', 'Ставка от 500 000 000', 'Редкость: Мифическая'], starsCost: 2500, btnClass: 'legendary' },
-            { id: 'vip_4', title: 'Божественный', badge: 'MAX', desc: 'Максимальный доступ. Самые красивые номера на рынке.', features: ['Идеальные комбинации', 'Ставка от 1 000 000 000', 'Редкость: Божественная'], starsCost: 5000, btnClass: 'mythic' }
+            { id: 'vip_1', title: 'Топ-Секретный (3 цифры)', badge: 'TIER 1', desc: 'Мифический номер. Только 3 цифры. Цена от 100 млн до 1 млрд.', features: ['3 цифры', 'Мифический', 'Цена: 100 млн - 1 млрд'], starsCost: 250, btnClass: 'mythic' },
+            { id: 'vip_2', title: 'Прокрут (50 звёзд)', badge: 'SPIN', desc: 'Крутка случайного номера. Шанс на мифический выше.', features: ['1 крутка', 'Повышенный шанс', 'Стоимость: 50 ⭐'], starsCost: 50, btnClass: '' }
         ];
 
         // КОЛЕСО ФОРТУНЫ
@@ -820,6 +983,18 @@
             let untilGuarantee = 1000 - (statOpened % 1000);
             if(untilGuarantee === 1000 && statOpened > 0) untilGuarantee = 0;
             document.getElementById('guaranteeCount').innerText = untilGuarantee;
+            
+            // Обновляем отображение навыков
+            document.getElementById('skillPointsDisplay').innerText = skillPoints;
+            document.getElementById('frequentChance').innerText = [70, 80, 90, 100][skills.frequent] || 70;
+            document.getElementById('bigChance').innerText = [20, 30, 40][skills.big] || 20;
+            document.getElementById('strongChance').innerText = [6, 7, 8][skills.strong] || 6;
+            document.getElementById('tradeBonus').innerText = (skills.trade * 3);
+            
+            document.getElementById('frequentCost').innerText = `Ур. ${skills.frequent} / 4`;
+            document.getElementById('bigCost').innerText = `Ур. ${skills.big} / 3`;
+            document.getElementById('strongCost').innerText = `Ур. ${skills.strong} / 3`;
+            document.getElementById('tradeCost').innerText = `Ур. ${skills.trade} / 5`;
 
             localStorage.setItem('casino_balance', balance);
             localStorage.setItem('stars_balance', starsBalance);
@@ -827,6 +1002,8 @@
             localStorage.setItem('stat_opened', statOpened);
             localStorage.setItem('user_level', userLevel);
             localStorage.setItem('user_xp', userXp);
+            localStorage.setItem('skill_points', skillPoints);
+            localStorage.setItem('skills', JSON.stringify(skills));
             localStorage.setItem('rocket_history', JSON.stringify(rocketHistory));
             localStorage.setItem('used_promos', JSON.stringify(usedPromos));
             localStorage.setItem('auto_sell_settings', JSON.stringify(autoSellSettings));
@@ -854,9 +1031,28 @@
             if(tabId === 'settings') loadSettings();
             if(tabId === 'shop') renderVipShop();
             if(tabId === 'wheel') initWheel();
+            if(tabId === 'skills') updateUI();
         }
 
-        // КОЛЕСО ФОРТУНЫ
+        // НАВЫКИ
+        window.upgradeSkill = function(skill) {
+            if (skillPoints < 1) return showToast('Недостаточно очков навыков!', '❌');
+            
+            if (skill === 'frequent' && skills.frequent < 4) {
+                skills.frequent++; skillPoints--; showToast('Частая удача улучшена!', '⭐');
+            } else if (skill === 'big' && skills.big < 3) {
+                skills.big++; skillPoints--; showToast('Большая удача улучшена!', '⭐');
+            } else if (skill === 'strong' && skills.strong < 3) {
+                skills.strong++; skillPoints--; showToast('Сильная удача улучшена!', '⭐');
+            } else if (skill === 'trade' && skills.trade < 5) {
+                skills.trade++; skillPoints--; showToast('Торговля улучшена!', '⭐');
+            } else {
+                return showToast('Максимальный уровень!', '⚠️');
+            }
+            updateUI();
+        }
+
+        // КОЛЕСО
         function initWheel() {
             const wheel = document.getElementById('fortuneWheel');
             if (!wheel) return;
@@ -928,14 +1124,63 @@
             showToast('Настройки сохранены', '⚙️');
         }
 
+        window.saveAutoSell = function() {
+            for (let rarity in autoSellSettings) {
+                let el = document.getElementById('auto-sell-' + rarity);
+                if (el) autoSellSettings[rarity] = el.checked;
+            }
+            localStorage.setItem('auto_sell_settings', JSON.stringify(autoSellSettings));
+            showToast('Настройки сохранены', '⚙️');
+        }
+
         // 3D АНИМАЦИЯ МИФА
         window.closeMythicOverlay = function() {
             document.getElementById('mythicOverlay').classList.remove('active');
         }
 
-        function showMythicAnimation(number) {
+        function showMythicAnimation(number, price) {
             document.getElementById('mythicNumberDisplay').innerText = number;
+            document.getElementById('mythicPriceDisplay').innerText = price.toLocaleString('ru-RU') + ' 🪙';
             document.getElementById('mythicOverlay').classList.add('active');
+        }
+
+        // ЗАМЕНА ЦИФРЫ
+        window.openChangeNumberModal = function(index) {
+            if (balance < 5000) return showToast('Нужно 5 000 🪙 для замены!', '❌');
+            const item = inventory[index];
+            document.getElementById('changeNumberDisplay').innerText = item.number;
+            const digitsContainer = document.getElementById('changeDigitsContainer');
+            digitsContainer.innerHTML = '';
+            for (let i = 0; i <= 9; i++) {
+                const btn = document.createElement('div');
+                btn.className = 'digit-btn';
+                btn.innerText = i;
+                btn.onclick = () => replaceDigit(index, i);
+                digitsContainer.appendChild(btn);
+            }
+            document.getElementById('changeNumberModal').classList.add('active');
+        }
+
+        window.closeChangeNumberModal = function() {
+            document.getElementById('changeNumberModal').classList.remove('active');
+        }
+
+        function replaceDigit(index, newDigit) {
+            const item = inventory[index];
+            // Меняем последнюю цифру в номере
+            let numStr = item.number;
+            let lastDigitMatch = numStr.match(/\d(?=\D*$)/);
+            if (lastDigitMatch) {
+                numStr = numStr.slice(0, -lastDigitMatch[0].length) + newDigit + numStr.slice(-lastDigitMatch[0].length + 1);
+                if (numStr.length < item.number.length) numStr = item.number.slice(0, -1) + newDigit;
+                else numStr = item.number.slice(0, -1) + newDigit;
+            }
+            item.number = numStr;
+            balance -= 5000;
+            updateUI();
+            closeChangeNumberModal();
+            renderInventory();
+            showToast(`Цифра заменена на ${newDigit}!`, '✏️');
         }
 
         // РЕНДЕР VIP
@@ -955,6 +1200,13 @@
                     </a>
                 </div>
             `).join('');
+        }
+
+        window.buySkin = function(skin, price) {
+            if (balance < price) return showToast('Недостаточно монет!', '❌');
+            balance -= price;
+            updateUI();
+            showToast(`Скин ${skin} куплен!`, '🎨');
         }
 
         window.openTariffModal = function() { document.getElementById('tariffModal').classList.add('active'); }
@@ -1052,7 +1304,7 @@
                 else { 
                     inventory.push(item); 
                     if (item.rarity === 'Мифический' && mythicAnimEnabled) {
-                        showMythicAnimation(item.number);
+                        showMythicAnimation(item.number, item.price);
                     } else {
                         showToast(`Номер в базе!`, '📦'); 
                     }
@@ -1068,8 +1320,9 @@
                 let grid = document.getElementById('simX5Grid'); grid.classList.add('show');
                 grid.innerHTML = results.map(item => `
                     <div class="sim-x5-item" style="border-left-color: ${item.color};">
-                        <span>${item.number} <br><small style="color:${item.color}; font-size:9px;">${item.rarity}</small></span>
-                        <span>${item.price.toLocaleString('ru-RU')} 🪙</span>
+                        <span class="num">${item.number}</span>
+                        <span class="rar" style="color:${item.color};">${item.rarity}</span>
+                        <span class="prc">${item.price.toLocaleString('ru-RU')} 🪙</span>
                     </div>
                 `).join('');
                 if (totalSold > 0) showToast(`Автопродажа: +${totalSold.toLocaleString('ru-RU')} 🪙`, '💰');
@@ -1077,13 +1330,13 @@
                 userXp += 10 * count;
             }
             
-            // Проверка на повышение уровня
             let xpNeeded = getXpNeeded(userLevel);
             while (userXp >= xpNeeded) {
                 userXp -= xpNeeded;
                 userLevel++;
+                skillPoints++;
                 xpNeeded = getXpNeeded(userLevel);
-                showToast(`Новый уровень: ${userLevel}!`, '⭐');
+                showToast(`Новый уровень: ${userLevel}! +1 очко навыков`, '⭐');
             }
             
             updateUI();
@@ -1097,13 +1350,38 @@
                     <div class="inv-info">
                         <h4 style="color: ${item.color};">${item.number}</h4><p>${item.rarity}</p>
                         <button class="btn-sell" onclick="sellItem(${index})">Продать за ${item.price.toLocaleString('ru-RU')} 🪙</button>
+                        <button class="btn-edit" onclick="openChangeNumberModal(${index})">Изменить</button>
                     </div>
                 </div>
             `).join('');
         }
-        window.sellItem = function(index) { balance += inventory[index].price; inventory.splice(index, 1); updateUI(); renderInventory(); showToast('Продано!', '💰'); }
-        window.sellAllNumbers = function() { if (inventory.length === 0) return; let total = inventory.reduce((sum, item) => sum + item.price, 0); balance += total; inventory = []; updateUI(); renderInventory(); showToast(`Продано всё за ${total.toLocaleString('ru-RU')} 🪙`, '💰'); }
-        window.sellToBuyer = function() { if (inventory.length === 0) return showToast('База пуста!', '❌'); let total = inventory.reduce((sum, item) => sum + item.price, 0); let bonus = Math.floor(total * 1.2); balance += bonus; inventory = []; updateUI(); if(document.getElementById('screen-inventory').classList.contains('active')) renderInventory(); showToast(`Скупщик заплатил ${bonus.toLocaleString('ru-RU')} 🪙 (+20%)`, '🤑'); }
+        window.sellItem = function(index) { 
+            let bonus = 1 + (skills.trade * 0.03);
+            let sellPrice = Math.floor(inventory[index].price * bonus);
+            balance += sellPrice; 
+            inventory.splice(index, 1); 
+            updateUI(); renderInventory(); 
+            showToast(`Продано за ${sellPrice.toLocaleString('ru-RU')} 🪙`, '💰'); 
+        }
+        window.sellAllNumbers = function() { 
+            if (inventory.length === 0) return; 
+            let bonus = 1 + (skills.trade * 0.03);
+            let total = inventory.reduce((sum, item) => sum + item.price, 0); 
+            let totalWithBonus = Math.floor(total * bonus);
+            balance += totalWithBonus; 
+            inventory = []; updateUI(); renderInventory(); 
+            showToast(`Продано всё за ${totalWithBonus.toLocaleString('ru-RU')} 🪙`, '💰'); 
+        }
+        window.sellToBuyer = function() { 
+            if (inventory.length === 0) return showToast('База пуста!', '❌'); 
+            let bonus = 1 + (skills.trade * 0.03);
+            let total = inventory.reduce((sum, item) => sum + item.price, 0); 
+            let totalWithBonus = Math.floor(total * bonus * 1.2);
+            balance += totalWithBonus; 
+            inventory = []; updateUI(); 
+            if(document.getElementById('screen-inventory').classList.contains('active')) renderInventory(); 
+            showToast(`Скупщик заплатил ${totalWithBonus.toLocaleString('ru-RU')} 🪙 (+20% + бонус)`, '🤑'); 
+        }
 
         window.activatePromo = function() {
             let input = document.getElementById('promoInput').value.trim().toUpperCase(); if (!input) return;
@@ -1561,7 +1839,6 @@
             graphFill.setAttribute('d', `M0,100 Q${ctrlX},${ctrlY} ${xPercent},${yPercent} L${xPercent},100 Z`);
         }
 
-        // Подписка на живые ставки из Firebase
         function subscribeLiveBets() {
             if (liveBetsUnsub) return;
             const betsRef = ref(db, 'crash_bets');
@@ -1620,7 +1897,6 @@
             profitText.classList.remove('show');
             profitText.innerText = '+0 🪙';
 
-            // Очищаем старые ставки в базе для нового раунда
             set(ref(db, 'crash_bets'), null);
 
             const random = Math.random();
@@ -1692,7 +1968,6 @@
                             graphFill.setAttribute('fill', 'rgba(59, 130, 246, 0.15)');
                             profitText.classList.remove('show');
                             
-                            // Автозапуск следующего раунда
                             autoStartTimeout = setTimeout(() => {
                                 startRocket();
                             }, 3000); 
@@ -1714,7 +1989,6 @@
                 myActiveBetAmount = rocketBet;
                 updateUI();
                 
-                // Записываем ставку в базу для всех
                 set(ref(db, 'crash_bets/' + myId), {
                     name: currentUserName,
                     amount: rocketBet,
@@ -1731,7 +2005,6 @@
                 let winAmount = Math.floor(myActiveBetAmount * rocketMult);
                 balance += winAmount; 
                 
-                // Обновляем ставку в базе
                 update(ref(db, 'crash_bets/' + myId), {
                     cashedOut: true,
                     mult: rocketMult
@@ -1748,7 +2021,6 @@
             }
         }
 
-        // Запускаем первый раунд при загрузке
         setTimeout(() => {
             if (document.getElementById('pane-crash').classList.contains('active')) {
                 startRocket();
