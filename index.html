@@ -340,7 +340,9 @@
                     <div id="coin-game" style="display: none; flex-direction: column; height: 100%;">
                         <div class="opponent-info">
                             <div class="opponent-card" id="coin-my-card">
-                                <!-- JS заполнит -->
+                                <div class="opponent-avatar" id="coin-my-avatar"></div>
+                                <div class="opponent-name" id="coin-my-name"></div>
+                                <div class="opponent-label">Вы</div>
                             </div>
                             <div class="vs-text">VS</div>
                             <div class="opponent-card" id="coin-opp-card">
@@ -386,7 +388,9 @@
                     <div id="dice-game" style="display: none; flex-direction: column; height: 100%;">
                         <div class="opponent-info">
                             <div class="opponent-card" id="dice-my-card">
-                                <!-- JS заполнит -->
+                                <div class="opponent-avatar" id="dice-my-avatar"></div>
+                                <div class="opponent-name" id="dice-my-name"></div>
+                                <div class="opponent-label">Вы</div>
                             </div>
                             <div class="vs-text">VS</div>
                             <div class="opponent-card" id="dice-opp-card">
@@ -935,7 +939,7 @@
                 document.getElementById(`${type}-status-text`).innerText = "Ожидание соперника...";
                 document.getElementById(`${type}-ThrowBtn`).disabled = true;
                 
-                // Проверка, существует ли элемент, прежде чем менять его innerHTML
+                // Обновляем карточку игрока (вставляем аватар и ник)
                 let myCard = document.getElementById(`${type}-my-card`);
                 if (myCard) {
                     myCard.innerHTML = `<div class="opponent-avatar">${currentUserAvatar}</div><div class="opponent-name">${currentUserName}</div><div class="opponent-label">Вы</div>`;
