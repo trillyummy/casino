@@ -76,61 +76,38 @@
         .screen.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* СИНТЕЗ (Центрированная симка) */
+        /* СИНТЕЗ */
         #screen-game { justify-content: center; padding-bottom: 25px; }
-        .sim-card-container {
-            background: linear-gradient(135deg, #1a1a24, #0a0a0f);
-            border-radius: 24px; border: 1px solid rgba(255,255,255,0.15); padding: 20px;
-            position: relative; display: flex; flex-direction: column;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.2);
-            overflow: hidden; margin-bottom: 15px;
-        }
-        /* Блик на симке */
-        .sim-card-container::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(to bottom right, rgba(255,255,255,0.1) 0%, transparent 40%, transparent 100%);
-            transform: rotate(30deg); pointer-events: none;
-        }
-        
+        .sim-card-container { background: linear-gradient(135deg, #1a1a24, #0a0a0f); border-radius: 24px; border: 1px solid rgba(255,255,255,0.15); padding: 20px; position: relative; display: flex; flex-direction: column; box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.2); overflow: hidden; margin-bottom: 15px; }
         .sim-chip { width: 45px; height: 35px; background: linear-gradient(135deg, #fbbf24, #d97706); border-radius: 8px; position: absolute; top: 15px; left: 15px; box-shadow: 0 3px 10px rgba(251, 191, 36, 0.4); display: flex; flex-direction: column; justify-content: space-between; padding: 5px; }
         .sim-chip-line { width: 100%; height: 1.5px; background: rgba(0,0,0,0.4); border-radius: 1px; }
         .sim-chip-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 14px; height: 18px; border: 1.5px solid rgba(0,0,0,0.4); border-radius: 3px;}
-        
         .sim-logo { position: absolute; top: 15px; right: 15px; font-size: 22px; font-weight: 900; color: rgba(255,255,255,0.15); letter-spacing: 3px; text-shadow: 1px 1px 0 rgba(0,0,0,0.5);}
-        
         .sim-display-area { margin-top: 45px; margin-bottom: 15px; text-align: center; min-height: 160px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 2; }
-        
         .sim-dashes { display: flex; gap: 10px; justify-content: center; align-items: center; opacity: 0.4; transition: opacity 0.2s; }
         .sim-dash { width: 25px; height: 6px; background: white; border-radius: 3px; box-shadow: 0 0 10px rgba(255,255,255,0.5); }
-        
         .sim-result-box { display: none; flex-direction: column; align-items: center; width: 100%; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .sim-result-box.show { display: flex; }
         .sim-result-number { font-size: 24px; font-weight: 900; letter-spacing: 1px; color: white; text-shadow: 0 0 15px currentColor; margin-bottom: 6px; }
         .sim-result-rarity { font-size: 12px; font-weight: 800; text-transform: uppercase; margin-bottom: 10px;}
         .sim-result-price { font-size: 16px; font-weight: 900; color: var(--gold); background: rgba(251,191,36,0.15); padding: 5px 15px; border-radius: 15px; border: 1px solid rgba(251,191,36,0.3);}
-        
         .sim-x5-grid { display: none; grid-template-columns: 1fr; gap: 8px; width: 100%; max-height: 200px; overflow-y: auto; animation: popIn 0.3s; }
         .sim-x5-grid.show { display: grid; }
         .sim-x5-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.6); padding: 10px 12px; border-radius: 10px; border-left: 4px solid; }
         .sim-x5-item span:first-child { font-size: 14px; font-weight: 800; color: white;}
         .sim-x5-item span:last-child { font-size: 13px; font-weight: 800; color: var(--gold);}
-
         @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-
-        /* Кнопки управления */
         .sim-controls { display: flex; flex-direction: column; gap: 8px; margin-top: auto; z-index: 2;}
         .btn-select { background: rgba(255,255,255,0.08); color: white; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 10px 14px; font-size: 12px; font-weight: 700; width: 100%; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s; }
         .btn-select:active { transform: scale(0.98); background: rgba(255,255,255,0.15); }
-        
         .spin-actions { display: flex; gap: 8px; width: 100%;}
         .btn-main { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; border-radius: var(--radius-md); padding: 14px; font-size: 13px; font-weight: 800; cursor: pointer; transition: 0.2s; flex: 1; text-transform: uppercase; }
         .btn-main:active { transform: scale(0.96); }
         .btn-main:disabled { background: #2d3041; color: var(--text-muted); box-shadow: none; transform: none; }
-        
         .btn-x5 { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.5); flex: 0.4; }
         .btn-x5.active { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; box-shadow: 0 0 15px rgba(139, 92, 246, 0.5); border-color: transparent;}
 
-        /* ОБЩЕЕ ОКНО ИГР */
+        /* ИГРЫ */
         .games-container { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); border: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; backdrop-filter: blur(10px); height: 100%; max-height: 600px;}
         .game-tabs { display: flex; background: rgba(0,0,0,0.4); border-bottom: 1px solid var(--border); overflow-x: auto;}
         .game-tab { flex: 1; padding: 12px 10px; text-align: center; font-size: 12px; font-weight: 800; color: var(--text-muted); cursor: pointer; white-space: nowrap; transition: 0.2s; border-bottom: 2px solid transparent;}
@@ -160,7 +137,6 @@
         .opponent-info { display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; }
         .opponent-avatar { width: 30px; height: 30px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 14px;}
 
-        /* Поля ввода */
         .bet-input-large { width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05); color: white; border-radius: var(--radius-md); padding: 15px; font-size: 18px; font-weight: 900; outline: none; margin-bottom: 10px; text-align: center;}
         .bet-presets { display: flex; gap: 6px; margin-bottom: 10px; overflow-x: auto; padding-bottom: 5px; justify-content: center;}
         .btn-preset { padding: 8px 12px; border-radius: 8px; background: rgba(255,255,255,0.05); border: none; color: white; font-size: 12px; font-weight: 800; white-space: nowrap; cursor: pointer; transition: 0.2s;}
@@ -176,7 +152,6 @@
         .crash-user { display: flex; align-items: center; gap: 8px; font-weight: 700; color: white;}
         .crash-user-avatar { width: 24px; height: 24px; border-radius: 50%; background: #333; display: flex; justify-content: center; align-items: center; font-size: 12px; overflow: hidden;}
 
-        /* Заглушка */
         .empty-pane { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-weight: 700; gap: 10px;}
         .empty-pane span { font-size: 40px; }
 
@@ -226,16 +201,6 @@
         .modal-title { font-size: 16px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 15px; }
         .tariff-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: var(--radius-md); margin-bottom: 8px; cursor: pointer; border: 1px solid transparent;}
         .tariff-item.active { border-color: var(--accent); background: rgba(59, 130, 246, 0.1); }
-
-        /* Настройки */
-        .setting-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: rgba(255,255,255,0.03); border-radius: var(--radius-md); margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.05); }
-        .setting-item span { font-size: 13px; font-weight: 700; }
-        .toggle-switch { position: relative; display: inline-block; width: 40px; height: 22px; }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .4s; border-radius: 22px; }
-        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
-        input:checked + .slider { background-color: var(--success); }
-        input:checked + .slider:before { transform: translateX(18px); }
     </style>
 </head>
 <body>
@@ -359,7 +324,7 @@
                             <span id="coinOpponentRes">?</span>
                         </div>
                         <input type="number" id="coinBetInput" class="bet-input-large" value="1000" placeholder="Ставка">
-                        <button class="btn-play" id="coinPlayBtn" onclick="startCoinGame()">Найти и Играть</button>
+                        <button class="btn-play" id="coinPlayBtn" onclick="createBet('coin')">Создать лот</button>
                     </div>
                 </div>
 
@@ -376,7 +341,7 @@
                             <span id="diceOpponentRes">?</span>
                         </div>
                         <input type="number" id="diceBetInput" class="bet-input-large" value="1000" placeholder="Ставка">
-                        <button class="btn-play" id="dicePlayBtn" onclick="startDiceGame()">Найти и Играть</button>
+                        <button class="btn-play" id="dicePlayBtn" onclick="createBet('dice')">Создать лот</button>
                     </div>
                 </div>
 
@@ -397,7 +362,6 @@
                         <button class="btn-preset" onclick="setBet(10000, this)">10к</button>
                         <button class="btn-preset" onclick="setBet(50000, this)">50к</button>
                     </div>
-                    <!-- Кнопка Автозабор -->
                     <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                         <input type="number" id="autoCashoutInput" class="bet-input-large" style="margin-bottom:0; padding: 10px; font-size: 14px;" placeholder="Автозабор (x2.0)">
                         <button class="btn-preset" onclick="setAutoCashout()" style="flex: 0.4; background: var(--purple); color: white;">OK</button>
@@ -417,7 +381,8 @@
 
             <div class="search-overlay" id="searchOverlay">
                 <div class="spinner"></div>
-                <div style="font-weight: 800; font-size: 14px;" id="searchText">Поиск соперника...</div>
+                <div style="font-weight: 800; font-size: 14px;" id="searchText">Ожидание соперника...</div>
+                <button class="btn-main" style="margin-top: 10px; background: rgba(255,255,255,0.1);" onclick="cancelSearch()">Отмена</button>
             </div>
         </div>
     </div>
@@ -522,8 +487,11 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getDatabase, ref, set, onValue, remove, get, update } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
         const firebaseConfig = { apiKey: "AIzaSyALQK0FztkoJCDRc-dWgaWsOFrJyaBQUg", authDomain: "casino-numbers.firebaseapp.com", databaseURL: "https://casino-numbers-default-rtdb.firebaseio.com", projectId: "casino-numbers", storageBucket: "casino-numbers.firebasestorage.app", messagingSenderId: "163879101194", appId: "1:163879101194:web:90cd7c69d377327ae410f3" };
         const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
         const tg = window.Telegram.WebApp;
         tg.expand(); tg.setHeaderColor("#050505");
 
@@ -535,7 +503,9 @@
                 currentUserAvatar = `<img src="${tg.initDataUnsafe.user.photo_url}" style="width:100%; height:100%; object-fit:cover;">`;
             }
         }
+        const myId = tg.initDataUnsafe?.user?.id || Math.floor(Math.random() * 1000000000);
 
+        // --- СОСТОЯНИЯ ---
         let balance = parseInt(localStorage.getItem('casino_balance')) || 5000;
         let inventory = JSON.parse(localStorage.getItem('casino_inventory')) || [];
         let statOpened = parseInt(localStorage.getItem('stat_opened')) || 0;
@@ -545,20 +515,12 @@
         let isX5Active = false;
         let currentTier = { key: 'grey', cost: 500, name: 'Серый рынок' };
         
-        let autoSellSettings = JSON.parse(localStorage.getItem('auto_sell_settings')) || {
-            "Обычный": false, "Необычный": false, "Редкий": false, "Эпический": false, "Легендарный": false, "Мифический": false
-        };
+        let autoSellSettings = JSON.parse(localStorage.getItem('auto_sell_settings')) || { "Обычный": false, "Необычный": false, "Редкий": false, "Эпический": false, "Легендарный": false, "Мифический": false };
 
         let currentCountry = { code: "any", flag: "🌍 Любая", prefix: null };
         const countries = [
             { code: "any", flag: "🌍 Любая", prefix: null },
-            { code: "+7", flag: "🇷🇺 Россия", prefix: 7 }, 
-            { code: "+375", flag: "🇧🇾 Беларусь", prefix: 375 }, 
-            { code: "+380", flag: "🇺🇦 Украина", prefix: 380 }, 
-            { code: "+1", flag: "🇺🇸 США", prefix: 1 }, 
-            { code: "+49", flag: "🇩🇪 Германия", prefix: 49 }, 
-            { code: "+44", flag: "🇬🇧 Англия", prefix: 44 }, 
-            { code: "+971", flag: "🇦🇪 ОАЭ", prefix: 971 }
+            { code: "+7", flag: "🇷🇺 Россия", prefix: 7 }, { code: "+375", flag: "🇧🇾 Беларусь", prefix: 375 }, { code: "+380", flag: "🇺🇦 Украина", prefix: 380 }, { code: "+1", flag: "🇺🇸 США", prefix: 1 }, { code: "+49", flag: "🇩🇪 Германия", prefix: 49 }, { code: "+44", flag: "🇬🇧 Англия", prefix: 44 }, { code: "+971", flag: "🇦🇪 ОАЭ", prefix: 971 }
         ];
         
         let rocketHistory = JSON.parse(localStorage.getItem('rocket_history')) || [];
@@ -571,6 +533,13 @@
         let rocketTime = 0;
         let autoCashout = 0;
 
+        // --- PVP ПЕРЕМЕННЫЕ ---
+        let myActiveBetId = null;
+        let currentGameId = null;
+        let isWaitingForOpponent = false;
+        let unsubMyBet = null;
+        let unsubGame = null;
+
         const promoCodes = { "SIMCITY": 100000, "LUCKY": 50000, "CASINO": 25000 };
         let usedPromos = JSON.parse(localStorage.getItem('used_promos')) || [];
 
@@ -580,28 +549,18 @@
             vip: { Обычный: 0, Необычный: 30, Редкий: 40, Эпический: 20, Легендарный: 8, Мифический: 2 },
             gov: { Обычный: 0, Необычный: 0, Редкий: 40, Эпический: 35, Легендарный: 20, Мифический: 5 }
         };
-
-        const baseRarities = {
-            "Обычный": { color: "#8b92a5", price: 150 },
-            "Необычный": { color: "#10b981", price: 500 },
-            "Редкий": { color: "#3b82f6", price: 2000 },
-            "Эпический": { color: "#8b5cf6", price: 10000 },
-            "Легендарный": { color: "#f97316", price: 50000 },
-            "Мифический": { color: "#fbbf24", price: 500000 }
-        };
+        const baseRarities = { "Обычный": { color: "#8b92a5", price: 150 }, "Необычный": { color: "#10b981", price: 500 }, "Редкий": { color: "#3b82f6", price: 2000 }, "Эпический": { color: "#8b5cf6", price: 10000 }, "Легендарный": { color: "#f97316", price: 50000 }, "Мифический": { color: "#fbbf24", price: 500000 } };
 
         function updateUI() {
             document.getElementById('userBalance').innerText = balance.toLocaleString('ru-RU');
             document.getElementById('statOpened').innerText = statOpened;
             document.getElementById('statValue').innerText = inventory.reduce((sum, item) => sum + item.price, 0).toLocaleString('ru-RU');
-            
             let xpNeeded = userLevel * 100;
             document.getElementById('userLevel').innerText = userLevel;
             document.getElementById('headerLvl').innerText = userLevel;
             document.getElementById('headerLvlBar').style.width = `${(userXp / xpNeeded) * 100}%`;
             document.getElementById('userXpText').innerText = `${userXp} / ${xpNeeded} XP`;
             document.getElementById('userXpBar').style.width = `${(userXp / xpNeeded) * 100}%`;
-            
             let untilGuarantee = 1000 - (statOpened % 1000);
             if(untilGuarantee === 1000 && statOpened > 0) untilGuarantee = 0;
             document.getElementById('guaranteeCount').innerText = untilGuarantee;
@@ -620,19 +579,6 @@
             renderBattlePass();
         }
 
-        function checkBetButton() {
-            const btn = document.getElementById('rocketBtn');
-            if (rocketState === 'idle' && !hasCashedOut) {
-                if (balance < rocketBet) {
-                    btn.classList.add('disabled');
-                    btn.innerText = 'Не хватает коинов';
-                } else {
-                    btn.classList.remove('disabled');
-                    btn.innerText = 'Запустить';
-                }
-            }
-        }
-
         window.toggleMenu = function() {
             document.getElementById('sidebar').classList.toggle('active');
             document.getElementById('sidebarOverlay').classList.toggle('active');
@@ -641,7 +587,6 @@
         window.switchTab = function(tabId, element) {
             document.getElementById('sidebar').classList.remove('active');
             document.getElementById('sidebarOverlay').classList.remove('active');
-
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.menu-item, .menu-box-btn, .small-btn, .wide-btn').forEach(n => n.classList.remove('active'));
             document.getElementById('screen-' + tabId).classList.add('active');
@@ -672,7 +617,6 @@
         // --- КЕЙСЫ ---
         window.openTariffModal = function() { document.getElementById('tariffModal').classList.add('active'); }
         window.closeTariffModal = function() { document.getElementById('tariffModal').classList.remove('active'); }
-        
         window.selectTier = function(key, el, cost) {
             currentTier = { key, cost, name: el.querySelector('h4').innerText };
             document.querySelectorAll('.tariff-item').forEach(i => i.classList.remove('active'));
@@ -684,34 +628,24 @@
 
         window.openRoamingModal = function() { document.getElementById('roamingModal').classList.add('active'); }
         window.closeRoamingModal = function() { document.getElementById('roamingModal').classList.remove('active'); }
-
         function renderRoaming() {
             const grid = document.getElementById('countryGrid');
             grid.innerHTML = countries.map(c => `
                 <div class="country-item ${currentCountry.code === c.code ? 'active' : ''}" onclick="selectCountry('${c.code}')">
-                    <span>${c.flag.split(' ')[0]}</span>
-                    <p>${c.flag.split(' ')[1]}</p>
+                    <span>${c.flag.split(' ')[0]}</span><p>${c.flag.split(' ')[1]}</p>
                 </div>
             `).join('');
         }
-
         window.selectCountry = function(code) {
             currentCountry = countries.find(c => c.code === code);
             document.getElementById('currentRoamingText').innerText = currentCountry.flag;
-            renderRoaming();
-            closeRoamingModal();
-            showToast(`Роуминг: ${currentCountry.flag}`, '🌍');
+            renderRoaming(); closeRoamingModal(); showToast(`Роуминг: ${currentCountry.flag}`, '🌍');
         }
 
         function generatePhoneNumber() {
             let code = currentCountry.prefix;
-            if (!code) {
-                let randomCountry = countries[Math.floor(Math.random() * (countries.length - 1)) + 1];
-                code = randomCountry.prefix;
-            }
-            let p1 = Math.floor(Math.random() * 900) + 100;
-            let p2 = Math.floor(Math.random() * 90) + 10;
-            let p3 = Math.floor(Math.random() * 90) + 10;
+            if (!code) { let randomCountry = countries[Math.floor(Math.random() * (countries.length - 1)) + 1]; code = randomCountry.prefix; }
+            let p1 = Math.floor(Math.random() * 900) + 100; let p2 = Math.floor(Math.random() * 90) + 10; let p3 = Math.floor(Math.random() * 90) + 10;
             return `+${code} ${p1} ${p2}-${p3}`;
         }
 
@@ -720,24 +654,16 @@
             let chances = tierChances[currentTier.key];
             list.innerHTML = Object.entries(chances).map(([name, chance]) => `
                 <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px;">
-                    <span style="color: ${baseRarities[name].color};">${name}</span>
-                    <span>${chance.toFixed(2)}%</span>
+                    <span style="color: ${baseRarities[name].color};">${name}</span><span>${chance.toFixed(2)}%</span>
                 </div>
             `).join('');
         }
 
-        // --- КРУТКА (КРАСИВАЯ АНИМАЦИЯ) ---
         window.toggleX5 = function() {
             if (isSpinning) return;
             isX5Active = !isX5Active;
             const btn = document.getElementById('spinBtnX5');
-            if (isX5Active) {
-                btn.classList.add('active');
-                btn.innerText = 'x5 (ВКЛ)';
-            } else {
-                btn.classList.remove('active');
-                btn.innerText = 'x5';
-            }
+            if (isX5Active) { btn.classList.add('active'); btn.innerText = 'x5 (ВКЛ)'; } else { btn.classList.remove('active'); btn.innerText = 'x5'; }
         }
 
         window.handleSpin = function() {
@@ -746,107 +672,55 @@
             let totalCost = currentTier.cost * count;
             if (balance < totalCost) return showToast('Недостаточно монет!', '❌');
             
-            balance -= totalCost;
-            updateUI();
-            isSpinning = true;
-
-            // Скрываем результаты, показываем анимацию
+            balance -= totalCost; updateUI(); isSpinning = true;
             document.getElementById('simDashes').style.display = 'flex';
             document.getElementById('simResultBox').classList.remove('show');
             document.getElementById('simX5Grid').classList.remove('show');
             document.getElementById('simX5Grid').innerHTML = '';
 
-            // Анимация перебора (1.5 секунды)
             let spinTicks = 0;
-            let maxTicks = 20;
             let interval = setInterval(() => {
-                // Мелькание чёрточек
                 document.getElementById('simDashes').style.opacity = (spinTicks % 2 === 0) ? '1' : '0.3';
                 spinTicks++;
-                
-                if (spinTicks > maxTicks) {
-                    clearInterval(interval);
-                    isSpinning = false;
-                    finishSpin(count);
-                }
+                if (spinTicks > 20) { clearInterval(interval); isSpinning = false; finishSpin(count); }
             }, 75);
         }
 
         function generateNumberData() {
-            let isGuarantee = false;
-            if ((statOpened + 1) % 1000 === 0) isGuarantee = true;
-
-            if (isGuarantee) {
-                return { number: generatePhoneNumber(), rarity: "СЕКРЕТНЫЙ (ГАРАНТ)", price: 100000000, color: "#ef4444" };
-            }
-
-            let chances = tierChances[currentTier.key];
-            let random = Math.random() * 100;
-            let selectedRarity = "Обычный";
-            let currentChance = 0;
-            
-            for (let [name, chance] of Object.entries(chances)) {
-                currentChance += chance;
-                if (random <= currentChance && chance > 0) { selectedRarity = name; break; }
-            }
-
+            let isGuarantee = false; if ((statOpened + 1) % 1000 === 0) isGuarantee = true;
+            if (isGuarantee) return { number: generatePhoneNumber(), rarity: "СЕКРЕТНЫЙ (ГАРАНТ)", price: 100000000, color: "#ef4444" };
+            let chances = tierChances[currentTier.key]; let random = Math.random() * 100; let selectedRarity = "Обычный"; let currentChance = 0;
+            for (let [name, chance] of Object.entries(chances)) { currentChance += chance; if (random <= currentChance && chance > 0) { selectedRarity = name; break; } }
             const data = baseRarities[selectedRarity];
             return { number: generatePhoneNumber(), rarity: selectedRarity, price: data.price, color: data.color };
         }
 
         function finishSpin(count) {
             document.getElementById('simDashes').style.display = 'none';
-
             if (count === 1) {
-                const item = generateNumberData();
-                statOpened++;
-                
+                const item = generateNumberData(); statOpened++;
                 document.getElementById('simResultBox').classList.add('show');
                 document.getElementById('simResultNumber').innerText = item.number;
                 document.getElementById('simResultNumber').style.color = item.color;
                 document.getElementById('simResultRarity').innerText = item.rarity;
                 document.getElementById('simResultRarity').style.color = item.color;
                 document.getElementById('simResultPrice').innerText = `${item.price.toLocaleString('ru-RU')} 🪙`;
-
-                if (autoSellSettings[item.rarity]) {
-                    balance += item.price;
-                    showToast(`Автопродажа: +${item.price.toLocaleString('ru-RU')} 🪙`, '💰');
-                } else {
-                    inventory.push(item);
-                    showToast(`Номер в базе!`, '📦');
-                }
-
+                if (autoSellSettings[item.rarity]) { balance += item.price; showToast(`Автопродажа: +${item.price.toLocaleString('ru-RU')} 🪙`, '💰'); } 
+                else { inventory.push(item); showToast(`Номер в базе!`, '📦'); }
             } else {
-                statOpened += count;
-                let totalSold = 0;
-                let totalAdded = 0;
-                let results = [];
-
+                statOpened += count; let totalSold = 0; let totalAdded = 0; let results = [];
                 for (let i = 0; i < count; i++) {
-                    let item = generateNumberData();
-                    results.push(item);
-                    statOpened++;
-
-                    if (autoSellSettings[item.rarity]) {
-                        totalSold += item.price;
-                    } else {
-                        inventory.push(item);
-                        totalAdded++;
-                    }
+                    let item = generateNumberData(); results.push(item); statOpened++;
+                    if (autoSellSettings[item.rarity]) { totalSold += item.price; } else { inventory.push(item); totalAdded++; }
                 }
-                
                 balance += totalSold;
-
-                // Показываем сетку с 5 номерами
-                let grid = document.getElementById('simX5Grid');
-                grid.classList.add('show');
+                let grid = document.getElementById('simX5Grid'); grid.classList.add('show');
                 grid.innerHTML = results.map(item => `
                     <div class="sim-x5-item" style="border-left-color: ${item.color};">
                         <span>${item.number} <br><small style="color:${item.color}; font-size:9px;">${item.rarity}</small></span>
                         <span>${item.price.toLocaleString('ru-RU')} 🪙</span>
                     </div>
                 `).join('');
-
                 if (totalSold > 0) showToast(`Автопродажа: +${totalSold.toLocaleString('ru-RU')} 🪙`, '💰');
                 if (totalAdded > 0) showToast(`В базу добавлено: ${totalAdded} шт.`, '📦');
             }
@@ -856,285 +730,285 @@
         // --- БАЗА ---
         function renderInventory() {
             const list = document.getElementById('inventoryList');
-            if (inventory.length === 0) {
-                list.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top:20px;">Твоя база пуста</p>`;
-                return;
-            }
+            if (inventory.length === 0) { list.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top:20px;">Твоя база пуста</p>`; return; }
             list.innerHTML = inventory.map((item, index) => `
                 <div class="inventory-item" style="border-left-color: ${item.color};">
                     <div class="inv-info">
-                        <h4 style="color: ${item.color};">${item.number}</h4>
-                        <p>${item.rarity}</p>
+                        <h4 style="color: ${item.color};">${item.number}</h4><p>${item.rarity}</p>
                         <button class="btn-sell" onclick="sellItem(${index})">Продать за ${item.price.toLocaleString('ru-RU')} 🪙</button>
                     </div>
                 </div>
             `).join('');
         }
-
-        window.sellItem = function(index) {
-            balance += inventory[index].price;
-            inventory.splice(index, 1);
-            updateUI();
-            renderInventory();
-            showToast('Продано!', '💰');
-        }
-
-        window.sellAllNumbers = function() {
-            if (inventory.length === 0) return;
-            let total = inventory.reduce((sum, item) => sum + item.price, 0);
-            balance += total;
-            inventory = [];
-            updateUI();
-            renderInventory();
-            showToast(`Продано всё за ${total.toLocaleString('ru-RU')} 🪙`, '💰');
-        }
-
-        window.sellToBuyer = function() {
-            if (inventory.length === 0) return showToast('База пуста!', '❌');
-            let total = inventory.reduce((sum, item) => sum + item.price, 0);
-            let bonus = Math.floor(total * 1.2);
-            balance += bonus;
-            inventory = [];
-            updateUI();
-            if(document.getElementById('screen-inventory').classList.contains('active')) renderInventory();
-            showToast(`Скупщик заплатил ${bonus.toLocaleString('ru-RU')} 🪙 (+20%)`, '🤑');
-        }
+        window.sellItem = function(index) { balance += inventory[index].price; inventory.splice(index, 1); updateUI(); renderInventory(); showToast('Продано!', '💰'); }
+        window.sellAllNumbers = function() { if (inventory.length === 0) return; let total = inventory.reduce((sum, item) => sum + item.price, 0); balance += total; inventory = []; updateUI(); renderInventory(); showToast(`Продано всё за ${total.toLocaleString('ru-RU')} 🪙`, '💰'); }
+        window.sellToBuyer = function() { if (inventory.length === 0) return showToast('База пуста!', '❌'); let total = inventory.reduce((sum, item) => sum + item.price, 0); let bonus = Math.floor(total * 1.2); balance += bonus; inventory = []; updateUI(); if(document.getElementById('screen-inventory').classList.contains('active')) renderInventory(); showToast(`Скупщик заплатил ${bonus.toLocaleString('ru-RU')} 🪙 (+20%)`, '🤑'); }
 
         window.activatePromo = function() {
-            let input = document.getElementById('promoInput').value.trim().toUpperCase();
-            if (!input) return;
+            let input = document.getElementById('promoInput').value.trim().toUpperCase(); if (!input) return;
             if (usedPromos.includes(input)) return showToast('Ты уже использовал этот код!', '❌');
-            if (promoCodes[input]) {
-                balance += promoCodes[input];
-                usedPromos.push(input);
-                updateUI();
-                document.getElementById('promoInput').value = '';
-                showToast(`Промокод активирован! +${promoCodes[input].toLocaleString('ru-RU')} 🪙`, '🎁');
-            } else {
-                showToast('Неверный промокод', '❌');
-            }
+            if (promoCodes[input]) { balance += promoCodes[input]; usedPromos.push(input); updateUI(); document.getElementById('promoInput').value = ''; showToast(`Промокод активирован! +${promoCodes[input].toLocaleString('ru-RU')} 🪙`, '🎁'); } 
+            else { showToast('Неверный промокод', '❌'); }
         }
 
         // --- БАТЛ ПАСС ---
         window.renderBattlePass = function() {
             let bpLvl = Math.floor(statOpened / 10) + 1;
             document.getElementById('bpLevelDisplay').innerText = bpLvl;
-            
-            const bpList = document.getElementById('bpList');
-            let html = '';
+            const bpList = document.getElementById('bpList'); let html = '';
             for (let i = 1; i <= 50; i++) {
-                let reqLvl = i;
-                let isLocked = bpLvl < reqLvl;
-                let isClaimed = localStorage.getItem('bp_claimed_' + i) === 'true';
-                let reward = i * 2500; 
+                let reqLvl = i; let isLocked = bpLvl < reqLvl; let isClaimed = localStorage.getItem('bp_claimed_' + i) === 'true'; let reward = i * 2500; 
                 if (i % 10 === 0) reward = i * 10000; 
-                
                 html += `
                     <div class="bp-card" style="${isLocked ? 'opacity: 0.5;' : ''}">
-                        <div>
-                            <h4>Уровень ${reqLvl}</h4>
-                            <p>Награда: ${reward.toLocaleString('ru-RU')} 🪙</p>
-                        </div>
+                        <div><h4>Уровень ${reqLvl}</h4><p>Награда: ${reward.toLocaleString('ru-RU')} 🪙</p></div>
                         <div class="bp-reward">
-                            <button class="btn-main" style="padding: 6px 10px; font-size: 10px; flex: none; ${isLocked || isClaimed ? 'background: rgba(255,255,255,0.1); color: #888;' : ''}" 
-                                onclick="claimBP(${i}, ${reqLvl}, ${reward})" ${isLocked || isClaimed ? 'disabled' : ''}>
-                                ${isClaimed ? 'Получено' : 'Забрать'}
-                            </button>
+                            <button class="btn-main" style="padding: 6px 10px; font-size: 10px; flex: none; ${isLocked || isClaimed ? 'background: rgba(255,255,255,0.1); color: #888;' : ''}" onclick="claimBP(${i}, ${reqLvl}, ${reward})" ${isLocked || isClaimed ? 'disabled' : ''}>${isClaimed ? 'Получено' : 'Забрать'}</button>
                         </div>
                     </div>
                 `;
             }
             bpList.innerHTML = html;
         }
+        window.claimBP = function(id, reqLvl, reward) { let bpLvl = Math.floor(statOpened / 10) + 1; if (bpLvl >= reqLvl) { balance += reward; localStorage.setItem('bp_claimed_' + id, 'true'); updateUI(); showToast(`Получено ${reward.toLocaleString('ru-RU')} 🪙`, '👑'); } }
 
-        window.claimBP = function(id, reqLvl, reward) {
-            let bpLvl = Math.floor(statOpened / 10) + 1;
-            if (bpLvl >= reqLvl) {
-                balance += reward;
-                localStorage.setItem('bp_claimed_' + id, 'true');
-                updateUI();
-                showToast(`Получено ${reward.toLocaleString('ru-RU')} 🪙`, '👑');
-            }
-        }
-
-        // --- ИГРЫ ---
+        // --- ИГРЫ (ИНТЕРФЕЙС) ---
         window.switchGamePane = function(paneId, element) {
             document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.game-pane').forEach(p => p.classList.remove('active'));
-            
             if(element) element.classList.add('active');
             document.getElementById('pane-' + paneId).classList.add('active');
             
-            if (paneId === 'crash') {
-                startBackgroundCrash();
-            } else {
-                stopBackgroundCrash();
-            }
+            if (paneId === 'crash') startBackgroundCrash(); else stopBackgroundCrash();
+            if (paneId === 'coin') checkActiveBet('coin');
+            if (paneId === 'dice') checkActiveBet('dice');
         }
 
-        window.startCoinGame = function() {
-            let bet = parseInt(document.getElementById('coinBetInput').value);
+        // --- НАСТОЯЩИЙ PVP (МОНЕТКА И КОСТИ) ---
+        window.createBet = function(type) {
+            if (isWaitingForOpponent || currentGameId) return;
+            let betInput = document.getElementById(type + 'BetInput');
+            let bet = parseInt(betInput.value);
             if (!bet || bet < 100) return showToast('Минимальная ставка 100', '⚠️');
             if (balance < bet) return showToast('Недостаточно монет!', '❌');
+
+            balance -= bet; updateUI();
             
-            balance -= bet;
-            updateUI();
-            
-            document.getElementById('searchOverlay').classList.add('active');
-            document.getElementById('searchText').innerText = "Поиск соперника...";
-            document.getElementById('coinPlayBtn').disabled = true;
-            
-            setTimeout(() => {
-                document.getElementById('searchText').innerText = "Соперник найден!";
-                let names = ["Vasya", "Ivan", "Foxy", "Makeover", "Danya", "Ruslan"];
-                document.getElementById('coinOpponentName').innerText = names[Math.floor(Math.random() * names.length)];
-                
-                setTimeout(() => {
+            myActiveBetId = 'bet_' + myId + '_' + Date.now();
+            const betData = {
+                id: myActiveBetId, creatorId: myId, creatorName: currentUserName, creatorAvatar: currentUserAvatar, amount: bet, type: type, status: 'waiting', gameId: null, timestamp: Date.now()
+            };
+
+            set(ref(db, 'matchmaking/' + myActiveBetId), betData).then(() => {
+                document.getElementById('searchOverlay').classList.add('active');
+                document.getElementById('searchText').innerText = "Ожидание соперника...";
+                isWaitingForOpponent = true;
+                listenMyBet(myActiveBetId, type);
+            });
+        }
+
+        function listenMyBet(betId, type) {
+            if (unsubMyBet) unsubMyBet();
+            const betRef = ref(db, 'matchmaking/' + betId);
+            unsubMyBet = onValue(betRef, (snapshot) => {
+                const data = snapshot.val();
+                if (data && data.status === 'playing' && data.gameId) {
+                    if (unsubMyBet) unsubMyBet();
+                    remove(betRef);
+                    isWaitingForOpponent = false;
                     document.getElementById('searchOverlay').classList.remove('active');
-                    playCoinAnimation(bet);
-                }, 800);
-            }, 1500);
-        }
-
-        function playCoinAnimation(bet) {
-            let pRes = document.getElementById('coinPlayerRes');
-            let oRes = document.getElementById('coinOpponentRes');
-            let ticks = 0;
-            
-            let anim = setInterval(() => {
-                pRes.innerText = Math.random() > 0.5 ? '🦅' : '🪙';
-                oRes.innerText = Math.random() > 0.5 ? '🦅' : '🪙';
-                ticks++;
-                if (ticks > 10) {
-                    clearInterval(anim);
-                    finishCoinGame(bet);
+                    
+                    if (currentGameId !== data.gameId) {
+                        showToast(`Соперник найден! Зайдите в игру.`, '⚔️');
+                        currentGameId = data.gameId;
+                        startPvPGame(data.gameId, true, data.type, data.amount);
+                    }
                 }
-            }, 100);
+            });
         }
 
-        function finishCoinGame(bet) {
-            let pRes = document.getElementById('coinPlayerRes');
-            let oRes = document.getElementById('coinOpponentRes');
-            let pScore = Math.random() > 0.5 ? 1 : 0;
-            let oScore = Math.random() > 0.5 ? 1 : 0;
-            
-            pRes.innerText = pScore === 1 ? '🦅' : '🪙';
-            oRes.innerText = oScore === 1 ? '🦅' : '🪙';
-            
-            setTimeout(() => {
-                document.getElementById('coinPlayBtn').disabled = false;
-                if (pScore > oScore) {
-                    balance += bet * 2;
-                    showToast(`Вы победили! +${bet * 2} 🪙`, '🏆');
-                } else if (pScore === oScore) {
-                    balance += bet;
-                    showToast('Ничья!', '🤝');
-                } else {
-                    showToast('Вы проиграли.', '💀');
-                }
-                updateUI();
-            }, 800);
+        window.cancelSearch = function() {
+            if (myActiveBetId) remove(ref(db, 'matchmaking/' + myActiveBetId));
+            if (unsubMyBet) unsubMyBet();
+            isWaitingForOpponent = false;
+            myActiveBetId = null;
+            document.getElementById('searchOverlay').classList.remove('active');
+            // Возврат денег
+            let type = document.querySelector('.game-tab.active').innerText === 'Монетка' ? 'coin' : 'dice';
+            let bet = parseInt(document.getElementById(type + 'BetInput').value) || 0;
+            if (bet > 0) { balance += bet; updateUI(); } // Грубовато, но работает для отмены
+            resetGameUI(type);
+            showToast('Поиск отменен', '❌');
         }
 
-        window.startDiceGame = function() {
-            let bet = parseInt(document.getElementById('diceBetInput').value);
-            if (!bet || bet < 100) return showToast('Минимальная ставка 100', '⚠️');
-            if (balance < bet) return showToast('Недостаточно монет!', '❌');
-            
-            balance -= bet;
-            updateUI();
-            
-            document.getElementById('searchOverlay').classList.add('active');
-            document.getElementById('searchText').innerText = "Поиск соперника...";
-            document.getElementById('dicePlayBtn').disabled = true;
-            
-            setTimeout(() => {
-                document.getElementById('searchText').innerText = "Соперник найден!";
-                let names = ["Vasya", "Ivan", "Foxy", "Makeover", "Danya", "Ruslan"];
-                document.getElementById('diceOpponentName').innerText = names[Math.floor(Math.random() * names.length)];
+        window.acceptBet = function(betId) {
+            const betRef = ref(db, 'matchmaking/' + betId);
+            get(betRef).then((snapshot) => {
+                const data = snapshot.val();
+                if (!data || data.status !== 'waiting') return showToast('Лот уже занят', '❌');
+                if (balance < data.amount) return showToast('Недостаточно монет!', '❌');
                 
-                setTimeout(() => {
-                    document.getElementById('searchOverlay').classList.remove('active');
-                    playDiceAnimation(bet);
-                }, 800);
-            }, 1500);
+                balance -= data.amount; updateUI();
+                const gameId = 'game_' + Date.now();
+                
+                const updates = {};
+                updates['matchmaking/' + betId + '/status'] = 'playing';
+                updates['matchmaking/' + betId + '/gameId'] = gameId;
+                updates['games/' + gameId + '/player1'] = { id: data.creatorId, name: data.creatorName, avatar: data.creatorAvatar, bet: data.amount, score: 0, ready: false };
+                updates['games/' + gameId + '/player2'] = { id: myId, name: currentUserName, avatar: currentUserAvatar, bet: data.amount, score: 0, ready: false };
+                updates['games/' + gameId + '/type'] = data.type;
+                updates['games/' + gameId + '/status'] = 'waiting_throw';
+
+                update(ref(db), updates).then(() => {
+                    currentGameId = gameId;
+                    startPvPGame(gameId, false, data.type, data.amount);
+                });
+            });
         }
 
-        function playDiceAnimation(bet) {
-            let pRes = document.getElementById('dicePlayerRes');
-            let oRes = document.getElementById('diceOpponentRes');
-            let ticks = 0;
+        function startPvPGame(gameId, isCreator, type, amount) {
+            switchGamePane(type, document.querySelector(`.game-tab[onclick*="${type}"]`));
             
-            let anim = setInterval(() => {
-                pRes.innerText = '🎲' + (Math.floor(Math.random() * 6) + 1);
-                oRes.innerText = '🎲' + (Math.floor(Math.random() * 6) + 1);
-                ticks++;
-                if (ticks > 10) {
-                    clearInterval(anim);
-                    finishDiceGame(bet);
+            let playBtn = document.getElementById(type + 'PlayBtn');
+            playBtn.innerText = 'Бросить!';
+            playBtn.onclick = () => throwPvP(gameId, type);
+            playBtn.disabled = false;
+            
+            document.getElementById(type + 'PlayerRes').innerText = '?';
+            document.getElementById(type + 'OpponentRes').innerText = '?';
+            
+            if (unsubGame) unsubGame();
+            const gameRef = ref(db, 'games/' + gameId);
+            unsubGame = onValue(gameRef, (snapshot) => {
+                const data = snapshot.val();
+                if (!data) return;
+                
+                let me = isCreator ? data.player1 : data.player2;
+                let opp = isCreator ? data.player2 : data.player1;
+                
+                document.getElementById(type + 'OpponentName').innerText = opp.name;
+                
+                if (data.status === 'finished') {
+                    let myScore = me.score;
+                    let oppScore = opp.score;
+                    
+                    let resultEl = document.getElementById(type + 'PlayerRes');
+                    let oppResultEl = document.getElementById(type + 'OpponentRes');
+                    
+                    if (type === 'coin') {
+                        resultEl.innerText = myScore === 1 ? '🦅' : '🪙';
+                        oppResultEl.innerText = oppScore === 1 ? '🦅' : '🪙';
+                    } else {
+                        resultEl.innerText = '🎲' + myScore;
+                        oppResultEl.innerText = '🎲' + oppScore;
+                    }
+
+                    if (me.score > opp.score) {
+                        let win = amount * 2;
+                        balance += win;
+                        showToast(`Вы победили! +${win} 🪙`, '🏆');
+                    } else if (me.score === opp.score) {
+                        balance += amount;
+                        showToast('Ничья!', '🤝');
+                    } else {
+                        showToast('Вы проиграли.', '💀');
+                    }
+                    updateUI();
+                    
+                    currentGameId = null;
+                    if (unsubGame) unsubGame();
+                    setTimeout(() => resetGameUI(type), 4000);
+                    return;
                 }
-            }, 100);
+                
+                if (me.ready && !opp.ready) {
+                    playBtn.innerText = 'Ожидание соперника...';
+                    playBtn.disabled = true;
+                }
+            });
         }
 
-        function finishDiceGame(bet) {
-            let pRes = document.getElementById('dicePlayerRes');
-            let oRes = document.getElementById('diceOpponentRes');
-            let pScore = Math.floor(Math.random() * 6) + 1;
-            let oScore = Math.floor(Math.random() * 6) + 1;
+        function throwPvP(gameId, type) {
+            let playBtn = document.getElementById(type + 'PlayBtn');
+            playBtn.disabled = true;
             
-            pRes.innerText = '🎲' + pScore;
-            oRes.innerText = '🎲' + oScore;
+            const gameRef = ref(db, 'games/' + gameId);
+            get(gameRef).then((snapshot) => {
+                const data = snapshot.val();
+                if(!data) return;
+                const isCreator = data.player1.id === myId;
+                let myScore = type === 'coin' ? (Math.random() > 0.5 ? 1 : 0) : (Math.floor(Math.random() * 6) + 1);
+                
+                let myKey = isCreator ? 'player1' : 'player2';
+                let oppKey = isCreator ? 'player2' : 'player1';
+                
+                let updates = {};
+                updates[myKey + '/score'] = myScore;
+                updates[myKey + '/ready'] = true;
+                
+                if (data[oppKey].ready) {
+                    updates['status'] = 'finished';
+                }
+                
+                update(gameRef, updates).then(() => {
+                    playBtn.innerText = 'Ожидание соперника...';
+                });
+            });
+        }
+
+        function resetGameUI(type) {
+            let playBtn = document.getElementById(type + 'PlayBtn');
+            playBtn.innerText = 'Создать лот';
+            playBtn.onclick = () => createBet(type);
+            playBtn.disabled = false;
+            document.getElementById(type + 'PlayerRes').innerText = '?';
+            document.getElementById(type + 'OpponentRes').innerText = '?';
+            document.getElementById(type + 'OpponentName').innerText = 'Ожидание...';
+        }
+
+        function checkActiveBet(type) {
+            if (myActiveBetId || currentGameId) return;
             
-            setTimeout(() => {
-                document.getElementById('dicePlayBtn').disabled = false;
-                if (pScore > oScore) {
-                    balance += bet * 2;
-                    showToast(`Вы победили! +${bet * 2} 🪙`, '🏆');
-                } else if (pScore === oScore) {
-                    balance += bet;
-                    showToast('Ничья!', '🤝');
+            const mmRef = ref(db, 'matchmaking');
+            onValue(mmRef, (snapshot) => {
+                const data = snapshot.val();
+                if (!data) { resetGameUI(type); return; }
+                
+                let bets = Object.values(data).filter(b => b.type === type && b.status === 'waiting' && b.creatorId !== myId);
+                
+                if (bets.length > 0) {
+                    let bet = bets[0];
+                    let playBtn = document.getElementById(type + 'PlayBtn');
+                    playBtn.innerText = `Принять (${bet.creatorName} на ${bet.amount} 🪙)`;
+                    playBtn.onclick = () => acceptBet(bet.id);
+                    playBtn.disabled = false;
                 } else {
-                    showToast('Вы проиграли.', '💀');
+                     resetGameUI(type);
                 }
-                updateUI();
-            }, 800);
+            });
         }
 
-        // --- КРАШ (РАКЕТА) ---
+        // --- КРАШ (ФОН) ---
         let backgroundCrashInterval = null;
         let isBackgroundFlying = false;
-
         function startBackgroundCrash() {
             if (backgroundCrashInterval) return;
             backgroundCrashInterval = setInterval(() => {
-                if (!isBackgroundFlying && !document.getElementById('pane-crash').classList.contains('active')) {
-                     // Не летаем если вкладка не активна
-                     return;
-                }
-                if (!isBackgroundFlying) {
-                    runBackgroundRocket();
-                }
+                if (!isBackgroundFlying && !document.getElementById('pane-crash').classList.contains('active')) return;
+                if (!isBackgroundFlying) runBackgroundRocket();
             }, 5000);
         }
-
-        function stopBackgroundCrash() {
-            clearInterval(backgroundCrashInterval);
-            backgroundCrashInterval = null;
-        }
-
+        function stopBackgroundCrash() { clearInterval(backgroundCrashInterval); backgroundCrashInterval = null; }
+        
         function runBackgroundRocket() {
             if (isBackgroundFlying) return;
             isBackgroundFlying = true;
-            
             const multText = document.getElementById('rocketMultiplier');
             const graphPath = document.getElementById('graphPath');
             const graphFill = document.getElementById('graphFill');
-            
-            rocketMult = 1.0;
-            rocketTime = 0;
+            rocketMult = 1.0; rocketTime = 0;
             multText.classList.remove('crashed');
-            graphPath.setAttribute('d', 'M0,100 L0,100');
-            graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
+            graphPath.setAttribute('d', 'M0,100 L0,100'); graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
 
             const random = Math.random();
             let localCrashPoint = Math.max(1.0, (0.99 / (1.0 - random))); 
@@ -1145,23 +1019,18 @@
             let interval = setInterval(() => {
                 time += 0.1;
                 rocketMult = Math.pow(1.06, time); 
-                
                 if (rocketMult > 100) rocketMult = 100;
-                
                 multText.innerText = `x${rocketMult.toFixed(2).replace('.', ',')}`;
                 
                 let xPercent = Math.min((time / 40) * 100, 100);
                 let yPercent = 100 - Math.min((rocketMult / 41) * 100, 95); 
-                
                 graphPath.setAttribute('d', `M0,100 Q${xPercent/2},${100} ${xPercent},${yPercent}`);
                 graphFill.setAttribute('d', `M0,100 Q${xPercent/2},${100} ${xPercent},${yPercent} L${xPercent},100 Z`);
 
                 if (rocketMult >= localCrashPoint) {
-                    clearInterval(interval);
-                    isBackgroundFlying = false;
+                    clearInterval(interval); isBackgroundFlying = false;
                     multText.classList.add('crashed');
                     multText.innerText = `x${localCrashPoint.toFixed(2).replace('.', ',')}`;
-                    
                     setTimeout(() => {
                         multText.innerText = 'x1,00';
                         graphPath.setAttribute('d', 'M0,100 L0,100');
@@ -1173,13 +1042,8 @@
 
         window.setAutoCashout = function() {
             let val = parseFloat(document.getElementById('autoCashoutInput').value);
-            if (val && val > 1.0) {
-                autoCashout = val;
-                showToast(`Автозабор на x${val.toFixed(2)}`, '🤖');
-            } else {
-                autoCashout = 0;
-                showToast('Автозабор отключен', '❌');
-            }
+            if (val && val > 1.0) { autoCashout = val; showToast(`Автозабор на x${val.toFixed(2)}`, '🤖'); } 
+            else { autoCashout = 0; showToast('Автозабор отключен', '❌'); }
         }
 
         function updateRocketHistoryUI() {
@@ -1219,53 +1083,20 @@
                 if (rocketBet < 100) return showToast('Минимальная ставка 100', '⚠️');
                 if (balance < rocketBet) return showToast('Недостаточно монет!', '❌');
                 
-                balance -= rocketBet;
-                updateUI();
+                balance -= rocketBet; updateUI();
                 
-                rocketState = 'flying';
-                rocketMult = 1.0;
-                rocketTime = 0;
-                hasCashedOut = false;
-                multText.classList.remove('crashed');
-                multText.innerText = 'x1,00';
-                btn.innerText = 'Забрать';
-                btn.classList.remove('disabled');
-                btn.classList.add('cashout');
+                rocketState = 'flying'; rocketMult = 1.0; rocketTime = 0; hasCashedOut = false;
+                multText.classList.remove('crashed'); multText.innerText = 'x1,00';
+                btn.innerText = 'Забрать'; btn.classList.remove('disabled'); btn.classList.add('cashout');
                 
-                graphPath.setAttribute('d', 'M0,100 L0,100');
-                graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
+                graphPath.setAttribute('d', 'M0,100 L0,100'); graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
 
-                // Симуляция других игроков
-                let fakeBets = `
+                liveBets.innerHTML = `
                     <div class="crash-bet-row" id="myBetRow">
-                        <div class="crash-user">
-                            <div class="crash-user-avatar">${currentUserAvatar}</div>
-                            ${currentUserName}
-                        </div>
-                        <div class="crash-user-amounts">
-                            <span>${rocketBet.toLocaleString('ru-RU')}</span>
-                            <span style="color:var(--text-muted);" id="myWinDisplay">...</span>
-                        </div>
+                        <div class="crash-user"><div class="crash-user-avatar">${currentUserAvatar}</div>${currentUserName}</div>
+                        <div class="crash-user-amounts"><span>${rocketBet.toLocaleString('ru-RU')}</span><span style="color:var(--text-muted);" id="myWinDisplay">...</span></div>
                     </div>
                 `;
-                let names = ["Vasya", "Ivan", "Foxy", "Makeover", "Danya"];
-                for(let i=0; i<3; i++) {
-                    let n = names[Math.floor(Math.random() * names.length)];
-                    let amt = Math.floor(Math.random() * 50000) + 1000;
-                    fakeBets += `
-                        <div class="crash-bet-row">
-                            <div class="crash-user">
-                                <div class="crash-user-avatar">👤</div>
-                                ${n}
-                            </div>
-                            <div class="crash-user-amounts">
-                                <span>${amt.toLocaleString('ru-RU')}</span>
-                                <span style="color:var(--text-muted);">...</span>
-                            </div>
-                        </div>
-                    `;
-                }
-                liveBets.innerHTML = fakeBets;
 
                 const random = Math.random();
                 currentCrashPoint = Math.max(1.0, (0.99 / (1.0 - random))); 
@@ -1274,29 +1105,21 @@
 
                 rocketInterval = setInterval(() => {
                     rocketTime += 0.1;
-                    // Ускорение (сначала медленно, потом быстрее)
                     rocketMult = Math.pow(1.06, rocketTime); 
-                    
                     if (rocketMult > 100) rocketMult = 100;
-                    
                     multText.innerText = `x${rocketMult.toFixed(2).replace('.', ',')}`;
                     
                     let xPercent = Math.min((rocketTime / 40) * 100, 100);
                     let yPercent = 100 - Math.min((rocketMult / 41) * 100, 95); 
-                    
                     graphPath.setAttribute('d', `M0,100 Q${xPercent/2},${100} ${xPercent},${yPercent}`);
                     graphFill.setAttribute('d', `M0,100 Q${xPercent/2},${100} ${xPercent},${yPercent} L${xPercent},100 Z`);
 
-                    // Автозабор
                     if (autoCashout > 0 && !hasCashedOut && rocketMult >= autoCashout) {
                         hasCashedOut = true;
                         let winAmount = Math.floor(rocketBet * autoCashout);
-                        balance += winAmount;
-                        updateUI();
+                        balance += winAmount; updateUI();
                         showToast(`АВТОЗАБОР: +${winAmount.toLocaleString('ru-RU')} 🪙 (x${autoCashout.toFixed(2)})`, '🤖');
-                        btn.innerText = 'Ожидание...';
-                        btn.classList.remove('cashout');
-                        btn.classList.add('disabled');
+                        btn.innerText = 'Ожидание...'; btn.classList.remove('cashout'); btn.classList.add('disabled');
                         if (document.getElementById('myWinDisplay')) {
                             document.getElementById('myWinDisplay').innerText = `x${autoCashout.toFixed(2)} · ${winAmount.toLocaleString('ru-RU')}`;
                             document.getElementById('myWinDisplay').style.color = 'var(--success)';
@@ -1304,21 +1127,16 @@
                     }
 
                     if (rocketMult >= currentCrashPoint) {
-                        clearInterval(rocketInterval);
-                        rocketState = 'idle';
-                        multText.classList.add('crashed');
-                        multText.innerText = `УПАЛА НА x${currentCrashPoint.toFixed(2).replace('.', ',')}`;
-                        btn.innerText = 'Запустить';
-                        btn.classList.remove('cashout');
-                        btn.classList.remove('disabled');
+                        clearInterval(rocketInterval); rocketState = 'idle';
+                        multText.classList.add('crashed'); multText.innerText = `УПАЛА НА x${currentCrashPoint.toFixed(2).replace('.', ',')}`;
+                        btn.innerText = 'Запустить'; btn.classList.remove('cashout'); btn.classList.remove('disabled');
                         
                         rocketHistory.unshift(currentCrashPoint);
                         if(rocketHistory.length > 10) rocketHistory.pop();
                         updateUI();
                         
-                        if (hasCashedOut) {
-                            showToast(`Ракета улетела на x${currentCrashPoint.toFixed(2)}`, '💥');
-                        } else {
+                        if (hasCashedOut) showToast(`Ракета улетела на x${currentCrashPoint.toFixed(2)}`, '💥');
+                        else {
                             showToast(`Вы не успели! Упала на x${currentCrashPoint.toFixed(2)}`, '💥');
                             if(document.getElementById('myWinDisplay')) {
                                 document.getElementById('myWinDisplay').innerText = `x0,00 · 0`;
@@ -1338,13 +1156,10 @@
             } else if (rocketState === 'flying' && !hasCashedOut) {
                 hasCashedOut = true;
                 let winAmount = Math.floor(rocketBet * rocketMult);
-                balance += winAmount;
-                updateUI();
+                balance += winAmount; updateUI();
                 showToast(`Вы забрали ${winAmount.toLocaleString('ru-RU')} 🪙 (x${rocketMult.toFixed(2)})`, '🚀');
                 
-                btn.innerText = 'Ожидание...';
-                btn.classList.remove('cashout');
-                btn.classList.add('disabled');
+                btn.innerText = 'Ожидание...'; btn.classList.remove('cashout'); btn.classList.add('disabled');
 
                 if (document.getElementById('myWinDisplay')) {
                     document.getElementById('myWinDisplay').innerText = `x${rocketMult.toFixed(2).replace('.', ',')} · ${winAmount.toLocaleString('ru-RU')}`;
