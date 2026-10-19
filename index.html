@@ -856,6 +856,10 @@
             loadLobby(type);
         }
 
+        window.cancelSearch = function() {
+            document.getElementById('searchOverlay').classList.remove('active');
+        }
+
         function loadLobby(type) {
             const list = document.getElementById(`${type}-lobby-list`);
             onValue(ref(db, 'matchmaking'), (snapshot) => {
@@ -1086,9 +1090,8 @@
             });
         }
 
-        // ИСПРАВЛЕННАЯ ФУНКЦИЯ БРОСКА
         window.throwPvP = function(type) {
-            let gameId = currentGameId; // Берем ID из модуля, а не из HTML
+            let gameId = currentGameId; 
             if (!gameId) return showToast('Игра не найдена', '❌');
             
             let playBtn = document.getElementById(type + 'ThrowBtn');
