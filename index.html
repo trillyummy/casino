@@ -14,9 +14,64 @@
             --radius-lg: 20px; --radius-md: 14px; --radius-sm: 10px;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; background-image: url('https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=1000&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; }
-        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(5,5,5,0.6), rgba(5,5,5,0.95)); z-index: -1; }
         
+        /* НОВОГОДНИЙ ФОН */
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden; 
+            position: relative;
+            background: linear-gradient(135deg, #0a001a 0%, #1a0033 50%, #000000 100%);
+        }
+        
+        /* Снежинки и мерцание на фоне */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 230px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 300px 150px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 350px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 450px 200px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 500px 100px, #fff, rgba(0,0,0,0));
+            background-size: 600px 300px;
+            background-repeat: repeat;
+            animation: snow 10s linear infinite;
+            z-index: -1;
+            opacity: 0.6;
+        }
+        @keyframes snow {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 300px; }
+        }
+        
+        /* Фиолетовое свечение на фоне */
+        body::after {
+            content: '';
+            position: fixed;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 70% 60%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
+                        radial-gradient(circle at 50% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 40%);
+            animation: rotateBg 20s linear infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+        @keyframes rotateBg {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         .top-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; pointer-events: none; backdrop-filter: blur(10px); background: rgba(0,0,0,0.3); }
         .user-info { display: flex; align-items: center; gap: 6px; pointer-events: auto;}
         .header-avatar { width: 28px; height: 28px; border-radius: 50%; background: #333; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.1); }
@@ -68,49 +123,105 @@
 
         #screen-game { justify-content: flex-start; padding-bottom: 20px; }
         
-        /* ИНТЕРФЕЙС КРУТКИ */
-        .sim-top-section { background: linear-gradient(135deg, #1a1a24, #0a0a0f); border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); padding: 15px; position: relative; display: flex; flex-direction: column; box-shadow: 0 15px 40px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.2); overflow: hidden; margin-bottom: 15px; width: 100%; }
-        .sim-chip { width: 35px; height: 28px; background: linear-gradient(135deg, #fbbf24, #d97706); border-radius: 6px; position: absolute; top: 12px; left: 12px; box-shadow: 0 3px 10px rgba(251, 191, 36, 0.4); display: flex; flex-direction: column; justify-content: space-between; padding: 4px; }
+        /* ИНТЕРФЕЙС КРУТКИ С ФИОЛЕТОВЫМ СВЕЧЕНИЕМ */
+        .sim-top-section { 
+            background: linear-gradient(135deg, #1a0a2e, #0a0a0f); 
+            border-radius: 24px; 
+            border: 2px solid rgba(139, 92, 246, 0.5); 
+            padding: 15px; 
+            position: relative; 
+            display: flex; flex-direction: column; 
+            box-shadow: 0 0 60px rgba(139, 92, 246, 0.3), inset 0 1px 0 rgba(255,255,255,0.1); 
+            overflow: hidden; 
+            margin-bottom: 15px; 
+            width: 100%; 
+        }
+        .sim-top-section::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 60%);
+            pointer-events: none;
+            animation: rotateGlow 8s linear infinite;
+        }
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .sim-chip { width: 35px; height: 28px; background: linear-gradient(135deg, #fbbf24, #d97706); border-radius: 6px; position: absolute; top: 12px; left: 12px; box-shadow: 0 3px 15px rgba(251, 191, 36, 0.6); display: flex; flex-direction: column; justify-content: space-between; padding: 4px; z-index: 2; }
         .sim-chip-line { width: 100%; height: 1px; background: rgba(0,0,0,0.4); border-radius: 1px; }
         .sim-chip-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 14px; border: 1px solid rgba(0,0,0,0.4); border-radius: 2px;}
-        .sim-logo { position: absolute; top: 12px; right: 12px; font-size: 18px; font-weight: 900; color: rgba(255,255,255,0.15); letter-spacing: 2px; text-shadow: 1px 1px 0 rgba(0,0,0,0.5);}
-        .sim-display-area { margin-top: 35px; margin-bottom: 10px; text-align: center; min-height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 2; width: 100%; }
-        .sim-dashes { display: flex; gap: 8px; justify-content: center; align-items: center; opacity: 0.4; transition: opacity 0.2s; }
-        .sim-dash { width: 20px; height: 5px; background: white; border-radius: 3px; box-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        .sim-logo { position: absolute; top: 12px; right: 12px; font-size: 18px; font-weight: 900; color: rgba(255,255,255,0.15); letter-spacing: 2px; text-shadow: 1px 1px 0 rgba(0,0,0,0.5); z-index: 2;}
+        .sim-display-area { margin-top: 35px; margin-bottom: 10px; text-align: center; min-height: 140px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 2; width: 100%; }
         
-        .sim-result-box { display: none; flex-direction: column; align-items: center; width: 100%; animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        /* ПЛАВНАЯ АНИМАЦИЯ НОМЕРА (СЛОТ) */
+        .sim-slot-machine {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        .sim-slot-machine.show { display: flex; }
+        .slot-window {
+            background: rgba(0,0,0,0.9);
+            border-radius: 12px;
+            padding: 12px 20px;
+            border: 2px solid rgba(139, 92, 246, 0.6);
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.5);
+            overflow: hidden;
+            position: relative;
+            min-width: 240px;
+        }
+        .slot-number {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: 900;
+            color: #c4b5fd;
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+            text-align: center;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+        
+        /* РЕЗУЛЬТАТ */
+        .sim-result-box { display: none; flex-direction: column; align-items: center; width: 100%; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .sim-result-box.show { display: flex; }
         .sim-result-square { 
-            width: 160px; height: 140px; 
-            background: rgba(0,0,0,0.6); 
-            border-radius: 18px; 
-            border: 2px solid var(--border); 
+            width: 170px; height: 150px; 
+            background: rgba(0,0,0,0.8); 
+            border-radius: 20px; 
+            border: 2px solid rgba(139, 92, 246, 0.4); 
             display: flex; flex-direction: column; 
             justify-content: center; align-items: center; 
             margin-bottom: 10px; 
             position: relative;
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.3), inset 0 0 20px rgba(139, 92, 246, 0.1);
+            transition: box-shadow 0.3s, border-color 0.3s;
         }
-        .sim-result-number { font-size: 16px; font-weight: 900; letter-spacing: 1px; color: white; text-shadow: 0 0 15px currentColor; margin-bottom: 5px; text-align: center; padding: 0 5px; }
-        .sim-result-rarity { font-size: 9px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px;}
-        .sim-result-price { font-size: 11px; font-weight: 300; color: var(--gold); letter-spacing: 0.5px; text-align: center; padding: 0 5px; }
-
-        /* АНИМАЦИЯ ПРОКРУТКИ НОМЕРА */
-        .sim-rolling-display { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
-        .sim-rolling-display.show { display: flex; }
-        .sim-rolling-number { font-size: 18px; font-weight: 900; letter-spacing: 1px; color: var(--accent); text-shadow: 0 0 15px rgba(59, 130, 246, 0.5); margin-bottom: 5px; }
-        .sim-rolling-label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .sim-result-square.glow-mythic { box-shadow: 0 0 50px rgba(239, 68, 68, 0.8), inset 0 0 30px rgba(239, 68, 68, 0.3); border-color: var(--danger); }
+        .sim-result-square.glow-legendary { box-shadow: 0 0 50px rgba(249, 115, 22, 0.8), inset 0 0 30px rgba(249, 115, 22, 0.3); border-color: #f97316; }
+        .sim-result-square.glow-epic { box-shadow: 0 0 50px rgba(139, 92, 246, 0.8), inset 0 0 30px rgba(139, 92, 246, 0.3); border-color: #8b5cf6; }
+        .sim-result-square.glow-gold { box-shadow: 0 0 50px rgba(251, 191, 36, 0.8), inset 0 0 30px rgba(251, 191, 36, 0.3); border-color: var(--gold); }
+        
+        .sim-result-number { font-size: 18px; font-weight: 900; letter-spacing: 1px; color: white; text-shadow: 0 0 15px currentColor; margin-bottom: 5px; text-align: center; padding: 0 5px; }
+        .sim-result-rarity { font-size: 9px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px;}
+        .sim-result-price { font-size: 12px; font-weight: 300; color: var(--gold); letter-spacing: 0.5px; text-align: center; padding: 0 5px; }
 
         .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; margin-top: 5px; animation: popIn 0.3s; }
         .sim-x5-grid.show { display: grid; }
         .sim-x5-item { 
             background: rgba(0,0,0,0.6); 
             border-radius: 10px; 
-            border: 1px solid rgba(255,255,255,0.1); 
+            border: 1px solid rgba(139, 92, 246, 0.3); 
             padding: 5px 2px; 
             display: flex; flex-direction: column; 
             justify-content: center; align-items: center; 
             text-align: center;
             min-height: 80px;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
         }
         .sim-x5-item .num { font-size: 9px; font-weight: 800; color: white; margin-bottom: 3px; }
         .sim-x5-item .rar { font-size: 7px; font-weight: 700; text-transform: uppercase; margin-bottom: 3px; }
@@ -118,19 +229,19 @@
 
         .sim-controls-bottom { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: auto; }
         .sim-top-row { display: flex; gap: 10px; align-items: stretch; width: 100%; }
-        .btn-archive { flex: 1; background: rgba(255,255,255,0.08); color: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px; font-size: 12px; font-weight: 700; display: flex; flex-direction: column; justify-content: center; cursor: pointer; transition: 0.2s; }
+        .btn-archive { flex: 1; background: rgba(139, 92, 246, 0.15); color: white; border: 1px solid rgba(139, 92, 246, 0.4); border-radius: 12px; padding: 12px; font-size: 12px; font-weight: 700; display: flex; flex-direction: column; justify-content: center; cursor: pointer; transition: 0.2s; box-shadow: 0 0 15px rgba(139, 92, 246, 0.2); }
         .btn-archive span:first-child { font-size: 10px; color: var(--text-muted); margin-bottom: 2px; }
-        .btn-archive span:last-child { font-size: 14px; color: var(--accent); font-weight: 800; }
-        .btn-roaming-square { width: 55px; height: 55px; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; flex-shrink: 0;}
+        .btn-archive span:last-child { font-size: 14px; color: #c4b5fd; font-weight: 800; }
+        .btn-roaming-square { width: 55px; height: 55px; background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.4); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; flex-shrink: 0; box-shadow: 0 0 15px rgba(139, 92, 246, 0.2);}
         .btn-roaming-square:active { transform: scale(0.95); }
         .btn-roaming-square span:first-child { font-size: 18px; }
-        .btn-roaming-square span:last-child { font-size: 8px; color: var(--success); font-weight: 800; margin-top: 2px;}
+        .btn-roaming-square span:last-child { font-size: 8px; color: #c4b5fd; font-weight: 800; margin-top: 2px;}
         .spin-actions { display: flex; gap: 10px; width: 100%; }
-        .btn-main { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; border: none; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 800; cursor: pointer; transition: 0.2s; flex: 1; text-transform: uppercase; }
+        .btn-main { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; border: none; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 800; cursor: pointer; transition: 0.2s; flex: 1; text-transform: uppercase; box-shadow: 0 4px 20px rgba(139, 92, 246, 0.5); }
         .btn-main:active { transform: scale(0.96); }
         .btn-main:disabled { background: #2d3041; color: var(--text-muted); box-shadow: none; transform: none; }
-        .btn-x5 { background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.5); flex: 0.4; }
-        .btn-x5.active { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; box-shadow: 0 0 15px rgba(139, 92, 246, 0.5); border-color: transparent;}
+        .btn-x5 { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.5); flex: 0.4; box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
+        .btn-x5.active { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; box-shadow: 0 0 20px rgba(59, 130, 246, 0.6); border-color: transparent;}
 
         .games-container { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); border: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; backdrop-filter: blur(10px); height: 100%; max-height: 600px;}
         .game-tabs { display: flex; background: rgba(0,0,0,0.4); border-bottom: 1px solid var(--border); overflow-x: auto;}
@@ -236,25 +347,24 @@
 
         /* VIP МАГАЗИН */
         .shop-grid { display: flex; flex-direction: column; gap: 12px; padding-bottom: 15px;}
-        .vip-card { background: linear-gradient(135deg, #1a1a24, #0a0a0f); border-radius: var(--radius-lg); padding: 15px; border: 1px solid rgba(251, 191, 36, 0.3); position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .vip-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(251,191,36,0.1) 0%, transparent 60%); pointer-events: none; }
-        .vip-badge { position: absolute; top: 12px; right: 12px; background: rgba(251, 191, 36, 0.15); color: var(--gold); border: 1px solid rgba(251, 191, 36, 0.3); padding: 3px 8px; border-radius: 6px; font-size: 9px; font-weight: 900; text-transform: uppercase; }
+        .vip-card { background: linear-gradient(135deg, #1a0a2e, #0a0a0f); border-radius: var(--radius-lg); padding: 15px; border: 1px solid rgba(139, 92, 246, 0.3); position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .vip-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 60%); pointer-events: none; }
+        .vip-badge { position: absolute; top: 12px; right: 12px; background: rgba(139, 92, 246, 0.15); color: #c4b5fd; border: 1px solid rgba(139, 92, 246, 0.3); padding: 3px 8px; border-radius: 6px; font-size: 9px; font-weight: 900; text-transform: uppercase; }
         .vip-title { font-size: 16px; font-weight: 900; color: white; margin-bottom: 4px; }
         .vip-desc { font-size: 10px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4; }
         .vip-features { display: flex; flex-direction: column; gap: 6px; margin-bottom: 15px; }
         .vip-feat { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: #ccc; }
-        .vip-feat span { color: var(--gold); font-size: 12px; }
-        .btn-buy-stars { width: 100%; padding: 12px; border-radius: 10px; border: none; background: linear-gradient(135deg, #fbbf24, #d97706); color: black; font-size: 13px; font-weight: 900; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 6px; transition: 0.2s; text-transform: uppercase; }
+        .vip-feat span { color: #c4b5fd; font-size: 12px; }
+        .btn-buy-stars { width: 100%; padding: 12px; border-radius: 10px; border: none; background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white; font-size: 13px; font-weight: 900; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 6px; transition: 0.2s; text-transform: uppercase; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4); }
         .btn-buy-stars:active { transform: scale(0.96); }
-        .btn-buy-stars.mythic { background: linear-gradient(135deg, #ef4444, #b91c1c); color: white; }
 
         /* КОЛЕСО ФОРТУНЫ */
         .fortune-wheel-container { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
         .wheel-wrapper { position: relative; width: 220px; height: 220px; margin-bottom: 15px; }
-        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--gold); position: relative; overflow: hidden; transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99); }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--purple); position: relative; overflow: hidden; transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99); box-shadow: 0 0 30px rgba(139, 92, 246, 0.4); }
         .wheel-segment { position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%; clip-path: polygon(0 0, 100% 0, 100% 100%); display: flex; align-items: center; justify-content: center; }
         .wheel-segment span { position: absolute; right: 10px; top: 10px; font-size: 9px; font-weight: 900; color: white; transform: rotate(45deg); }
-        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 35px; height: 35px; background: var(--gold); border-radius: 50%; z-index: 10; display: flex; justify-content: center; align-items: center; font-size: 18px; box-shadow: 0 0 20px rgba(251,191,36,0.5); }
+        .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 35px; height: 35px; background: var(--purple); border-radius: 50%; z-index: 10; display: flex; justify-content: center; align-items: center; font-size: 18px; box-shadow: 0 0 20px rgba(139,92,246,0.5); }
         .wheel-pointer { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 20px solid var(--danger); z-index: 11; filter: drop-shadow(0 0 5px rgba(239,68,68,0.8)); }
 
         /* 3D АНИМАЦИЯ МИФА */
@@ -297,7 +407,7 @@
         .empty-pane span { font-size: 30px; }
         .country-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
         .country-item { background: rgba(255,255,255,0.05); padding: 10px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 6px; cursor: pointer; border: 1px solid transparent; transition: 0.2s;}
-        .country-item.active { border-color: var(--accent); background: rgba(59,130,246,0.1);}
+        .country-item.active { border-color: var(--purple); background: rgba(139,92,246,0.1);}
         .country-item span { font-size: 16px; }
         .country-item p { font-size: 10px; font-weight: 700; }
         .bp-card { background: rgba(0,0,0,0.4); border-radius: var(--radius-sm); padding: 10px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;}
@@ -316,9 +426,9 @@
 
         .profile-layout { display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px;}
         .profile-card { background: rgba(0,0,0,0.5); border-radius: var(--radius-lg); padding: 12px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);}
-        .avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #8b5cf6); display: flex; justify-content: center; align-items: center; font-size: 20px; margin: 0 auto 6px auto; border: 2px solid rgba(255,255,255,0.1); overflow: hidden;}
+        .avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6, #6d28d9); display: flex; justify-content: center; align-items: center; font-size: 20px; margin: 0 auto 6px auto; border: 2px solid rgba(255,255,255,0.1); overflow: hidden;}
         .progress-container { width: 100%; background: rgba(0,0,0,0.4); height: 8px; border-radius: 4px; margin-bottom: 6px; overflow: hidden; border: 1px solid var(--border); position: relative;}
-        .progress-bar { height: 100%; background: linear-gradient(90deg, #3b82f6, #8b5cf6); width: 0%; transition: width 0.3s; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #8b5cf6, #6d28d9); width: 0%; transition: width 0.3s; }
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px;}
         .stat-box { background: rgba(0,0,0,0.3); padding: 8px; border-radius: var(--radius-sm); text-align: center; }
         .stat-box span { display: block; font-size: 8px; color: var(--text-muted); font-weight: 700; margin-bottom: 3px; text-transform: uppercase;}
@@ -332,10 +442,10 @@
         .modal-overlay.active .bottom-sheet { transform: translateY(0); }
         .modal-title { font-size: 14px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 12px; }
         .tariff-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(255,255,255,0.05); border-radius: var(--radius-sm); margin-bottom: 6px; cursor: pointer; border: 1px solid transparent;}
-        .tariff-item.active { border-color: var(--accent); background: rgba(59, 130, 246, 0.1); }
+        .tariff-item.active { border-color: var(--purple); background: rgba(139, 92, 246, 0.1); }
         .search-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 10; display: none; flex-direction: column; align-items: center; justify-content: center; border-radius: var(--radius-lg); gap: 12px;}
         .search-overlay.active { display: flex; }
-        .spinner { width: 30px; height: 30px; border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+        .spinner { width: 30px; height: 30px; border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid var(--purple); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
         .setting-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 12px; font-weight: 600;}
@@ -344,7 +454,7 @@
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .4s; border-radius: 22px; }
         .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
-        input:checked + .slider { background-color: var(--success); }
+        input:checked + .slider { background-color: var(--purple); }
         input:checked + .slider:before { transform: translateX(18px); }
 
         /* ПРОКАЧКА / НАВЫКИ */
@@ -352,14 +462,32 @@
         .upgrade-btn:active { transform: scale(0.98); background: rgba(255,255,255,0.1); }
         .upgrade-info h4 { font-size: 12px; font-weight: 800; color: var(--text); margin-bottom: 2px;}
         .upgrade-info p { font-size: 10px; color: var(--text-muted); font-weight: 600;}
-        .upgrade-cost { background: rgba(251,191,36,0.15); color: var(--gold); padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; }
+        .upgrade-cost { background: rgba(139,92,246,0.15); color: #c4b5fd; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; }
 
-        /* АУКЦИОН */
-        .auction-card { background: rgba(0,0,0,0.5); border-radius: var(--radius-md); padding: 12px; margin-bottom: 8px; border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .auction-info h4 { font-size: 14px; font-weight: 900; color: var(--gold); margin-bottom: 2px;}
+        /* АУКЦИОН КРАСИВЫЙ */
+        .auction-card { background: linear-gradient(135deg, #1a0a2e, #0a0a0f); border-radius: 16px; padding: 15px; margin-bottom: 10px; border: 1px solid rgba(139, 92, 246, 0.3); display: flex; flex-direction: column; gap: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); position: relative; overflow: hidden;}
+        .auction-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 60%); pointer-events: none; }
+        .auction-top { display: flex; justify-content: space-between; align-items: flex-start; }
+        .auction-info h4 { font-size: 16px; font-weight: 900; color: #c4b5fd; margin-bottom: 2px; text-shadow: 0 0 10px rgba(139,92,246,0.3);}
         .auction-info p { font-size: 10px; color: var(--text-muted); font-weight: 600;}
-        .auction-price { font-size: 14px; font-weight: 900; color: var(--success); text-align: right; }
-        .auction-buy { background: var(--success); color: black; border: none; border-radius: 8px; padding: 8px 12px; font-weight: 800; font-size: 11px; cursor: pointer; margin-top: 5px; }
+        .auction-timer { font-size: 11px; font-weight: 800; color: var(--danger); background: rgba(239,68,68,0.15); padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(239,68,68,0.3);}
+        .auction-bottom { display: flex; justify-content: space-between; align-items: center; }
+        .auction-price { font-size: 16px; font-weight: 900; color: var(--success); }
+        .auction-seller { font-size: 9px; color: var(--text-muted); font-weight: 600; margin-top: 2px;}
+        .auction-buy { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: 8px; padding: 10px 15px; font-weight: 800; font-size: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(16,185,129,0.3);}
+        .auction-remove { background: rgba(239,68,68,0.15); color: var(--danger); border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 8px 12px; font-weight: 800; font-size: 11px; cursor: pointer; }
+
+        /* МОДАЛКА ВЫСТАВЛЕНИЯ ЛОТА */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(5px); z-index: 9998; display: flex; justify-content: center; align-items: flex-end; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .bottom-sheet { width: 100%; max-width: 500px; background: #111111; border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 20px 15px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1); max-height: 85vh; overflow-y: auto; border: 1px solid rgba(139,92,246,0.3); }
+        .modal-overlay.active .bottom-sheet { transform: translateY(0); }
+        .modal-title { font-size: 16px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 15px; color: #c4b5fd; }
+        
+        .time-options, .price-options { display: flex; gap: 8px; margin-bottom: 15px; }
+        .time-btn, .price-btn { flex: 1; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(139,92,246,0.2); border-radius: 10px; color: white; font-weight: 800; font-size: 12px; cursor: pointer; transition: 0.2s; text-align: center;}
+        .time-btn.active, .price-btn.active { background: linear-gradient(135deg, #8b5cf6, #6d28d9); border-color: transparent; box-shadow: 0 0 15px rgba(139,92,246,0.5); }
+        .price-input { width: 100%; background: #000; border: 1px solid rgba(139,92,246,0.3); border-radius: 10px; padding: 12px; color: white; font-size: 16px; font-weight: 900; text-align: center; margin-bottom: 15px; outline: none;}
     </style>
 </head>
 <body>
@@ -373,6 +501,38 @@
             <div class="mythic-price-label">СТОИМОСТЬ</div>
             <div class="mythic-price-big" id="mythicPriceDisplay">1 000 000 000 🪙</div>
             <button class="mythic-close" onclick="closeMythicOverlay()">ЗАБРАТЬ</button>
+        </div>
+    </div>
+
+    <!-- МОДАЛКА АУКЦИОНА -->
+    <div class="modal-overlay" id="auctionModal">
+        <div class="bottom-sheet">
+            <div class="modal-title">Выставить на аукцион</div>
+            <div id="auctionItemInfo" style="text-align: center; margin-bottom: 15px;">
+                <div style="font-size: 18px; font-weight: 900; color: #c4b5fd;" id="auctionNumberDisplay">+7 999 000-00-00</div>
+                <div style="font-size: 11px; color: var(--text-muted);" id="auctionRarityDisplay">Обычный</div>
+            </div>
+            
+            <div style="font-size: 12px; font-weight: 800; color: #c4b5fd; margin-bottom: 8px;">Время лота:</div>
+            <div class="time-options">
+                <div class="time-btn active" onclick="selectAuctionTime(1, this)">1 час</div>
+                <div class="time-btn" onclick="selectAuctionTime(6, this)">6 часов</div>
+                <div class="time-btn" onclick="selectAuctionTime(24, this)">24 часа</div>
+            </div>
+            
+            <div style="font-size: 12px; font-weight: 800; color: #c4b5fd; margin-bottom: 8px;">Цена:</div>
+            <div class="price-options">
+                <div class="price-btn" onclick="selectAuctionPrice('min', this)">Мин. цена</div>
+                <div class="price-btn" onclick="selectAuctionPrice('x2', this)">x2</div>
+                <div class="price-btn" onclick="selectAuctionPrice('x10', this)">x10</div>
+            </div>
+            
+            <div id="customPriceBlock" style="display: none;">
+                <input type="number" class="price-input" id="customPriceInput" placeholder="Своя цена">
+            </div>
+            
+            <button class="btn-main" style="width: 100%; margin-top: 10px;" onclick="confirmAuctionList()">Выставить лот</button>
+            <button class="btn-main" style="width: 100%; margin-top: 8px; background: rgba(255,255,255,0.1); box-shadow: none;" onclick="closeAuctionModal()">Отмена</button>
         </div>
     </div>
 
@@ -435,12 +595,10 @@
             <div class="sim-chip"><div class="sim-chip-line"></div><div class="sim-chip-line"></div><div class="sim-chip-line"></div><div class="sim-chip-center"></div></div>
             <div class="sim-logo">SIM</div>
             <div class="sim-display-area">
-                <div class="sim-dashes" id="simDashes"><div class="sim-dash"></div><div class="sim-dash"></div><div class="sim-dash"></div><div class="sim-dash"></div><div class="sim-dash"></div></div>
-                
-                <!-- Анимация прокрутки -->
-                <div class="sim-rolling-display" id="simRollingDisplay">
-                    <div class="sim-rolling-number" id="simRollingNumber">+7 999 000-00-00</div>
-                    <div class="sim-rolling-label">Набор номера...</div>
+                <div class="sim-slot-machine" id="simSlotMachine">
+                    <div class="slot-window">
+                        <div class="slot-number" id="simSlotNumber">+7 999 000-00-00</div>
+                    </div>
                 </div>
                 
                 <div class="sim-result-box" id="simResultBox">
@@ -459,7 +617,7 @@
             <div class="sim-top-row">
                 <button class="btn-archive" onclick="openTariffModal()">
                     <span>Архив</span>
-                    <span id="currentTierName" style="color: var(--accent);">Серый рынок</span>
+                    <span id="currentTierName" style="color: #c4b5fd;">Серый рынок</span>
                 </button>
                 <button class="btn-roaming-square" onclick="openRoamingModal()">
                     <span>✈️</span>
@@ -476,9 +634,9 @@
 
     <!-- НАВЫКИ -->
     <div id="screen-skills" class="screen">
-        <h1 style="font-size: 20px; font-weight: 900; color: var(--gold); text-transform: uppercase; text-align: center; margin-bottom: 15px; text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);">Дерево Навыков</h1>
-        <div class="profile-card" style="text-align: center; margin-bottom: 15px; border-color: rgba(251,191,36,0.3); background: rgba(251,191,36,0.05);">
-            <h3 style="font-size: 16px; font-weight: 900; color: var(--gold);">Очки навыков: <span id="skillPointsDisplay">0</span></h3>
+        <h1 style="font-size: 20px; font-weight: 900; color: #c4b5fd; text-transform: uppercase; text-align: center; margin-bottom: 15px; text-shadow: 0 0 15px rgba(139, 92, 246, 0.5);">Дерево Навыков</h1>
+        <div class="profile-card" style="text-align: center; margin-bottom: 15px; border-color: rgba(139,92,246,0.3); background: rgba(139,92,246,0.05);">
+            <h3 style="font-size: 16px; font-weight: 900; color: #c4b5fd;">Очки навыков: <span id="skillPointsDisplay">0</span></h3>
             <p style="font-size: 11px; color: #ccc; margin-top: 5px;">1 очко за каждый уровень</p>
         </div>
 
@@ -529,18 +687,18 @@
 
     <!-- АУКЦИОН -->
     <div id="screen-auction" class="screen">
-        <h1 style="font-size: 20px; font-weight: 900; color: var(--gold); text-transform: uppercase; text-align: center; margin-bottom: 15px; text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);">Аукцион</h1>
+        <h1 style="font-size: 20px; font-weight: 900; color: #c4b5fd; text-transform: uppercase; text-align: center; margin-bottom: 15px; text-shadow: 0 0 15px rgba(139, 92, 246, 0.5);">Аукцион</h1>
         <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 15px;">Покупай и продавай номера с другими игроками</p>
 
         <div class="profile-card" style="margin-bottom: 15px;">
-            <h3 style="font-size: 13px; font-weight: 800; color: var(--gold); margin-bottom: 10px;">Мои лоты</h3>
+            <h3 style="font-size: 13px; font-weight: 800; color: #c4b5fd; margin-bottom: 10px;">Мои лоты</h3>
             <div id="myAuctionList">
                 <p style="font-size: 11px; color: var(--text-muted); text-align: center;">У тебя пока нет активных лотов</p>
             </div>
         </div>
 
         <div class="profile-card">
-            <h3 style="font-size: 13px; font-weight: 800; color: var(--gold); margin-bottom: 10px;">Лоты других игроков</h3>
+            <h3 style="font-size: 13px; font-weight: 800; color: #c4b5fd; margin-bottom: 10px;">Лоты других игроков</h3>
             <div id="otherAuctionList">
                 <p style="font-size: 11px; color: var(--text-muted); text-align: center;">Загрузка...</p>
             </div>
@@ -549,7 +707,7 @@
 
     <!-- КОЛЕСО ФОРТУНЫ -->
     <div id="screen-wheel" class="screen">
-        <h1 style="font-size: 20px; font-weight: 900; color: var(--gold); text-transform: uppercase; text-align: center; margin-bottom: 20px; text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);">Колесо Фортуны</h1>
+        <h1 style="font-size: 20px; font-weight: 900; color: #c4b5fd; text-transform: uppercase; text-align: center; margin-bottom: 20px; text-shadow: 0 0 15px rgba(139, 92, 246, 0.5);">Колесо Фортуны</h1>
         <div class="fortune-wheel-container">
             <div class="wheel-wrapper">
                 <div class="wheel-pointer"></div>
@@ -561,15 +719,15 @@
         </div>
     </div>
 
-    <!-- VIP МАГАЗИН (2 ЛОТА + СКИНЫ) -->
+    <!-- VIP МАГАЗИН -->
     <div id="screen-shop" class="screen">
         <div style="text-align: center; margin-bottom: 15px;">
-            <h1 style="font-size: 20px; font-weight: 900; color: var(--gold); text-transform: uppercase; text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);">VIP Синтез</h1>
+            <h1 style="font-size: 20px; font-weight: 900; color: #c4b5fd; text-transform: uppercase; text-shadow: 0 0 15px rgba(139, 92, 246, 0.5);">VIP Синтез</h1>
             <p style="font-size: 10px; color: var(--text-muted);">Топ-секретные номера за Telegram Stars</p>
         </div>
         
-        <div class="profile-card" style="text-align: center; margin-bottom: 15px; border-color: rgba(251,191,36,0.3); background: rgba(251,191,36,0.05);">
-            <h3 style="font-size: 13px; font-weight: 800; color: var(--gold); margin-bottom: 8px;">Как купить?</h3>
+        <div class="profile-card" style="text-align: center; margin-bottom: 15px; border-color: rgba(139,92,246,0.3); background: rgba(139,92,246,0.05);">
+            <h3 style="font-size: 13px; font-weight: 800; color: #c4b5fd; margin-bottom: 8px;">Как купить?</h3>
             <p style="font-size: 11px; color: #ccc; line-height: 1.4; margin-bottom: 12px;">
                 1. Нажмите кнопку «Задонатить» ниже.<br>
                 2. Отправьте звёзды админу <b>@TrillYummy</b>.<br>
@@ -581,9 +739,8 @@
 
         <div class="shop-grid" id="vipShopGrid"></div>
         
-        <!-- СКИНЫ -->
         <div class="profile-card" style="margin-top: 15px;">
-            <h3 style="font-size: 13px; font-weight: 800; color: var(--gold); margin-bottom: 10px;">Скины для карточек</h3>
+            <h3 style="font-size: 13px; font-weight: 800; color: #c4b5fd; margin-bottom: 10px;">Скины для карточек</h3>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                 <div class="upgrade-btn" onclick="buySkin('neon', 10000)" style="flex: 1; min-width: 100px; flex-direction: column; align-items: center; text-align: center;">
                     <div style="font-size: 24px; margin-bottom: 5px;">🟢</div>
@@ -739,8 +896,8 @@
                         <div class="crash-big-mult" id="rocketMultiplier">x1,00</div>
                         <div class="crash-profit-display" id="rocketProfit">+0 🪙</div>
                         <svg class="crash-graph-svg" id="crashGraphSvg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                            <path id="graphFill" d="M0,100 L0,100 L0,100 Z" fill="rgba(59, 130, 246, 0.15)" />
-                            <path id="graphPath" d="M0,100 L0,100" stroke="#3b82f6" stroke-width="2.5" fill="none" style="filter: drop-shadow(0 0 8px #3b82f6); transition: stroke 0.3s;" />
+                            <path id="graphFill" d="M0,100 L0,100 L0,100 Z" fill="rgba(139, 92, 246, 0.15)" />
+                            <path id="graphPath" d="M0,100 L0,100" stroke="#8b5cf6" stroke-width="2.5" fill="none" style="filter: drop-shadow(0 0 8px #8b5cf6); transition: stroke 0.3s;" />
                         </svg>
                     </div>
 
@@ -786,8 +943,8 @@
 
     <!-- Батл Пасс -->
     <div id="screen-battlepass" class="screen">
-        <div class="profile-card" style="text-align: center; background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(217, 119, 6, 0.1)); border-color: var(--gold); margin-bottom: 12px;">
-            <h3 style="font-size: 20px; color: var(--gold); text-shadow: 0 0 10px rgba(251,191,36,0.5);">Уровень <span id="bpLevelDisplay">1</span></h3>
+        <div class="profile-card" style="text-align: center; background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(109, 40, 217, 0.1)); border-color: var(--purple); margin-bottom: 12px;">
+            <h3 style="font-size: 20px; color: #c4b5fd; text-shadow: 0 0 10px rgba(139,92,246,0.5);">Уровень <span id="bpLevelDisplay">1</span></h3>
             <p style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">1 уровень за 10 кейсов</p>
         </div>
         <div class="bp-list-container" id="bpList"></div>
@@ -797,13 +954,13 @@
     <div id="screen-settings" class="screen">
         <h2 style="margin-bottom: 12px; font-weight: 900; text-transform: uppercase; font-size: 16px; text-align: center;">Настройки</h2>
         <div class="profile-card">
-            <h3 style="font-size: 13px; font-weight: 800; margin-bottom: 8px; color: var(--gold);">Анимация Мифа</h3>
+            <h3 style="font-size: 13px; font-weight: 800; margin-bottom: 8px; color: #c4b5fd;">Анимация Мифа</h3>
             <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 12px;">Показывать 3D-анимацию при выпадении мифического номера</p>
             
             <div class="setting-item"><span>3D Анимация</span><label class="toggle-switch"><input type="checkbox" id="mythicAnimToggle" onchange="saveSettings()" checked><span class="slider"></span></label></div>
         </div>
         <div class="profile-card" style="margin-top: 10px;">
-            <h3 style="font-size: 13px; font-weight: 800; margin-bottom: 8px; color: var(--gold);">Автопродажа номеров</h3>
+            <h3 style="font-size: 13px; font-weight: 800; margin-bottom: 8px; color: #c4b5fd;">Автопродажа номеров</h3>
             <div class="setting-item"><span>Обычные</span><label class="toggle-switch"><input type="checkbox" id="auto-sell-Обычный" onchange="saveAutoSell()"><span class="slider"></span></label></div>
             <div class="setting-item"><span>Необычные</span><label class="toggle-switch"><input type="checkbox" id="auto-sell-Необычный" onchange="saveAutoSell()"><span class="slider"></span></label></div>
             <div class="setting-item"><span>Редкие</span><label class="toggle-switch"><input type="checkbox" id="auto-sell-Редкий" onchange="saveAutoSell()"><span class="slider"></span></label></div>
@@ -862,10 +1019,10 @@
     <div class="modal-overlay" id="tariffModal">
         <div class="bottom-sheet">
             <div class="modal-title">Выбор Архива</div>
-            <div class="tariff-item active" onclick="selectTier('grey', this, 500)"><div><h4>Серый рынок</h4></div><div style="color:var(--gold);">500 🪙</div></div>
-            <div class="tariff-item" onclick="selectTier('hacker', this, 2500)"><div><h4>Хакерский взлом</h4></div><div style="color:var(--gold);">2 500 🪙</div></div>
-            <div class="tariff-item" onclick="selectTier('vip', this, 10000)"><div><h4>VIP-связь</h4></div><div style="color:var(--gold);">10 000 🪙</div></div>
-            <div class="tariff-item" onclick="selectTier('gov', this, 50000)"><div><h4>Правительственный</h4></div><div style="color:var(--gold);">50 000 🪙</div></div>
+            <div class="tariff-item active" onclick="selectTier('grey', this, 500)"><div><h4>Серый рынок</h4></div><div style="color:#c4b5fd;">500 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('hacker', this, 2500)"><div><h4>Хакерский взлом</h4></div><div style="color:#c4b5fd;">2 500 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('vip', this, 10000)"><div><h4>VIP-связь</h4></div><div style="color:#c4b5fd;">10 000 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('gov', this, 50000)"><div><h4>Правительственный</h4></div><div style="color:#c4b5fd;">50 000 🪙</div></div>
             <button class="btn-main" style="margin-top: 12px; background: rgba(255,255,255,0.1); box-shadow: none;" onclick="closeTariffModal()">Закрыть</button>
         </div>
     </div>
@@ -910,7 +1067,6 @@
         let currentTier = { key: 'grey', cost: 500, name: 'Серый рынок' };
         let mythicAnimEnabled = localStorage.getItem('mythic_anim_enabled') !== 'false';
         
-        // НАВЫКИ
         let skills = JSON.parse(localStorage.getItem('skills')) || {
             frequent: 0, big: 0, strong: 0, trade: 0
         };
@@ -948,14 +1104,19 @@
         const promoCodes = { "SIMCITY": 100000, "LUCKY": 50000, "CASINO": 25000 };
         let usedPromos = JSON.parse(localStorage.getItem('used_promos')) || [];
 
-        // УРОВНИ
+        // АУКЦИОН
+        let auctionUnsub = null;
+        let auctionItemIndex = -1;
+        let auctionTime = 1; // часов
+        let auctionPriceMode = 'min'; // min, x2, x10
+        let auctionPriceCustom = 0;
+
         function getXpNeeded(level) {
             if (level <= 30) return level * 50; 
             if (level <= 60) return 30 * 50 + (level - 30) * 150; 
             return 30 * 50 + 30 * 150 + (level - 60) * 300; 
         }
 
-        // ШАНСЫ (Правительственный - 1 к 520)
         const tierChances = {
             grey: { Обычный: 60, Необычный: 25, Редкий: 10, Эпический: 4, Легендарный: 0.9, Мифический: 0.1 },
             hacker: { Обычный: 30, Необычный: 40, Редкий: 20, Эпический: 8, Легендарный: 1.8, Мифический: 0.2 },
@@ -964,13 +1125,11 @@
         };
         const baseRarities = { "Обычный": { color: "#8b92a5", price: 150 }, "Необычный": { color: "#10b981", price: 500 }, "Редкий": { color: "#3b82f6", price: 2000 }, "Эпический": { color: "#8b5cf6", price: 10000 }, "Легендарный": { color: "#f97316", price: 50000 }, "Мифический": { color: "#ef4444", price: 500000 } };
 
-        // VIP ЛОТЫ (2 штуки)
         const vipLots = [
             { id: 'vip_1', title: 'Топ-Секретный (3 цифры)', badge: 'TIER 1', desc: 'Мифический номер. Только 3 цифры. Цена от 100 млн до 1 млрд.', features: ['3 цифры', 'Мифический', 'Цена: 100 млн - 1 млрд'], starsCost: 250, btnClass: 'mythic' },
             { id: 'vip_2', title: 'Прокрут (50 звёзд)', badge: 'SPIN', desc: 'Крутка случайного номера. Шанс на мифический выше.', features: ['1 крутка', 'Повышенный шанс', 'Стоимость: 50 ⭐'], starsCost: 50, btnClass: '' }
         ];
 
-        // КОЛЕСО ФОРТУНЫ
         const wheelPrizes = [
             { label: '1000 🪙', value: 1000, color: '#10b981', type: 'coins' },
             { label: '5000 🪙', value: 5000, color: '#3b82f6', type: 'coins' },
@@ -983,9 +1142,6 @@
         ];
         let wheelAngle = 0;
         let wheelSpinning = false;
-
-        // АУКЦИОН
-        let auctionUnsub = null;
 
         function updateUI() {
             document.getElementById('userBalance').innerText = balance.toLocaleString('ru-RU');
@@ -1001,7 +1157,6 @@
             if(untilGuarantee === 1000 && statOpened > 0) untilGuarantee = 0;
             document.getElementById('guaranteeCount').innerText = untilGuarantee;
             
-            // Обновляем отображение навыков
             document.getElementById('skillPointsDisplay').innerText = skillPoints;
             document.getElementById('frequentChance').innerText = [70, 80, 90, 100][skills.frequent] || 70;
             document.getElementById('bigChance').innerText = [20, 30, 40][skills.big] || 20;
@@ -1085,46 +1240,77 @@
                     return;
                 }
 
-                const lots = Object.values(data);
+                const now = Date.now();
+                const lots = Object.values(data).filter(lot => lot.expiresAt > now);
                 const myLots = lots.filter(lot => String(lot.sellerId) === String(myId));
                 const otherLots = lots.filter(lot => String(lot.sellerId) !== String(myId));
 
                 if (myLots.length === 0) {
                     myList.innerHTML = '<p style="font-size: 11px; color: var(--text-muted); text-align: center;">У тебя пока нет активных лотов</p>';
                 } else {
-                    myList.innerHTML = myLots.map(lot => `
+                    myList.innerHTML = myLots.map(lot => {
+                        const timeLeft = Math.max(0, Math.floor((lot.expiresAt - now) / 60000));
+                        const hours = Math.floor(timeLeft / 60);
+                        const mins = timeLeft % 60;
+                        return `
                         <div class="auction-card">
-                            <div class="auction-info">
-                                <h4>${lot.number}</h4>
-                                <p>${lot.rarity} · Цена: ${lot.price.toLocaleString('ru-RU')} 🪙</p>
+                            <div class="auction-top">
+                                <div class="auction-info">
+                                    <h4>${lot.number}</h4>
+                                    <p>${lot.rarity}</p>
+                                </div>
+                                <div class="auction-timer">⏳ ${hours}ч ${mins}м</div>
                             </div>
-                            <button class="btn-sell" style="background: rgba(239,68,68,0.2); color: var(--danger);" onclick="removeAuction('${lot.id}')">Убрать</button>
+                            <div class="auction-bottom">
+                                <div>
+                                    <div class="auction-price">${lot.price.toLocaleString('ru-RU')} 🪙</div>
+                                    <div class="auction-seller">Продавец: Вы</div>
+                                </div>
+                                <button class="auction-remove" onclick="removeAuction('${lot.id}')">Убрать</button>
+                            </div>
                         </div>
-                    `).join('');
+                    `}).join('');
                 }
 
                 if (otherLots.length === 0) {
                     otherList.innerHTML = '<p style="font-size: 11px; color: var(--text-muted); text-align: center;">Нет активных лотов</p>';
                 } else {
-                    otherList.innerHTML = otherLots.map(lot => `
+                    otherList.innerHTML = otherLots.map(lot => {
+                        const timeLeft = Math.max(0, Math.floor((lot.expiresAt - now) / 60000));
+                        const hours = Math.floor(timeLeft / 60);
+                        const mins = timeLeft % 60;
+                        return `
                         <div class="auction-card">
-                            <div class="auction-info">
-                                <h4>${lot.number}</h4>
-                                <p>${lot.rarity} · ${lot.sellerName}</p>
+                            <div class="auction-top">
+                                <div class="auction-info">
+                                    <h4>${lot.number}</h4>
+                                    <p>${lot.rarity}</p>
+                                </div>
+                                <div class="auction-timer">⏳ ${hours}ч ${mins}м</div>
                             </div>
-                            <div style="text-align: right;">
-                                <div class="auction-price">${lot.price.toLocaleString('ru-RU')} 🪙</div>
+                            <div class="auction-bottom">
+                                <div>
+                                    <div class="auction-price">${lot.price.toLocaleString('ru-RU')} 🪙</div>
+                                    <div class="auction-seller">Продавец: ${lot.sellerName}</div>
+                                </div>
                                 <button class="auction-buy" onclick="buyAuction('${lot.id}')">Купить</button>
                             </div>
                         </div>
-                    `).join('');
+                    `}).join('');
                 }
             });
         }
 
         window.removeAuction = function(lotId) {
-            remove(ref(db, 'auction/' + lotId));
-            showToast('Лот убран', '🗑️');
+            get(ref(db, 'auction/' + lotId)).then((snapshot) => {
+                const lot = snapshot.val();
+                if (!lot) return;
+                inventory.push({ number: lot.number, rarity: lot.rarity, price: lot.price, color: lot.color });
+                remove(ref(db, 'auction/' + lotId));
+                updateUI();
+                renderInventory();
+                showToast('Лот убран, номер возвращён', '🗑️');
+            });
         }
 
         window.buyAuction = function(lotId) {
@@ -1141,25 +1327,71 @@
             });
         }
 
-        window.listOnAuction = function(index) {
+        window.openAuctionModal = function(index) {
+            auctionItemIndex = index;
             const item = inventory[index];
-            const price = prompt('Введите цену:', item.price);
-            if (!price || isNaN(price)) return;
+            document.getElementById('auctionNumberDisplay').innerText = item.number;
+            document.getElementById('auctionRarityDisplay').innerText = item.rarity;
+            document.getElementById('auctionModal').classList.add('active');
+            auctionTime = 1;
+            auctionPriceMode = 'min';
+            document.querySelectorAll('.time-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+            document.querySelectorAll('.price-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+            document.getElementById('customPriceBlock').style.display = 'none';
+        }
+
+        window.closeAuctionModal = function() {
+            document.getElementById('auctionModal').classList.remove('active');
+        }
+
+        window.selectAuctionTime = function(hours, btn) {
+            auctionTime = hours;
+            document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        window.selectAuctionPrice = function(mode, btn) {
+            auctionPriceMode = mode;
+            document.querySelectorAll('.price-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if (mode === 'custom') {
+                document.getElementById('customPriceBlock').style.display = 'block';
+            } else {
+                document.getElementById('customPriceBlock').style.display = 'none';
+            }
+        }
+
+        window.confirmAuctionList = function() {
+            if (auctionItemIndex < 0) return;
+            const item = inventory[auctionItemIndex];
+            
+            let price = item.price;
+            if (auctionPriceMode === 'x2') price = item.price * 2;
+            else if (auctionPriceMode === 'x10') price = item.price * 10;
+            else if (auctionPriceMode === 'custom') {
+                const custom = parseInt(document.getElementById('customPriceInput').value);
+                if (!custom || custom < 100) return showToast('Минимальная цена 100!', '⚠️');
+                price = custom;
+            }
             
             const lotId = 'lot_' + Date.now();
+            const expiresAt = Date.now() + (auctionTime * 60 * 60 * 1000);
+            
             set(ref(db, 'auction/' + lotId), {
                 id: lotId,
                 sellerId: String(myId),
                 sellerName: currentUserName,
                 number: item.number,
                 rarity: item.rarity,
-                price: parseInt(price),
-                color: item.color
+                price: price,
+                color: item.color,
+                expiresAt: expiresAt
             });
             
-            inventory.splice(index, 1);
+            inventory.splice(auctionItemIndex, 1);
             updateUI();
             renderInventory();
+            closeAuctionModal();
             showToast('Лот выставлен на аукцион!', '🔨');
         }
 
@@ -1244,7 +1476,6 @@
             showToast('Настройки сохранены', '⚙️');
         }
 
-        // 3D АНИМАЦИЯ МИФА
         window.closeMythicOverlay = function() {
             document.getElementById('mythicOverlay').classList.remove('active');
         }
@@ -1255,7 +1486,6 @@
             document.getElementById('mythicOverlay').classList.add('active');
         }
 
-        // РЕНДЕР VIP
         function renderVipShop() {
             const grid = document.getElementById('vipShopGrid');
             if (!grid) return;
@@ -1339,28 +1569,26 @@
             if (balance < totalCost) return showToast('Недостаточно монет!', '❌');
             
             balance -= totalCost; updateUI(); isSpinning = true;
-            document.getElementById('simDashes').style.display = 'none';
             document.getElementById('simResultBox').classList.remove('show');
             document.getElementById('simX5Grid').classList.remove('show');
             document.getElementById('simX5Grid').innerHTML = '';
-            document.getElementById('simRollingDisplay').classList.add('show');
+            document.getElementById('simSlotMachine').classList.add('show');
 
             let spinTicks = 0;
-            let rollingNumber = document.getElementById('simRollingNumber');
+            let rollingNumber = document.getElementById('simSlotNumber');
             
-            // Анимация набора номера
             let interval = setInterval(() => {
                 let randNum = `+7 999 ${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 90) + 10}-${Math.floor(Math.random() * 90) + 10}`;
                 rollingNumber.innerText = randNum;
                 spinTicks++;
                 
-                if (spinTicks > 20) { 
+                if (spinTicks > 25) { 
                     clearInterval(interval); 
                     isSpinning = false; 
-                    document.getElementById('simRollingDisplay').classList.remove('show');
+                    document.getElementById('simSlotMachine').classList.remove('show');
                     finishSpin(count); 
                 }
-            }, 75);
+            }, 60);
         }
 
         function generateNumberData() {
@@ -1373,7 +1601,6 @@
                 if (random <= currentChance && chance > 0) { selectedRarity = name; break; } 
             }
             
-            // Если выпал Топ-Секретный (Гарант), даём визуальный х40, но реальная цена маленькая
             const data = baseRarities[selectedRarity];
             return { number: generatePhoneNumber(), rarity: selectedRarity, price: data.price, color: data.color };
         }
@@ -1387,6 +1614,12 @@
                 document.getElementById('simResultRarity').innerText = item.rarity;
                 document.getElementById('simResultRarity').style.color = item.color;
                 document.getElementById('simResultPrice').innerText = `${item.price.toLocaleString('ru-RU')} 🪙`;
+                
+                const square = document.getElementById('simResultSquare');
+                square.className = 'sim-result-square';
+                if (item.rarity === 'Мифический') square.classList.add('glow-mythic');
+                else if (item.rarity === 'Легендарный') square.classList.add('glow-legendary');
+                else if (item.rarity === 'Эпический') square.classList.add('glow-epic');
                 
                 if (autoSellSettings[item.rarity]) { balance += item.price; showToast(`Автопродажа: +${item.price.toLocaleString('ru-RU')} 🪙`, '💰'); } 
                 else { 
@@ -1438,7 +1671,7 @@
                     <div class="inv-info">
                         <h4 style="color: ${item.color};">${item.number}</h4><p>${item.rarity}</p>
                         <button class="btn-sell" onclick="sellItem(${index})">Продать за ${item.price.toLocaleString('ru-RU')} 🪙</button>
-                        <button class="btn-edit" onclick="listOnAuction(${index})">Аукцион</button>
+                        <button class="btn-edit" onclick="openAuctionModal(${index})">Аукцион</button>
                     </div>
                 </div>
             `).join('');
@@ -1878,7 +2111,7 @@
         }
 
         // ==========================================
-        // ========== ЛОГИКА КРАША (РЕАЛЬНЫЕ СТАВКИ) =
+        // ========== ЛОГИКА КРАША ==================
         // ==========================================
         
         window.setAutoCashout = function() {
@@ -1978,9 +2211,9 @@
             
             graphPath.setAttribute('d', 'M0,100 L0,100'); 
             graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
-            graphPath.style.stroke = '#3b82f6';
-            graphPath.style.filter = 'drop-shadow(0 0 8px #3b82f6)';
-            graphFill.setAttribute('fill', 'rgba(59, 130, 246, 0.15)');
+            graphPath.style.stroke = '#8b5cf6';
+            graphPath.style.filter = 'drop-shadow(0 0 8px #8b5cf6)';
+            graphFill.setAttribute('fill', 'rgba(139, 92, 246, 0.15)');
             
             profitText.classList.remove('show');
             profitText.innerText = '+0 🪙';
@@ -2051,9 +2284,9 @@
                             multText.innerText = 'x1,00';
                             graphPath.setAttribute('d', 'M0,100 L0,100');
                             graphFill.setAttribute('d', 'M0,100 L0,100 L0,100 Z');
-                            graphPath.style.stroke = '#3b82f6';
-                            graphPath.style.filter = 'drop-shadow(0 0 8px #3b82f6)';
-                            graphFill.setAttribute('fill', 'rgba(59, 130, 246, 0.15)');
+                            graphPath.style.stroke = '#8b5cf6';
+                            graphPath.style.filter = 'drop-shadow(0 0 8px #8b5cf6)';
+                            graphFill.setAttribute('fill', 'rgba(139, 92, 246, 0.15)');
                             profitText.classList.remove('show');
                             
                             autoStartTimeout = setTimeout(() => {
