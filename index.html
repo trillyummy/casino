@@ -263,6 +263,8 @@
         .modal-title { font-size: 14px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 12px; }
         .tariff-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(255,255,255,0.05); border-radius: var(--radius-sm); margin-bottom: 6px; cursor: pointer; border: 1px solid transparent;}
         .tariff-item.active { border-color: var(--purple); background: rgba(139, 92, 246, 0.1); }
+        .tariff-item h4 { font-size: 12px; font-weight: 800; color: var(--text); margin-bottom: 2px;}
+        .tariff-item p { font-size: 9px; color: var(--text-muted); font-weight: 600;}
         .search-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 10; display: none; flex-direction: column; align-items: center; justify-content: center; border-radius: var(--radius-lg); gap: 12px;}
         .search-overlay.active { display: flex; }
         .spinner { width: 30px; height: 30px; border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid var(--purple); border-radius: 50%; animation: spin 1s linear infinite; }
@@ -287,8 +289,8 @@
         .auction-info p { font-size: 10px; color: var(--text-muted); font-weight: 600;}
         .auction-timer { font-size: 11px; font-weight: 800; color: var(--danger); background: rgba(239,68,68,0.15); padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(239,68,68,0.3);}
         .auction-bottom { display: flex; justify-content: space-between; align-items: center; }
-        .auction-price { font-size: 16px; font-weight: 900; color: var(--success); }
-        .auction-seller { font-size: 9px; color: var(--text-muted); font-weight: 600; margin-top: 2px;}
+        .auction-price { font-size: 18px; font-weight: 900; color: #34d399; text-shadow: 0 0 15px rgba(16,185,129,0.6); padding: 4px 10px; background: rgba(16,185,129,0.15); border-radius: 8px; display: inline-block; }
+        .auction-seller { font-size: 9px; color: var(--text-muted); font-weight: 600; margin-top: 6px;}
         .auction-buy { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; border-radius: 8px; padding: 10px 15px; font-weight: 800; font-size: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(16,185,129,0.3);}
         .auction-remove { background: rgba(239,68,68,0.15); color: var(--danger); border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 8px 12px; font-weight: 800; font-size: 11px; cursor: pointer; }
         .time-options, .price-options { display: flex; gap: 8px; margin-bottom: 15px; }
@@ -296,7 +298,6 @@
         .time-btn.active, .price-btn.active { background: linear-gradient(135deg, #8b5cf6, #6d28d9); border-color: transparent; box-shadow: 0 0 15px rgba(139,92,246,0.5); }
         .price-input { width: 100%; background: #000; border: 1px solid rgba(139,92,246,0.3); border-radius: 10px; padding: 12px; color: white; font-size: 16px; font-weight: 900; text-align: center; margin-bottom: 15px; outline: none;}
 
-        /* КРАСОЧНОСТЬ */
         .screen.active { background: radial-gradient(ellipse at top, rgba(139,92,246,0.06), transparent 60%); }
         .profile-card { transition: border-color 0.3s, box-shadow 0.3s; }
         .profile-card:hover { border-color: rgba(139,92,246,0.35); box-shadow: 0 0 25px rgba(139,92,246,0.15); }
@@ -329,6 +330,7 @@
             <div id="auctionItemInfo" style="text-align: center; margin-bottom: 15px;">
                 <div style="font-size: 18px; font-weight: 900; color: #c4b5fd;" id="auctionNumberDisplay">+7 999 000-00-00</div>
                 <div style="font-size: 11px; color: var(--text-muted);" id="auctionRarityDisplay">Обычный</div>
+                <div style="font-size:13px;color:#34d399;font-weight:800;margin-top:5px;" id="auctionPricePreview">Базовая цена: 0 🪙</div>
             </div>
             <div style="font-size: 12px; font-weight: 800; color: #c4b5fd; margin-bottom: 8px;">Время лота:</div>
             <div class="time-options">
@@ -779,10 +781,15 @@
     <div class="modal-overlay" id="tariffModal">
         <div class="bottom-sheet">
             <div class="modal-title">Выбор Архива</div>
-            <div class="tariff-item active" onclick="selectTier('grey', this, 500)"><div><h4>Серый рынок</h4></div><div style="color:#c4b5fd;">500 🪙</div></div>
-            <div class="tariff-item" onclick="selectTier('hacker', this, 2500)"><div><h4>Хакерский взлом</h4></div><div style="color:#c4b5fd;">2 500 🪙</div></div>
-            <div class="tariff-item" onclick="selectTier('vip', this, 10000)"><div><h4>VIP-связь</h4></div><div style="color:#c4b5fd;">10 000 🪙</div></div>
-            <div class="tariff-item" onclick="selectTier('gov', this, 50000)"><div><h4>Правительственный</h4></div><div style="color:#c4b5fd;">50 000 🪙</div></div>
+            <div class="tariff-item active" onclick="selectTier('grey', this, 500)"><div><h4>Серый рынок</h4><p>шанс на топ: 0.05%</p></div><div style="color:#c4b5fd;">500 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('hacker', this, 2500)"><div><h4>Хакерский взлом</h4><p>шанс на топ: 0.2%</p></div><div style="color:#c4b5fd;">2 500 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('vip', this, 10000)"><div><h4>VIP-связь</h4><p>шанс на топ: 0.5%</p></div><div style="color:#c4b5fd;">10 000 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('gov', this, 50000)"><div><h4>Правительственный</h4><p>шанс на топ: 2.5%</p></div><div style="color:#c4b5fd;">50 000 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('casino', this, 200000)"><div><h4>Казино-слив</h4><p>шанс на топ: 2%</p></div><div style="color:#c4b5fd;">200 000 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('premium', this, 1000000)"><div><h4>Премиум-слив</h4><p>шанс на топ: 5%</p></div><div style="color:#c4b5fd;">1 000 000 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('elite', this, 5000000)"><div><h4>Элитный слив</h4><p>шанс на топ: 7%</p></div><div style="color:#c4b5fd;">5 000 000 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('legendary', this, 25000000)"><div><h4>Легендарный слив</h4><p>шанс на топ: 15%</p></div><div style="color:#c4b5fd;">25 000 000 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('mythic', this, 100000000)"><div><h4>Мифический слив</h4><p>шанс на топ: 30%</p></div><div style="color:#c4b5fd;">100 000 000 🪙</div></div>
             <button class="btn-main" style="margin-top: 12px; background: rgba(255,255,255,0.1); box-shadow: none;" onclick="closeTariffModal()">Закрыть</button>
         </div>
     </div>
@@ -813,7 +820,7 @@
         }
         const myId = tg.initDataUnsafe?.user?.id || Math.floor(Math.random() * 1000000000);
 
-        // === СИНХРОНИЗАЦИЯ БАЛАНСА С FIREBASE (ИСПРАВЛЕНО) ===
+        // === СИНХРОНИЗАЦИЯ БАЛАНСА С FIREBASE ===
         let balance = 0;
         let balanceReady = false;
         let localOpLock = 0;
@@ -825,31 +832,29 @@
                     document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:50px; font-family:sans-serif;'>ВЫ ЗАБАНЕНЫ</h1>";
                     return;
                 }
-                // ВСЕГДА берём актуальное значение с сервера
                 const serverBalance = (typeof data.balance === 'number') ? data.balance : 5000;
-                if (Date.now() > localOpLock) {
-                    balance = serverBalance;
-                }
+                if (Date.now() > localOpLock) balance = serverBalance;
                 balanceReady = true;
             } else {
-                // Первый заход — создаём запись
-                set(ref(db, 'users/' + myId), {
-                    balance: 5000,
-                    banned: false,
-                    name: currentUserName
-                });
+                set(ref(db, 'users/' + myId), { balance: 5000, banned: false, name: currentUserName });
                 balance = 5000;
                 balanceReady = true;
             }
             if (typeof updateUI === 'function') updateUI();
         });
 
-        // Единая точка сохранения баланса — вызывать ТОЛЬКО после реального изменения
         function saveBalance() {
             if (!myId) return;
             localOpLock = Date.now() + 1500;
             update(ref(db, 'users/' + myId), { balance: balance });
         }
+
+        // === ПРОМОКОДЫ ИЗ FIREBASE ===
+        let usedPromos = JSON.parse(localStorage.getItem('used_promos')) || [];
+        let promoCodesCache = {};
+        onValue(ref(db, 'promocodes'), (snap) => {
+            promoCodesCache = snap.val() || {};
+        });
 
         let starsBalance = parseInt(localStorage.getItem('stars_balance')) || 0;
         let inventory = JSON.parse(localStorage.getItem('casino_inventory')) || [];
@@ -892,9 +897,6 @@
         let unsubGame = null;
         let currentGameData = null;
 
-        const promoCodes = { "SIMCITY": 100000, "LUCKY": 50000, "CASINO": 25000 };
-        let usedPromos = JSON.parse(localStorage.getItem('used_promos')) || [];
-
         let auctionUnsub = null;
         let auctionItemIndex = -1;
         let auctionTime = 1;
@@ -906,13 +908,28 @@
             return 30 * 50 + 30 * 150 + (level - 60) * 300; 
         }
 
+        // === НОВЫЕ ЖЁСТКИЕ ШАНСЫ ===
         const tierChances = {
-            grey: { Обычный: 60, Необычный: 25, Редкий: 10, Эпический: 4, Легендарный: 0.9, Мифический: 0.1 },
-            hacker: { Обычный: 30, Необычный: 40, Редкий: 20, Эпический: 8, Легендарный: 1.8, Мифический: 0.2 },
-            vip: { Обычный: 0, Необычный: 30, Редкий: 40, Эпический: 20, Легендарный: 8, Мифический: 2 },
-            gov: { Обычный: 0, Необычный: 0, Редкий: 0, Эпический: 70, Легендарный: 29.81, Мифический: 0.19 }
+            grey:     { Обычный: 78, Необычный: 18, Редкий: 3.5, Эпический: 0.45, Легендарный: 0.045, Мифический: 0.005 },
+            hacker:   { Обычный: 55, Необычный: 35, Редкий: 8, Эпический: 1.8, Легендарный: 0.18, Мифический: 0.02 },
+            vip:      { Обычный: 30, Необычный: 45, Редкий: 20, Эпический: 4.5, Легендарный: 0.48, Мифический: 0.02 },
+            gov:      { Обычный: 0, Необычный: 35, Редкий: 45, Эпический: 17.5, Легендарный: 2.3, Мифический: 0.2 },
+            casino:   { Обычный: 20, Необычный: 30, Редкий: 35, Эпический: 13, Легендарный: 1.7, Мифический: 0.3 },
+            premium:  { Обычный: 0, Необычный: 20, Редкий: 50, Эпический: 25, Легендарный: 4.5, Мифический: 0.5 },
+            elite:    { Обычный: 0, Необычный: 10, Редкий: 45, Эпический: 38, Легендарный: 6.5, Мифический: 0.5 },
+            legendary:{ Обычный: 0, Необычный: 0, Редкий: 30, Эпический: 55, Легендарный: 13.5, Мифический: 1.5 },
+            mythic:   { Обычный: 0, Необычный: 0, Редкий: 0, Эпический: 70, Легендарный: 25, Мифический: 5 }
         };
-        const baseRarities = { "Обычный": { color: "#8b92a5", min: 150, max: 300 }, "Необычный": { color: "#10b981", min: 500, max: 1500 }, "Редкий": { color: "#3b82f6", min: 2000, max: 8000 }, "Эпический": { color: "#8b5cf6", min: 10000, max: 50000 }, "Легендарный": { color: "#f97316", min: 50000, max: 250000 }, "Мифический": { color: "#ef4444", min: 500000, max: 5000000 } };
+
+        // === НОВАЯ ЭКОНОМИКА (в минус) ===
+        const baseRarities = {
+            "Обычный":    { color: "#8b92a5", min: 80,   max: 200 },
+            "Необычный":  { color: "#10b981", min: 250,  max: 800 },
+            "Редкий":     { color: "#3b82f6", min: 1200, max: 4000 },
+            "Эпический":  { color: "#8b5cf6", min: 5000, max: 20000 },
+            "Легендарный":{ color: "#f97316", min: 25000,max: 80000 },
+            "Мифический": { color: "#ef4444", min: 150000,max: 1500000 }
+        };
 
         const vipLots = [
             { id: 'vip_1', title: 'Топ-Секретный (3 цифры)', badge: 'TIER 1', desc: 'Мифический номер. Только 3 цифры. Цена от 100 млн до 1 млрд.', features: ['3 цифры', 'Мифический', 'Цена: 100 млн - 1 млрд'], starsCost: 250, btnClass: 'mythic' },
@@ -956,8 +973,6 @@
             document.getElementById('bigCost').innerText = `Ур. ${skills.big} / 3`;
             document.getElementById('strongCost').innerText = `Ур. ${skills.strong} / 3`;
             document.getElementById('tradeCost').innerText = `Ур. ${skills.trade} / 5`;
-
-            // ВАЖНО: запись баланса здесь УБРАНА. Баланс сохраняется только через saveBalance()
 
             localStorage.setItem('casino_inventory', JSON.stringify(inventory));
             localStorage.setItem('stat_opened', statOpened);
@@ -1013,6 +1028,7 @@
             updateUI();
         }
 
+        // === АУКЦИОН ===
         function loadAuction() {
             if (auctionUnsub) auctionUnsub();
             const auctionRef = ref(db, 'auction');
@@ -1122,6 +1138,7 @@
             const item = inventory[index];
             document.getElementById('auctionNumberDisplay').innerText = item.number;
             document.getElementById('auctionRarityDisplay').innerText = item.rarity;
+            document.getElementById('auctionPricePreview').innerText = `Базовая цена: ${item.price.toLocaleString('ru-RU')} 🪙`;
             document.getElementById('auctionModal').classList.add('active');
             auctionTime = 1;
             auctionPriceMode = 'min';
@@ -1144,11 +1161,14 @@
             auctionPriceMode = mode;
             document.querySelectorAll('.price-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            if (mode === 'custom') {
-                document.getElementById('customPriceBlock').style.display = 'block';
-            } else {
-                document.getElementById('customPriceBlock').style.display = 'none';
+            const prev = document.getElementById('auctionPricePreview');
+            if (prev && auctionItemIndex >= 0) {
+                let base = inventory[auctionItemIndex].price;
+                let p = mode === 'x2' ? base*2 : mode === 'x10' ? base*10 : base;
+                prev.innerText = `Цена лота: ${p.toLocaleString('ru-RU')} 🪙`;
             }
+            if (mode === 'custom') document.getElementById('customPriceBlock').style.display = 'block';
+            else document.getElementById('customPriceBlock').style.display = 'none';
         }
 
         window.confirmAuctionList = function() {
@@ -1185,6 +1205,7 @@
             showToast('Лот выставлен на аукцион!', '🔨');
         }
 
+        // === КОЛЕСО ===
         function initWheel() {
             const wheel = document.getElementById('fortuneWheel');
             if (!wheel) return;
@@ -1343,7 +1364,7 @@
             let chances = tierChances[currentTier.key];
             list.innerHTML = Object.entries(chances).map(([name, chance]) => `
                 <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px;">
-                    <span style="color: ${baseRarities[name].color};">${name}</span><span>${chance.toFixed(2)}%</span>
+                    <span style="color: ${baseRarities[name].color};">${name}</span><span>${chance.toFixed(3)}%</span>
                 </div>
             `).join('');
         }
@@ -1509,17 +1530,36 @@
             showToast(`Скупщик заплатил ${totalWithBonus.toLocaleString('ru-RU')} 🪙 (+20% + бонус)`, '🤑'); 
         }
 
-        window.activatePromo = function() {
-            let input = document.getElementById('promoInput').value.trim().toUpperCase(); if (!input) return;
+        // === ПРОМОКОДЫ ИЗ FIREBASE ===
+        window.activatePromo = async function() {
+            let input = document.getElementById('promoInput').value.trim().toUpperCase();
+            if (!input) return;
             if (usedPromos.includes(input)) return showToast('Ты уже использовал этот код!', '❌');
-            if (promoCodes[input]) { 
-                balance += promoCodes[input]; 
+
+            const promoRef = ref(db, 'promocodes/' + input);
+            try {
+                const snap = await get(promoRef);
+                const promo = snap.val();
+
+                if (!promo || promo.active === false) return showToast('Неверный или неактивный промокод', '❌');
+                if (promo.usesLeft !== undefined && promo.usesLeft <= 0) return showToast('Промокод закончился', '❌');
+
+                const reward = Number(promo.reward) || 0;
+                if (reward <= 0) return showToast('Ошибка промокода', '❌');
+
+                balance += reward;
                 saveBalance();
-                usedPromos.push(input); updateUI(); 
-                document.getElementById('promoInput').value = ''; 
-                showToast(`Промокод активирован! +${promoCodes[input].toLocaleString('ru-RU')} 🪙`, '🎁'); 
-            } 
-            else { showToast('Неверный промокод', '❌'); }
+                usedPromos.push(input);
+                updateUI();
+                document.getElementById('promoInput').value = '';
+
+                if (promo.usesLeft !== undefined) {
+                    await update(promoRef, { usesLeft: Math.max(0, promo.usesLeft - 1) });
+                }
+                showToast(`Промокод активирован! +${reward.toLocaleString('ru-RU')} 🪙`, '🎁');
+            } catch (e) {
+                showToast('Ошибка сети: ' + e.message, '❌');
+            }
         }
 
         window.renderBattlePass = function() {
