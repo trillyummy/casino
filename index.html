@@ -113,7 +113,8 @@
         }
         .sim-slot-machine { display: none; flex-direction: column; width: 100%; }
         .sim-slot-machine.show { display: flex; }
-        .slot-number { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.5px; white-space: nowrap; }
+        /* Уменьшен шрифт, чтобы +000... влезало */
+        .slot-number { font-family: 'Montserrat', sans-serif; font-size: 21px; font-weight: 700; color: #fff; letter-spacing: -0.5px; white-space: nowrap; }
 
         /* РЕЗУЛЬТАТ ПОД КАРТОЙ (Для обычных) */
         .result-under-card {
@@ -137,13 +138,13 @@
 
         .dim-zero { color: rgba(255,255,255,0.25); }
 
-        /* СЛОТЫ ДЛЯ x5 (Только редкость и цена) */
-        .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; max-width: 340px; margin-top: 10px; }
+        /* СЛОТЫ ДЛЯ x5 (Уменьшены шрифты, чтобы не вылезали) */
+        .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 4px; width: 100%; max-width: 340px; margin-top: 10px; }
         .sim-x5-grid.show { display: grid; }
-        .sim-x5-item { background: #0a0a0a; border-radius: 10px; border: 1px solid var(--border); padding: 8px 4px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 60px; overflow: hidden;}
+        .sim-x5-item { background: #0a0a0a; border-radius: 8px; border: 1px solid var(--border); padding: 6px 2px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 55px; overflow: hidden;}
         
-        .sim-x5-item .rarity-text { font-size: 12px; font-weight: 900; margin-bottom: 2px; text-transform: uppercase; }
-        .sim-x5-item .price-text { font-size: 9px; font-weight: 600; color: #aaa; }
+        .sim-x5-item .rarity-text { font-size: 9px; font-weight: 900; margin-bottom: 2px; text-transform: uppercase; white-space: nowrap; }
+        .sim-x5-item .price-text { font-size: 8px; font-weight: 600; color: #aaa; white-space: nowrap;}
         
         .sim-x5-item.rolling .rarity-text { animation: slotRoll 0.1s linear infinite; color: #fff; }
         @keyframes slotRoll { 0% { transform: translateY(0); } 50% { transform: translateY(-2px); opacity: 0.7;} 100% { transform: translateY(0); } }
@@ -401,7 +402,7 @@
 <body>
     <div class="toast-container" id="toast"><span class="toast-icon">🎉</span><span id="toastText">Уведомление</span></div>
 
-    <!-- ЭКРАН ВЫПАДЕНИЯ ТОПОВОГО НОМЕРА (ОБНОВЛЕН ПОД СКРИН) -->
+    <!-- ЭКРАН ВЫПАДЕНИЯ ТОПОВОГО НОМЕРА -->
     <div class="rare-screen-overlay" id="rareOverlay">
         <div class="rare-card" id="rareCard">
             <div class="rare-chip"><div class="rare-chip-inner"></div></div>
@@ -973,14 +974,14 @@
 
         const operators = [
             { code: "any", name: "Любой", icon: "✈️", color: "#fff" },
-            { code: "clara", name: "Clara", icon: "🔴", color: "#ff4444" }, // Добавлен оператор для Бразилии как на скрине
+            { code: "clara", name: "Clara", icon: "🔴", color: "#ff4444" },
             { code: "beeline", name: "Билайн", icon: "🟡", color: "#fbbf24" },
             { code: "mts", name: "МТС", icon: "🔴", color: "#ef4444" },
             { code: "megafon", name: "Мегафон", icon: "🟢", color: "#10b981" },
             { code: "tele2", name: "Tele2", icon: "⚫", color: "#000" }
         ];
 
-        // НОВАЯ ФУНКЦИЯ: Красивое отображение нулей с префиксом
+        // ОБНОВЛЕНО: Правильное отображение нулей при смене роуминга
         function updateRoamingDisplay() {
             let btnText = currentCountry.code === 'any' ? '🌍 Любая' : currentCountry.flag;
             if (currentOperator.code !== 'any') btnText = currentOperator.icon + ' ' + currentOperator.name;
@@ -995,14 +996,10 @@
             document.getElementById('simBrandName').innerText = brandName;
             document.getElementById('simBrandCountry').innerText = brandCountry;
 
-            // Формируем красивый номер, как на 2 скрине
+            // Ставим правильный префикс и нули
             let prefix = currentCountry.prefix > 0 ? '+' + currentCountry.prefix : '+0';
-            
-            // Если это Бразилия (как на скрине), делаем специфичный формат
             let zeroPattern = "000 000-00-00";
-            if(currentCountry.prefix === 55) zeroPattern = "(51) 00000-0000";
-            if(currentCountry.prefix === 1) zeroPattern = "(555) 000-0000";
-
+            
             let formattedNumber = `<span>${prefix}</span> <span class="dim-zero">${zeroPattern}</span>`;
             document.getElementById('simSlotNumber').innerHTML = formattedNumber;
         }
@@ -1407,7 +1404,6 @@
                 p3 = Math.floor(Math.random() * 90) + 10;
             }
 
-            // Форматирование под скрин (Бразилия)
             if(code === 55) {
                 return `+55 (${Math.floor(Math.random()*90)+10}) 9${p1.toString().substring(0,4)}-${p2.toString().substring(0,4)}`;
             }
@@ -1446,13 +1442,11 @@
             document.getElementById('rareOverlay').classList.remove('active');
         }
 
-        // ОБНОВЛЕННАЯ ФУНКЦИЯ ДЛЯ ПОКАЗА ТОПОВОГО ЭКРАНА (КАК НА СКРИНЕ 1)
         function showRareScreen(number, price, rarity) {
             let overlay = document.getElementById('rareOverlay');
             
             overlay.className = 'rare-screen-overlay';
             
-            // Настраиваем цвета в зависимости от редкости
             if (rarity === 'Мифический') {
                 overlay.classList.add('mythic');
                 document.getElementById('rareTitleDisplay').className = 'rare-bottom-title color-Мифический';
@@ -1463,7 +1457,6 @@
                 document.getElementById('rareNumberDisplay').className = 'rare-number-text color-Легендарный';
             }
 
-            // Настраиваем бренд
             let brandIcon = currentOperator.code === 'any' ? currentCountry.flag : currentOperator.icon;
             let brandName = currentOperator.code === 'any' ? 'Циферки' : currentOperator.name;
             let brandCountry = currentCountry.flag + ' ' + currentCountry.name;
@@ -1472,7 +1465,6 @@
             document.getElementById('rareBrandName').innerText = brandName;
             document.getElementById('rareBrandCountry').innerText = brandCountry;
 
-            // Сам номер и подписи
             document.getElementById('rareNumberDisplay').innerText = number;
             document.getElementById('rareTitleDisplay').innerText = rarity;
             document.getElementById('rarePriceDisplay').innerText = `№ 1 из 5, оценка ${price.toLocaleString('ru-RU')}`;
@@ -1588,7 +1580,8 @@
                 document.getElementById('simSlotMachine').classList.add('show');
                 let spinTicks = 0;
                 let rollingNumber = document.getElementById('simSlotNumber');
-                let prefixHTML = `<span>+${currentCountry.prefix || 0}</span>`;
+                // ТУТ ПРЕФИКС СТОИТ НА МЕСТЕ, А КРУТЯТСЯ ТОЛЬКО ЦИФРЫ
+                let prefixHTML = `<span>+${currentCountry.prefix || 0}</span>`; 
                 
                 let interval = setInterval(() => {
                     let p1 = Math.floor(Math.random() * 900) + 100;
@@ -1711,6 +1704,12 @@
                 balance += totalSold;
                 saveBalance();
                 
+                // ОБНОВЛЕНО: Теперь при x5 тоже вылезает красивый экран, если выпал топ
+                let topResult = results.find(r => r.rarity === 'Мифический') || results.find(r => r.rarity === 'Легендарный');
+                if (topResult && mythicAnimEnabled) {
+                    showRareScreen(topResult.number, topResult.price, topResult.rarity);
+                }
+
                 let grid = document.getElementById('simX5Grid'); 
                 grid.innerHTML = results.map(item => `
                     <div class="sim-x5-item" style="border-left: 2px solid ${baseRarities[item.rarity].color}">
@@ -2480,7 +2479,7 @@
         updateUI();
         renderRoaming();
         renderVipShop();
-        updateRoamingDisplay(); // Вызываем при старте, чтобы сразу были нули с префиксом
+        updateRoamingDisplay();
     </script>
 </body>
 </html>
