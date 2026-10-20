@@ -34,10 +34,13 @@
         .toast-container { position: fixed; top: -50px; left: 50%; transform: translateX(-50%); z-index: 10000; transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; align-items: center; gap: 6px; background: #111; color: white; padding: 10px 16px; border-radius: 20px; font-size: 11px; font-weight: 700; border: 1px solid var(--border-bright); box-shadow: 0 4px 20px rgba(255,255,255,0.1); white-space: nowrap; max-width: 90%; overflow: hidden; text-overflow: ellipsis;}
         .toast-container.show { top: 15px; }
 
-        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; backdrop-filter: blur(8px); }
+        /* ИСПРАВЛЕНО: Убран эффект "прыжка", теперь просто плавное появление снизу */
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(8px); }
         .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
-        .sidebar { position: fixed; bottom: -100%; left: 0; right: 0; width: 100%; max-width: 500px; margin: 0 auto; height: 80vh; background: #050505; border-top: 1px solid var(--border-bright); border-radius: 24px 24px 0 0; z-index: 999; display: flex; flex-direction: column; transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1); overflow-y: auto; }
+        
+        .sidebar { position: fixed; bottom: -100%; left: 0; right: 0; width: 100%; max-width: 500px; margin: 0 auto; height: 80vh; background: #050505; border-top: 1px solid var(--border-bright); border-radius: 24px 24px 0 0; z-index: 999; display: flex; flex-direction: column; transition: bottom 0.3s ease-out; overflow-y: auto; }
         .sidebar.active { bottom: 0; }
+        
         .swipe-bar { width: 40px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; margin: 12px auto 15px auto; flex-shrink: 0;}
         .menu-content { padding: 0 15px 30px 15px; display: flex; flex-direction: column; gap: 10px; }
         .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
@@ -106,7 +109,6 @@
         }
         .sim-chip-inner div { background: #fcd34d; border: 1px solid #b45309; }
 
-        /* Область анимации ВНУТРИ карты */
         .sim-display-area { 
             text-align: left; display: flex; flex-direction: column; justify-content: flex-end; 
             width: 100%; margin-top: 15px; min-height: 40px; position: relative;
@@ -115,7 +117,6 @@
         .sim-slot-machine.show { display: flex; }
         .slot-number { font-family: 'Montserrat', sans-serif; font-size: 21px; font-weight: 700; color: #fff; letter-spacing: -0.5px; white-space: nowrap; }
 
-        /* РЕЗУЛЬТАТ ПОД КАРТОЙ (Для обычных) */
         .result-under-card {
             width: 100%; max-width: 340px; display: none; flex-direction: column; align-items: center; margin-bottom: 15px;
         }
@@ -137,7 +138,6 @@
 
         .dim-zero { color: rgba(255,255,255,0.25); }
 
-        /* СЛОТЫ ДЛЯ x5 */
         .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 4px; width: 100%; max-width: 340px; margin-top: 10px; }
         .sim-x5-grid.show { display: grid; }
         .sim-x5-item { background: #0a0a0a; border-radius: 8px; border: 1px solid var(--border); padding: 6px 2px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 55px; overflow: hidden;}
@@ -205,7 +205,6 @@
         }
         .rare-btn-continue:active { transform: scale(0.95); background: #333; }
 
-        /* Остальной CSS */
         .sim-controls-bottom { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: auto; max-width: 340px; }
         .sim-top-row { display: flex; gap: 10px; align-items: stretch; width: 100%; }
         .btn-archive { flex: 1; background: #0a0a0a; color: #fff; border: 1px solid var(--border-bright); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; justify-content: center; cursor: pointer; transition: 0.2s; }
@@ -223,7 +222,6 @@
         .btn-x5 { background: #000; color: #fff; border: 1px solid var(--border-bright); flex: 0.4; }
         .btn-x5.active { background: #fff; color: #000; }
 
-        /* ОСТАЛЬНЫЕ ЭКРАНЫ */
         .games-container { background: #0a0a0a; border-radius: var(--radius-lg); border: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; height: 100%; max-height: 600px; width: 100%;}
         .game-tabs { display: flex; background: #000; border-bottom: 1px solid var(--border); overflow-x: auto;}
         .game-tab { flex: 1; padding: 12px 8px; text-align: center; font-size: 11px; font-weight: 800; color: #888; cursor: pointer; white-space: nowrap; transition: 0.2s; border-bottom: 2px solid transparent;}
@@ -340,13 +338,48 @@
         .bp-card p { font-size: 10px; color: var(--text-muted); font-weight: 600;}
         .bp-reward { text-align: right; }
         .bp-list-container { max-height: 55vh; overflow-y: auto; padding-right: 5px; }
+
+        /* ОБНОВЛЕННАЯ КОЛЛЕКЦИЯ (КАК НА СКРИНШОТАХ) */
         .inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 0 5px;}
         .btn-sell-all { background: #fff; color: #000; border: none; border-radius: var(--radius-sm); padding: 6px 12px; font-size: 10px; font-weight: 800; cursor: pointer; text-transform: uppercase;}
-        .inventory-item { background: #0a0a0a; border-radius: var(--radius-sm); padding: 12px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; border-left: 3px solid #fff; border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .inv-info h4 { font-size: 14px; margin-bottom: 2px; font-weight: 800; letter-spacing: 1px; color: #fff; }
-        .inv-info p { font-size: 9px; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;}
-        .btn-sell { background: #111; color: #fff; border: 1px solid var(--border-bright); padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 10px; margin-top: 4px; cursor: pointer; text-transform: uppercase; }
-        .btn-edit { background: #111; color: #fff; border: 1px solid var(--border-bright); padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 10px; margin-top: 4px; cursor: pointer; text-transform: uppercase; }
+        
+        .inv-filters { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 10px; scrollbar-width: none; }
+        .inv-filters::-webkit-scrollbar { display: none; }
+        .inv-filter-btn { padding: 8px 12px; border-radius: 20px; background: #111; border: 1px solid var(--border); color: #aaa; font-size: 11px; font-weight: 700; white-space: nowrap; cursor: pointer; transition: 0.2s; }
+        .inv-filter-btn.active { background: #fff; color: #000; border-color: #fff; }
+
+        .inv-grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-bottom: 20px; }
+        
+        .inv-card {
+            background: #151515; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);
+            padding: 12px; display: flex; flex-direction: column; position: relative;
+            background-image: repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 20px);
+            overflow: hidden;
+        }
+        
+        .inv-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+        .inv-brand { display: flex; align-items: center; gap: 4px; }
+        .inv-brand-icon { width: 16px; height: 16px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 10px; }
+        .inv-brand-name { font-size: 10px; font-weight: 800; color: #fff; }
+        
+        .inv-chip {
+            width: 32px; height: 24px; border: 1px solid rgba(255,255,255,0.3); border-radius: 3px;
+            border-top-right-radius: 0; display: flex; justify-content: center; align-items: center; position: relative;
+        }
+        .inv-chip::before { content: ''; position: absolute; top: -1px; right: -6px; width: 6px; height: 1px; background: rgba(255,255,255,0.3); }
+        .inv-chip::after { content: ''; position: absolute; top: -6px; right: -1px; width: 1px; height: 6px; background: rgba(255,255,255,0.3); }
+        .inv-chip-inner { width: 20px; height: 14px; background: linear-gradient(135deg, #fcd34d, #d97706); border-radius: 2px; border: 1px solid #000; }
+        
+        .inv-number { font-size: 13px; font-weight: 800; margin-bottom: 8px; white-space: nowrap; text-align: left; }
+        
+        .inv-card-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+        .inv-rarity-text { font-size: 10px; font-weight: 800; text-transform: uppercase; }
+        .inv-price-text { font-size: 10px; font-weight: 700; color: #fff; }
+        
+        .inv-actions { display: flex; gap: 4px; margin-top: 10px; }
+        .btn-inv-act { flex: 1; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: #fff; font-size: 9px; font-weight: 700; padding: 6px 0; cursor: pointer; text-transform: uppercase; transition: 0.2s; }
+        .btn-inv-act:active { background: rgba(255,255,255,0.25); }
+
         .profile-layout { display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px;}
         .profile-card { background: #0a0a0a; border-radius: var(--radius-lg); padding: 15px; border: 1px solid var(--border);}
         .avatar { width: 60px; height: 60px; border-radius: 50%; background: #111; border: 2px solid #fff; display: flex; justify-content: center; align-items: center; font-size: 24px; margin: 0 auto 8px auto; overflow: hidden;}
@@ -358,7 +391,7 @@
         .stat-box strong { font-size: 14px; font-weight: 900; color: #fff; }
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(5px); z-index: 9998; display: flex; justify-content: center; align-items: flex-end; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .bottom-sheet { width: 100%; max-width: 500px; background: #050505; border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 20px 15px; transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1); max-height: 85vh; overflow-y: auto; border-top: 1px solid var(--border-bright); }
+        .bottom-sheet { width: 100%; max-width: 500px; background: #050505; border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 20px 15px; transform: translateY(100%); transition: transform 0.3s ease-out; max-height: 85vh; overflow-y: auto; border-top: 1px solid var(--border-bright); }
         .modal-overlay.active .bottom-sheet { transform: translateY(0); }
         .modal-title { font-size: 15px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 15px; color: #fff;}
         .tariff-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #0a0a0a; border-radius: var(--radius-sm); margin-bottom: 8px; cursor: pointer; border: 1px solid var(--border);}
@@ -401,7 +434,6 @@
 <body>
     <div class="toast-container" id="toast"><span class="toast-icon">🎉</span><span id="toastText">Уведомление</span></div>
 
-    <!-- ЭКРАН ВЫПАДЕНИЯ ТОПОВОГО НОМЕРА (Добавлен onclick для закрытия) -->
     <div class="rare-screen-overlay" id="rareOverlay" onclick="closeRareScreen(event)">
         <div class="rare-card" id="rareCard">
             <div class="rare-chip"><div class="rare-chip-inner"></div></div>
@@ -815,9 +847,24 @@
         </div>
     </div>
 
+    <!-- НОВАЯ КОЛЛЕКЦИЯ -->
     <div id="screen-inventory" class="screen">
-        <div class="inventory-header"><h2 style="font-weight: 900; text-transform: uppercase; font-size: 16px;">Твоя База</h2><button class="btn-sell-all" onclick="sellAllNumbers()">Продать всё</button></div>
-        <div id="inventoryList" style="padding-bottom: 15px;"></div>
+        <div class="inventory-header">
+            <h2 style="font-weight: 900; text-transform: uppercase; font-size: 16px;">Коллекция</h2>
+            <button class="btn-sell-all" onclick="sellAllNumbers()">Продать всё</button>
+        </div>
+        
+        <div class="inv-filters" id="invFilters">
+            <div class="inv-filter-btn active" onclick="filterInventory('Все', this)">Все</div>
+            <div class="inv-filter-btn" onclick="filterInventory('Обычный', this)">Обычные</div>
+            <div class="inv-filter-btn" onclick="filterInventory('Необычный', this)">Необычные</div>
+            <div class="inv-filter-btn" onclick="filterInventory('Редкий', this)">Редкие</div>
+            <div class="inv-filter-btn" onclick="filterInventory('Эпический', this)">Эпические</div>
+            <div class="inv-filter-btn" onclick="filterInventory('Легендарный', this)">Легендарные</div>
+            <div class="inv-filter-btn" onclick="filterInventory('Мифический', this)">Мифические</div>
+        </div>
+
+        <div class="inv-grid-container" id="inventoryList"></div>
     </div>
 
     <div id="screen-profile" class="screen">
@@ -860,7 +907,6 @@
         </div>
     </div>
 
-    <!-- Окно выбора архива (Добавлен onclick для закрытия) -->
     <div class="modal-overlay" id="tariffModal" onclick="closeTariffModal(event)">
         <div class="bottom-sheet">
             <div class="modal-title">Выбор Архива</div>
@@ -877,7 +923,6 @@
         </div>
     </div>
 
-    <!-- Окно выбора роуминга (Добавлен onclick для закрытия) -->
     <div class="modal-overlay" id="roamingModal" onclick="closeRoamingModal(event)">
         <div class="bottom-sheet">
             <div class="modal-title">Роуминг и Оператор</div>
@@ -1433,7 +1478,6 @@
             showToast('Настройки сохранены', '⚙️');
         }
 
-        // Закрытие оверлея только по клику на фон (не на карточку)
         window.closeRareScreen = function(e) {
             if (e && e.target.closest('.rare-card') || e.target.closest('button')) {
                 if(e.target.closest('button')) {
@@ -1475,10 +1519,6 @@
             overlay.classList.add('active');
         }
 
-        function showMythicAnimation(number, price) {
-            showRareScreen(number, price, 'Мифический');
-        }
-
         function renderVipShop() {
             const grid = document.getElementById('vipShopGrid');
             if (!grid) return;
@@ -1505,7 +1545,6 @@
             showToast(`Скин ${skin} куплен!`, '🎨');
         }
 
-        // Закрытие окна архива по клику на фон
         window.openTariffModal = function() { document.getElementById('tariffModal').classList.add('active'); }
         window.closeTariffModal = function(e) {
             if (e && e.target.closest('.bottom-sheet')) {
@@ -1525,7 +1564,6 @@
             closeTariffModal();
         }
 
-        // Закрытие окна роуминга по клику на фон
         window.openRoamingModal = function() { document.getElementById('roamingModal').classList.add('active'); }
         window.closeRoamingModal = function(e) {
             if (e && e.target.closest('.bottom-sheet')) {
@@ -1755,21 +1793,71 @@
             updateUI();
         }
 
+        // ОБНОВЛЕННЫЙ РЕНДЕР КОЛЛЕКЦИИ
+        let currentFilter = 'Все';
+        
+        window.filterInventory = function(rarity, btn) {
+            currentFilter = rarity;
+            document.querySelectorAll('.inv-filter-btn').forEach(b => b.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+            renderInventory();
+        }
+
         function renderInventory() {
             const list = document.getElementById('inventoryList');
-            if (inventory.length === 0) { list.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top:20px;">Твоя база пуста</p>`; return; }
-            list.innerHTML = inventory.map((item, index) => {
+            if (inventory.length === 0) { 
+                list.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top:20px; grid-column: 1 / -1;">Твоя база пуста</p>`; 
+                return; 
+            }
+            
+            let filtered = inventory;
+            if (currentFilter !== 'Все') {
+                filtered = inventory.filter(item => item.rarity === currentFilter);
+            }
+
+            if (filtered.length === 0) {
+                list.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top:20px; grid-column: 1 / -1;">Нет номеров с такой редкостью</p>`;
+                return;
+            }
+            
+            list.innerHTML = filtered.map((item, index) => {
                 let rarityColor = baseRarities[item.rarity]?.color || '#fff';
+                
+                // Берем оператора (если стоит "Любой", ставим рандомного или первого)
+                let op = currentOperator.code === 'any' ? operators[1] : currentOperator; // Clara по умолчанию
+                let brandIcon = op.icon;
+                let brandColor = op.color;
+                let brandName = op.name;
+
+                // Ищем оригинальный индекс в общем массиве для продажи
+                let originalIndex = inventory.indexOf(item);
+                
                 return `
-                <div class="inventory-item" style="border-left-color: ${rarityColor};">
-                    <div class="inv-info">
-                        <h4 style="color: ${rarityColor};">${item.number}</h4><p>${item.rarity}</p>
-                        <button class="btn-sell" onclick="sellItem(${index})">Продать за ${item.price.toLocaleString('ru-RU')} 🪙</button>
-                        <button class="btn-edit" onclick="openAuctionModal(${index})">Аукцион</button>
+                <div class="inv-card">
+                    <div class="inv-card-header">
+                        <div class="inv-brand">
+                            <div class="inv-brand-icon" style="background:${brandColor}; color: #fff;">${brandIcon}</div>
+                            <div class="inv-brand-name">${brandName}</div>
+                        </div>
+                        <div class="inv-chip"><div class="inv-chip-inner"></div></div>
+                    </div>
+                    
+                    <div class="inv-number color-${item.rarity}">${item.number}</div>
+                    
+                    <div class="inv-card-bottom">
+                        <div class="inv-rarity-text" style="color: ${rarityColor};">${item.rarity}</div>
+                        <div class="inv-price-text">${item.price.toLocaleString('ru-RU')}</div>
+                    </div>
+
+                    <div class="inv-actions">
+                        <button class="btn-inv-act" onclick="sellItem(${originalIndex})">Продать</button>
+                        <button class="btn-inv-act" onclick="openAuctionModal(${originalIndex})">Аукцион</button>
                     </div>
                 </div>
-            `}).join('');
+                `;
+            }).join('');
         }
+        
         window.sellItem = function(index) { 
             let bonus = 1 + (skills.trade * 0.03);
             let sellPrice = Math.floor(inventory[index].price * bonus);
