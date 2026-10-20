@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Номера</title>
+    <title>Циферки</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
         :root {
             --bg: #000000; --card: #0a0a0a; --text: #ffffff; --text-muted: #888888;
-            --border: rgba(255,255,255,0.2); --border-bright: rgba(255,255,255,0.6);
+            --border: rgba(255,255,255,0.15); --border-bright: rgba(255,255,255,0.4);
             --radius-lg: 20px; --radius-md: 14px; --radius-sm: 10px;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
@@ -34,17 +34,15 @@
         .toast-container { position: fixed; top: -50px; left: 50%; transform: translateX(-50%); z-index: 10000; transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; align-items: center; gap: 6px; background: #111; color: white; padding: 10px 16px; border-radius: 20px; font-size: 11px; font-weight: 700; border: 1px solid var(--border-bright); box-shadow: 0 4px 20px rgba(255,255,255,0.1); white-space: nowrap; max-width: 90%; overflow: hidden; text-overflow: ellipsis;}
         .toast-container.show { top: 15px; }
 
-        /* ПЛАВНОЕ МЕНЮ */
         .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; backdrop-filter: blur(8px); }
         .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
-        .sidebar { position: fixed; bottom: -100%; left: 0; right: 0; width: 100%; max-width: 500px; margin: 0 auto; height: 80vh; background: #050505; border-top: 1px solid var(--border-bright); border-radius: 24px 24px 0 0; z-index: 999; display: flex; flex-direction: column; transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1); overflow-y: auto; box-shadow: 0 -10px 40px rgba(255,255,255,0.05); }
+        .sidebar { position: fixed; bottom: -100%; left: 0; right: 0; width: 100%; max-width: 500px; margin: 0 auto; height: 80vh; background: #050505; border-top: 1px solid var(--border-bright); border-radius: 24px 24px 0 0; z-index: 999; display: flex; flex-direction: column; transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1); overflow-y: auto; }
         .sidebar.active { bottom: 0; }
         .swipe-bar { width: 40px; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; margin: 12px auto 15px auto; flex-shrink: 0;}
         .menu-content { padding: 0 15px 30px 15px; display: flex; flex-direction: column; gap: 10px; }
         .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         
-        /* Кнопки меню с плавным нажатием */
         .menu-box-btn, .wide-btn, .small-btn { background: #0a0a0a; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s ease; }
         .menu-box-btn { padding: 10px 3px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
         .menu-box-btn:active, .wide-btn:active, .small-btn:active { transform: scale(0.95); border-color: var(--border-bright); background: #1a1a1a; }
@@ -63,43 +61,160 @@
         .screen.active { display: flex; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        #screen-game { justify-content: flex-start; padding-bottom: 20px; }
+        #screen-game { justify-content: flex-start; padding-bottom: 20px; align-items: center; }
         
-        /* ЧЕРНО-БЕЛАЯ КАРТОЧКА */
-        .sim-top-section { background: #0a0a0a; border-radius: 24px; border: 2px solid var(--border-bright); padding: 15px; position: relative; display: flex; flex-direction: column; margin-bottom: 15px; width: 100%; box-shadow: 0 10px 30px rgba(255,255,255,0.05); }
-        .sim-chip { width: 35px; height: 28px; background: #222; border-radius: 6px; position: absolute; top: 12px; left: 12px; border: 1px solid var(--border-bright); display: flex; flex-direction: column; justify-content: space-between; padding: 4px; z-index: 2; }
-        .sim-chip-line { width: 100%; height: 1px; background: rgba(255,255,255,0.3); }
-        .sim-chip-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 2px;}
-        .sim-logo { position: absolute; top: 12px; right: 12px; font-size: 18px; font-weight: 900; color: #fff; letter-spacing: 2px; z-index: 2;}
+        /* СИМ-КАРТА (Маленькая, по центру) */
+        .sim-top-section { 
+            background: #000; 
+            border-radius: 16px; 
+            border: 1px solid #fff;
+            padding: 12px 15px; 
+            position: relative; 
+            display: flex; 
+            flex-direction: column; 
+            margin-bottom: 15px; 
+            width: 100%;
+            max-width: 340px; /* Сделали меньше */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            overflow: hidden;
+            min-height: 140px;
+            justify-content: space-between;
+        }
         
-        .sim-display-area { margin-top: 35px; margin-bottom: 10px; text-align: center; min-height: 140px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 2; width: 100%; }
+        /* Верхняя строка карты: Логотип слева, Чип справа */
+        .sim-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+        }
         
-        .sim-slot-machine { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
+        /* Логотип оператора */
+        .sim-brand {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .sim-brand-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+        }
+        .sim-brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+        .sim-brand-name {
+            font-size: 13px;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.1;
+        }
+        .sim-brand-country {
+            font-size: 9px;
+            color: #aaa;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Золотой чип с белой обводкой */
+        .sim-chip-visual {
+            width: 38px;
+            height: 30px;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-top-right-radius: 0;
+        }
+        .sim-chip-visual::before {
+            content: ''; position: absolute; top: -1px; right: -8px; width: 8px; height: 1px; background: #fff;
+        }
+        .sim-chip-visual::after {
+            content: ''; position: absolute; top: -8px; right: -1px; width: 1px; height: 8px; background: #fff;
+        }
+        .sim-chip-inner {
+            width: 24px;
+            height: 18px;
+            background: linear-gradient(135deg, #fcd34d, #d97706);
+            border-radius: 2px;
+            border: 1px solid #000;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 1px;
+            padding: 2px;
+        }
+        .sim-chip-inner div { background: #fcd34d; border: 1px solid #b45309; }
+
+        /* Номер на карте */
+        .sim-display-area { 
+            text-align: left; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-end; 
+            width: 100%; 
+            margin-top: 15px;
+            min-height: 40px;
+            position: relative;
+        }
+        
+        .sim-slot-machine { display: none; flex-direction: column; width: 100%; }
         .sim-slot-machine.show { display: flex; }
         
-        .slot-window { background: #000; border-radius: 12px; padding: 12px 20px; border: 2px solid var(--border-bright); min-width: 260px; box-shadow: inset 0 0 20px rgba(255,255,255,0.05); }
-        .slot-number { font-family: 'Courier New', monospace; font-size: 26px; font-weight: 900; color: #fff; text-align: center; letter-spacing: 1px; white-space: nowrap; }
+        .slot-number { 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 22px; /* Уменьшили под карту */
+            font-weight: 700; 
+            color: #fff; 
+            letter-spacing: -0.5px; 
+            white-space: nowrap; 
+        }
         
-        .sim-result-box { display: none; flex-direction: column; align-items: center; width: 100%; }
-        .sim-result-box.show { display: flex; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes popIn { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
+        .sim-result-box { display: none; flex-direction: column; align-items: flex-start; width: 100%; }
+        .sim-result-box.show { display: flex; }
         
-        .sim-result-square { width: 180px; height: 160px; background: #0a0a0a; border-radius: 20px; border: 2px solid var(--border-bright); display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 10px; position: relative; }
-        .sim-result-number { font-size: 18px; font-weight: 900; letter-spacing: 1px; color: #fff; margin-bottom: 5px; text-align: center; padding: 0 5px; }
-        .sim-result-rarity { font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; color: #fff;}
-        .sim-result-price { font-size: 14px; font-weight: 600; color: #aaa; letter-spacing: 0.5px; text-align: center; padding: 0 5px; }
+        .sim-result-square { width: 100%; display: flex; flex-direction: column; align-items: flex-start; transition: all 0.3s; }
+        
+        /* ПОДСВЕТКА ТОПОВЫХ НОМЕРОВ */
+        .sim-result-square.glow-epic { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+        .sim-result-square.glow-legendary { text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4); }
+        .sim-result-square.glow-mythic { 
+            text-shadow: 0 0 20px #fff, 0 0 40px #fff, 0 0 60px #fff; 
+            animation: pulseMythic 1.5s infinite;
+        }
+        @keyframes pulseMythic { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
 
-        .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; margin-top: 5px; }
-        .sim-x5-grid.show { display: grid; animation: popIn 0.5s forwards; }
-        .sim-x5-item { background: #0a0a0a; border-radius: 10px; border: 1px solid var(--border); padding: 5px 2px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 80px; }
-        .sim-x5-item .num { font-size: 9px; font-weight: 800; color: #fff; margin-bottom: 3px; }
-        .sim-x5-item .rar { font-size: 8px; font-weight: 700; text-transform: uppercase; margin-bottom: 3px; color: #aaa;}
+        .sim-result-number { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #fff; margin-bottom: 2px; }
+        .sim-result-rarity { font-size: 9px; font-weight: 700; text-transform: uppercase; margin-bottom: 2px; letter-spacing: 1px; color: #888;}
+        .sim-result-price { font-size: 12px; font-weight: 600; color: #fff; letter-spacing: 0.5px; }
+
+        /* Прозрачные нули */
+        .dim-zero { color: rgba(255,255,255,0.25); }
+
+        /* СЛОТЫ ДЛЯ x5 (Плавная анимация) */
+        .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; margin-top: 15px; }
+        .sim-x5-grid.show { display: grid; }
+        .sim-x5-item { background: #0a0a0a; border-radius: 10px; border: 1px solid var(--border); padding: 5px 2px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 70px; overflow: hidden;}
+        
+        /* Анимация цифр внутри слотов */
+        .sim-x5-item .num { font-size: 9px; font-weight: 800; color: #fff; margin-bottom: 3px; white-space: nowrap; overflow: hidden;}
+        .sim-x5-item.rolling .num { animation: slotRoll 0.1s linear infinite; }
+        @keyframes slotRoll { 0% { transform: translateY(0); } 50% { transform: translateY(-2px); opacity: 0.7;} 100% { transform: translateY(0); } }
+        
+        .sim-x5-item .rar { font-size: 7px; font-weight: 700; text-transform: uppercase; margin-bottom: 3px; color: #aaa;}
         .sim-x5-item .prc { font-size: 8px; font-weight: 600; color: #fff; }
 
-        .sim-controls-bottom { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: auto; }
+        .sim-controls-bottom { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: auto; max-width: 340px; }
         .sim-top-row { display: flex; gap: 10px; align-items: stretch; width: 100%; }
         
-        /* Кнопки Архив и Роуминг */
         .btn-archive { flex: 1; background: #0a0a0a; color: #fff; border: 1px solid var(--border-bright); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; justify-content: center; cursor: pointer; transition: 0.2s; }
         .btn-archive:active { background: #222; transform: scale(0.98); }
         .btn-archive span:first-child { font-size: 10px; color: #888; margin-bottom: 2px; }
@@ -112,15 +227,14 @@
         
         .spin-actions { display: flex; gap: 10px; width: 100%; }
         
-        /* Черно-белая кнопка крутки */
-        .btn-main { background: #fff; color: #000; border: 1px solid #fff; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 800; cursor: pointer; transition: 0.2s; flex: 1; text-transform: uppercase; box-shadow: 0 4px 15px rgba(255,255,255,0.1); }
+        .btn-main { background: #fff; color: #000; border: 1px solid #fff; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 800; cursor: pointer; transition: 0.2s; flex: 1; text-transform: uppercase; }
         .btn-main:active { transform: scale(0.96); background: #ddd; }
-        .btn-main:disabled { background: #222; color: #555; border-color: #333; box-shadow: none; transform: none; }
+        .btn-main:disabled { background: #222; color: #555; border-color: #333; transform: none; }
         .btn-x5 { background: #000; color: #fff; border: 1px solid var(--border-bright); flex: 0.4; }
         .btn-x5.active { background: #fff; color: #000; }
 
-        /* ОСТАЛЬНЫЕ ЭКРАНЫ */
-        .games-container { background: #0a0a0a; border-radius: var(--radius-lg); border: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; height: 100%; max-height: 600px;}
+        /* ОСТАЛЬНЫЕ ЭКРАНЫ (Сохранены) */
+        .games-container { background: #0a0a0a; border-radius: var(--radius-lg); border: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; height: 100%; max-height: 600px; width: 100%;}
         .game-tabs { display: flex; background: #000; border-bottom: 1px solid var(--border); overflow-x: auto;}
         .game-tab { flex: 1; padding: 12px 8px; text-align: center; font-size: 11px; font-weight: 800; color: #888; cursor: pointer; white-space: nowrap; transition: 0.2s; border-bottom: 2px solid transparent;}
         .game-tab.active { color: #fff; border-bottom-color: #fff; }
@@ -221,7 +335,7 @@
 
         .mythic-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s; perspective: 1200px; }
         .mythic-overlay.active { opacity: 1; pointer-events: auto; }
-        .mythic-card-3d { width: 80%; max-width: 320px; height: 450px; background: #000; border: 3px solid #fff; border-radius: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; transform-style: preserve-3d; transform: rotateY(180deg) scale(0.1); opacity: 0; transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s; }
+        .mythic-card-3d { width: 80%; max-width: 320px; height: 450px; background: #000; border: 3px solid #fff; border-radius: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; transform-style: preserve-3d; transform: rotateY(180deg) scale(0.1); opacity: 0; transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s; box-shadow: 0 0 50px rgba(255,255,255,0.3); }
         .mythic-overlay.active .mythic-card-3d { transform: rotateY(0deg) scale(1); opacity: 1; }
         .mythic-title-top { font-size: 14px; font-weight: 800; color: #fff; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 2px;}
         .mythic-number-big { font-size: 32px; font-weight: 900; color: white; margin-bottom: 20px; letter-spacing: 2px; text-align: center; padding: 0 10px;}
@@ -231,11 +345,21 @@
 
         .empty-pane { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-weight: 700; gap: 8px;}
         .empty-pane span { font-size: 30px; }
+        
+        /* Сетка роуминга */
         .country-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .country-item { background: #0a0a0a; padding: 12px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 8px; cursor: pointer; border: 1px solid var(--border); transition: 0.2s;}
         .country-item.active { border-color: #fff; background: #111;}
         .country-item span { font-size: 16px; }
         .country-item p { font-size: 11px; font-weight: 700; }
+
+        /* Сетка операторов */
+        .operator-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 10px; }
+        .operator-item { background: #0a0a0a; padding: 8px; border-radius: var(--radius-sm); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; border: 1px solid var(--border); transition: 0.2s; text-align: center;}
+        .operator-item.active { border-color: #fff; background: #111;}
+        .operator-item span { font-size: 14px; margin-bottom: 4px;}
+        .operator-item p { font-size: 9px; font-weight: 700; }
+
         .bp-card { background: #0a0a0a; border-radius: var(--radius-sm); padding: 12px; border: 1px solid var(--border); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;}
         .bp-card h4 { font-size: 12px; font-weight: 800; color: var(--text); margin-bottom: 2px;}
         .bp-card p { font-size: 10px; color: var(--text-muted); font-weight: 600;}
@@ -298,8 +422,7 @@
         .time-btn.active, .price-btn.active { background: #fff; color: #000; border-color: #fff;}
         .price-input { width: 100%; background: #000; border: 1px solid var(--border-bright); border-radius: 10px; padding: 12px; color: white; font-size: 16px; font-weight: 900; text-align: center; margin-bottom: 15px; outline: none;}
         
-        /* Прозрачные нули */
-        .dim-zero { color: rgba(255,255,255,0.15); }
+        .dim-zero { color: rgba(255,255,255,0.25); }
     </style>
 </head>
 <body>
@@ -399,13 +522,25 @@
 
     <div id="screen-game" class="screen active">
         <div class="sim-top-section">
-            <div class="sim-chip"><div class="sim-chip-line"></div><div class="sim-chip-line"></div><div class="sim-chip-line"></div><div class="sim-chip-center"></div></div>
-            <div class="sim-logo">SIM</div>
+            <div class="sim-header-row">
+                <!-- Логотип оператора -->
+                <div class="sim-brand" id="simBrandContainer">
+                    <div class="sim-brand-icon" id="simBrandIcon">🌍</div>
+                    <div class="sim-brand-text">
+                        <div class="sim-brand-name" id="simBrandName">Любая</div>
+                        <div class="sim-brand-country" id="simBrandCountry">🌍 Любая</div>
+                    </div>
+                </div>
+                <!-- Золотой чип -->
+                <div class="sim-chip-visual">
+                    <div class="sim-chip-inner">
+                        <div></div><div></div><div></div><div></div><div></div><div></div>
+                    </div>
+                </div>
+            </div>
             <div class="sim-display-area">
                 <div class="sim-slot-machine" id="simSlotMachine">
-                    <div class="slot-window">
-                        <div class="slot-number" id="simSlotNumber">+0 000 000-00-00</div>
-                    </div>
+                    <div class="slot-number" id="simSlotNumber">+0 000 000-00-00</div>
                 </div>
                 <div class="sim-result-box" id="simResultBox">
                     <div class="sim-result-square" id="simResultSquare">
@@ -772,24 +907,30 @@
     <div class="modal-overlay" id="tariffModal">
         <div class="bottom-sheet">
             <div class="modal-title">Выбор Архива</div>
-            <div class="tariff-item active" onclick="selectTier('grey', this, 500)"><div><h4>Серый рынок</h4><p>шанс на топ: 0.05%</p></div><div style="color:#fff;">500 🪙</div></div>
-            <div class="tariff-item" onclick="selectTier('hacker', this, 2500)"><div><h4>Хакерский взлом</h4><p>шанс на топ: 0.2%</p></div><div style="color:#fff;">2 500 🪙</div></div>
-            <div class="tariff-item" onclick="selectTier('vip', this, 10000)"><div><h4>VIP-связь</h4><p>шанс на топ: 0.5%</p></div><div style="color:#fff;">10 000 🪙</div></div>
-            <div class="tariff-item" onclick="selectTier('gov', this, 50000)"><div><h4>Правительственный</h4><p>шанс на топ: 2.5%</p></div><div style="color:#fff;">50 000 🪙</div></div>
-            <div class="tariff-item" onclick="selectTier('casino', this, 200000)"><div><h4>Казино-слив</h4><p>шанс на топ: 2%</p></div><div style="color:#fff;">200 000 🪙</div></div>
-            <div class="tariff-item" onclick="selectTier('premium', this, 1000000)"><div><h4>Премиум-слив</h4><p>шанс на топ: 5%</p></div><div style="color:#fff;">1 000 000 🪙</div></div>
-            <div class="tariff-item" onclick="selectTier('elite', this, 5000000)"><div><h4>Элитный слив</h4><p>шанс на топ: 7%</p></div><div style="color:#fff;">5 000 000 🪙</div></div>
-            <div class="tariff-item" onclick="selectTier('legendary', this, 25000000)"><div><h4>Легендарный слив</h4><p>шанс на топ: 15%</p></div><div style="color:#fff;">25 000 000 🪙</div></div>
-            <div class="tariff-item" onclick="selectTier('mythic', this, 100000000)"><div><h4>Мифический слив</h4><p>шанс на топ: 30%</p></div><div style="color:#fff;">100 000 000 🪙</div></div>
+            <div class="tariff-item active" onclick="selectTier('grey', this, 500)"><div><h4>Серый рынок</h4><p>шанс на топ: 0.01%</p></div><div style="color:#fff;">500 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('hacker', this, 2500)"><div><h4>Хакерский взлом</h4><p>шанс на топ: 0.05%</p></div><div style="color:#fff;">2 500 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('vip', this, 10000)"><div><h4>VIP-связь</h4><p>шанс на топ: 0.1%</p></div><div style="color:#fff;">10 000 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('gov', this, 50000)"><div><h4>Правительственный</h4><p>шанс на топ: 0.5%</p></div><div style="color:#fff;">50 000 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('casino', this, 200000)"><div><h4>Казино-слив</h4><p>шанс на топ: 1%</p></div><div style="color:#fff;">200 000 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('premium', this, 1000000)"><div><h4>Премиум-слив</h4><p>шанс на топ: 2%</p></div><div style="color:#fff;">1 000 000 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('elite', this, 5000000)"><div><h4>Элитный слив</h4><p>шанс на топ: 3%</p></div><div style="color:#fff;">5 000 000 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('legendary', this, 25000000)"><div><h4>Легендарный слив</h4><p>шанс на топ: 5%</p></div><div style="color:#fff;">25 000 000 🪙</div></div>
+            <div class="tariff-item" onclick="selectTier('mythic', this, 100000000)"><div><h4>Мифический слив</h4><p>шанс на топ: 10%</p></div><div style="color:#fff;">100 000 000 🪙</div></div>
             <button class="btn-main" style="margin-top: 12px; background: transparent; border: 1px solid #333; box-shadow: none; color: #888;" onclick="closeTariffModal()">Закрыть</button>
         </div>
     </div>
 
     <div class="modal-overlay" id="roamingModal">
         <div class="bottom-sheet">
-            <div class="modal-title">Роуминг</div>
+            <div class="modal-title">Роуминг и Оператор</div>
+            
+            <div style="font-size: 12px; font-weight: 800; color: #fff; margin-bottom: 8px;">Страна:</div>
             <div class="country-grid" id="countryGrid"></div>
-            <button class="btn-main" style="margin-top: 15px; background: transparent; border: 1px solid #333; box-shadow: none; color: #888;" onclick="closeRoamingModal()">Закрыть</button>
+            
+            <div style="font-size: 12px; font-weight: 800; color: #fff; margin-top: 15px; margin-bottom: 8px;">Оператор:</div>
+            <div class="operator-grid" id="operatorGrid"></div>
+            
+            <button class="btn-main" style="margin-top: 20px; background: transparent; border: 1px solid #333; box-shadow: none; color: #888;" onclick="closeRoamingModal()">Закрыть</button>
         </div>
     </div>    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
@@ -858,28 +999,47 @@
         let skills = JSON.parse(localStorage.getItem('skills')) || { frequent: 0, big: 0, strong: 0, trade: 0 };
         let autoSellSettings = JSON.parse(localStorage.getItem('auto_sell_settings')) || { "Обычный": false, "Необычный": false, "Редкий": false, "Эпический": false, "Легендарный": false, "Мифический": false };
 
-        // ПЕРЕМЕННЫЕ РОУМИНГА
-        let currentCountry = { code: "any", flag: "🌍 Любая", prefix: null };
+        // НОВЫЕ ПЕРЕМЕННЫЕ ДЛЯ ОПЕРАТОРА
+        let currentCountry = { code: "any", flag: "🌍", prefix: null, name: "Любая" };
+        let currentOperator = { code: "any", name: "Любая", icon: "🌍", color: "#fff" };
+        
         const countries = [
-            { code: "any", flag: "🌍 Любая", prefix: null },
-            { code: "+7", flag: "🇷🇺 Россия", prefix: 7 }, { code: "+375", flag: "🇧🇾 Беларусь", prefix: 375 }, { code: "+380", flag: "🇺🇦 Украина", prefix: 380 }, { code: "+1", flag: "🇺🇸 США", prefix: 1 }, { code: "+49", flag: "🇩🇪 Германия", prefix: 49 }, { code: "+44", flag: "🇬🇧 Англия", prefix: 44 }, { code: "+971", flag: "🇦🇪 ОАЭ", prefix: 971 }
+            { code: "any", flag: "🌍", name: "Любая", prefix: null },
+            { code: "+7", flag: "🇷🇺", name: "Россия", prefix: 7 }, 
+            { code: "+375", flag: "🇧🇾", name: "Беларусь", prefix: 375 }, 
+            { code: "+380", flag: "🇺🇦", name: "Украина", prefix: 380 }, 
+            { code: "+1", flag: "🇺🇸", name: "США", prefix: 1 }, 
+            { code: "+49", flag: "🇩🇪", name: "Германия", prefix: 49 }, 
+            { code: "+44", flag: "🇬🇧", name: "Англия", prefix: 44 }, 
+            { code: "+971", flag: "🇦🇪", name: "ОАЭ", prefix: 971 }
         ];
 
-        // ФУНКЦИЯ ДЛЯ ГЕНЕРАЦИИ ПРЕФИКСА (ПРОЗРАЧНЫЕ НУЛИ)
-        function getPrefixHTML(prefix, text = null) {
-            if (text) return text; // если передали готовый номер
-            if (prefix) return `<span>+${prefix}</span>`;
-            return `<span class="dim-zero">+0</span>`;
-        }
+        const operators = [
+            { code: "any", name: "Любой", icon: "✈️", color: "#fff" },
+            { code: "beeline", name: "Билайн", icon: "🟡", color: "#fbbf24" },
+            { code: "mts", name: "МТС", icon: "🔴", color: "#ef4444" },
+            { code: "megafon", name: "Мегафон", icon: "🟢", color: "#10b981" },
+            { code: "tele2", name: "Tele2", icon: "⚫", color: "#000" }
+        ];
 
         function updateRoamingDisplay() {
             // Обновляем текст в кнопке роуминга
-            document.getElementById('currentRoamingText').innerText = currentCountry.flag.split(' ')[1] || currentCountry.flag;
+            let btnText = currentCountry.code === 'any' ? '🌍 Любая' : currentCountry.flag;
+            if (currentOperator.code !== 'any') btnText = currentOperator.icon + ' ' + currentOperator.name;
+            document.getElementById('currentRoamingText').innerText = btnText;
             
-            // Обновляем анимацию (стартовые нули)
-            let prefixHTML = getPrefixHTML(currentCountry.prefix);
-            let suffix = currentCountry.prefix ? ` 000 000-00-00` : ` 000 000-00-00`;
-            // В анимации мы делаем так, чтобы были нули прозрачными
+            // Обновляем карту (логотип слева вверху)
+            let brandIcon = currentOperator.code === 'any' ? currentCountry.flag : currentOperator.icon;
+            let brandName = currentOperator.code === 'any' ? 'Любая' : currentOperator.name;
+            let brandCountry = currentCountry.flag + ' ' + currentCountry.name;
+            
+            document.getElementById('simBrandIcon').innerText = brandIcon;
+            document.getElementById('simBrandIcon').style.background = currentOperator.color;
+            document.getElementById('simBrandName').innerText = brandName;
+            document.getElementById('simBrandCountry').innerText = brandCountry;
+
+            // Обновляем стартовые нули
+            let prefixHTML = `<span>+${currentCountry.prefix || 0}</span>`;
             let zeros = `<span class="dim-zero">000 000-00-00</span>`;
             document.getElementById('simSlotNumber').innerHTML = prefixHTML + ' ' + zeros;
             document.getElementById('simResultNumber').innerHTML = prefixHTML + ' ' + zeros;
@@ -917,16 +1077,17 @@
             return 30 * 50 + 30 * 150 + (level - 60) * 300; 
         }
 
+        // СНИЖЕННЫЕ ШАНСЫ (Мифики падают очень редко)
         const tierChances = {
-            grey:     { Обычный: 60, Необычный: 25, Редкий: 10,   Эпический: 4,   Легендарный: 0.9,  Мифический: 0.1 },
-            hacker:   { Обычный: 35, Необычный: 40, Редкий: 18,   Эпический: 6,   Легендарный: 0.9,  Мифический: 0.1 },
-            vip:      { Обычный: 10, Необычный: 40, Редкий: 35,   Эпический: 13,  Легендарный: 1.8,  Мифический: 0.2 },
-            gov:      { Обычный: 0,  Необычный: 20, Редкий: 45,   Эпический: 30,  Легендарный: 4.5,  Мифический: 0.5 },
-            casino:   { Обычный: 0,  Необычный: 10, Редкий: 40,   Эпический: 40,  Легендарный: 9,    Мифический: 1 },
-            premium:  { Обычный: 0,  Необычный: 0,  Редкий: 30,   Эпический: 50,  Легендарный: 17,   Мифический: 3 },
-            elite:    { Обычный: 0,  Необычный: 0,  Редкий: 15,   Эпический: 55,  Легендарный: 25,   Мифический: 5 },
-            legendary:{ Обычный: 0,  Необычный: 0,  Редкий: 0,    Эпический: 50,  Легендарный: 40,   Мифический: 10 },
-            mythic:   { Обычный: 0,  Необычный: 0,  Редкий: 0,    Эпический: 30,  Легендарный: 50,   Мифический: 20 }
+            grey:     { Обычный: 65, Необычный: 25, Редкий: 8,    Эпический: 1.8,  Легендарный: 0.19,  Мифический: 0.01 },
+            hacker:   { Обычный: 40, Необычный: 40, Редкий: 15,   Эпический: 4.5,  Легендарный: 0.48,  Мифический: 0.02 },
+            vip:      { Обычный: 15, Необычный: 45, Редкий: 30,   Эпический: 8.5,  Легендарный: 1.4,   Мифический: 0.1 },
+            gov:      { Обычный: 0,  Необычный: 25, Редкий: 45,   Эпический: 25,   Легендарный: 4.7,   Мифический: 0.3 },
+            casino:   { Обычный: 0,  Необычный: 15, Редкий: 40,   Эпический: 35,   Легендарный: 9.5,   Мифический: 0.5 },
+            premium:  { Обычный: 0,  Необычный: 5,  Редкий: 35,   Эпический: 45,   Легендарный: 14,    Мифический: 1 },
+            elite:    { Обычный: 0,  Необычный: 0,  Редкий: 25,   Эпический: 50,   Легендарный: 22,    Мифический: 3 },
+            legendary:{ Обычный: 0,  Необычный: 0,  Редкий: 10,   Эпический: 50,   Легендарный: 32,    Мифический: 8 },
+            mythic:   { Обычный: 0,  Необычный: 0,  Редкий: 0,    Эпический: 40,   Легендарный: 50,    Мифический: 10 }
         };
 
         const baseRarities = {
@@ -1007,7 +1168,6 @@
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.menu-item, .menu-box-btn, .small-btn, .wide-btn').forEach(n => n.classList.remove('active'));
             
-            // Плавная смена экрана
             setTimeout(() => {
                 document.getElementById('screen-' + tabId).classList.add('active');
             }, 100);
@@ -1258,21 +1418,38 @@
             }, 3000);
         }
 
-        function generateSpecificNumber(rarity) {
-            const data = baseRarities[rarity];
-            let code = currentCountry.prefix || 7;
-            let p1 = Math.floor(Math.random() * 900) + 100;
-            let p2 = Math.floor(Math.random() * 90) + 10;
-            let p3 = Math.floor(Math.random() * 90) + 10;
-            
-            let price = Math.floor(Math.random() * (data.max - data.min + 1)) + data.min;
-            
-            return {
-                number: `+${code} ${p1} ${p2}-${p3}`,
-                rarity: rarity,
-                price: price,
-                color: data.color
-            };
+        // ГЕНЕРАЦИЯ КРАСИВЫХ НОМЕРОВ (777-77-77 и т.д.)
+        function generatePhoneNumber(rarity = "Обычный") {
+            let code = currentCountry.prefix;
+            if (!code) { 
+                let randomCountry = countries[Math.floor(Math.random() * (countries.length - 1)) + 1]; 
+                code = randomCountry.prefix; 
+            }
+
+            let isBeautiful = Math.random() < 0.1; // 10% шанс на красивый номер
+            let p1, p2, p3;
+
+            if (rarity === 'Мифический' || isBeautiful) {
+                // Генерируем зеркальные и красивые паттерны
+                let patterns = [
+                    () => { let d = Math.floor(Math.random() * 9) + 1; return { p1: d*111, p2: d*11, p3: d*11 }; }, // 777 77-77
+                    () => { return { p1: 777, p2: 77, p3: 77 }; }, // Золотой стандарт
+                    () => { let d = Math.floor(Math.random() * 9) + 1; return { p1: d*100+d*10+d, p2: d*10+d, p3: d*10+d }; },
+                    () => { return { p1: 123, p2: 45, p3: 67 }; }, // Лесенка
+                    () => { return { p1: 999, p2: 99, p3: 99 }; },
+                    () => { return { p1: 888, p2: 88, p3: 88 }; },
+                    () => { return { p1: 555, p2: 55, p3: 55 }; }
+                ];
+                let res = patterns[Math.floor(Math.random() * patterns.length)]();
+                p1 = res.p1; p2 = res.p2; p3 = res.p3;
+            } else {
+                // Обычный рандом
+                p1 = Math.floor(Math.random() * 900) + 100;
+                p2 = Math.floor(Math.random() * 90) + 10;
+                p3 = Math.floor(Math.random() * 90) + 10;
+            }
+
+            return `+${code} ${p1} ${p2}-${p3}`;
         }
 
         window.loadSettings = function() {
@@ -1348,10 +1525,19 @@
         window.closeRoamingModal = function() { document.getElementById('roamingModal').classList.remove('active'); }
         
         function renderRoaming() {
+            // Рендер стран
             const grid = document.getElementById('countryGrid');
             grid.innerHTML = countries.map(c => `
                 <div class="country-item ${currentCountry.code === c.code ? 'active' : ''}" onclick="selectCountry('${c.code}')">
-                    <span>${c.flag.split(' ')[0]}</span><p>${c.flag.split(' ')[1]}</p>
+                    <span>${c.flag}</span><p>${c.name}</p>
+                </div>
+            `).join('');
+
+            // Рендер операторов
+            const opGrid = document.getElementById('operatorGrid');
+            opGrid.innerHTML = operators.map(o => `
+                <div class="operator-item ${currentOperator.code === o.code ? 'active' : ''}" onclick="selectOperator('${o.code}')">
+                    <span>${o.icon}</span><p>${o.name}</p>
                 </div>
             `).join('');
         }
@@ -1360,21 +1546,14 @@
             currentCountry = countries.find(c => c.code === code);
             updateRoamingDisplay();
             renderRoaming(); 
-            closeRoamingModal(); 
-            showToast(`Роуминг: ${currentCountry.flag}`, '🌍');
+            showToast(`Страна: ${currentCountry.name}`, '🌍');
         }
 
-        // ОБНОВЛЕННАЯ ГЕНЕРАЦИЯ НОМЕРА
-        function generatePhoneNumber() {
-            let code = currentCountry.prefix;
-            if (!code) { 
-                let randomCountry = countries[Math.floor(Math.random() * (countries.length - 1)) + 1]; 
-                code = randomCountry.prefix; 
-            }
-            let p1 = Math.floor(Math.random() * 900) + 100; 
-            let p2 = Math.floor(Math.random() * 90) + 10; 
-            let p3 = Math.floor(Math.random() * 90) + 10;
-            return `+${code} ${p1} ${p2}-${p3}`;
+        window.selectOperator = function(code) {
+            currentOperator = operators.find(o => o.code === code);
+            updateRoamingDisplay();
+            renderRoaming(); 
+            showToast(`Оператор: ${currentOperator.name}`, '📶');
         }
 
         function renderChances() {
@@ -1405,31 +1584,67 @@
             updateUI(); isSpinning = true;
             document.getElementById('simResultBox').classList.remove('show');
             document.getElementById('simX5Grid').classList.remove('show');
-            document.getElementById('simX5Grid').innerHTML = '';
-            document.getElementById('simSlotMachine').classList.add('show');
-
-            let spinTicks = 0;
-            let rollingNumber = document.getElementById('simSlotNumber');
             
-            // ПРАВИЛЬНАЯ АНИМАЦИЯ С УЧЕТОМ РОУМИНГА
-            let prefixHTML = getPrefixHTML(currentCountry.prefix);
-            
-            let interval = setInterval(() => {
-                let p1 = Math.floor(Math.random() * 900) + 100;
-                let p2 = Math.floor(Math.random() * 90) + 10;
-                let p3 = Math.floor(Math.random() * 90) + 10;
-                // Если выбран роуминг - крутим с реальным префиксом. Если "Любая" - показываем прозрачный ноль и рандомные цифры
-                let currentPrefix = currentCountry.prefix ? `<span>+${currentCountry.prefix}</span>` : `<span class="dim-zero">+0</span>`;
-                rollingNumber.innerHTML = currentPrefix + ` ${p1} ${p2}-${p3}`;
-                spinTicks++;
+            if (count === 1) {
+                document.getElementById('simSlotMachine').classList.add('show');
+                let spinTicks = 0;
+                let rollingNumber = document.getElementById('simSlotNumber');
+                let prefixHTML = `<span>+${currentCountry.prefix || 0}</span>`;
                 
-                if (spinTicks > 25) { 
-                    clearInterval(interval); 
-                    isSpinning = false; 
-                    document.getElementById('simSlotMachine').classList.remove('show');
-                    finishSpin(count); 
-                }
-            }, 60);
+                // ПЛАВНАЯ АНИМАЦИЯ ДЛЯ ОДИНОЧНОЙ КРУТКИ
+                let interval = setInterval(() => {
+                    let p1 = Math.floor(Math.random() * 900) + 100;
+                    let p2 = Math.floor(Math.random() * 90) + 10;
+                    let p3 = Math.floor(Math.random() * 90) + 10;
+                    rollingNumber.innerHTML = prefixHTML + ` <span class="dim-zero">${p1} ${p2}-${p3}</span>`;
+                    spinTicks++;
+                    
+                    if (spinTicks > 25) { 
+                        clearInterval(interval); 
+                        isSpinning = false; 
+                        document.getElementById('simSlotMachine').classList.remove('show');
+                        finishSpin(1); 
+                    }
+                }, 60);
+            } else {
+                // ПЛАВНАЯ АНИМАЦИЯ ДЛЯ X5 (слоты)
+                let grid = document.getElementById('simX5Grid'); 
+                grid.classList.add('show');
+                
+                // Создаем пустые слоты с анимацией
+                grid.innerHTML = Array(5).fill(0).map(() => `
+                    <div class="sim-x5-item rolling">
+                        <span class="num">... ...-..-..</span>
+                        <span class="rar">...</span>
+                        <span class="prc">...</span>
+                    </div>
+                `).join('');
+
+                let ticks = 0;
+                let maxTicks = 30; // Чем больше, тем дольше крутится
+                
+                let interval = setInterval(() => {
+                    ticks++;
+                    let items = document.querySelectorAll('.sim-x5-item .num');
+                    items.forEach(el => {
+                        let p1 = Math.floor(Math.random() * 900) + 100;
+                        let p2 = Math.floor(Math.random() * 90) + 10;
+                        let p3 = Math.floor(Math.random() * 90) + 10;
+                        el.innerText = `${p1} ${p2}-${p3}`;
+                    });
+
+                    if (ticks >= maxTicks) {
+                        clearInterval(interval);
+                        isSpinning = false;
+                        
+                        // Убираем класс анимации и показываем результаты
+                        let allItems = document.querySelectorAll('.sim-x5-item');
+                        allItems.forEach(el => el.classList.remove('rolling'));
+                        
+                        finishSpin(5);
+                    }
+                }, 50);
+            }
         }
 
         function generateNumberData() {
@@ -1445,19 +1660,30 @@
             const data = baseRarities[selectedRarity];
             let price = Math.floor(Math.random() * (data.max - data.min + 1)) + data.min;
             
-            return { number: generatePhoneNumber(), rarity: selectedRarity, price: price, color: data.color };
+            // Для мифических номеров цена еще выше
+            if (selectedRarity === 'Мифический') {
+                price = Math.floor(Math.random() * (500000000 - 10000000 + 1)) + 10000000;
+            }
+            
+            return { number: generatePhoneNumber(selectedRarity), rarity: selectedRarity, price: price, color: data.color };
         }
 
         function finishSpin(count) {
             if (count === 1) {
                 const item = generateNumberData(); statOpened++;
                 document.getElementById('simResultBox').classList.add('show');
+                
+                const square = document.getElementById('simResultSquare');
+                square.className = 'sim-result-square'; // Сброс классов
+                
+                // Подсветка в зависимости от редкости
+                if (item.rarity === 'Мифический') square.classList.add('glow-mythic');
+                else if (item.rarity === 'Легендарный') square.classList.add('glow-legendary');
+                else if (item.rarity === 'Эпический') square.classList.add('glow-epic');
+
                 document.getElementById('simResultNumber').innerText = item.number;
                 document.getElementById('simResultRarity').innerText = item.rarity;
                 document.getElementById('simResultPrice').innerText = `${item.price.toLocaleString('ru-RU')} 🪙`;
-                
-                const square = document.getElementById('simResultSquare');
-                square.className = 'sim-result-square';
                 
                 if (autoSellSettings[item.rarity]) { 
                     balance += item.price; 
@@ -1481,14 +1707,19 @@
                 }
                 balance += totalSold;
                 saveBalance();
-                let grid = document.getElementById('simX5Grid'); grid.classList.add('show');
-                grid.innerHTML = results.map(item => `
-                    <div class="sim-x5-item" style="border: 1px solid #333;">
+                
+                // Заполняем реальными данными
+                let grid = document.getElementById('simX5Grid'); 
+                grid.innerHTML = results.map(item => {
+                    let glowClass = item.rarity === 'Мифический' ? 'style="border-color:#fff; box-shadow: 0 0 10px #fff;"' : '';
+                    return `
+                    <div class="sim-x5-item" ${glowClass}>
                         <span class="num">${item.number}</span>
-                        <span class="rar">${item.rarity}</span>
+                        <span class="rar" style="color:#fff;">${item.rarity}</span>
                         <span class="prc">${item.price.toLocaleString('ru-RU')} 🪙</span>
                     </div>
-                `).join('');
+                `}).join('');
+                
                 if (totalSold > 0) showToast(`Автопродажа: +${totalSold.toLocaleString('ru-RU')} 🪙`, '💰');
                 if (totalAdded > 0) showToast(`В базу добавлено: ${totalAdded} шт.`, '📦');
                 userXp += 10 * count;
@@ -1509,15 +1740,17 @@
         function renderInventory() {
             const list = document.getElementById('inventoryList');
             if (inventory.length === 0) { list.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top:20px;">Твоя база пуста</p>`; return; }
-            list.innerHTML = inventory.map((item, index) => `
-                <div class="inventory-item">
+            list.innerHTML = inventory.map((item, index) => {
+                let glowStyle = item.rarity === 'Мифический' ? 'box-shadow: inset 0 0 15px rgba(255,255,255,0.3); border-left: 3px solid #fff;' : '';
+                return `
+                <div class="inventory-item" style="${glowStyle}">
                     <div class="inv-info">
                         <h4>${item.number}</h4><p>${item.rarity}</p>
                         <button class="btn-sell" onclick="sellItem(${index})">Продать за ${item.price.toLocaleString('ru-RU')} 🪙</button>
                         <button class="btn-edit" onclick="openAuctionModal(${index})">Аукцион</button>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
         window.sellItem = function(index) { 
             let bonus = 1 + (skills.trade * 0.03);
@@ -2245,7 +2478,7 @@
             }
         }
         
-        // Инициализация и обновление роуминга при старте
+        // Инициализация
         updateUI();
         renderRoaming();
         renderVipShop();
