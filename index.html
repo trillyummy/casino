@@ -113,7 +113,6 @@
         }
         .sim-slot-machine { display: none; flex-direction: column; width: 100%; }
         .sim-slot-machine.show { display: flex; }
-        /* Уменьшен шрифт, чтобы +000... влезало */
         .slot-number { font-family: 'Montserrat', sans-serif; font-size: 21px; font-weight: 700; color: #fff; letter-spacing: -0.5px; white-space: nowrap; }
 
         /* РЕЗУЛЬТАТ ПОД КАРТОЙ (Для обычных) */
@@ -138,7 +137,7 @@
 
         .dim-zero { color: rgba(255,255,255,0.25); }
 
-        /* СЛОТЫ ДЛЯ x5 (Уменьшены шрифты, чтобы не вылезали) */
+        /* СЛОТЫ ДЛЯ x5 */
         .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 4px; width: 100%; max-width: 340px; margin-top: 10px; }
         .sim-x5-grid.show { display: grid; }
         .sim-x5-item { background: #0a0a0a; border-radius: 8px; border: 1px solid var(--border); padding: 6px 2px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 55px; overflow: hidden;}
@@ -149,7 +148,7 @@
         .sim-x5-item.rolling .rarity-text { animation: slotRoll 0.1s linear infinite; color: #fff; }
         @keyframes slotRoll { 0% { transform: translateY(0); } 50% { transform: translateY(-2px); opacity: 0.7;} 100% { transform: translateY(0); } }
 
-        /* ЭКРАН ВЫПАДЕНИЯ ТОПОВОГО НОМЕРА (ОБНОВЛЕННЫЙ ПОД СКРИНШОТ) */
+        /* ЭКРАН ВЫПАДЕНИЯ ТОПОВОГО НОМЕРА */
         .rare-screen-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(10, 8, 5, 0.98); z-index: 100000;
@@ -402,8 +401,8 @@
 <body>
     <div class="toast-container" id="toast"><span class="toast-icon">🎉</span><span id="toastText">Уведомление</span></div>
 
-    <!-- ЭКРАН ВЫПАДЕНИЯ ТОПОВОГО НОМЕРА -->
-    <div class="rare-screen-overlay" id="rareOverlay">
+    <!-- ЭКРАН ВЫПАДЕНИЯ ТОПОВОГО НОМЕРА (Добавлен onclick для закрытия) -->
+    <div class="rare-screen-overlay" id="rareOverlay" onclick="closeRareScreen(event)">
         <div class="rare-card" id="rareCard">
             <div class="rare-chip"><div class="rare-chip-inner"></div></div>
             <div class="rare-brand">
@@ -420,7 +419,7 @@
         <div class="rare-bottom-text">
             <div class="rare-bottom-title" id="rareTitleDisplay">Легендарный</div>
             <div class="rare-bottom-sub" id="rarePriceDisplay">№ 1 из 5, оценка 68 829</div>
-            <button class="rare-btn-continue" onclick="closeRareScreen()">Продолжить</button>
+            <button class="rare-btn-continue">Продолжить</button>
         </div>
     </div>
 
@@ -861,7 +860,8 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="tariffModal">
+    <!-- Окно выбора архива (Добавлен onclick для закрытия) -->
+    <div class="modal-overlay" id="tariffModal" onclick="closeTariffModal(event)">
         <div class="bottom-sheet">
             <div class="modal-title">Выбор Архива</div>
             <div class="tariff-item active" onclick="selectTier('grey', this, 500)"><div><h4>Серый рынок</h4><p>шанс на топ: 0.01%</p></div><div style="color:#fff;">500 🪙</div></div>
@@ -873,11 +873,12 @@
             <div class="tariff-item" onclick="selectTier('elite', this, 5000000)"><div><h4>Элитный слив</h4><p>шанс на топ: 3%</p></div><div style="color:#fff;">5 000 000 🪙</div></div>
             <div class="tariff-item" onclick="selectTier('legendary', this, 25000000)"><div><h4>Легендарный слив</h4><p>шанс на топ: 5%</p></div><div style="color:#fff;">25 000 000 🪙</div></div>
             <div class="tariff-item" onclick="selectTier('mythic', this, 100000000)"><div><h4>Мифический слив</h4><p>шанс на топ: 10%</p></div><div style="color:#fff;">100 000 000 🪙</div></div>
-            <button class="btn-main" style="margin-top: 12px; background: transparent; border: 1px solid #333; box-shadow: none; color: #888;" onclick="closeTariffModal()">Закрыть</button>
+            <button class="btn-main" style="margin-top: 12px; background: transparent; border: 1px solid #333; box-shadow: none; color: #888;" onclick="closeTariffModal(event)">Закрыть</button>
         </div>
     </div>
 
-    <div class="modal-overlay" id="roamingModal">
+    <!-- Окно выбора роуминга (Добавлен onclick для закрытия) -->
+    <div class="modal-overlay" id="roamingModal" onclick="closeRoamingModal(event)">
         <div class="bottom-sheet">
             <div class="modal-title">Роуминг и Оператор</div>
             
@@ -887,7 +888,7 @@
             <div style="font-size: 12px; font-weight: 800; color: #fff; margin-top: 15px; margin-bottom: 8px;">Оператор:</div>
             <div class="operator-grid" id="operatorGrid"></div>
             
-            <button class="btn-main" style="margin-top: 20px; background: transparent; border: 1px solid #333; box-shadow: none; color: #888;" onclick="closeRoamingModal()">Закрыть</button>
+            <button class="btn-main" style="margin-top: 20px; background: transparent; border: 1px solid #333; box-shadow: none; color: #888;" onclick="closeRoamingModal(event)">Закрыть</button>
         </div>
     </div>
 
@@ -981,7 +982,6 @@
             { code: "tele2", name: "Tele2", icon: "⚫", color: "#000" }
         ];
 
-        // ОБНОВЛЕНО: Правильное отображение нулей при смене роуминга
         function updateRoamingDisplay() {
             let btnText = currentCountry.code === 'any' ? '🌍 Любая' : currentCountry.flag;
             if (currentOperator.code !== 'any') btnText = currentOperator.icon + ' ' + currentOperator.name;
@@ -996,7 +996,6 @@
             document.getElementById('simBrandName').innerText = brandName;
             document.getElementById('simBrandCountry').innerText = brandCountry;
 
-            // Ставим правильный префикс и нули
             let prefix = currentCountry.prefix > 0 ? '+' + currentCountry.prefix : '+0';
             let zeroPattern = "000 000-00-00";
             
@@ -1434,11 +1433,14 @@
             showToast('Настройки сохранены', '⚙️');
         }
 
-        window.closeMythicOverlay = function() {
-            document.getElementById('mythicOverlay').classList.remove('active');
-        }
-        
-        window.closeRareScreen = function() {
+        // Закрытие оверлея только по клику на фон (не на карточку)
+        window.closeRareScreen = function(e) {
+            if (e && e.target.closest('.rare-card') || e.target.closest('button')) {
+                if(e.target.closest('button')) {
+                    document.getElementById('rareOverlay').classList.remove('active');
+                }
+                return;
+            }
             document.getElementById('rareOverlay').classList.remove('active');
         }
 
@@ -1503,8 +1505,18 @@
             showToast(`Скин ${skin} куплен!`, '🎨');
         }
 
+        // Закрытие окна архива по клику на фон
         window.openTariffModal = function() { document.getElementById('tariffModal').classList.add('active'); }
-        window.closeTariffModal = function() { document.getElementById('tariffModal').classList.remove('active'); }
+        window.closeTariffModal = function(e) {
+            if (e && e.target.closest('.bottom-sheet')) {
+                if(e.target.closest('button') && !e.target.closest('.tariff-item')) {
+                    document.getElementById('tariffModal').classList.remove('active');
+                }
+                return;
+            }
+            if (!e) document.getElementById('tariffModal').classList.remove('active');
+            else if (e.target.id === 'tariffModal') document.getElementById('tariffModal').classList.remove('active');
+        }
         window.selectTier = function(key, el, cost) {
             currentTier = { key, cost, name: el.querySelector('h4').innerText };
             document.querySelectorAll('.tariff-item').forEach(i => i.classList.remove('active'));
@@ -1513,8 +1525,18 @@
             closeTariffModal();
         }
 
+        // Закрытие окна роуминга по клику на фон
         window.openRoamingModal = function() { document.getElementById('roamingModal').classList.add('active'); }
-        window.closeRoamingModal = function() { document.getElementById('roamingModal').classList.remove('active'); }
+        window.closeRoamingModal = function(e) {
+            if (e && e.target.closest('.bottom-sheet')) {
+                if(e.target.closest('button')) {
+                    document.getElementById('roamingModal').classList.remove('active');
+                }
+                return;
+            }
+            if (!e) document.getElementById('roamingModal').classList.remove('active');
+            else if (e.target.id === 'roamingModal') document.getElementById('roamingModal').classList.remove('active');
+        }
         
         function renderRoaming() {
             const grid = document.getElementById('countryGrid');
@@ -1580,7 +1602,6 @@
                 document.getElementById('simSlotMachine').classList.add('show');
                 let spinTicks = 0;
                 let rollingNumber = document.getElementById('simSlotNumber');
-                // ТУТ ПРЕФИКС СТОИТ НА МЕСТЕ, А КРУТЯТСЯ ТОЛЬКО ЦИФРЫ
                 let prefixHTML = `<span>+${currentCountry.prefix || 0}</span>`; 
                 
                 let interval = setInterval(() => {
@@ -1704,7 +1725,6 @@
                 balance += totalSold;
                 saveBalance();
                 
-                // ОБНОВЛЕНО: Теперь при x5 тоже вылезает красивый экран, если выпал топ
                 let topResult = results.find(r => r.rarity === 'Мифический') || results.find(r => r.rarity === 'Легендарный');
                 if (topResult && mythicAnimEnabled) {
                     showRareScreen(topResult.number, topResult.price, topResult.rarity);
