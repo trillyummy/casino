@@ -14,61 +14,11 @@
             --radius-lg: 20px; --radius-md: 14px; --radius-sm: 10px;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
-        
-        /* НОВОГОДНИЙ ФОН */
-        body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-            overflow: hidden; 
-            position: relative;
-            background: linear-gradient(135deg, #0a001a 0%, #1a0033 50%, #000000 100%);
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 160px 120px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 230px 80px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 300px 150px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 350px 50px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 450px 200px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 500px 100px, #fff, rgba(0,0,0,0));
-            background-size: 600px 300px;
-            background-repeat: repeat;
-            animation: snow 10s linear infinite;
-            z-index: -1;
-            opacity: 0.6;
-        }
-        @keyframes snow {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 300px; }
-        }
-        
-        body::after {
-            content: '';
-            position: fixed;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle at 30% 40%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
-                        radial-gradient(circle at 70% 60%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
-                        radial-gradient(circle at 50% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 40%);
-            animation: rotateBg 20s linear infinite;
-            z-index: -1;
-            pointer-events: none;
-        }
-        @keyframes rotateBg {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        body { background-color: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; position: relative; background: linear-gradient(135deg, #0a001a 0%, #1a0033 50%, #000000 100%); }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)), radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 160px 120px, #fff, rgba(0,0,0,0)), radial-gradient(1px 1px at 230px 80px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 300px 150px, #fff, rgba(0,0,0,0)), radial-gradient(1px 1px at 350px 50px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 450px 200px, #fff, rgba(0,0,0,0)), radial-gradient(1px 1px at 500px 100px, #fff, rgba(0,0,0,0)); background-size: 600px 300px; background-repeat: repeat; animation: snow 10s linear infinite; z-index: -1; opacity: 0.6; }
+        @keyframes snow { 0% { background-position: 0 0; } 100% { background-position: 0 300px; } }
+        body::after { content: ''; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 40%, rgba(139, 92, 246, 0.15) 0%, transparent 40%), radial-gradient(circle at 70% 60%, rgba(59, 130, 246, 0.1) 0%, transparent 40%), radial-gradient(circle at 50% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 40%); animation: rotateBg 20s linear infinite; z-index: -1; pointer-events: none; }
+        @keyframes rotateBg { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .top-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; pointer-events: none; backdrop-filter: blur(10px); background: rgba(0,0,0,0.3); }
         .user-info { display: flex; align-items: center; gap: 6px; pointer-events: auto;}
@@ -120,48 +70,38 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         #screen-game { justify-content: flex-start; padding-bottom: 20px; }
-        
         .sim-top-section { background: linear-gradient(135deg, #1a0a2e, #0a0a0f); border-radius: 24px; border: 2px solid rgba(139, 92, 246, 0.5); padding: 15px; position: relative; display: flex; flex-direction: column; box-shadow: 0 0 60px rgba(139, 92, 246, 0.3), inset 0 1px 0 rgba(255,255,255,0.1); overflow: hidden; margin-bottom: 15px; width: 100%; }
         .sim-top-section::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 60%); pointer-events: none; animation: rotateGlow 8s linear infinite; }
         @keyframes rotateGlow { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
         .sim-chip { width: 35px; height: 28px; background: linear-gradient(135deg, #fbbf24, #d97706); border-radius: 6px; position: absolute; top: 12px; left: 12px; box-shadow: 0 3px 15px rgba(251, 191, 36, 0.6); display: flex; flex-direction: column; justify-content: space-between; padding: 4px; z-index: 2; }
         .sim-chip-line { width: 100%; height: 1px; background: rgba(0,0,0,0.4); border-radius: 1px; }
         .sim-chip-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 14px; border: 1px solid rgba(0,0,0,0.4); border-radius: 2px;}
         .sim-logo { position: absolute; top: 12px; right: 12px; font-size: 18px; font-weight: 900; color: rgba(255,255,255,0.15); letter-spacing: 2px; text-shadow: 1px 1px 0 rgba(0,0,0,0.5); z-index: 2;}
         .sim-display-area { margin-top: 35px; margin-bottom: 10px; text-align: center; min-height: 140px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 2; width: 100%; }
-        
         .sim-slot-machine { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; animation: slotFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         .sim-slot-machine.show { display: flex; }
         @keyframes slotFadeIn { 0% { opacity: 0; transform: scale(0.5) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
-        
         .slot-window { background: rgba(0,0,0,0.9); border-radius: 12px; padding: 12px 20px; border: 2px solid rgba(139, 92, 246, 0.6); box-shadow: 0 0 40px rgba(139, 92, 246, 0.5); overflow: hidden; position: relative; min-width: 240px; }
         .slot-number { font-family: 'Courier New', monospace; font-size: 24px; font-weight: 900; color: #c4b5fd; text-shadow: 0 0 20px rgba(139, 92, 246, 0.8); text-align: center; letter-spacing: 1px; white-space: nowrap; }
-        
         .sim-result-box { display: none; flex-direction: column; align-items: center; width: 100%; }
         .sim-result-box.show { display: flex; animation: resultFadeIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes resultFadeIn { 0% { opacity: 0; transform: scale(0.3) rotateY(90deg); } 100% { opacity: 1; transform: scale(1) rotateY(0deg); } }
-        
         .sim-result-square { width: 170px; height: 150px; background: linear-gradient(135deg, #2a1040, #1a0a2e); border-radius: 20px; border: 2px solid rgba(139, 92, 246, 0.6); display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 10px; position: relative; box-shadow: 0 0 40px rgba(139, 92, 246, 0.4), inset 0 0 30px rgba(139, 92, 246, 0.15); transition: box-shadow 0.5s, border-color 0.5s, background 0.5s; }
         .sim-result-square.glow-mythic { background: linear-gradient(135deg, #2a0000, #1a0a2e); box-shadow: 0 0 60px rgba(239, 68, 68, 0.8), inset 0 0 30px rgba(239, 68, 68, 0.3); border-color: var(--danger); }
         .sim-result-square.glow-legendary { background: linear-gradient(135deg, #2a1a00, #1a0a2e); box-shadow: 0 0 60px rgba(249, 115, 22, 0.8), inset 0 0 30px rgba(249, 115, 22, 0.3); border-color: #f97316; }
         .sim-result-square.glow-epic { background: linear-gradient(135deg, #1a0a2e, #2a1040); box-shadow: 0 0 60px rgba(139, 92, 246, 0.8), inset 0 0 30px rgba(139, 92, 246, 0.3); border-color: #8b5cf6; }
-        
         .sim-result-number { font-size: 18px; font-weight: 900; letter-spacing: 1px; color: white; text-shadow: 0 0 15px currentColor; margin-bottom: 5px; text-align: center; padding: 0 5px; }
         .sim-result-rarity { font-size: 9px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px;}
         .sim-result-price { font-size: 12px; font-weight: 300; color: var(--gold); letter-spacing: 0.5px; text-align: center; padding: 0 5px; }
-
         .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; margin-top: 5px; }
         .sim-x5-grid.show { display: grid; animation: x5GridFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         @keyframes x5GridFadeIn { 0% { opacity: 0; transform: translateY(20px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-        
         .sim-x5-item { background: rgba(26, 10, 46, 0.8); border-radius: 10px; border: 1px solid rgba(139, 92, 246, 0.3); padding: 5px 2px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 80px; box-shadow: 0 0 10px rgba(139, 92, 246, 0.2); opacity: 0; animation: x5ItemFadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
         .sim-x5-item:nth-child(1) { animation-delay: 0.1s; } .sim-x5-item:nth-child(2) { animation-delay: 0.2s; } .sim-x5-item:nth-child(3) { animation-delay: 0.3s; } .sim-x5-item:nth-child(4) { animation-delay: 0.4s; } .sim-x5-item:nth-child(5) { animation-delay: 0.5s; }
         @keyframes x5ItemFadeIn { 0% { opacity: 0; transform: scale(0.5) rotateY(90deg); } 100% { opacity: 1; transform: scale(1) rotateY(0deg); } }
         .sim-x5-item .num { font-size: 9px; font-weight: 800; color: white; margin-bottom: 3px; }
         .sim-x5-item .rar { font-size: 7px; font-weight: 700; text-transform: uppercase; margin-bottom: 3px; }
         .sim-x5-item .prc { font-size: 8px; font-weight: 300; color: var(--gold); }
-
         .sim-controls-bottom { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: auto; }
         .sim-top-row { display: flex; gap: 10px; align-items: stretch; width: 100%; }
         .btn-archive { flex: 1; background: rgba(139, 92, 246, 0.15); color: white; border: 1px solid rgba(139, 92, 246, 0.4); border-radius: 12px; padding: 12px; font-size: 12px; font-weight: 700; display: flex; flex-direction: column; justify-content: center; cursor: pointer; transition: 0.2s; box-shadow: 0 0 15px rgba(139, 92, 246, 0.2); }
@@ -192,23 +132,19 @@
         .crash-big-mult.crashed { color: var(--danger); text-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
         .crash-profit-display { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: 800; color: var(--success); z-index: 2; text-shadow: 0 0 10px rgba(16, 185, 129, 0.5); opacity: 0; transition: opacity 0.2s; }
         .crash-profit-display.show { opacity: 1; }
-        
         .history-strip { display: flex; gap: 5px; overflow-x: auto; margin-bottom: 10px; padding-bottom: 4px;}
         .h-strip-badge { padding: 3px 6px; border-radius: 5px; font-size: 10px; font-weight: 800; background: rgba(255,255,255,0.1); color: white; white-space: nowrap;}
         .h-strip-badge.high { color: var(--success); background: rgba(16,185,129,0.2);}
         .h-strip-badge.low { color: var(--danger); background: rgba(239,68,68,0.2);}
-        
         .crash-control-panel { background: rgba(255,255,255,0.03); border-radius: 14px; padding: 12px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 12px; }
         .bet-input-large { width: 100%; background: #000; border: 1px solid #333; color: white; border-radius: 10px; padding: 10px; font-size: 18px; font-weight: 900; outline: none; margin-bottom: 10px; text-align: center; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);}
         .bet-presets { display: flex; gap: 6px; margin-bottom: 10px; overflow-x: auto; padding-bottom: 4px; justify-content: center;}
         .btn-preset { padding: 8px 0; flex: 1; border-radius: 8px; background: #1a1a1a; border: none; color: white; font-size: 10px; font-weight: 800; white-space: nowrap; cursor: pointer; transition: 0.2s;}
         .btn-preset.active { background: white; color: black; }
-        
         .btn-crash-main { width: 100%; padding: 15px; border-radius: 14px; background: #10b981; color: white; font-size: 15px; font-weight: 900; border: none; text-transform: uppercase; transition: 0.1s; margin-bottom: 8px; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);}
         .btn-crash-main.cashout { background: #fbbf24; color: black; box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4); animation: pulseGold 1.5s infinite; }
         .btn-crash-main.disabled { background: rgba(255,255,255,0.1); color: var(--text-muted); box-shadow: none; animation: none; }
         @keyframes pulseGold { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
-
         .live-bets-container { background: rgba(0,0,0,0.4); border-radius: 10px; padding: 8px; border: 1px solid rgba(255,255,255,0.05); margin-top: 8px; height: 120px; display: flex; flex-direction: column; }
         .live-bets-header { display: flex; justify-content: space-between; font-size: 9px; color: var(--text-muted); font-weight: 700; margin-bottom: 6px; text-transform: uppercase; }
         .live-bets-list { flex: 1; overflow-y: auto; }
@@ -225,7 +161,6 @@
         .dice-1 { transform: rotateY(0deg) translateZ(35px); } .dice-6 { transform: rotateY(180deg) translateZ(35px); } .dice-2 { transform: rotateY(90deg) translateZ(35px); } .dice-5 { transform: rotateY(-90deg) translateZ(35px); } .dice-3 { transform: rotateX(90deg) translateZ(35px); } .dice-4 { transform: rotateX(-90deg) translateZ(35px); }
         .dice-3d.rolling { animation: rollDice 1.2s ease-in-out infinite; }
         @keyframes rollDice { 0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); } 25% { transform: rotateX(180deg) rotateY(90deg) rotateZ(180deg); } 50% { transform: rotateX(360deg) rotateY(180deg) rotateZ(360deg); } 75% { transform: rotateX(540deg) rotateY(270deg) rotateZ(180deg); } 100% { transform: rotateX(720deg) rotateY(360deg) rotateZ(0deg); } }
-        
         .coin-container { width: 90px; height: 90px; position: relative; transform-style: preserve-3d; margin: 20px 0; transition: transform 0.1s; }
         .coin-face { position: absolute; width: 100%; height: 100%; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 45px; background: linear-gradient(135deg, #fbbf24, #d97706); border: 4px solid #fcd34d; box-shadow: 0 0 20px rgba(251, 191, 36, 0.5); backface-visibility: hidden; }
         .coin-front { transform: rotateY(0deg) translateZ(5px); } .coin-back { transform: rotateY(180deg) translateZ(5px); }
@@ -246,7 +181,6 @@
         .btn-throw { background: white; color: black; border: none; border-radius: var(--radius-md); padding: 15px; font-size: 14px; font-weight: 900; width: 100%; text-transform: uppercase; margin-bottom: 8px; transition: 0.2s; }
         .btn-throw:active { transform: scale(0.96); }
         .btn-throw:disabled { background: rgba(255,255,255,0.2); color: var(--text-muted); }
-        
         .lobby-tabs { display: flex; gap: 12px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
         .lobby-tab { font-size: 12px; font-weight: 800; color: var(--text-muted); padding-bottom: 6px; cursor: pointer; position: relative;}
         .lobby-tab.active { color: white; }
@@ -361,6 +295,19 @@
         .time-btn, .price-btn { flex: 1; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(139,92,246,0.2); border-radius: 10px; color: white; font-weight: 800; font-size: 12px; cursor: pointer; transition: 0.2s; text-align: center;}
         .time-btn.active, .price-btn.active { background: linear-gradient(135deg, #8b5cf6, #6d28d9); border-color: transparent; box-shadow: 0 0 15px rgba(139,92,246,0.5); }
         .price-input { width: 100%; background: #000; border: 1px solid rgba(139,92,246,0.3); border-radius: 10px; padding: 12px; color: white; font-size: 16px; font-weight: 900; text-align: center; margin-bottom: 15px; outline: none;}
+
+        /* КРАСОЧНОСТЬ */
+        .screen.active { background: radial-gradient(ellipse at top, rgba(139,92,246,0.06), transparent 60%); }
+        .profile-card { transition: border-color 0.3s, box-shadow 0.3s; }
+        .profile-card:hover { border-color: rgba(139,92,246,0.35); box-shadow: 0 0 25px rgba(139,92,246,0.15); }
+        .btn-main:hover { filter: brightness(1.1); }
+        .vip-card { background: linear-gradient(135deg, #1a0a2e, #0a0a0f, #1a0a2e, #2a1040); background-size: 200% 200%; animation: vipShimmer 6s linear infinite; }
+        @keyframes vipShimmer { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+        .inventory-item { transition: transform 0.2s, box-shadow 0.2s; }
+        .inventory-item:hover { transform: translateX(3px); box-shadow: -3px 0 15px rgba(139,92,246,0.2); }
+        .btn-archive:hover { box-shadow: 0 0 25px rgba(139,92,246,0.5); }
+        .btn-roaming-square:hover { box-shadow: 0 0 25px rgba(139,92,246,0.5); }
+        .small-btn:hover { border-color: rgba(139,92,246,0.3); box-shadow: 0 0 12px rgba(139,92,246,0.15); }
     </style>
 </head>
 <body>
@@ -383,25 +330,21 @@
                 <div style="font-size: 18px; font-weight: 900; color: #c4b5fd;" id="auctionNumberDisplay">+7 999 000-00-00</div>
                 <div style="font-size: 11px; color: var(--text-muted);" id="auctionRarityDisplay">Обычный</div>
             </div>
-            
             <div style="font-size: 12px; font-weight: 800; color: #c4b5fd; margin-bottom: 8px;">Время лота:</div>
             <div class="time-options">
                 <div class="time-btn active" onclick="selectAuctionTime(1, this)">1 час</div>
                 <div class="time-btn" onclick="selectAuctionTime(6, this)">6 часов</div>
                 <div class="time-btn" onclick="selectAuctionTime(24, this)">24 часа</div>
             </div>
-            
             <div style="font-size: 12px; font-weight: 800; color: #c4b5fd; margin-bottom: 8px;">Цена:</div>
             <div class="price-options">
                 <div class="price-btn" onclick="selectAuctionPrice('min', this)">Мин. цена</div>
                 <div class="price-btn" onclick="selectAuctionPrice('x2', this)">x2</div>
                 <div class="price-btn" onclick="selectAuctionPrice('x10', this)">x10</div>
             </div>
-            
             <div id="customPriceBlock" style="display: none;">
                 <input type="number" class="price-input" id="customPriceInput" placeholder="Своя цена">
             </div>
-            
             <button class="btn-main" style="width: 100%; margin-top: 10px;" onclick="confirmAuctionList()">Выставить лот</button>
             <button class="btn-main" style="width: 100%; margin-top: 8px; background: rgba(255,255,255,0.1); box-shadow: none;" onclick="closeAuctionModal()">Отмена</button>
         </div>
@@ -447,6 +390,7 @@
                 <div class="grid-2">
                     <div class="small-btn" onclick="switchTab('buyer', this)"><div class="small-icon ic-gold">🏷️</div><span>Скупщик</span></div>
                     <div class="small-btn" onclick="switchTab('auction', this)"><div class="small-icon ic-red">🔨</div><span>Аукцион</span></div>
+                    <div class="small-btn" onclick="switchTab('promo', this)"><div class="small-icon ic-green">🎁</div><span>Промокод</span></div>
                 </div>
             </div>
             <div class="menu-category">
@@ -470,7 +414,6 @@
                         <div class="slot-number" id="simSlotNumber">+7 999 000-00-00</div>
                     </div>
                 </div>
-                
                 <div class="sim-result-box" id="simResultBox">
                     <div class="sim-result-square" id="simResultSquare">
                         <div class="sim-result-number" id="simResultNumber">+7 999 000-00-00</div>
@@ -478,11 +421,9 @@
                         <div class="sim-result-price" id="simResultPrice">150 🪙</div>
                     </div>
                 </div>
-                
                 <div class="sim-x5-grid" id="simX5Grid"></div>
             </div>
         </div>
-
         <div class="sim-controls-bottom">
             <div class="sim-top-row">
                 <button class="btn-archive" onclick="openTariffModal()">
@@ -508,47 +449,31 @@
             <h3 style="font-size: 16px; font-weight: 900; color: #c4b5fd;">Очки навыков: <span id="skillPointsDisplay">0</span></h3>
             <p style="font-size: 11px; color: #ccc; margin-top: 5px;">1 очко за каждый уровень</p>
         </div>
-
         <div class="profile-card" style="margin-bottom: 12px;">
             <h3 style="font-size: 13px; font-weight: 800; color: var(--success); margin-bottom: 10px;">Частая удача</h3>
             <div class="upgrade-btn" onclick="upgradeSkill('frequent')">
-                <div class="upgrade-info">
-                    <h4>Частая удача</h4>
-                    <p>Шанс выпадения хороших номеров: <span id="frequentChance">70</span> круток</p>
-                </div>
+                <div class="upgrade-info"><h4>Частая удача</h4><p>Шанс выпадения хороших номеров: <span id="frequentChance">70</span> круток</p></div>
                 <div class="upgrade-cost" id="frequentCost">Ур. 0 / 4</div>
             </div>
         </div>
-
         <div class="profile-card" style="margin-bottom: 12px;">
             <h3 style="font-size: 13px; font-weight: 800; color: var(--accent); margin-bottom: 10px;">Большая удача</h3>
             <div class="upgrade-btn" onclick="upgradeSkill('big')">
-                <div class="upgrade-info">
-                    <h4>Большая удача</h4>
-                    <p>Шанс на x40: <span id="bigChance">20</span> круток</p>
-                </div>
+                <div class="upgrade-info"><h4>Большая удача</h4><p>Шанс на x40: <span id="bigChance">20</span> круток</p></div>
                 <div class="upgrade-cost" id="bigCost">Ур. 0 / 3</div>
             </div>
         </div>
-
         <div class="profile-card" style="margin-bottom: 12px;">
             <h3 style="font-size: 13px; font-weight: 800; color: var(--purple); margin-bottom: 10px;">Сильная удача</h3>
             <div class="upgrade-btn" onclick="upgradeSkill('strong')">
-                <div class="upgrade-info">
-                    <h4>Сильная удача</h4>
-                    <p>Шанс на x8: <span id="strongChance">6</span> круток</p>
-                </div>
+                <div class="upgrade-info"><h4>Сильная удача</h4><p>Шанс на x8: <span id="strongChance">6</span> круток</p></div>
                 <div class="upgrade-cost" id="strongCost">Ур. 0 / 3</div>
             </div>
         </div>
-
         <div class="profile-card" style="margin-bottom: 12px;">
             <h3 style="font-size: 13px; font-weight: 800; color: var(--gold); margin-bottom: 10px;">Торговля</h3>
             <div class="upgrade-btn" onclick="upgradeSkill('trade')">
-                <div class="upgrade-info">
-                    <h4>Торговля</h4>
-                    <p>+<span id="tradeBonus">0</span>% к продаже номеров</p>
-                </div>
+                <div class="upgrade-info"><h4>Торговля</h4><p>+<span id="tradeBonus">0</span>% к продаже номеров</p></div>
                 <div class="upgrade-cost" id="tradeCost">Ур. 0 / 5</div>
             </div>
         </div>
@@ -557,14 +482,12 @@
     <div id="screen-auction" class="screen">
         <h1 style="font-size: 20px; font-weight: 900; color: #c4b5fd; text-transform: uppercase; text-align: center; margin-bottom: 15px; text-shadow: 0 0 15px rgba(139, 92, 246, 0.5);">Аукцион</h1>
         <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 15px;">Покупай и продавай номера с другими игроками</p>
-
         <div class="profile-card" style="margin-bottom: 15px;">
             <h3 style="font-size: 13px; font-weight: 800; color: #c4b5fd; margin-bottom: 10px;">Мои лоты</h3>
             <div id="myAuctionList">
                 <p style="font-size: 11px; color: var(--text-muted); text-align: center;">У тебя пока нет активных лотов</p>
             </div>
         </div>
-
         <div class="profile-card">
             <h3 style="font-size: 13px; font-weight: 800; color: #c4b5fd; margin-bottom: 10px;">Лоты других игроков</h3>
             <div id="otherAuctionList">
@@ -591,7 +514,6 @@
             <h1 style="font-size: 20px; font-weight: 900; color: #c4b5fd; text-transform: uppercase; text-shadow: 0 0 15px rgba(139, 92, 246, 0.5);">VIP Синтез</h1>
             <p style="font-size: 10px; color: var(--text-muted);">Топ-секретные номера за Telegram Stars</p>
         </div>
-        
         <div class="profile-card" style="text-align: center; margin-bottom: 15px; border-color: rgba(139,92,246,0.3); background: rgba(139,92,246,0.05);">
             <h3 style="font-size: 13px; font-weight: 800; color: #c4b5fd; margin-bottom: 8px;">Как купить?</h3>
             <p style="font-size: 11px; color: #ccc; line-height: 1.4; margin-bottom: 12px;">
@@ -602,9 +524,7 @@
             </p>
             <a href="https://t.me/TrillYummy" target="_blank" class="btn-buy-stars" style="text-decoration: none; display: block;">Задонатить @TrillYummy</a>
         </div>
-
         <div class="shop-grid" id="vipShopGrid"></div>
-        
         <div class="profile-card" style="margin-top: 15px;">
             <h3 style="font-size: 13px; font-weight: 800; color: #c4b5fd; margin-bottom: 10px;">Скины для карточек</h3>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
@@ -635,7 +555,6 @@
                 <div class="game-tab" onclick="switchGamePane('crash', this)">Краш</div>
                 <div class="game-tab" onclick="switchGamePane('upgrade', this)">Апгрейд</div>
             </div>
-
             <div class="game-content">
                 <div id="pane-coin" class="game-pane active">
                     <div id="coin-lobby" style="display: flex; flex-direction: column; height: 100%;">
@@ -652,7 +571,6 @@
                             <button class="btn-throw" id="coinCreateBtn" onclick="createBet('coin')">Создать лот</button>
                         </div>
                     </div>
-
                     <div id="coin-game" style="display: none; flex-direction: column; height: 100%;">
                         <div class="opponent-info">
                             <div class="opponent-card" id="coin-my-card">
@@ -667,7 +585,6 @@
                                 <div class="opponent-label">Соперник</div>
                             </div>
                         </div>
-                        
                         <div class="game-board">
                             <div class="coin-container" id="coin-visual">
                                 <div class="coin-face coin-front">🦅</div>
@@ -675,18 +592,15 @@
                             </div>
                             <div style="font-size: 12px; font-weight: 800; color: var(--text-muted); margin-bottom: 15px;" id="coin-status-text">Ожидание соперника...</div>
                         </div>
-
                         <div class="game-stats">
                             <div class="game-stat-row"><span>Ставка каждого</span><span id="coin-bet-display">0</span></div>
                             <div class="game-stat-row"><span>Выигрыш</span><span id="coin-win-display" style="color: var(--gold);">0</span></div>
                             <div class="game-stat-row"><span>Ход</span><span id="coin-turn-display">15 с, иначе автобросок</span></div>
                         </div>
-
                         <button class="btn-throw" id="coinThrowBtn" onclick="throwPvP('coin')" disabled>Бросить монетку</button>
                         <button class="btn-main" style="background: rgba(255,255,255,0.1); width: 100%;" onclick="leaveGame('coin')">Выйти</button>
                     </div>
                 </div>
-
                 <div id="pane-dice" class="game-pane">
                     <div id="dice-lobby" style="display: flex; flex-direction: column; height: 100%;">
                         <div class="lobby-tabs">
@@ -702,7 +616,6 @@
                             <button class="btn-throw" id="diceCreateBtn" onclick="createBet('dice')">Создать лот</button>
                         </div>
                     </div>
-
                     <div id="dice-game" style="display: none; flex-direction: column; height: 100%;">
                         <div class="opponent-info">
                             <div class="opponent-card" id="dice-my-card">
@@ -717,7 +630,6 @@
                                 <div class="opponent-label">Соперник</div>
                             </div>
                         </div>
-                        
                         <div class="game-board">
                             <div class="dice-container">
                                 <div class="dice-3d" id="dice-visual-1">
@@ -739,21 +651,17 @@
                             </div>
                             <div style="font-size: 12px; font-weight: 800; color: var(--text-muted); margin-bottom: 15px;" id="dice-status-text">Ожидание соперника...</div>
                         </div>
-
                         <div class="game-stats">
                             <div class="game-stat-row"><span>Ставка каждого</span><span id="dice-bet-display">0</span></div>
                             <div class="game-stat-row"><span>Выигрыш</span><span id="dice-win-display" style="color: var(--gold);">0</span></div>
                             <div class="game-stat-row"><span>Ход</span><span id="dice-turn-display">15 с, иначе автобросок</span></div>
                         </div>
-
                         <button class="btn-throw" id="diceThrowBtn" onclick="throwPvP('dice')" disabled>Бросить кости</button>
                         <button class="btn-main" style="background: rgba(255,255,255,0.1); width: 100%;" onclick="leaveGame('dice')">Выйти</button>
                     </div>
                 </div>
-
                 <div id="pane-crash" class="game-pane">
                     <div class="history-strip" id="rocketHistory" style="gap: 5px; margin-bottom: 10px;"></div>
-                    
                     <div class="crash-graph-container">
                         <div class="crash-big-mult" id="rocketMultiplier">x1,00</div>
                         <div class="crash-profit-display" id="rocketProfit">+0 🪙</div>
@@ -762,7 +670,6 @@
                             <path id="graphPath" d="M0,100 L0,100" stroke="#8b5cf6" stroke-width="2.5" fill="none" style="filter: drop-shadow(0 0 8px #8b5cf6); transition: stroke 0.3s;" />
                         </svg>
                     </div>
-
                     <div class="crash-control-panel">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                             <span style="font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Ставка</span>
@@ -780,20 +687,16 @@
                             <button class="btn-preset" onclick="setAutoCashout()" style="flex: 0.3; background: rgba(139, 92, 246, 0.2); color: #a78bfa; border: 1px solid rgba(139, 92, 246, 0.4); border-radius: 8px; font-size: 10px;">OK</button>
                         </div>
                     </div>
-
                     <button class="btn-crash-main" id="rocketBtn" onclick="handleRocket()">СДЕЛАТЬ СТАВКУ</button>
-                    
                     <div class="live-bets-container">
                         <div class="live-bets-header"><span>Живые ставки</span><span id="liveBetsCount">0</span></div>
                         <div id="liveBetsList"></div>
                     </div>
                 </div>
-
                 <div id="pane-upgrade" class="game-pane">
                     <div class="empty-pane"><span>🚧</span><br>Апгрейд скоро!</div>
                 </div>
             </div>
-
             <div class="search-overlay" id="searchOverlay">
                 <div class="spinner"></div>
                 <div style="font-weight: 800; font-size: 12px;" id="searchText">Ожидание соперника...</div>
@@ -815,7 +718,6 @@
         <div class="profile-card">
             <h3 style="font-size: 13px; font-weight: 800; margin-bottom: 8px; color: #c4b5fd;">Анимация Мифа</h3>
             <p style="font-size: 10px; color: var(--text-muted); margin-bottom: 12px;">Показывать 3D-анимацию при выпадении мифического номера</p>
-            
             <div class="setting-item"><span>3D Анимация</span><label class="toggle-switch"><input type="checkbox" id="mythicAnimToggle" onchange="saveSettings()" checked><span class="slider"></span></label></div>
         </div>
         <div class="profile-card" style="margin-top: 10px;">
@@ -860,10 +762,10 @@
     </div>
 
     <div id="screen-promo" class="screen">
-        <h2 style="margin-bottom: 12px; font-weight: 900; text-transform: uppercase; font-size: 16px; text-align: center;">Промокоды</h2>
-        <div class="profile-card">
+        <h2 style="margin-bottom: 12px; font-weight: 900; text-transform: uppercase; font-size: 16px; text-align: center; color:#34d399; text-shadow:0 0 15px rgba(16,185,129,0.4);">🎁 Промокоды</h2>
+        <div class="profile-card" style="border-color: rgba(16,185,129,0.3); box-shadow: 0 0 25px rgba(16,185,129,0.1);">
             <input type="text" id="promoInput" style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(0,0,0,0.5); border: 1px solid var(--border); color: white; font-weight: 800; margin-bottom: 8px; text-transform: uppercase; font-size: 12px;" placeholder="ВВЕДИ КОД">
-            <button class="btn-main" style="width: 100%;" onclick="activatePromo()">Активировать</button>
+            <button class="btn-main" style="width: 100%; background: linear-gradient(135deg,#10b981,#059669);" onclick="activatePromo()">Активировать</button>
         </div>
     </div>
 
@@ -891,9 +793,7 @@
             <div class="country-grid" id="countryGrid"></div>
             <button class="btn-main" style="margin-top: 15px; background: rgba(255,255,255,0.1); box-shadow: none;" onclick="closeRoamingModal()">Закрыть</button>
         </div>
-    </div>
-
-    <script type="module">
+    </div>    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getDatabase, ref, set, onValue, remove, get, update } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
@@ -913,8 +813,11 @@
         }
         const myId = tg.initDataUnsafe?.user?.id || Math.floor(Math.random() * 1000000000);
 
-        // === СИНХРОНИЗАЦИЯ С FIREBASE (БАЛАНС) ===
-        let balance = 5000; 
+        // === СИНХРОНИЗАЦИЯ БАЛАНСА С FIREBASE (ИСПРАВЛЕНО) ===
+        let balance = 0;
+        let balanceReady = false;
+        let localOpLock = 0;
+
         onValue(ref(db, 'users/' + myId), (snapshot) => {
             const data = snapshot.val();
             if (data) {
@@ -922,18 +825,31 @@
                     document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:50px; font-family:sans-serif;'>ВЫ ЗАБАНЕНЫ</h1>";
                     return;
                 }
-                balance = data.balance || 0;
+                // ВСЕГДА берём актуальное значение с сервера
+                const serverBalance = (typeof data.balance === 'number') ? data.balance : 5000;
+                if (Date.now() > localOpLock) {
+                    balance = serverBalance;
+                }
+                balanceReady = true;
             } else {
+                // Первый заход — создаём запись
                 set(ref(db, 'users/' + myId), {
                     balance: 5000,
                     banned: false,
                     name: currentUserName
                 });
+                balance = 5000;
+                balanceReady = true;
             }
-            if (typeof updateUI === 'function') {
-                updateUI();
-            }
+            if (typeof updateUI === 'function') updateUI();
         });
+
+        // Единая точка сохранения баланса — вызывать ТОЛЬКО после реального изменения
+        function saveBalance() {
+            if (!myId) return;
+            localOpLock = Date.now() + 1500;
+            update(ref(db, 'users/' + myId), { balance: balance });
+        }
 
         let starsBalance = parseInt(localStorage.getItem('stars_balance')) || 0;
         let inventory = JSON.parse(localStorage.getItem('casino_inventory')) || [];
@@ -1041,8 +957,7 @@
             document.getElementById('strongCost').innerText = `Ур. ${skills.strong} / 3`;
             document.getElementById('tradeCost').innerText = `Ур. ${skills.trade} / 5`;
 
-            // СИНХРОНИЗАЦИЯ БАЛАНСА В FIREBASE
-            if (myId) update(ref(db, 'users/' + myId), { balance: balance });
+            // ВАЖНО: запись баланса здесь УБРАНА. Баланс сохраняется только через saveBalance()
 
             localStorage.setItem('casino_inventory', JSON.stringify(inventory));
             localStorage.setItem('stat_opened', statOpened);
@@ -1177,6 +1092,7 @@
             get(ref(db, 'auction/' + lotId)).then((snapshot) => {
                 const lot = snapshot.val();
                 if (!lot) return;
+                if (String(lot.sellerId) !== String(myId)) return showToast('Это не твой лот', '❌');
                 inventory.push({ number: lot.number, rarity: lot.rarity, price: lot.price, color: lot.color });
                 remove(ref(db, 'auction/' + lotId));
                 updateUI();
@@ -1189,11 +1105,13 @@
             get(ref(db, 'auction/' + lotId)).then((snapshot) => {
                 const lot = snapshot.val();
                 if (!lot) return showToast('Лот уже продан', '❌');
+                if (String(lot.sellerId) === String(myId)) return showToast('Нельзя купить свой лот', '❌');
                 if (balance < lot.price) return showToast('Недостаточно монет!', '❌');
                 
                 balance -= lot.price;
                 inventory.push({ number: lot.number, rarity: lot.rarity, price: lot.price, color: lot.color });
                 remove(ref(db, 'auction/' + lotId));
+                saveBalance();
                 updateUI();
                 showToast(`Куплен номер ${lot.number}!`, '🎉');
             });
@@ -1300,6 +1218,7 @@
                 const prize = wheelPrizes[randomPrize];
                 if (prize.type === 'coins') {
                     balance += prize.value;
+                    saveBalance();
                     showToast(`Вы выиграли ${prize.value.toLocaleString('ru-RU')} монет!`, '💰');
                 } else {
                     const numData = generateSpecificNumber(prize.value);
@@ -1381,6 +1300,7 @@
         window.buySkin = function(skin, price) {
             if (balance < price) return showToast('Недостаточно монет!', '❌');
             balance -= price;
+            saveBalance();
             updateUI();
             showToast(`Скин ${skin} куплен!`, '🎨');
         }
@@ -1392,7 +1312,6 @@
             document.querySelectorAll('.tariff-item').forEach(i => i.classList.remove('active'));
             el.classList.add('active');
             document.getElementById('currentTierName').innerText = currentTier.name;
-            document.getElementById('currentTierCost').innerText = cost.toLocaleString('ru-RU') + ' 🪙';
             closeTariffModal();
         }
 
@@ -1442,7 +1361,9 @@
             let totalCost = currentTier.cost * count;
             if (balance < totalCost) return showToast('Недостаточно монет!', '❌');
             
-            balance -= totalCost; updateUI(); isSpinning = true;
+            balance -= totalCost; 
+            saveBalance();
+            updateUI(); isSpinning = true;
             document.getElementById('simResultBox').classList.remove('show');
             document.getElementById('simX5Grid').classList.remove('show');
             document.getElementById('simX5Grid').innerHTML = '';
@@ -1497,7 +1418,11 @@
                 else if (item.rarity === 'Легендарный') square.classList.add('glow-legendary');
                 else if (item.rarity === 'Эпический') square.classList.add('glow-epic');
                 
-                if (autoSellSettings[item.rarity]) { balance += item.price; showToast(`Автопродажа: +${item.price.toLocaleString('ru-RU')} 🪙`, '💰'); } 
+                if (autoSellSettings[item.rarity]) { 
+                    balance += item.price; 
+                    saveBalance();
+                    showToast(`Автопродажа: +${item.price.toLocaleString('ru-RU')} 🪙`, '💰'); 
+                } 
                 else { 
                     inventory.push(item); 
                     if (item.rarity === 'Мифический' && mythicAnimEnabled) {
@@ -1514,6 +1439,7 @@
                     if (autoSellSettings[item.rarity]) { totalSold += item.price; } else { inventory.push(item); totalAdded++; }
                 }
                 balance += totalSold;
+                saveBalance();
                 let grid = document.getElementById('simX5Grid'); grid.classList.add('show');
                 grid.innerHTML = results.map(item => `
                     <div class="sim-x5-item" style="border-left-color: ${item.color};">
@@ -1556,6 +1482,7 @@
             let bonus = 1 + (skills.trade * 0.03);
             let sellPrice = Math.floor(inventory[index].price * bonus);
             balance += sellPrice; 
+            saveBalance();
             inventory.splice(index, 1); 
             updateUI(); renderInventory(); 
             showToast(`Продано за ${sellPrice.toLocaleString('ru-RU')} 🪙`, '💰'); 
@@ -1566,6 +1493,7 @@
             let total = inventory.reduce((sum, item) => sum + item.price, 0); 
             let totalWithBonus = Math.floor(total * bonus);
             balance += totalWithBonus; 
+            saveBalance();
             inventory = []; updateUI(); renderInventory(); 
             showToast(`Продано всё за ${totalWithBonus.toLocaleString('ru-RU')} 🪙`, '💰'); 
         }
@@ -1575,6 +1503,7 @@
             let total = inventory.reduce((sum, item) => sum + item.price, 0); 
             let totalWithBonus = Math.floor(total * bonus * 1.2);
             balance += totalWithBonus; 
+            saveBalance();
             inventory = []; updateUI(); 
             if(document.getElementById('screen-inventory').classList.contains('active')) renderInventory(); 
             showToast(`Скупщик заплатил ${totalWithBonus.toLocaleString('ru-RU')} 🪙 (+20% + бонус)`, '🤑'); 
@@ -1583,7 +1512,13 @@
         window.activatePromo = function() {
             let input = document.getElementById('promoInput').value.trim().toUpperCase(); if (!input) return;
             if (usedPromos.includes(input)) return showToast('Ты уже использовал этот код!', '❌');
-            if (promoCodes[input]) { balance += promoCodes[input]; usedPromos.push(input); updateUI(); document.getElementById('promoInput').value = ''; showToast(`Промокод активирован! +${promoCodes[input].toLocaleString('ru-RU')} 🪙`, '🎁'); } 
+            if (promoCodes[input]) { 
+                balance += promoCodes[input]; 
+                saveBalance();
+                usedPromos.push(input); updateUI(); 
+                document.getElementById('promoInput').value = ''; 
+                showToast(`Промокод активирован! +${promoCodes[input].toLocaleString('ru-RU')} 🪙`, '🎁'); 
+            } 
             else { showToast('Неверный промокод', '❌'); }
         }
 
@@ -1605,7 +1540,7 @@
             }
             bpList.innerHTML = html;
         }
-        window.claimBP = function(id, reqLvl, reward) { let bpLvl = Math.floor(statOpened / 10) + 1; if (bpLvl >= reqLvl) { balance += reward; localStorage.setItem('bp_claimed_' + id, 'true'); updateUI(); showToast(`Получено ${reward.toLocaleString('ru-RU')} 🪙`, '👑'); } }
+        window.claimBP = function(id, reqLvl, reward) { let bpLvl = Math.floor(statOpened / 10) + 1; if (bpLvl >= reqLvl) { balance += reward; saveBalance(); localStorage.setItem('bp_claimed_' + id, 'true'); updateUI(); showToast(`Получено ${reward.toLocaleString('ru-RU')} 🪙`, '👑'); } }
 
         window.switchGamePane = function(paneId, element) {
             document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
@@ -1641,7 +1576,7 @@
                 const data = snapshot.val();
                 if (!data) { list.innerHTML = `<div style="text-align: center; color: var(--text-muted); margin-top: 20px; font-size: 11px;">Нет активных лотов</div>`; return; }
                 
-                let bets = Object.values(data).filter(b => b.type === type && b.status === 'waiting');
+                let bets = Object.values(data).filter(b => b.type === type && b.status === 'waiting' && String(b.creatorId) !== String(myId));
                 
                 if (bets.length === 0) {
                     list.innerHTML = `<div style="text-align: center; color: var(--text-muted); margin-top: 20px; font-size: 11px;">Нет активных лотов</div>`;
@@ -1672,7 +1607,9 @@
                 if (!data || data.status !== 'waiting') return showToast('Лот уже занят', '❌');
                 if (balance < data.amount) return showToast('Недостаточно монет!', '❌');
                 
-                balance -= data.amount; updateUI();
+                balance -= data.amount; 
+                saveBalance();
+                updateUI();
                 const gameId = 'game_' + Date.now();
                 
                 const updates = {};
@@ -1689,7 +1626,7 @@
                     startPvPGame(gameId, false, data.type, data.amount);
                 }).catch(e => {
                     showToast('Ошибка: ' + e.message, '❌');
-                    balance += data.amount; updateUI();
+                    balance += data.amount; saveBalance(); updateUI();
                 });
             });
         }
@@ -1701,7 +1638,9 @@
             if (!bet || bet < 100) return showToast('Минимальная ставка 100', '⚠️');
             if (balance < bet) return showToast('Недостаточно монет!', '❌');
 
-            balance -= bet; updateUI();
+            balance -= bet; 
+            saveBalance();
+            updateUI();
             
             myActiveBetId = 'bet_' + myId + '_' + Date.now();
             myActiveBetAmount = bet; 
@@ -1725,7 +1664,7 @@
                 listenMyBet(myActiveBetId, type);
             }).catch(e => {
                 showToast('Ошибка базы: ' + e.message, '❌');
-                balance += bet; updateUI();
+                balance += bet; saveBalance(); updateUI();
             });
         }
 
@@ -1752,6 +1691,7 @@
             if (myActiveBetId) {
                 if (isWaitingForOpponent) { 
                     balance += myActiveBetAmount; 
+                    saveBalance();
                     updateUI(); 
                 }
                 remove(ref(db, 'matchmaking/' + myActiveBetId));
@@ -1861,9 +1801,11 @@
                         if (myScore > oppScore) {
                             let win = Math.floor(amount * 1.9);
                             balance += win;
+                            saveBalance();
                             showToast(`Вы победили! +${win} 🪙`, '🏆');
                         } else if (myScore === oppScore) {
                             balance += amount;
+                            saveBalance();
                             showToast('Ничья!', '🤝');
                         } else {
                             showToast('Вы проиграли.', '💀');
@@ -2115,6 +2057,7 @@
                     hasCashedOut = true;
                     let winAmount = Math.floor(myActiveBetAmount * autoCashout);
                     balance += winAmount; 
+                    saveBalance();
                     myActiveBetAmount = 0;
                     updateUI();
                     showToast(`АВТОЗАБОР: +${winAmount.toLocaleString('ru-RU')} 🪙 (x${autoCashout.toFixed(2)})`, '🤖');
@@ -2178,6 +2121,7 @@
                 if (balance < rocketBet) return showToast('Недостаточно монет!', '❌');
                 
                 balance -= rocketBet; 
+                saveBalance();
                 myActiveBetAmount = rocketBet;
                 updateUI();
                 
@@ -2196,6 +2140,7 @@
                 hasCashedOut = true;
                 let winAmount = Math.floor(myActiveBetAmount * rocketMult);
                 balance += winAmount; 
+                saveBalance();
                 
                 update(ref(db, 'crash_bets/' + myId), {
                     cashedOut: true,
