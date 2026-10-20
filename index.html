@@ -165,7 +165,7 @@
             padding: 20px; width: 100%; max-width: 340px; position: relative;
             box-shadow: 0 10px 40px rgba(0,0,0,0.8); margin-bottom: 30px;
             transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: repeating-linear-gradient( -45deg, #0a0a0a, #0a0a0a 8px, #111111 8px, #111111 16px ); /* Полоски как на скрине */
+            background: repeating-linear-gradient( -45deg, #0a0a0a, #0a0a0a 8px, #111111 8px, #111111 16px );
         }
         .rare-screen-overlay.active .rare-card { transform: scale(1); }
 
@@ -186,11 +186,11 @@
         .rare-chip::after { content: ''; position: absolute; top: -8px; right: -1px; width: 1px; height: 8px; background: #fff; }
         .rare-chip-inner { width: 28px; height: 20px; background: linear-gradient(135deg, #fcd34d, #d97706); border-radius: 2px; border: 1px solid #000; }
 
-        .rare-number-text { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 5px; margin-top: 20px;}
+        .rare-number-text { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 5px; margin-top: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
         .rare-number-sub { font-size: 10px; font-weight: 600; text-align: right; color: #aaa; }
 
         .rare-bottom-text { text-align: center; width: 100%;}
-        .rare-bottom-title { font-size: 28px; font-weight: 900; margin-bottom: 8px; }
+        .rare-bottom-title { font-size: 24px; font-weight: 900; margin-bottom: 8px; }
         .rare-bottom-sub { font-size: 13px; font-weight: 600; color: #888; margin-bottom: 30px; }
         
         .rare-btn-continue {
@@ -413,7 +413,7 @@
         
         <div class="rare-bottom-text">
             <div class="rare-bottom-title" id="rareTitleDisplay">Легендарный</div>
-            <div class="rare-bottom-sub" id="rarePriceDisplay">№ 1 из 5, оценка 68 829</div>
+            <div class="rare-bottom-sub" id="rarePriceDisplay">Оценка 68 829 🪙</div>
             <button class="rare-btn-continue" onclick="closeRareScreen()">Продолжить</button>
         </div>
     </div>
@@ -1426,7 +1426,6 @@
 
         function showRareScreen(number, price, rarity) {
             let overlay = document.getElementById('rareOverlay');
-            let card = document.getElementById('rareCard');
             
             // Убираем старые классы
             overlay.className = 'rare-screen-overlay';
@@ -1460,7 +1459,6 @@
         }
 
         function showMythicAnimation(number, price) {
-            // Оставил на случай, если вызовется старый код. Теперь используется showRareScreen
             showRareScreen(number, price, 'Мифический');
         }
 
@@ -1587,7 +1585,6 @@
                 let grid = document.getElementById('simX5Grid'); 
                 grid.classList.add('show');
                 
-                // Анимация редкостей
                 grid.innerHTML = Array(5).fill(0).map(() => `
                     <div class="sim-x5-item rolling">
                         <span class="rarity-text">...</span>
@@ -1648,12 +1645,10 @@
                 const resRar = document.getElementById('simResultRarity');
                 const resPrc = document.getElementById('simResultPrice');
 
-                // Проверяем на Легендарный / Мифический
                 if (item.rarity === 'Мифический' || item.rarity === 'Легендарный') {
                     if (mythicAnimEnabled) {
                         showRareScreen(item.number, item.price, item.rarity);
                     } else {
-                        // Если анимация выключена, просто показываем результат
                         resultBox.className = 'result-under-card show';
                         resNum.className = `res-number color-${item.rarity}`;
                         resRar.className = `res-rarity color-${item.rarity}`;
@@ -1662,7 +1657,6 @@
                         resPrc.innerText = `${item.price.toLocaleString('ru-RU')} 🪙`;
                     }
                 } else {
-                    // Обычный дроп
                     resultBox.className = 'result-under-card show';
                     resNum.className = `res-number color-${item.rarity}`;
                     resRar.className = `res-rarity color-${item.rarity}`;
