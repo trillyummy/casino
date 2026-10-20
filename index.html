@@ -61,7 +61,7 @@
         .screen.active { display: flex; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        #screen-game { justify-content: flex-start; padding-bottom: 20px; align-items: center; padding-top: 70px;} /* Сдвинули контент вниз */
+        #screen-game { justify-content: flex-start; padding-bottom: 20px; align-items: center; padding-top: 70px;}
         
         /* СИМ-КАРТА */
         .sim-top-section { 
@@ -72,7 +72,7 @@
             position: relative; 
             display: flex; 
             flex-direction: column; 
-            margin-bottom: 5px; 
+            margin-bottom: 10px; 
             width: 100%;
             max-width: 340px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
@@ -115,14 +115,14 @@
         .sim-slot-machine.show { display: flex; }
         .slot-number { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.5px; white-space: nowrap; }
 
-        /* РЕЗУЛЬТАТ ПОД КАРТОЙ */
+        /* РЕЗУЛЬТАТ ПОД КАРТОЙ (Для обычных) */
         .result-under-card {
             width: 100%; max-width: 340px; display: none; flex-direction: column; align-items: center; margin-bottom: 15px;
         }
         .result-under-card.show { display: flex; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
 
-        .res-number { font-size: 28px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 4px; color: #fff; text-align: center; transition: color 0.3s, text-shadow 0.3s;}
+        .res-number { font-size: 26px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 4px; color: #fff; text-align: center; }
         .res-rarity { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 4px;}
         .res-price { font-size: 18px; font-weight: 700; color: #fff; }
 
@@ -137,18 +137,70 @@
 
         .dim-zero { color: rgba(255,255,255,0.25); }
 
-        /* СЛОТЫ ДЛЯ x5 */
-        .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; margin-top: 10px; }
+        /* СЛОТЫ ДЛЯ x5 (Только редкость и цена) */
+        .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; max-width: 340px; margin-top: 10px; }
         .sim-x5-grid.show { display: grid; }
         .sim-x5-item { background: #0a0a0a; border-radius: 10px; border: 1px solid var(--border); padding: 8px 4px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 60px; overflow: hidden;}
         
-        .sim-x5-item .num { font-size: 11px; font-weight: 800; margin-bottom: 2px; white-space: nowrap; }
-        .sim-x5-item.rolling .num { animation: slotRoll 0.1s linear infinite; color: #fff; }
-        @keyframes slotRoll { 0% { transform: translateY(0); } 50% { transform: translateY(-2px); opacity: 0.7;} 100% { transform: translateY(0); } }
+        .sim-x5-item .rarity-text { font-size: 12px; font-weight: 900; margin-bottom: 2px; text-transform: uppercase; }
+        .sim-x5-item .price-text { font-size: 9px; font-weight: 600; color: #aaa; }
         
-        .sim-x5-item .prc { font-size: 8px; font-weight: 600; color: #aaa; }
+        .sim-x5-item.rolling .rarity-text { animation: slotRoll 0.1s linear infinite; color: #fff; }
+        @keyframes slotRoll { 0% { transform: translateY(0); } 50% { transform: translateY(-2px); opacity: 0.7;} 100% { transform: translateY(0); } }
 
-        /* Остальной CSS без изменений... */
+        /* ЭКРАН ВЫПАДЕНИЯ ТОПОВОГО НОМЕРА (Как на скрине) */
+        .rare-screen-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 100000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s; padding: 20px;
+        }
+        .rare-screen-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        .rare-screen-overlay.legendary { background: radial-gradient(circle at center, rgba(251,191,36,0.15) 0%, #000 70%); }
+        .rare-screen-overlay.mythic { background: radial-gradient(circle at center, rgba(239,68,68,0.2) 0%, #000 70%); }
+
+        .rare-card {
+            background: #000; border-radius: 20px; border: 1px solid var(--border); 
+            padding: 20px; width: 100%; max-width: 340px; position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8); margin-bottom: 30px;
+            transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: repeating-linear-gradient( -45deg, #0a0a0a, #0a0a0a 8px, #111111 8px, #111111 16px ); /* Полоски как на скрине */
+        }
+        .rare-screen-overlay.active .rare-card { transform: scale(1); }
+
+        .rare-screen-overlay.legendary .rare-card { border-color: #fbbf24; box-shadow: 0 0 30px rgba(251,191,36,0.3); }
+        .rare-screen-overlay.mythic .rare-card { border-color: #ef4444; box-shadow: 0 0 30px rgba(239,68,68,0.4); }
+
+        .rare-brand { display: flex; align-items: center; gap: 6px; margin-bottom: 30px; }
+        .rare-brand-icon { width: 24px; height: 24px; border-radius: 6px; background: #fff; color: #000; display: flex; justify-content: center; align-items: center; font-weight: 900; font-size: 14px;}
+        .rare-brand-text { font-size: 16px; font-weight: 800; color: #fff; }
+        .rare-country { font-size: 10px; color: #aaa; display: block; margin-top: 2px; }
+
+        .rare-chip {
+            position: absolute; top: 20px; right: 20px;
+            width: 45px; height: 35px; border: 1px solid #fff; border-radius: 4px;
+            border-top-right-radius: 0; display: flex; justify-content: center; align-items: center;
+        }
+        .rare-chip::before { content: ''; position: absolute; top: -1px; right: -8px; width: 8px; height: 1px; background: #fff; }
+        .rare-chip::after { content: ''; position: absolute; top: -8px; right: -1px; width: 1px; height: 8px; background: #fff; }
+        .rare-chip-inner { width: 28px; height: 20px; background: linear-gradient(135deg, #fcd34d, #d97706); border-radius: 2px; border: 1px solid #000; }
+
+        .rare-number-text { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 5px; margin-top: 20px;}
+        .rare-number-sub { font-size: 10px; font-weight: 600; text-align: right; color: #aaa; }
+
+        .rare-bottom-text { text-align: center; width: 100%;}
+        .rare-bottom-title { font-size: 28px; font-weight: 900; margin-bottom: 8px; }
+        .rare-bottom-sub { font-size: 13px; font-weight: 600; color: #888; margin-bottom: 30px; }
+        
+        .rare-btn-continue {
+            background: #222; color: #fff; border: 1px solid var(--border-bright);
+            border-radius: 30px; padding: 15px 40px; font-size: 16px; font-weight: 800;
+            cursor: pointer; transition: 0.2s; text-transform: uppercase; width: 200px;
+        }
+        .rare-btn-continue:active { transform: scale(0.95); background: #333; }
+
+        /* Остальной CSS */
         .sim-controls-bottom { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: auto; max-width: 340px; }
         .sim-top-row { display: flex; gap: 10px; align-items: stretch; width: 100%; }
         .btn-archive { flex: 1; background: #0a0a0a; color: #fff; border: 1px solid var(--border-bright); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; justify-content: center; cursor: pointer; transition: 0.2s; }
@@ -166,7 +218,7 @@
         .btn-x5 { background: #000; color: #fff; border: 1px solid var(--border-bright); flex: 0.4; }
         .btn-x5.active { background: #fff; color: #000; }
 
-        /* ОСТАЛЬНЫЕ ЭКРАНЫ (Сохранены) */
+        /* ОСТАЛЬНЫЕ ЭКРАНЫ */
         .games-container { background: #0a0a0a; border-radius: var(--radius-lg); border: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; height: 100%; max-height: 600px; width: 100%;}
         .game-tabs { display: flex; background: #000; border-bottom: 1px solid var(--border); overflow-x: auto;}
         .game-tab { flex: 1; padding: 12px 8px; text-align: center; font-size: 11px; font-weight: 800; color: #888; cursor: pointer; white-space: nowrap; transition: 0.2s; border-bottom: 2px solid transparent;}
@@ -266,19 +318,8 @@
         .wheel-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 35px; height: 35px; background: #fff; border-radius: 50%; z-index: 10; display: flex; justify-content: center; align-items: center; font-size: 18px; color: #000;}
         .wheel-pointer { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 20px solid #fff; z-index: 11; }
 
-        .mythic-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s; perspective: 1200px; }
-        .mythic-overlay.active { opacity: 1; pointer-events: auto; }
-        .mythic-card-3d { width: 80%; max-width: 320px; height: 450px; background: #000; border: 3px solid #ef4444; border-radius: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; transform-style: preserve-3d; transform: rotateY(180deg) scale(0.1); opacity: 0; transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s; box-shadow: 0 0 50px rgba(239,68,68,0.5); }
-        .mythic-overlay.active .mythic-card-3d { transform: rotateY(0deg) scale(1); opacity: 1; }
-        .mythic-title-top { font-size: 14px; font-weight: 800; color: #ef4444; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 2px;}
-        .mythic-number-big { font-size: 32px; font-weight: 900; color: white; margin-bottom: 20px; letter-spacing: 2px; text-align: center; padding: 0 10px; text-shadow: 0 0 20px rgba(239,68,68,0.8);}
-        .mythic-price-label { font-size: 12px; font-weight: 300; color: #aaa; letter-spacing: 1px; margin-bottom: 5px;}
-        .mythic-price-big { font-size: 22px; font-weight: 600; color: #fff; letter-spacing: 1px; margin-bottom: 30px;}
-        .mythic-close { background: #ef4444; color: #fff; border: none; padding: 14px 30px; border-radius: 12px; font-weight: 900; font-size: 14px; cursor: pointer; text-transform: uppercase; }
-
         .empty-pane { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-weight: 700; gap: 8px;}
         .empty-pane span { font-size: 30px; }
-        
         .country-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .country-item { background: #0a0a0a; padding: 12px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 8px; cursor: pointer; border: 1px solid var(--border); transition: 0.2s;}
         .country-item.active { border-color: #fff; background: #111;}
@@ -355,41 +396,25 @@
 <body>
     <div class="toast-container" id="toast"><span class="toast-icon">🎉</span><span id="toastText">Уведомление</span></div>
 
-    <div class="mythic-overlay" id="mythicOverlay">
-        <div class="mythic-card-3d">
-            <div class="mythic-title-top">✨ МИФИЧЕСКИЙ ✨</div>
-            <div class="mythic-number-big" id="mythicNumberDisplay">+0 000 000-00-00</div>
-            <div class="mythic-price-label">СТОИМОСТЬ</div>
-            <div class="mythic-price-big" id="mythicPriceDisplay">1 000 000 000 🪙</div>
-            <button class="mythic-close" onclick="closeMythicOverlay()">ЗАБРАТЬ</button>
+    <!-- ЭКРАН ВЫПАДЕНИЯ ТОПОВОГО НОМЕРА -->
+    <div class="rare-screen-overlay" id="rareOverlay">
+        <div class="rare-card" id="rareCard">
+            <div class="rare-chip"><div class="rare-chip-inner"></div></div>
+            <div class="rare-brand">
+                <div class="rare-brand-icon" id="rareBrandIcon">🌍</div>
+                <div>
+                    <div class="rare-brand-text" id="rareBrandName">Любая</div>
+                    <span class="rare-country" id="rareBrandCountry">🌍 Любая</span>
+                </div>
+            </div>
+            <div class="rare-number-text" id="rareNumberDisplay">+0 000 000-00-00</div>
+            <div class="rare-number-sub" id="rareSubDisplay">Легендарный, 1 из 5</div>
         </div>
-    </div>
-
-    <div class="modal-overlay" id="auctionModal">
-        <div class="bottom-sheet">
-            <div class="modal-title">Выставить на аукцион</div>
-            <div id="auctionItemInfo" style="text-align: center; margin-bottom: 15px;">
-                <div style="font-size: 18px; font-weight: 900; color: #fff;" id="auctionNumberDisplay">+0 000 000-00-00</div>
-                <div style="font-size: 11px; color: var(--text-muted);" id="auctionRarityDisplay">Обычный</div>
-                <div style="font-size:13px;color:#fff;font-weight:800;margin-top:5px;" id="auctionPricePreview">Базовая цена: 0 🪙</div>
-            </div>
-            <div style="font-size: 12px; font-weight: 800; color: #fff; margin-bottom: 8px;">Время лота:</div>
-            <div class="time-options">
-                <div class="time-btn active" onclick="selectAuctionTime(1, this)">1 час</div>
-                <div class="time-btn" onclick="selectAuctionTime(6, this)">6 часов</div>
-                <div class="time-btn" onclick="selectAuctionTime(24, this)">24 часа</div>
-            </div>
-            <div style="font-size: 12px; font-weight: 800; color: #fff; margin-bottom: 8px;">Цена:</div>
-            <div class="price-options">
-                <div class="price-btn" onclick="selectAuctionPrice('min', this)">Мин. цена</div>
-                <div class="price-btn" onclick="selectAuctionPrice('x2', this)">x2</div>
-                <div class="price-btn" onclick="selectAuctionPrice('x10', this)">x10</div>
-            </div>
-            <div id="customPriceBlock" style="display: none;">
-                <input type="number" class="price-input" id="customPriceInput" placeholder="Своя цена">
-            </div>
-            <button class="btn-main" style="width: 100%; margin-top: 10px;" onclick="confirmAuctionList()">Выставить лот</button>
-            <button class="btn-main" style="width: 100%; margin-top: 8px; background: transparent; border: 1px solid #333; color: #888;" onclick="closeAuctionModal()">Отмена</button>
+        
+        <div class="rare-bottom-text">
+            <div class="rare-bottom-title" id="rareTitleDisplay">Легендарный</div>
+            <div class="rare-bottom-sub" id="rarePriceDisplay">№ 1 из 5, оценка 68 829</div>
+            <button class="rare-btn-continue" onclick="closeRareScreen()">Продолжить</button>
         </div>
     </div>
 
@@ -464,14 +489,12 @@
                 </div>
             </div>
             <div class="sim-display-area">
-                <!-- Анимация крутки происходит тут -->
                 <div class="sim-slot-machine" id="simSlotMachine">
                     <div class="slot-number" id="simSlotNumber">+0 000 000-00-00</div>
                 </div>
             </div>
         </div>
 
-        <!-- РЕЗУЛЬТАТ ПОД СИМ-КАРТОЙ -->
         <div class="result-under-card" id="simResultBox">
             <div class="res-rarity" id="simResultRarity">Обычный</div>
             <div class="res-number" id="simResultNumber">+7 999 888-77-66</div>
@@ -912,6 +935,7 @@
         let promoCodesCache = {};
         onValue(ref(db, 'promocodes'), (snap) => { promoCodesCache = snap.val() || {}; });
 
+        let starsBalance = parseInt(localStorage.getItem('stars_balance')) || 0;
         let inventory = JSON.parse(localStorage.getItem('casino_inventory')) || [];
         let statOpened = parseInt(localStorage.getItem('stat_opened')) || 0;
         let userLevel = parseInt(localStorage.getItem('user_level')) || 1;
@@ -1010,7 +1034,6 @@
             mythic:   { Обычный: 0,  Необычный: 0,  Редкий: 0,    Эпический: 40,   Легендарный: 50,    Мифический: 10 }
         };
 
-        // Цвета теперь в CSS, но оставим для совместимости
         const baseRarities = {
             "Обычный":    { color: "#aaa", min: 50,        max: 150 },
             "Необычный":  { color: "#10b981", min: 200,       max: 1000 },
@@ -1396,11 +1419,49 @@
         window.closeMythicOverlay = function() {
             document.getElementById('mythicOverlay').classList.remove('active');
         }
+        
+        window.closeRareScreen = function() {
+            document.getElementById('rareOverlay').classList.remove('active');
+        }
+
+        function showRareScreen(number, price, rarity) {
+            let overlay = document.getElementById('rareOverlay');
+            let card = document.getElementById('rareCard');
+            
+            // Убираем старые классы
+            overlay.className = 'rare-screen-overlay';
+            
+            if (rarity === 'Мифический') {
+                overlay.classList.add('mythic');
+                document.getElementById('rareTitleDisplay').className = 'rare-bottom-title color-Мифический';
+                document.getElementById('rareNumberDisplay').className = 'rare-number-text color-Мифический';
+            } else {
+                overlay.classList.add('legendary');
+                document.getElementById('rareTitleDisplay').className = 'rare-bottom-title color-Легендарный';
+                document.getElementById('rareNumberDisplay').className = 'rare-number-text color-Легендарный';
+            }
+
+            // Логотип и страна
+            let brandIcon = currentOperator.code === 'any' ? currentCountry.flag : currentOperator.icon;
+            let brandName = currentOperator.code === 'any' ? 'Любая' : currentOperator.name;
+            let brandCountry = currentCountry.flag + ' ' + currentCountry.name;
+            
+            document.getElementById('rareBrandIcon').innerText = brandIcon;
+            document.getElementById('rareBrandName').innerText = brandName;
+            document.getElementById('rareBrandCountry').innerText = brandCountry;
+
+            // Номер и цена
+            document.getElementById('rareNumberDisplay').innerText = number;
+            document.getElementById('rareTitleDisplay').innerText = rarity;
+            document.getElementById('rarePriceDisplay').innerText = `Оценка ${price.toLocaleString('ru-RU')} 🪙`;
+            document.getElementById('rareSubDisplay').innerText = `${rarity}, 1 из 5`;
+
+            overlay.classList.add('active');
+        }
 
         function showMythicAnimation(number, price) {
-            document.getElementById('mythicNumberDisplay').innerText = number;
-            document.getElementById('mythicPriceDisplay').innerText = price.toLocaleString('ru-RU') + ' 🪙';
-            document.getElementById('mythicOverlay').classList.add('active');
+            // Оставил на случай, если вызовется старый код. Теперь используется showRareScreen
+            showRareScreen(number, price, 'Мифический');
         }
 
         function renderVipShop() {
@@ -1526,11 +1587,11 @@
                 let grid = document.getElementById('simX5Grid'); 
                 grid.classList.add('show');
                 
-                // Анимация цифр
+                // Анимация редкостей
                 grid.innerHTML = Array(5).fill(0).map(() => `
                     <div class="sim-x5-item rolling">
-                        <span class="num">... ...-..-..</span>
-                        <span class="prc">...</span>
+                        <span class="rarity-text">...</span>
+                        <span class="price-text">...</span>
                     </div>
                 `).join('');
 
@@ -1539,12 +1600,10 @@
                 
                 let interval = setInterval(() => {
                     ticks++;
-                    let items = document.querySelectorAll('.sim-x5-item .num');
+                    let items = document.querySelectorAll('.sim-x5-item .rarity-text');
                     items.forEach(el => {
-                        let p1 = Math.floor(Math.random() * 900) + 100;
-                        let p2 = Math.floor(Math.random() * 90) + 10;
-                        let p3 = Math.floor(Math.random() * 90) + 10;
-                        el.innerText = `${p1} ${p2}-${p3}`;
+                        let rarities = ['Обычный', 'Необычный', 'Редкий', 'Эпический'];
+                        el.innerText = rarities[Math.floor(Math.random() * rarities.length)];
                     });
 
                     if (ticks >= maxTicks) {
@@ -1589,13 +1648,28 @@
                 const resRar = document.getElementById('simResultRarity');
                 const resPrc = document.getElementById('simResultPrice');
 
-                resultBox.className = 'result-under-card show';
-                resNum.className = `res-number color-${item.rarity}`;
-                resRar.className = `res-rarity color-${item.rarity}`;
-                
-                resNum.innerText = item.number;
-                resRar.innerText = item.rarity;
-                resPrc.innerText = `${item.price.toLocaleString('ru-RU')} 🪙`;
+                // Проверяем на Легендарный / Мифический
+                if (item.rarity === 'Мифический' || item.rarity === 'Легендарный') {
+                    if (mythicAnimEnabled) {
+                        showRareScreen(item.number, item.price, item.rarity);
+                    } else {
+                        // Если анимация выключена, просто показываем результат
+                        resultBox.className = 'result-under-card show';
+                        resNum.className = `res-number color-${item.rarity}`;
+                        resRar.className = `res-rarity color-${item.rarity}`;
+                        resNum.innerText = item.number;
+                        resRar.innerText = item.rarity;
+                        resPrc.innerText = `${item.price.toLocaleString('ru-RU')} 🪙`;
+                    }
+                } else {
+                    // Обычный дроп
+                    resultBox.className = 'result-under-card show';
+                    resNum.className = `res-number color-${item.rarity}`;
+                    resRar.className = `res-rarity color-${item.rarity}`;
+                    resNum.innerText = item.number;
+                    resRar.innerText = item.rarity;
+                    resPrc.innerText = `${item.price.toLocaleString('ru-RU')} 🪙`;
+                }
                 
                 if (autoSellSettings[item.rarity]) { 
                     balance += item.price; 
@@ -1604,10 +1678,10 @@
                 } 
                 else { 
                     inventory.push(item); 
-                    if (item.rarity === 'Мифический' && mythicAnimEnabled) {
-                        showMythicAnimation(item.number, item.price);
-                    } else {
+                    if (item.rarity !== 'Мифический' && item.rarity !== 'Легендарный') {
                         showToast(`Номер в базе!`, '📦'); 
+                    } else {
+                        showToast(`ТОПОВЫЙ НОМЕР В БАЗЕ!`, '🔥');
                     }
                 }
                 userXp += 10;
@@ -1622,9 +1696,9 @@
                 
                 let grid = document.getElementById('simX5Grid'); 
                 grid.innerHTML = results.map(item => `
-                    <div class="sim-x5-item">
-                        <span class="num color-${item.rarity}">${item.number.split(' ').slice(1).join(' ')}</span>
-                        <span class="prc">${item.price.toLocaleString('ru-RU')} 🪙</span>
+                    <div class="sim-x5-item" style="border-left: 2px solid ${baseRarities[item.rarity].color}">
+                        <span class="rarity-text color-${item.rarity}">${item.rarity}</span>
+                        <span class="price-text">${item.price.toLocaleString('ru-RU')} 🪙</span>
                     </div>
                 `).join('');
                 
