@@ -61,9 +61,9 @@
         .screen.active { display: flex; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        #screen-game { justify-content: flex-start; padding-bottom: 20px; align-items: center; }
+        #screen-game { justify-content: flex-start; padding-bottom: 20px; align-items: center; padding-top: 70px;} /* Сдвинули контент вниз */
         
-        /* СИМ-КАРТА (Маленькая, по центру) */
+        /* СИМ-КАРТА */
         .sim-top-section { 
             background: #000; 
             border-radius: 16px; 
@@ -72,16 +72,15 @@
             position: relative; 
             display: flex; 
             flex-direction: column; 
-            margin-bottom: 15px; 
+            margin-bottom: 5px; 
             width: 100%;
-            max-width: 340px; /* Сделали меньше */
+            max-width: 340px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             overflow: hidden;
             min-height: 140px;
             justify-content: space-between;
         }
         
-        /* Верхняя строка карты: Логотип слева, Чип справа */
         .sim-header-row {
             display: flex;
             justify-content: space-between;
@@ -89,144 +88,78 @@
             width: 100%;
         }
         
-        /* Логотип оператора */
-        .sim-brand {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .sim-brand-icon {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 14px;
-        }
-        .sim-brand-text {
-            display: flex;
-            flex-direction: column;
-        }
-        .sim-brand-name {
-            font-size: 13px;
-            font-weight: 800;
-            color: #fff;
-            line-height: 1.1;
-        }
-        .sim-brand-country {
-            font-size: 9px;
-            color: #aaa;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+        .sim-brand { display: flex; align-items: center; gap: 6px; }
+        .sim-brand-icon { width: 20px; height: 20px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 14px; }
+        .sim-brand-text { display: flex; flex-direction: column; }
+        .sim-brand-name { font-size: 13px; font-weight: 800; color: #fff; line-height: 1.1; }
+        .sim-brand-country { font-size: 9px; color: #aaa; display: flex; align-items: center; gap: 4px; }
 
-        /* Золотой чип с белой обводкой */
         .sim-chip-visual {
-            width: 38px;
-            height: 30px;
-            border: 1px solid #fff;
-            border-radius: 4px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-top-right-radius: 0;
+            width: 38px; height: 30px; border: 1px solid #fff; border-radius: 4px;
+            position: relative; display: flex; justify-content: center; align-items: center; border-top-right-radius: 0;
         }
-        .sim-chip-visual::before {
-            content: ''; position: absolute; top: -1px; right: -8px; width: 8px; height: 1px; background: #fff;
-        }
-        .sim-chip-visual::after {
-            content: ''; position: absolute; top: -8px; right: -1px; width: 1px; height: 8px; background: #fff;
-        }
+        .sim-chip-visual::before { content: ''; position: absolute; top: -1px; right: -8px; width: 8px; height: 1px; background: #fff; }
+        .sim-chip-visual::after { content: ''; position: absolute; top: -8px; right: -1px; width: 1px; height: 8px; background: #fff; }
         .sim-chip-inner {
-            width: 24px;
-            height: 18px;
-            background: linear-gradient(135deg, #fcd34d, #d97706);
-            border-radius: 2px;
-            border: 1px solid #000;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr 1fr;
-            gap: 1px;
-            padding: 2px;
+            width: 24px; height: 18px; background: linear-gradient(135deg, #fcd34d, #d97706);
+            border-radius: 2px; border: 1px solid #000; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; gap: 1px; padding: 2px;
         }
         .sim-chip-inner div { background: #fcd34d; border: 1px solid #b45309; }
 
-        /* Номер на карте */
+        /* Область анимации ВНУТРИ карты */
         .sim-display-area { 
-            text-align: left; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: flex-end; 
-            width: 100%; 
-            margin-top: 15px;
-            min-height: 40px;
-            position: relative;
+            text-align: left; display: flex; flex-direction: column; justify-content: flex-end; 
+            width: 100%; margin-top: 15px; min-height: 40px; position: relative;
         }
-        
         .sim-slot-machine { display: none; flex-direction: column; width: 100%; }
         .sim-slot-machine.show { display: flex; }
-        
-        .slot-number { 
-            font-family: 'Montserrat', sans-serif; 
-            font-size: 22px; /* Уменьшили под карту */
-            font-weight: 700; 
-            color: #fff; 
-            letter-spacing: -0.5px; 
-            white-space: nowrap; 
-        }
-        
-        .sim-result-box { display: none; flex-direction: column; align-items: flex-start; width: 100%; }
-        .sim-result-box.show { display: flex; }
-        
-        .sim-result-square { width: 100%; display: flex; flex-direction: column; align-items: flex-start; transition: all 0.3s; }
-        
-        /* ПОДСВЕТКА ТОПОВЫХ НОМЕРОВ */
-        .sim-result-square.glow-epic { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
-        .sim-result-square.glow-legendary { text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.4); }
-        .sim-result-square.glow-mythic { 
-            text-shadow: 0 0 20px #fff, 0 0 40px #fff, 0 0 60px #fff; 
-            animation: pulseMythic 1.5s infinite;
-        }
-        @keyframes pulseMythic { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+        .slot-number { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.5px; white-space: nowrap; }
 
-        .sim-result-number { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #fff; margin-bottom: 2px; }
-        .sim-result-rarity { font-size: 9px; font-weight: 700; text-transform: uppercase; margin-bottom: 2px; letter-spacing: 1px; color: #888;}
-        .sim-result-price { font-size: 12px; font-weight: 600; color: #fff; letter-spacing: 0.5px; }
+        /* РЕЗУЛЬТАТ ПОД КАРТОЙ */
+        .result-under-card {
+            width: 100%; max-width: 340px; display: none; flex-direction: column; align-items: center; margin-bottom: 15px;
+        }
+        .result-under-card.show { display: flex; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
 
-        /* Прозрачные нули */
+        .res-number { font-size: 28px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 4px; color: #fff; text-align: center; transition: color 0.3s, text-shadow 0.3s;}
+        .res-rarity { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 4px;}
+        .res-price { font-size: 18px; font-weight: 700; color: #fff; }
+
+        /* Цвета редкостей */
+        .color-Обычный { color: #aaa; }
+        .color-Необычный { color: #10b981; text-shadow: 0 0 10px rgba(16,185,129,0.4); }
+        .color-Редкий { color: #3b82f6; text-shadow: 0 0 10px rgba(59,130,246,0.5); }
+        .color-Эпический { color: #8b5cf6; text-shadow: 0 0 15px rgba(139,92,246,0.6); }
+        .color-Легендарный { color: #fbbf24; text-shadow: 0 0 20px rgba(251,191,36,0.8); }
+        .color-Мифический { color: #ef4444; text-shadow: 0 0 25px rgba(239,68,68,1), 0 0 40px rgba(239,68,68,0.6); animation: pulseMythic 1.5s infinite; }
+        @keyframes pulseMythic { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
+
         .dim-zero { color: rgba(255,255,255,0.25); }
 
-        /* СЛОТЫ ДЛЯ x5 (Плавная анимация) */
-        .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; margin-top: 15px; }
+        /* СЛОТЫ ДЛЯ x5 */
+        .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; margin-top: 10px; }
         .sim-x5-grid.show { display: grid; }
-        .sim-x5-item { background: #0a0a0a; border-radius: 10px; border: 1px solid var(--border); padding: 5px 2px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 70px; overflow: hidden;}
+        .sim-x5-item { background: #0a0a0a; border-radius: 10px; border: 1px solid var(--border); padding: 8px 4px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 60px; overflow: hidden;}
         
-        /* Анимация цифр внутри слотов */
-        .sim-x5-item .num { font-size: 9px; font-weight: 800; color: #fff; margin-bottom: 3px; white-space: nowrap; overflow: hidden;}
-        .sim-x5-item.rolling .num { animation: slotRoll 0.1s linear infinite; }
+        .sim-x5-item .num { font-size: 11px; font-weight: 800; margin-bottom: 2px; white-space: nowrap; }
+        .sim-x5-item.rolling .num { animation: slotRoll 0.1s linear infinite; color: #fff; }
         @keyframes slotRoll { 0% { transform: translateY(0); } 50% { transform: translateY(-2px); opacity: 0.7;} 100% { transform: translateY(0); } }
         
-        .sim-x5-item .rar { font-size: 7px; font-weight: 700; text-transform: uppercase; margin-bottom: 3px; color: #aaa;}
-        .sim-x5-item .prc { font-size: 8px; font-weight: 600; color: #fff; }
+        .sim-x5-item .prc { font-size: 8px; font-weight: 600; color: #aaa; }
 
+        /* Остальной CSS без изменений... */
         .sim-controls-bottom { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: auto; max-width: 340px; }
         .sim-top-row { display: flex; gap: 10px; align-items: stretch; width: 100%; }
-        
         .btn-archive { flex: 1; background: #0a0a0a; color: #fff; border: 1px solid var(--border-bright); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; justify-content: center; cursor: pointer; transition: 0.2s; }
         .btn-archive:active { background: #222; transform: scale(0.98); }
         .btn-archive span:first-child { font-size: 10px; color: #888; margin-bottom: 2px; }
         .btn-archive span:last-child { font-size: 14px; color: #fff; font-weight: 800; }
-        
         .btn-roaming-square { width: 55px; height: 55px; background: #0a0a0a; border: 1px solid var(--border-bright); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; flex-shrink: 0; }
         .btn-roaming-square:active { background: #222; transform: scale(0.95); }
         .btn-roaming-square span:first-child { font-size: 18px; }
         .btn-roaming-square span:last-child { font-size: 8px; color: #fff; font-weight: 800; margin-top: 2px;}
-        
         .spin-actions { display: flex; gap: 10px; width: 100%; }
-        
         .btn-main { background: #fff; color: #000; border: 1px solid #fff; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 800; cursor: pointer; transition: 0.2s; flex: 1; text-transform: uppercase; }
         .btn-main:active { transform: scale(0.96); background: #ddd; }
         .btn-main:disabled { background: #222; color: #555; border-color: #333; transform: none; }
@@ -335,31 +268,27 @@
 
         .mythic-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s; perspective: 1200px; }
         .mythic-overlay.active { opacity: 1; pointer-events: auto; }
-        .mythic-card-3d { width: 80%; max-width: 320px; height: 450px; background: #000; border: 3px solid #fff; border-radius: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; transform-style: preserve-3d; transform: rotateY(180deg) scale(0.1); opacity: 0; transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s; box-shadow: 0 0 50px rgba(255,255,255,0.3); }
+        .mythic-card-3d { width: 80%; max-width: 320px; height: 450px; background: #000; border: 3px solid #ef4444; border-radius: 30px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; transform-style: preserve-3d; transform: rotateY(180deg) scale(0.1); opacity: 0; transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s; box-shadow: 0 0 50px rgba(239,68,68,0.5); }
         .mythic-overlay.active .mythic-card-3d { transform: rotateY(0deg) scale(1); opacity: 1; }
-        .mythic-title-top { font-size: 14px; font-weight: 800; color: #fff; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 2px;}
-        .mythic-number-big { font-size: 32px; font-weight: 900; color: white; margin-bottom: 20px; letter-spacing: 2px; text-align: center; padding: 0 10px;}
+        .mythic-title-top { font-size: 14px; font-weight: 800; color: #ef4444; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 2px;}
+        .mythic-number-big { font-size: 32px; font-weight: 900; color: white; margin-bottom: 20px; letter-spacing: 2px; text-align: center; padding: 0 10px; text-shadow: 0 0 20px rgba(239,68,68,0.8);}
         .mythic-price-label { font-size: 12px; font-weight: 300; color: #aaa; letter-spacing: 1px; margin-bottom: 5px;}
         .mythic-price-big { font-size: 22px; font-weight: 600; color: #fff; letter-spacing: 1px; margin-bottom: 30px;}
-        .mythic-close { background: #fff; color: #000; border: none; padding: 14px 30px; border-radius: 12px; font-weight: 900; font-size: 14px; cursor: pointer; text-transform: uppercase; }
+        .mythic-close { background: #ef4444; color: #fff; border: none; padding: 14px 30px; border-radius: 12px; font-weight: 900; font-size: 14px; cursor: pointer; text-transform: uppercase; }
 
         .empty-pane { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-weight: 700; gap: 8px;}
         .empty-pane span { font-size: 30px; }
         
-        /* Сетка роуминга */
         .country-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .country-item { background: #0a0a0a; padding: 12px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 8px; cursor: pointer; border: 1px solid var(--border); transition: 0.2s;}
         .country-item.active { border-color: #fff; background: #111;}
         .country-item span { font-size: 16px; }
         .country-item p { font-size: 11px; font-weight: 700; }
-
-        /* Сетка операторов */
         .operator-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 10px; }
         .operator-item { background: #0a0a0a; padding: 8px; border-radius: var(--radius-sm); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; border: 1px solid var(--border); transition: 0.2s; text-align: center;}
         .operator-item.active { border-color: #fff; background: #111;}
         .operator-item span { font-size: 14px; margin-bottom: 4px;}
         .operator-item p { font-size: 9px; font-weight: 700; }
-
         .bp-card { background: #0a0a0a; border-radius: var(--radius-sm); padding: 12px; border: 1px solid var(--border); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;}
         .bp-card h4 { font-size: 12px; font-weight: 800; color: var(--text); margin-bottom: 2px;}
         .bp-card p { font-size: 10px; color: var(--text-muted); font-weight: 600;}
@@ -421,8 +350,6 @@
         .time-btn, .price-btn { flex: 1; padding: 12px; background: #0a0a0a; border: 1px solid var(--border); border-radius: 10px; color: white; font-weight: 800; font-size: 12px; cursor: pointer; transition: 0.2s; text-align: center;}
         .time-btn.active, .price-btn.active { background: #fff; color: #000; border-color: #fff;}
         .price-input { width: 100%; background: #000; border: 1px solid var(--border-bright); border-radius: 10px; padding: 12px; color: white; font-size: 16px; font-weight: 900; text-align: center; margin-bottom: 15px; outline: none;}
-        
-        .dim-zero { color: rgba(255,255,255,0.25); }
     </style>
 </head>
 <body>
@@ -523,7 +450,6 @@
     <div id="screen-game" class="screen active">
         <div class="sim-top-section">
             <div class="sim-header-row">
-                <!-- Логотип оператора -->
                 <div class="sim-brand" id="simBrandContainer">
                     <div class="sim-brand-icon" id="simBrandIcon">🌍</div>
                     <div class="sim-brand-text">
@@ -531,7 +457,6 @@
                         <div class="sim-brand-country" id="simBrandCountry">🌍 Любая</div>
                     </div>
                 </div>
-                <!-- Золотой чип -->
                 <div class="sim-chip-visual">
                     <div class="sim-chip-inner">
                         <div></div><div></div><div></div><div></div><div></div><div></div>
@@ -539,19 +464,22 @@
                 </div>
             </div>
             <div class="sim-display-area">
+                <!-- Анимация крутки происходит тут -->
                 <div class="sim-slot-machine" id="simSlotMachine">
                     <div class="slot-number" id="simSlotNumber">+0 000 000-00-00</div>
                 </div>
-                <div class="sim-result-box" id="simResultBox">
-                    <div class="sim-result-square" id="simResultSquare">
-                        <div class="sim-result-number" id="simResultNumber">+0 000 000-00-00</div>
-                        <div class="sim-result-rarity" id="simResultRarity">Обычный</div>
-                        <div class="sim-result-price" id="simResultPrice">150 🪙</div>
-                    </div>
-                </div>
-                <div class="sim-x5-grid" id="simX5Grid"></div>
             </div>
         </div>
+
+        <!-- РЕЗУЛЬТАТ ПОД СИМ-КАРТОЙ -->
+        <div class="result-under-card" id="simResultBox">
+            <div class="res-rarity" id="simResultRarity">Обычный</div>
+            <div class="res-number" id="simResultNumber">+7 999 888-77-66</div>
+            <div class="res-price" id="simResultPrice">150 🪙</div>
+        </div>
+
+        <div class="sim-x5-grid" id="simX5Grid"></div>
+
         <div class="sim-controls-bottom">
             <div class="sim-top-row">
                 <button class="btn-archive" onclick="openTariffModal()">
@@ -569,9 +497,7 @@
             </div>
             <div style="font-size: 9px; color: var(--text-muted); text-align: center; margin-top: 4px;">До гаранта: <span id="guaranteeCount">1000</span></div>
         </div>
-    </div>
-
-    <div id="screen-skills" class="screen">
+    </div>    <div id="screen-skills" class="screen">
         <h1 style="font-size: 20px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 15px;">Дерево Навыков</h1>
         <div class="profile-card" style="text-align: center; margin-bottom: 15px;">
             <h3 style="font-size: 16px; font-weight: 900;">Очки навыков: <span id="skillPointsDisplay">0</span></h3>
@@ -932,7 +858,9 @@
             
             <button class="btn-main" style="margin-top: 20px; background: transparent; border: 1px solid #333; box-shadow: none; color: #888;" onclick="closeRoamingModal()">Закрыть</button>
         </div>
-    </div>    <script type="module">
+    </div>
+
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getDatabase, ref, set, onValue, remove, get, update } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
@@ -952,7 +880,6 @@
         }
         const myId = tg.initDataUnsafe?.user?.id || Math.floor(Math.random() * 1000000000);
 
-        // СИНХРОНИЗАЦИЯ
         let balance = 0;
         let balanceReady = false;
         let localOpLock = 0;
@@ -985,7 +912,6 @@
         let promoCodesCache = {};
         onValue(ref(db, 'promocodes'), (snap) => { promoCodesCache = snap.val() || {}; });
 
-        let starsBalance = parseInt(localStorage.getItem('stars_balance')) || 0;
         let inventory = JSON.parse(localStorage.getItem('casino_inventory')) || [];
         let statOpened = parseInt(localStorage.getItem('stat_opened')) || 0;
         let userLevel = parseInt(localStorage.getItem('user_level')) || 1;
@@ -999,7 +925,6 @@
         let skills = JSON.parse(localStorage.getItem('skills')) || { frequent: 0, big: 0, strong: 0, trade: 0 };
         let autoSellSettings = JSON.parse(localStorage.getItem('auto_sell_settings')) || { "Обычный": false, "Необычный": false, "Редкий": false, "Эпический": false, "Легендарный": false, "Мифический": false };
 
-        // НОВЫЕ ПЕРЕМЕННЫЕ ДЛЯ ОПЕРАТОРА
         let currentCountry = { code: "any", flag: "🌍", prefix: null, name: "Любая" };
         let currentOperator = { code: "any", name: "Любая", icon: "🌍", color: "#fff" };
         
@@ -1023,12 +948,10 @@
         ];
 
         function updateRoamingDisplay() {
-            // Обновляем текст в кнопке роуминга
             let btnText = currentCountry.code === 'any' ? '🌍 Любая' : currentCountry.flag;
             if (currentOperator.code !== 'any') btnText = currentOperator.icon + ' ' + currentOperator.name;
             document.getElementById('currentRoamingText').innerText = btnText;
             
-            // Обновляем карту (логотип слева вверху)
             let brandIcon = currentOperator.code === 'any' ? currentCountry.flag : currentOperator.icon;
             let brandName = currentOperator.code === 'any' ? 'Любая' : currentOperator.name;
             let brandCountry = currentCountry.flag + ' ' + currentCountry.name;
@@ -1038,11 +961,9 @@
             document.getElementById('simBrandName').innerText = brandName;
             document.getElementById('simBrandCountry').innerText = brandCountry;
 
-            // Обновляем стартовые нули
             let prefixHTML = `<span>+${currentCountry.prefix || 0}</span>`;
             let zeros = `<span class="dim-zero">000 000-00-00</span>`;
             document.getElementById('simSlotNumber').innerHTML = prefixHTML + ' ' + zeros;
-            document.getElementById('simResultNumber').innerHTML = prefixHTML + ' ' + zeros;
         }
 
         let rocketHistory = JSON.parse(localStorage.getItem('rocket_history')) || [];
@@ -1077,7 +998,6 @@
             return 30 * 50 + 30 * 150 + (level - 60) * 300; 
         }
 
-        // СНИЖЕННЫЕ ШАНСЫ (Мифики падают очень редко)
         const tierChances = {
             grey:     { Обычный: 65, Необычный: 25, Редкий: 8,    Эпический: 1.8,  Легендарный: 0.19,  Мифический: 0.01 },
             hacker:   { Обычный: 40, Необычный: 40, Редкий: 15,   Эпический: 4.5,  Легендарный: 0.48,  Мифический: 0.02 },
@@ -1090,13 +1010,14 @@
             mythic:   { Обычный: 0,  Необычный: 0,  Редкий: 0,    Эпический: 40,   Легендарный: 50,    Мифический: 10 }
         };
 
+        // Цвета теперь в CSS, но оставим для совместимости
         const baseRarities = {
-            "Обычный":    { color: "#ffffff", min: 50,        max: 150 },
-            "Необычный":  { color: "#ffffff", min: 200,       max: 1000 },
-            "Редкий":     { color: "#ffffff", min: 2000,      max: 10000 },
-            "Эпический":  { color: "#ffffff", min: 25000,     max: 150000 },
-            "Легендарный":{ color: "#ffffff", min: 500000,    max: 5000000 },
-            "Мифический": { color: "#ffffff", min: 10000000,  max: 500000000 }
+            "Обычный":    { color: "#aaa", min: 50,        max: 150 },
+            "Необычный":  { color: "#10b981", min: 200,       max: 1000 },
+            "Редкий":     { color: "#3b82f6", min: 2000,      max: 10000 },
+            "Эпический":  { color: "#8b5cf6", min: 25000,     max: 150000 },
+            "Легендарный":{ color: "#fbbf24", min: 500000,    max: 5000000 },
+            "Мифический": { color: "#ef4444", min: 10000000,  max: 500000000 }
         };
 
         const vipLots = [
@@ -1418,7 +1339,6 @@
             }, 3000);
         }
 
-        // ГЕНЕРАЦИЯ КРАСИВЫХ НОМЕРОВ (777-77-77 и т.д.)
         function generatePhoneNumber(rarity = "Обычный") {
             let code = currentCountry.prefix;
             if (!code) { 
@@ -1426,16 +1346,15 @@
                 code = randomCountry.prefix; 
             }
 
-            let isBeautiful = Math.random() < 0.1; // 10% шанс на красивый номер
+            let isBeautiful = Math.random() < 0.1;
             let p1, p2, p3;
 
             if (rarity === 'Мифический' || isBeautiful) {
-                // Генерируем зеркальные и красивые паттерны
                 let patterns = [
-                    () => { let d = Math.floor(Math.random() * 9) + 1; return { p1: d*111, p2: d*11, p3: d*11 }; }, // 777 77-77
-                    () => { return { p1: 777, p2: 77, p3: 77 }; }, // Золотой стандарт
+                    () => { let d = Math.floor(Math.random() * 9) + 1; return { p1: d*111, p2: d*11, p3: d*11 }; },
+                    () => { return { p1: 777, p2: 77, p3: 77 }; },
                     () => { let d = Math.floor(Math.random() * 9) + 1; return { p1: d*100+d*10+d, p2: d*10+d, p3: d*10+d }; },
-                    () => { return { p1: 123, p2: 45, p3: 67 }; }, // Лесенка
+                    () => { return { p1: 123, p2: 45, p3: 67 }; },
                     () => { return { p1: 999, p2: 99, p3: 99 }; },
                     () => { return { p1: 888, p2: 88, p3: 88 }; },
                     () => { return { p1: 555, p2: 55, p3: 55 }; }
@@ -1443,7 +1362,6 @@
                 let res = patterns[Math.floor(Math.random() * patterns.length)]();
                 p1 = res.p1; p2 = res.p2; p3 = res.p3;
             } else {
-                // Обычный рандом
                 p1 = Math.floor(Math.random() * 900) + 100;
                 p2 = Math.floor(Math.random() * 90) + 10;
                 p3 = Math.floor(Math.random() * 90) + 10;
@@ -1525,7 +1443,6 @@
         window.closeRoamingModal = function() { document.getElementById('roamingModal').classList.remove('active'); }
         
         function renderRoaming() {
-            // Рендер стран
             const grid = document.getElementById('countryGrid');
             grid.innerHTML = countries.map(c => `
                 <div class="country-item ${currentCountry.code === c.code ? 'active' : ''}" onclick="selectCountry('${c.code}')">
@@ -1533,7 +1450,6 @@
                 </div>
             `).join('');
 
-            // Рендер операторов
             const opGrid = document.getElementById('operatorGrid');
             opGrid.innerHTML = operators.map(o => `
                 <div class="operator-item ${currentOperator.code === o.code ? 'active' : ''}" onclick="selectOperator('${o.code}')">
@@ -1582,6 +1498,7 @@
             balance -= totalCost; 
             saveBalance();
             updateUI(); isSpinning = true;
+            
             document.getElementById('simResultBox').classList.remove('show');
             document.getElementById('simX5Grid').classList.remove('show');
             
@@ -1591,7 +1508,6 @@
                 let rollingNumber = document.getElementById('simSlotNumber');
                 let prefixHTML = `<span>+${currentCountry.prefix || 0}</span>`;
                 
-                // ПЛАВНАЯ АНИМАЦИЯ ДЛЯ ОДИНОЧНОЙ КРУТКИ
                 let interval = setInterval(() => {
                     let p1 = Math.floor(Math.random() * 900) + 100;
                     let p2 = Math.floor(Math.random() * 90) + 10;
@@ -1607,21 +1523,19 @@
                     }
                 }, 60);
             } else {
-                // ПЛАВНАЯ АНИМАЦИЯ ДЛЯ X5 (слоты)
                 let grid = document.getElementById('simX5Grid'); 
                 grid.classList.add('show');
                 
-                // Создаем пустые слоты с анимацией
+                // Анимация цифр
                 grid.innerHTML = Array(5).fill(0).map(() => `
                     <div class="sim-x5-item rolling">
                         <span class="num">... ...-..-..</span>
-                        <span class="rar">...</span>
                         <span class="prc">...</span>
                     </div>
                 `).join('');
 
                 let ticks = 0;
-                let maxTicks = 30; // Чем больше, тем дольше крутится
+                let maxTicks = 30; 
                 
                 let interval = setInterval(() => {
                     ticks++;
@@ -1637,7 +1551,6 @@
                         clearInterval(interval);
                         isSpinning = false;
                         
-                        // Убираем класс анимации и показываем результаты
                         let allItems = document.querySelectorAll('.sim-x5-item');
                         allItems.forEach(el => el.classList.remove('rolling'));
                         
@@ -1660,7 +1573,6 @@
             const data = baseRarities[selectedRarity];
             let price = Math.floor(Math.random() * (data.max - data.min + 1)) + data.min;
             
-            // Для мифических номеров цена еще выше
             if (selectedRarity === 'Мифический') {
                 price = Math.floor(Math.random() * (500000000 - 10000000 + 1)) + 10000000;
             }
@@ -1671,19 +1583,19 @@
         function finishSpin(count) {
             if (count === 1) {
                 const item = generateNumberData(); statOpened++;
-                document.getElementById('simResultBox').classList.add('show');
                 
-                const square = document.getElementById('simResultSquare');
-                square.className = 'sim-result-square'; // Сброс классов
-                
-                // Подсветка в зависимости от редкости
-                if (item.rarity === 'Мифический') square.classList.add('glow-mythic');
-                else if (item.rarity === 'Легендарный') square.classList.add('glow-legendary');
-                else if (item.rarity === 'Эпический') square.classList.add('glow-epic');
+                const resultBox = document.getElementById('simResultBox');
+                const resNum = document.getElementById('simResultNumber');
+                const resRar = document.getElementById('simResultRarity');
+                const resPrc = document.getElementById('simResultPrice');
 
-                document.getElementById('simResultNumber').innerText = item.number;
-                document.getElementById('simResultRarity').innerText = item.rarity;
-                document.getElementById('simResultPrice').innerText = `${item.price.toLocaleString('ru-RU')} 🪙`;
+                resultBox.className = 'result-under-card show';
+                resNum.className = `res-number color-${item.rarity}`;
+                resRar.className = `res-rarity color-${item.rarity}`;
+                
+                resNum.innerText = item.number;
+                resRar.innerText = item.rarity;
+                resPrc.innerText = `${item.price.toLocaleString('ru-RU')} 🪙`;
                 
                 if (autoSellSettings[item.rarity]) { 
                     balance += item.price; 
@@ -1708,17 +1620,13 @@
                 balance += totalSold;
                 saveBalance();
                 
-                // Заполняем реальными данными
                 let grid = document.getElementById('simX5Grid'); 
-                grid.innerHTML = results.map(item => {
-                    let glowClass = item.rarity === 'Мифический' ? 'style="border-color:#fff; box-shadow: 0 0 10px #fff;"' : '';
-                    return `
-                    <div class="sim-x5-item" ${glowClass}>
-                        <span class="num">${item.number}</span>
-                        <span class="rar" style="color:#fff;">${item.rarity}</span>
+                grid.innerHTML = results.map(item => `
+                    <div class="sim-x5-item">
+                        <span class="num color-${item.rarity}">${item.number.split(' ').slice(1).join(' ')}</span>
                         <span class="prc">${item.price.toLocaleString('ru-RU')} 🪙</span>
                     </div>
-                `}).join('');
+                `).join('');
                 
                 if (totalSold > 0) showToast(`Автопродажа: +${totalSold.toLocaleString('ru-RU')} 🪙`, '💰');
                 if (totalAdded > 0) showToast(`В базу добавлено: ${totalAdded} шт.`, '📦');
@@ -1741,11 +1649,11 @@
             const list = document.getElementById('inventoryList');
             if (inventory.length === 0) { list.innerHTML = `<p style="text-align:center; color:var(--text-muted); margin-top:20px;">Твоя база пуста</p>`; return; }
             list.innerHTML = inventory.map((item, index) => {
-                let glowStyle = item.rarity === 'Мифический' ? 'box-shadow: inset 0 0 15px rgba(255,255,255,0.3); border-left: 3px solid #fff;' : '';
+                let rarityColor = baseRarities[item.rarity]?.color || '#fff';
                 return `
-                <div class="inventory-item" style="${glowStyle}">
+                <div class="inventory-item" style="border-left-color: ${rarityColor};">
                     <div class="inv-info">
-                        <h4>${item.number}</h4><p>${item.rarity}</p>
+                        <h4 style="color: ${rarityColor};">${item.number}</h4><p>${item.rarity}</p>
                         <button class="btn-sell" onclick="sellItem(${index})">Продать за ${item.price.toLocaleString('ru-RU')} 🪙</button>
                         <button class="btn-edit" onclick="openAuctionModal(${index})">Аукцион</button>
                     </div>
@@ -2478,7 +2386,6 @@
             }
         }
         
-        // Инициализация
         updateUI();
         renderRoaming();
         renderVipShop();
