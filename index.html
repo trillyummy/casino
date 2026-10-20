@@ -800,7 +800,9 @@
             <div class="country-grid" id="countryGrid"></div>
             <button class="btn-main" style="margin-top: 15px; background: rgba(255,255,255,0.1); box-shadow: none;" onclick="closeRoamingModal()">Закрыть</button>
         </div>
-    </div>    <script type="module">
+    </div>
+
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getDatabase, ref, set, onValue, remove, get, update } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
@@ -849,12 +851,9 @@
             update(ref(db, 'users/' + myId), { balance: balance });
         }
 
-        // === ПРОМОКОДЫ ИЗ FIREBASE ===
         let usedPromos = JSON.parse(localStorage.getItem('used_promos')) || [];
         let promoCodesCache = {};
-        onValue(ref(db, 'promocodes'), (snap) => {
-            promoCodesCache = snap.val() || {};
-        });
+        onValue(ref(db, 'promocodes'), (snap) => { promoCodesCache = snap.val() || {}; });
 
         let starsBalance = parseInt(localStorage.getItem('stars_balance')) || 0;
         let inventory = JSON.parse(localStorage.getItem('casino_inventory')) || [];
@@ -908,27 +907,27 @@
             return 30 * 50 + 30 * 150 + (level - 60) * 300; 
         }
 
-        // === НОВЫЕ ЖЁСТКИЕ ШАНСЫ ===
+        // СОЧНЫЕ ШАНСЫ
         const tierChances = {
-            grey:     { Обычный: 78, Необычный: 18, Редкий: 3.5, Эпический: 0.45, Легендарный: 0.045, Мифический: 0.005 },
-            hacker:   { Обычный: 55, Необычный: 35, Редкий: 8, Эпический: 1.8, Легендарный: 0.18, Мифический: 0.02 },
-            vip:      { Обычный: 30, Необычный: 45, Редкий: 20, Эпический: 4.5, Легендарный: 0.48, Мифический: 0.02 },
-            gov:      { Обычный: 0, Необычный: 35, Редкий: 45, Эпический: 17.5, Легендарный: 2.3, Мифический: 0.2 },
-            casino:   { Обычный: 20, Необычный: 30, Редкий: 35, Эпический: 13, Легендарный: 1.7, Мифический: 0.3 },
-            premium:  { Обычный: 0, Необычный: 20, Редкий: 50, Эпический: 25, Легендарный: 4.5, Мифический: 0.5 },
-            elite:    { Обычный: 0, Необычный: 10, Редкий: 45, Эпический: 38, Легендарный: 6.5, Мифический: 0.5 },
-            legendary:{ Обычный: 0, Необычный: 0, Редкий: 30, Эпический: 55, Легендарный: 13.5, Мифический: 1.5 },
-            mythic:   { Обычный: 0, Необычный: 0, Редкий: 0, Эпический: 70, Легендарный: 25, Мифический: 5 }
+            grey:     { Обычный: 60, Необычный: 25, Редкий: 10,   Эпический: 4,   Легендарный: 0.9,  Мифический: 0.1 },
+            hacker:   { Обычный: 35, Необычный: 40, Редкий: 18,   Эпический: 6,   Легендарный: 0.9,  Мифический: 0.1 },
+            vip:      { Обычный: 10, Необычный: 40, Редкий: 35,   Эпический: 13,  Легендарный: 1.8,  Мифический: 0.2 },
+            gov:      { Обычный: 0,  Необычный: 20, Редкий: 45,   Эпический: 30,  Легендарный: 4.5,  Мифический: 0.5 },
+            casino:   { Обычный: 0,  Необычный: 10, Редкий: 40,   Эпический: 40,  Легендарный: 9,    Мифический: 1 },
+            premium:  { Обычный: 0,  Необычный: 0,  Редкий: 30,   Эпический: 50,  Легендарный: 17,   Мифический: 3 },
+            elite:    { Обычный: 0,  Необычный: 0,  Редкий: 15,   Эпический: 55,  Легендарный: 25,   Мифический: 5 },
+            legendary:{ Обычный: 0,  Необычный: 0,  Редкий: 0,    Эпический: 50,  Легендарный: 40,   Мифический: 10 },
+            mythic:   { Обычный: 0,  Необычный: 0,  Редкий: 0,    Эпический: 30,  Легендарный: 50,   Мифический: 20 }
         };
 
-        // === НОВАЯ ЭКОНОМИКА (в минус) ===
+        // ДОРОГИЕ НОМЕРА
         const baseRarities = {
-            "Обычный":    { color: "#8b92a5", min: 80,   max: 200 },
-            "Необычный":  { color: "#10b981", min: 250,  max: 800 },
-            "Редкий":     { color: "#3b82f6", min: 1200, max: 4000 },
-            "Эпический":  { color: "#8b5cf6", min: 5000, max: 20000 },
-            "Легендарный":{ color: "#f97316", min: 25000,max: 80000 },
-            "Мифический": { color: "#ef4444", min: 150000,max: 1500000 }
+            "Обычный":    { color: "#8b92a5", min: 50,        max: 150 },
+            "Необычный":  { color: "#10b981", min: 200,       max: 1000 },
+            "Редкий":     { color: "#3b82f6", min: 2000,      max: 10000 },
+            "Эпический":  { color: "#8b5cf6", min: 25000,     max: 150000 },
+            "Легендарный":{ color: "#f97316", min: 500000,    max: 5000000 },
+            "Мифический": { color: "#ef4444", min: 10000000,  max: 500000000 }
         };
 
         const vipLots = [
@@ -1028,7 +1027,6 @@
             updateUI();
         }
 
-        // === АУКЦИОН ===
         function loadAuction() {
             if (auctionUnsub) auctionUnsub();
             const auctionRef = ref(db, 'auction');
@@ -1147,9 +1145,7 @@
             document.getElementById('customPriceBlock').style.display = 'none';
         }
 
-        window.closeAuctionModal = function() {
-            document.getElementById('auctionModal').classList.remove('active');
-        }
+        window.closeAuctionModal = function() { document.getElementById('auctionModal').classList.remove('active'); }
 
         window.selectAuctionTime = function(hours, btn) {
             auctionTime = hours;
@@ -1205,7 +1201,6 @@
             showToast('Лот выставлен на аукцион!', '🔨');
         }
 
-        // === КОЛЕСО ===
         function initWheel() {
             const wheel = document.getElementById('fortuneWheel');
             if (!wheel) return;
@@ -1530,7 +1525,7 @@
             showToast(`Скупщик заплатил ${totalWithBonus.toLocaleString('ru-RU')} 🪙 (+20% + бонус)`, '🤑'); 
         }
 
-        // === ПРОМОКОДЫ ИЗ FIREBASE ===
+        // УМНЫЕ ПРОМОКОДЫ
         window.activatePromo = async function() {
             let input = document.getElementById('promoInput').value.trim().toUpperCase();
             if (!input) return;
@@ -1541,11 +1536,20 @@
                 const snap = await get(promoRef);
                 const promo = snap.val();
 
-                if (!promo || promo.active === false) return showToast('Неверный или неактивный промокод', '❌');
-                if (promo.usesLeft !== undefined && promo.usesLeft <= 0) return showToast('Промокод закончился', '❌');
+                if (!promo || promo.active === false) {
+                    return showToast('Неверный или неактивный промокод', '❌');
+                }
 
-                const reward = Number(promo.reward) || 0;
-                if (reward <= 0) return showToast('Ошибка промокода', '❌');
+                const now = Date.now();
+                const expireTime = promo.expiresAt || promo.expire || promo.time || promo.expires;
+                if (expireTime && now > expireTime) {
+                    return showToast('Срок действия промокода истёк', '❌');
+                }
+
+                const reward = Number(promo.reward || promo.amount || promo.value || promo.coins || 0);
+                if (reward <= 0) {
+                    return showToast('Ошибка: в промокоде 0 монет', '❌');
+                }
 
                 balance += reward;
                 saveBalance();
@@ -1556,9 +1560,14 @@
                 if (promo.usesLeft !== undefined) {
                     await update(promoRef, { usesLeft: Math.max(0, promo.usesLeft - 1) });
                 }
+                if (promo.oneTime === true || promo.singleUse === true) {
+                    await remove(promoRef);
+                }
+
                 showToast(`Промокод активирован! +${reward.toLocaleString('ru-RU')} 🪙`, '🎁');
             } catch (e) {
-                showToast('Ошибка сети: ' + e.message, '❌');
+                console.error("Firebase error:", e);
+                showToast('Ошибка сети или код не найден', '❌');
             }
         }
 
