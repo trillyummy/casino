@@ -148,55 +148,60 @@
         .sim-x5-item.rolling .rarity-text { animation: slotRoll 0.1s linear infinite; color: #fff; }
         @keyframes slotRoll { 0% { transform: translateY(0); } 50% { transform: translateY(-2px); opacity: 0.7;} 100% { transform: translateY(0); } }
 
-        /* ЭКРАН ВЫПАДЕНИЯ ТОПОВОГО НОМЕРА (Как на скрине) */
+        /* ЭКРАН ВЫПАДЕНИЯ ТОПОВОГО НОМЕРА (ОБНОВЛЕННЫЙ ПОД СКРИНШОТ) */
         .rare-screen-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 100000;
+            background: rgba(10, 8, 5, 0.98); z-index: 100000;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             opacity: 0; pointer-events: none; transition: opacity 0.4s; padding: 20px;
         }
         .rare-screen-overlay.active { opacity: 1; pointer-events: auto; }
         
-        .rare-screen-overlay.legendary { background: radial-gradient(circle at center, rgba(251,191,36,0.15) 0%, #000 70%); }
-        .rare-screen-overlay.mythic { background: radial-gradient(circle at center, rgba(239,68,68,0.2) 0%, #000 70%); }
+        .rare-screen-overlay.legendary { background: radial-gradient(circle at center, rgba(251,191,36,0.15) 0%, #050505 60%); }
+        .rare-screen-overlay.mythic { background: radial-gradient(circle at center, rgba(239,68,68,0.2) 0%, #050505 60%); }
 
         .rare-card {
-            background: #000; border-radius: 20px; border: 1px solid var(--border); 
+            background: #111; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); 
             padding: 20px; width: 100%; max-width: 340px; position: relative;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8); margin-bottom: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9); margin-bottom: 30px;
             transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: repeating-linear-gradient( -45deg, #0a0a0a, #0a0a0a 8px, #111111 8px, #111111 16px );
+            background-image: repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255,255,255,0.03) 10px, rgba(255,255,255,0.03) 20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
         }
         .rare-screen-overlay.active .rare-card { transform: scale(1); }
 
-        .rare-screen-overlay.legendary .rare-card { border-color: #fbbf24; box-shadow: 0 0 30px rgba(251,191,36,0.3); }
-        .rare-screen-overlay.mythic .rare-card { border-color: #ef4444; box-shadow: 0 0 30px rgba(239,68,68,0.4); }
+        .rare-screen-overlay.legendary .rare-card { border-color: rgba(251,191,36,0.4); box-shadow: 0 0 40px rgba(251,191,36,0.15), inset 0 0 20px rgba(251,191,36,0.05); }
+        .rare-screen-overlay.mythic .rare-card { border-color: rgba(239,68,68,0.4); box-shadow: 0 0 40px rgba(239,68,68,0.2), inset 0 0 20px rgba(239,68,68,0.1); }
 
-        .rare-brand { display: flex; align-items: center; gap: 6px; margin-bottom: 30px; }
-        .rare-brand-icon { width: 24px; height: 24px; border-radius: 6px; background: #fff; color: #000; display: flex; justify-content: center; align-items: center; font-weight: 900; font-size: 14px;}
-        .rare-brand-text { font-size: 16px; font-weight: 800; color: #fff; }
+        .rare-brand { display: flex; align-items: center; gap: 8px; }
+        .rare-brand-icon { width: 26px; height: 26px; border-radius: 6px; background: #fff; color: #000; display: flex; justify-content: center; align-items: center; font-weight: 900; font-size: 14px;}
+        .rare-brand-text { font-size: 16px; font-weight: 800; color: #fff; line-height: 1.1; }
         .rare-country { font-size: 10px; color: #aaa; display: block; margin-top: 2px; }
 
         .rare-chip {
             position: absolute; top: 20px; right: 20px;
-            width: 45px; height: 35px; border: 1px solid #fff; border-radius: 4px;
+            width: 45px; height: 35px; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px;
             border-top-right-radius: 0; display: flex; justify-content: center; align-items: center;
         }
-        .rare-chip::before { content: ''; position: absolute; top: -1px; right: -8px; width: 8px; height: 1px; background: #fff; }
-        .rare-chip::after { content: ''; position: absolute; top: -8px; right: -1px; width: 1px; height: 8px; background: #fff; }
+        .rare-chip::before { content: ''; position: absolute; top: -1px; right: -8px; width: 8px; height: 1px; background: rgba(255,255,255,0.4); }
+        .rare-chip::after { content: ''; position: absolute; top: -8px; right: -1px; width: 1px; height: 8px; background: rgba(255,255,255,0.4); }
         .rare-chip-inner { width: 28px; height: 20px; background: linear-gradient(135deg, #fcd34d, #d97706); border-radius: 2px; border: 1px solid #000; }
 
-        .rare-number-text { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 5px; margin-top: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-        .rare-number-sub { font-size: 10px; font-weight: 600; text-align: right; color: #aaa; }
+        .rare-number-text { font-size: 24px; font-weight: 800; letter-spacing: 0.5px; margin-top: 30px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left;}
+        
+        .rare-number-sub { font-size: 10px; font-weight: 600; text-align: right; color: #aaa; margin-top: 5px;}
 
         .rare-bottom-text { text-align: center; width: 100%;}
-        .rare-bottom-title { font-size: 24px; font-weight: 900; margin-bottom: 8px; }
-        .rare-bottom-sub { font-size: 13px; font-weight: 600; color: #888; margin-bottom: 30px; }
+        .rare-bottom-title { font-size: 28px; font-weight: 900; margin-bottom: 6px; }
+        .rare-bottom-sub { font-size: 14px; font-weight: 600; color: #888; margin-bottom: 30px; }
         
         .rare-btn-continue {
-            background: #222; color: #fff; border: 1px solid var(--border-bright);
-            border-radius: 30px; padding: 15px 40px; font-size: 16px; font-weight: 800;
-            cursor: pointer; transition: 0.2s; text-transform: uppercase; width: 200px;
+            background: #2a2a2a; color: #fff; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px; padding: 16px 40px; font-size: 15px; font-weight: 700;
+            cursor: pointer; transition: 0.2s; width: 220px;
         }
         .rare-btn-continue:active { transform: scale(0.95); background: #333; }
 
@@ -396,24 +401,24 @@
 <body>
     <div class="toast-container" id="toast"><span class="toast-icon">🎉</span><span id="toastText">Уведомление</span></div>
 
-    <!-- ЭКРАН ВЫПАДЕНИЯ ТОПОВОГО НОМЕРА -->
+    <!-- ЭКРАН ВЫПАДЕНИЯ ТОПОВОГО НОМЕРА (ОБНОВЛЕН ПОД СКРИН) -->
     <div class="rare-screen-overlay" id="rareOverlay">
         <div class="rare-card" id="rareCard">
             <div class="rare-chip"><div class="rare-chip-inner"></div></div>
             <div class="rare-brand">
                 <div class="rare-brand-icon" id="rareBrandIcon">🌍</div>
                 <div>
-                    <div class="rare-brand-text" id="rareBrandName">Любая</div>
-                    <span class="rare-country" id="rareBrandCountry">🌍 Любая</span>
+                    <div class="rare-brand-text" id="rareBrandName">Clara</div>
+                    <span class="rare-country" id="rareBrandCountry">🇧🇷 Бразилия</span>
                 </div>
             </div>
-            <div class="rare-number-text" id="rareNumberDisplay">+0 000 000-00-00</div>
+            <div class="rare-number-text" id="rareNumberDisplay">+55 (51) 91122-3355</div>
             <div class="rare-number-sub" id="rareSubDisplay">Легендарный, 1 из 5</div>
         </div>
         
         <div class="rare-bottom-text">
             <div class="rare-bottom-title" id="rareTitleDisplay">Легендарный</div>
-            <div class="rare-bottom-sub" id="rarePriceDisplay">Оценка 68 829 🪙</div>
+            <div class="rare-bottom-sub" id="rarePriceDisplay">№ 1 из 5, оценка 68 829</div>
             <button class="rare-btn-continue" onclick="closeRareScreen()">Продолжить</button>
         </div>
     </div>
@@ -520,7 +525,9 @@
             </div>
             <div style="font-size: 9px; color: var(--text-muted); text-align: center; margin-top: 4px;">До гаранта: <span id="guaranteeCount">1000</span></div>
         </div>
-    </div>    <div id="screen-skills" class="screen">
+    </div>    
+    
+    <div id="screen-skills" class="screen">
         <h1 style="font-size: 20px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 15px;">Дерево Навыков</h1>
         <div class="profile-card" style="text-align: center; margin-bottom: 15px;">
             <h3 style="font-size: 16px; font-weight: 900;">Очки навыков: <span id="skillPointsDisplay">0</span></h3>
@@ -949,15 +956,16 @@
         let skills = JSON.parse(localStorage.getItem('skills')) || { frequent: 0, big: 0, strong: 0, trade: 0 };
         let autoSellSettings = JSON.parse(localStorage.getItem('auto_sell_settings')) || { "Обычный": false, "Необычный": false, "Редкий": false, "Эпический": false, "Легендарный": false, "Мифический": false };
 
-        let currentCountry = { code: "any", flag: "🌍", prefix: null, name: "Любая" };
+        let currentCountry = { code: "any", flag: "🌍", prefix: 0, name: "Любая" };
         let currentOperator = { code: "any", name: "Любая", icon: "🌍", color: "#fff" };
         
         const countries = [
-            { code: "any", flag: "🌍", name: "Любая", prefix: null },
+            { code: "any", flag: "🌍", name: "Любая", prefix: 0 },
             { code: "+7", flag: "🇷🇺", name: "Россия", prefix: 7 }, 
             { code: "+375", flag: "🇧🇾", name: "Беларусь", prefix: 375 }, 
             { code: "+380", flag: "🇺🇦", name: "Украина", prefix: 380 }, 
             { code: "+1", flag: "🇺🇸", name: "США", prefix: 1 }, 
+            { code: "+55", flag: "🇧🇷", name: "Бразилия", prefix: 55 },
             { code: "+49", flag: "🇩🇪", name: "Германия", prefix: 49 }, 
             { code: "+44", flag: "🇬🇧", name: "Англия", prefix: 44 }, 
             { code: "+971", flag: "🇦🇪", name: "ОАЭ", prefix: 971 }
@@ -965,12 +973,14 @@
 
         const operators = [
             { code: "any", name: "Любой", icon: "✈️", color: "#fff" },
+            { code: "clara", name: "Clara", icon: "🔴", color: "#ff4444" }, // Добавлен оператор для Бразилии как на скрине
             { code: "beeline", name: "Билайн", icon: "🟡", color: "#fbbf24" },
             { code: "mts", name: "МТС", icon: "🔴", color: "#ef4444" },
             { code: "megafon", name: "Мегафон", icon: "🟢", color: "#10b981" },
             { code: "tele2", name: "Tele2", icon: "⚫", color: "#000" }
         ];
 
+        // НОВАЯ ФУНКЦИЯ: Красивое отображение нулей с префиксом
         function updateRoamingDisplay() {
             let btnText = currentCountry.code === 'any' ? '🌍 Любая' : currentCountry.flag;
             if (currentOperator.code !== 'any') btnText = currentOperator.icon + ' ' + currentOperator.name;
@@ -985,9 +995,16 @@
             document.getElementById('simBrandName').innerText = brandName;
             document.getElementById('simBrandCountry').innerText = brandCountry;
 
-            let prefixHTML = `<span>+${currentCountry.prefix || 0}</span>`;
-            let zeros = `<span class="dim-zero">000 000-00-00</span>`;
-            document.getElementById('simSlotNumber').innerHTML = prefixHTML + ' ' + zeros;
+            // Формируем красивый номер, как на 2 скрине
+            let prefix = currentCountry.prefix > 0 ? '+' + currentCountry.prefix : '+0';
+            
+            // Если это Бразилия (как на скрине), делаем специфичный формат
+            let zeroPattern = "000 000-00-00";
+            if(currentCountry.prefix === 55) zeroPattern = "(51) 00000-0000";
+            if(currentCountry.prefix === 1) zeroPattern = "(555) 000-0000";
+
+            let formattedNumber = `<span>${prefix}</span> <span class="dim-zero">${zeroPattern}</span>`;
+            document.getElementById('simSlotNumber').innerHTML = formattedNumber;
         }
 
         let rocketHistory = JSON.parse(localStorage.getItem('rocket_history')) || [];
@@ -1390,6 +1407,11 @@
                 p3 = Math.floor(Math.random() * 90) + 10;
             }
 
+            // Форматирование под скрин (Бразилия)
+            if(code === 55) {
+                return `+55 (${Math.floor(Math.random()*90)+10}) 9${p1.toString().substring(0,4)}-${p2.toString().substring(0,4)}`;
+            }
+
             return `+${code} ${p1} ${p2}-${p3}`;
         }
 
@@ -1424,12 +1446,13 @@
             document.getElementById('rareOverlay').classList.remove('active');
         }
 
+        // ОБНОВЛЕННАЯ ФУНКЦИЯ ДЛЯ ПОКАЗА ТОПОВОГО ЭКРАНА (КАК НА СКРИНЕ 1)
         function showRareScreen(number, price, rarity) {
             let overlay = document.getElementById('rareOverlay');
             
-            // Убираем старые классы
             overlay.className = 'rare-screen-overlay';
             
+            // Настраиваем цвета в зависимости от редкости
             if (rarity === 'Мифический') {
                 overlay.classList.add('mythic');
                 document.getElementById('rareTitleDisplay').className = 'rare-bottom-title color-Мифический';
@@ -1440,19 +1463,19 @@
                 document.getElementById('rareNumberDisplay').className = 'rare-number-text color-Легендарный';
             }
 
-            // Логотип и страна
+            // Настраиваем бренд
             let brandIcon = currentOperator.code === 'any' ? currentCountry.flag : currentOperator.icon;
-            let brandName = currentOperator.code === 'any' ? 'Любая' : currentOperator.name;
+            let brandName = currentOperator.code === 'any' ? 'Циферки' : currentOperator.name;
             let brandCountry = currentCountry.flag + ' ' + currentCountry.name;
             
             document.getElementById('rareBrandIcon').innerText = brandIcon;
             document.getElementById('rareBrandName').innerText = brandName;
             document.getElementById('rareBrandCountry').innerText = brandCountry;
 
-            // Номер и цена
+            // Сам номер и подписи
             document.getElementById('rareNumberDisplay').innerText = number;
             document.getElementById('rareTitleDisplay').innerText = rarity;
-            document.getElementById('rarePriceDisplay').innerText = `Оценка ${price.toLocaleString('ru-RU')} 🪙`;
+            document.getElementById('rarePriceDisplay').innerText = `№ 1 из 5, оценка ${price.toLocaleString('ru-RU')}`;
             document.getElementById('rareSubDisplay').innerText = `${rarity}, 1 из 5`;
 
             overlay.classList.add('active');
@@ -2457,7 +2480,7 @@
         updateUI();
         renderRoaming();
         renderVipShop();
-        updateRoamingDisplay();
+        updateRoamingDisplay(); // Вызываем при старте, чтобы сразу были нули с префиксом
     </script>
 </body>
 </html>
