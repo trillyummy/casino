@@ -339,7 +339,7 @@
         .bp-reward { text-align: right; }
         .bp-list-container { max-height: 55vh; overflow-y: auto; padding-right: 5px; }
 
-        /* ИДЕАЛЬНАЯ КОЛЛЕКЦИЯ БЕЗ НАЛОЖЕНИЙ */
+        /* ИДЕАЛЬНАЯ КОЛЛЕКЦИЯ С ПЛАВНЫМ СКРЫТИЕМ ШАПКИ */
         #screen-inventory { 
             padding: 0; 
             display: none;
@@ -356,6 +356,12 @@
             z-index: 10; 
             position: relative;
             border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            will-change: transform, opacity;
+        }
+        .inv-top-fixed.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
         }
         
         .inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 5px;}
@@ -534,6 +540,7 @@
                     <div class="small-btn" onclick="switchTab('buyer', this)"><div class="icon-box" style="width:24px; height:24px; font-size:12px;">🏷️</div><span>Скупщик</span></div>
                     <div class="small-btn" onclick="switchTab('auction', this)"><div class="icon-box" style="width:24px; height:24px; font-size:12px;">🔨</div><span>Аукцион</span></div>
                     <div class="small-btn" onclick="switchTab('promo', this)"><div class="icon-box" style="width:24px; height:24px; font-size:12px;">🎁</div><span>Промокод</span></div>
+                    <div class="small-btn" onclick="switchTab('comfort', this)"><div class="icon-box" style="width:24px; height:24px; font-size:12px;">🎗️</div><span>Утешительный</span></div>
                 </div>
             </div>
             <div class="menu-category">
@@ -887,7 +894,7 @@
     </div>
 
     <div id="screen-inventory" class="screen">
-        <div class="inv-top-fixed">
+        <div class="inv-top-fixed" id="invTopFixed">
             <div class="inventory-header">
                 <h2 style="font-weight: 900; text-transform: uppercase; font-size: 18px;">Коллекция</h2>
                 <button class="btn-sell-all" onclick="sellAllNumbers()">ПРОДАТЬ ВСЁ</button>
@@ -904,7 +911,7 @@
             </div>
         </div>
 
-        <div class="inv-scroll-area">
+        <div class="inv-scroll-area" id="invScrollArea">
             <div class="inv-grid-container" id="inventoryList"></div>
         </div>
     </div>
@@ -939,6 +946,21 @@
         <div class="profile-card">
             <input type="text" id="promoInput" style="width: 100%; padding: 12px; border-radius: 8px; background: #000; border: 1px solid var(--border-bright); color: white; font-weight: 800; margin-bottom: 8px; text-transform: uppercase; font-size: 12px;" placeholder="ВВЕДИ КОД">
             <button class="btn-main" style="width: 100%;" onclick="activatePromo()">Активировать</button>
+        </div>
+    </div>
+
+    <!-- ЭКРАН УТЕШИТЕЛЬНОГО ПРИЗА -->
+    <div id="screen-comfort" class="screen screen-padded">
+        <h2 style="margin-bottom: 12px; font-weight: 900; text-transform: uppercase; font-size: 18px; text-align: center;">🎗️ Утешительный приз</h2>
+        <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-bottom: 20px;">Забирай бонус каждые 1 минуту 30 секунд!</p>
+        
+        <div class="profile-card" style="text-align: center; padding: 30px 15px;">
+            <div style="font-size: 60px; margin-bottom: 10px;">🎁</div>
+            <h3 style="font-size: 22px; font-weight: 900; margin-bottom: 5px;">50 000 🪙</h3>
+            <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 20px;">Твоя награда за ожидание</p>
+            
+            <button class="btn-main" id="comfortBtn" style="width: 100%; padding: 18px; font-size: 16px; border-radius: 12px;" onclick="claimComfort()">Забрать бонус</button>
+            <p style="font-size: 10px; color: var(--text-muted); margin-top: 15px;" id="comfortTimerText">Доступно сейчас!</p>
         </div>
     </div>
 
@@ -1116,6 +1138,11 @@
         let auctionTime = 1;
         let auctionPriceMode = 'min';
 
+        // --- УТЕШИТЕЛЬНЫЙ ПРИЗ ---
+        let lastComfortClaim = parseInt(localStorage.getItem('last_comfort_claim')) || 0;
+        const COMFORT_COOLDOWN = 90 * 1000; // 1 мин 30 сек
+        let comfortInterval = null;
+
         function getXpNeeded(level) {
             if (level <= 30) return level * 50; 
             if (level <= 60) return 30 * 50 + (level - 30) * 150; 
@@ -1134,13 +1161,14 @@
             mythic:   { Обычный: 0,  Необычный: 0,  Редкий: 0,    Эпический: 40,   Легендарный: 50,    Мифический: 10 }
         };
 
+        // Ухудшенные базовые цены
         const baseRarities = {
-            "Обычный":    { color: "#aaa", min: 50,        max: 150 },
-            "Необычный":  { color: "#10b981", min: 200,       max: 1000 },
-            "Редкий":     { color: "#3b82f6", min: 2000,      max: 10000 },
-            "Эпический":  { color: "#8b5cf6", min: 25000,     max: 150000 },
-            "Легендарный":{ color: "#fbbf24", min: 500000,    max: 5000000 },
-            "Мифический": { color: "#ef4444", min: 10000000,  max: 500000000 }
+            "Обычный":    { color: "#aaa", min: 10,        max: 50 },
+            "Необычный":  { color: "#10b981", min: 50,       max: 250 },
+            "Редкий":     { color: "#3b82f6", min: 500,      max: 1500 },
+            "Эпический":  { color: "#8b5cf6", min: 5000,     max: 15000 },
+            "Легендарный":{ color: "#fbbf24", min: 50000,    max: 100000 },
+            "Мифический": { color: "#ef4444", min: 1000000,  max: 5000000 }
         };
 
         const vipLots = [
@@ -1148,15 +1176,16 @@
             { id: 'vip_2', title: 'Прокрут (50 звёзд)', badge: 'SPIN', desc: 'Крутка случайного номера. Шанс на мифический выше.', features: ['1 крутка', 'Повышенный шанс', 'Стоимость: 50 ⭐'], starsCost: 50, btnClass: '' }
         ];
 
+        // Ухудшенные призы на колесе
         const wheelPrizes = [
-            { label: '1000 🪙', value: 1000, color: '#222', type: 'coins' },
-            { label: '5000 🪙', value: 5000, color: '#333', type: 'coins' },
-            { label: 'Редкий', value: 'Редкий', color: '#444', type: 'number' },
-            { label: '10000 🪙', value: 10000, color: '#555', type: 'coins' },
-            { label: 'Эпик', value: 'Эпический', color: '#666', type: 'number' },
-            { label: '50000 🪙', value: 50000, color: '#777', type: 'coins' },
-            { label: 'Легенда', value: 'Легендарный', color: '#888', type: 'number' },
-            { label: 'Миф', value: 'Мифический', color: '#999', type: 'number' }
+            { label: '100 🪙', value: 100, color: '#222', type: 'coins' },
+            { label: '500 🪙', value: 500, color: '#333', type: 'coins' },
+            { label: 'Обычный', value: 'Обычный', color: '#444', type: 'number' },
+            { label: '1000 🪙', value: 1000, color: '#555', type: 'coins' },
+            { label: 'Необычный', value: 'Необычный', color: '#666', type: 'number' },
+            { label: '5000 🪙', value: 5000, color: '#777', type: 'coins' },
+            { label: 'Редкий', value: 'Редкий', color: '#888', type: 'number' },
+            { label: '10000 🪙', value: 10000, color: '#999', type: 'coins' }
         ];
         let wheelAngle = 0;
         let wheelSpinning = false;
@@ -1224,6 +1253,53 @@
             if(tabId === 'wheel') initWheel();
             if(tabId === 'skills') updateUI();
             if(tabId === 'auction') loadAuction();
+            if(tabId === 'comfort') startComfortTimer();
+        }
+
+        // --- ЛОГИКА УТЕШИТЕЛЬНОГО ПРИЗА ---
+        function startComfortTimer() {
+            if (comfortInterval) clearInterval(comfortInterval);
+            updateComfortUI();
+            comfortInterval = setInterval(updateComfortUI, 1000);
+        }
+
+        function updateComfortUI() {
+            const btn = document.getElementById('comfortBtn');
+            const timerText = document.getElementById('comfortTimerText');
+            if (!btn || !timerText) return;
+
+            const now = Date.now();
+            const timePassed = now - lastComfortClaim;
+            
+            if (timePassed >= COMFORT_COOLDOWN) {
+                btn.disabled = false;
+                btn.style.background = '#fff';
+                btn.style.color = '#000';
+                btn.innerText = 'Забрать 50 000 🪙';
+                timerText.innerText = 'Бонус доступен!';
+            } else {
+                const remaining = Math.ceil((COMFORT_COOLDOWN - timePassed) / 1000);
+                const mins = Math.floor(remaining / 60);
+                const secs = remaining % 60;
+                btn.disabled = true;
+                btn.style.background = '#222';
+                btn.style.color = '#555';
+                btn.innerText = 'Ожидание...';
+                timerText.innerText = `Доступно через: ${mins}:${secs.toString().padStart(2, '0')}`;
+            }
+        }
+
+        window.claimComfort = function() {
+            const now = Date.now();
+            if (now - lastComfortClaim < COMFORT_COOLDOWN) return;
+            
+            lastComfortClaim = now;
+            localStorage.setItem('last_comfort_claim', lastComfortClaim);
+            balance += 50000;
+            saveBalance();
+            updateUI();
+            updateComfortUI();
+            showToast('Утешительный приз получен: +50 000 🪙', '🎗️');
         }
 
         window.upgradeSkill = function(skill) {
@@ -1453,7 +1529,7 @@
                     saveBalance();
                     showToast(`Вы выиграли ${prize.value.toLocaleString('ru-RU')} монет!`, '💰');
                 } else {
-                    const numData = generateSpecificNumber(prize.value);
+                    const numData = generateNumberData(prize.value);
                     inventory.push(numData);
                     showToast(`Вы выиграли ${prize.value} номер!`, '📦');
                 }
@@ -1732,14 +1808,19 @@
             }
         }
 
-        function generateNumberData() {
+        function generateNumberData(forceRarity = null) {
             let chances = tierChances[currentTier.key]; 
             let random = Math.random() * 100; 
             let selectedRarity = "Обычный"; 
             let currentChance = 0;
-            for (let [name, chance] of Object.entries(chances)) { 
-                currentChance += chance; 
-                if (random <= currentChance && chance > 0) { selectedRarity = name; break; } 
+            
+            if (forceRarity) {
+                selectedRarity = forceRarity;
+            } else {
+                for (let [name, chance] of Object.entries(chances)) { 
+                    currentChance += chance; 
+                    if (random <= currentChance && chance > 0) { selectedRarity = name; break; } 
+                }
             }
             
             const data = baseRarities[selectedRarity];
@@ -2612,6 +2693,26 @@
             toast.querySelector('.toast-icon').innerText = icon;
             toast.classList.add('show');
             setTimeout(() => toast.classList.remove('show'), 3500);
+        }
+
+        // --- СКРОЛЛ ДЛЯ КОЛЛЕКЦИИ ---
+        let lastScrollTop = 0;
+        const invScrollArea = document.getElementById('invScrollArea');
+        const invTopFixed = document.getElementById('invTopFixed');
+
+        if (invScrollArea) {
+            invScrollArea.addEventListener('scroll', () => {
+                let st = invScrollArea.scrollTop;
+                // Если листаем вниз и проскроллили больше 50px - скрываем
+                if (st > lastScrollTop && st > 50) {
+                    invTopFixed.classList.add('hidden');
+                } 
+                // Если листаем вверх - показываем
+                else if (st < lastScrollTop) {
+                    invTopFixed.classList.remove('hidden');
+                }
+                lastScrollTop = st <= 0 ? 0 : st; 
+            });
         }
 
         if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
