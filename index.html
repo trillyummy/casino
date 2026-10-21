@@ -350,18 +350,19 @@
         }
         
         .inv-top-fixed { 
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
             padding: 55px 12px 10px 12px; 
-            flex-shrink: 0; 
             background: var(--bg); 
-            z-index: 10; 
-            position: relative;
+            z-index: 50; 
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-            will-change: transform, opacity;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
         }
         .inv-top-fixed.hidden {
             transform: translateY(-100%);
-            opacity: 0;
         }
         
         .inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 5px;}
@@ -382,7 +383,7 @@
         .inv-scroll-area { 
             flex: 1; 
             overflow-y: auto; 
-            padding: 10px 12px 20px 12px; 
+            padding: 140px 12px 20px 12px; /* Отступ сверху, чтобы карточки не прятались под шапкой */
             position: relative;
         }
 
