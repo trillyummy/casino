@@ -59,6 +59,7 @@
         .small-btn { padding: 8px; display: flex; align-items: center; gap: 8px; }
         .small-btn span { font-size: 11px; font-weight: 600; color: var(--text); }
 
+        /* ЖЕСТКОЕ СКРЫТИЕ ЭКРАНОВ ПО УМОЛЧАНИЮ */
         .screen { display: none; flex: 1; flex-direction: column; animation: slideUp 0.3s ease; position: relative; height: 100%; overflow: hidden; }
         .screen.active { display: flex; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -341,8 +342,11 @@
         /* ИДЕАЛЬНАЯ КОЛЛЕКЦИЯ БЕЗ НАЛОЖЕНИЙ */
         #screen-inventory { 
             padding: 0; 
-            display: flex;
+            display: none;
             flex-direction: column;
+        }
+        #screen-inventory.active {
+            display: flex;
         }
         
         .inv-top-fixed { 
