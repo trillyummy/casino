@@ -9,32 +9,15 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Unbounded:wght@600;800;900&display=swap');
         
         :root {
-            --bg: #050505; 
-            --card: #121212; 
-            --text: #ffffff; 
-            --text-muted: #888888;
-            --border: rgba(255,255,255,0.08); 
-            --border-bright: rgba(255,255,255,0.2);
-            --radius-lg: 24px; 
-            --radius-md: 16px; 
-            --radius-sm: 12px;
+            --bg: #050505; --card: #121212; --text: #ffffff; --text-muted: #888888;
+            --border: rgba(255,255,255,0.08); --border-bright: rgba(255,255,255,0.2);
+            --radius-lg: 24px; --radius-md: 16px; --radius-sm: 12px;
             --accent: #fcd34d;
-            --font-main: 'Montserrat', sans-serif;
-            --font-title: 'Unbounded', sans-serif;
+            --font-main: 'Montserrat', sans-serif; --font-title: 'Unbounded', sans-serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); user-select: none; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            background-color: var(--bg); 
-            background-image: radial-gradient(circle at 50% 0%, rgba(80, 40, 150, 0.15) 0%, transparent 70%);
-            color: var(--text); 
-            height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-            overflow: hidden; 
-            position: relative;
-        }
+        body { background-color: var(--bg); background-image: radial-gradient(circle at 50% 0%, rgba(80, 40, 150, 0.15) 0%, transparent 70%); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; position: relative; }
 
         /* --- HEADER --- */
         .top-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; pointer-events: none; backdrop-filter: blur(15px); background: rgba(5,5,5,0.7); border-bottom: 1px solid var(--border); }
@@ -88,63 +71,32 @@
         #screen-game { justify-content: flex-start; padding: 80px 16px 20px 16px; align-items: center; overflow-y: auto; }
         
         .sim-top-section { 
-            background: linear-gradient(145deg, #1a1a1a, #0a0a0a); 
-            border-radius: var(--radius-lg); 
-            border: 1px solid rgba(255,255,255,0.15);
-            padding: 16px; 
-            position: relative; 
-            display: flex; 
-            flex-direction: column; 
-            margin-bottom: 15px; 
-            width: 100%;
-            max-width: 360px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
-            overflow: hidden;
-            min-height: 160px;
-            justify-content: space-between;
-            flex-shrink: 0;
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a); border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.15);
+            padding: 16px; position: relative; display: flex; flex-direction: column; margin-bottom: 15px; width: 100%;
+            max-width: 360px; box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+            overflow: hidden; min-height: 160px; justify-content: space-between; flex-shrink: 0;
         }
-        /* Блик на карточке */
-        .sim-top-section::after {
-            content: ''; position: absolute; top: 0; left: -50%; width: 200%; height: 50%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.05), transparent);
-            transform: rotate(-15deg); pointer-events: none;
-        }
-        
+        .sim-top-section::after { content: ''; position: absolute; top: 0; left: -50%; width: 200%; height: 50%; background: linear-gradient(to bottom, rgba(255,255,255,0.05), transparent); transform: rotate(-15deg); pointer-events: none; }
         .sim-header-row { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; z-index: 1;}
         .sim-brand { display: flex; align-items: center; gap: 8px; }
         .sim-brand-icon { width: 24px; height: 24px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 16px; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
         .sim-brand-text { display: flex; flex-direction: column; }
         .sim-brand-name { font-size: 15px; font-weight: 800; color: #fff; line-height: 1.1; font-family: var(--font-title); letter-spacing: -0.5px;}
         .sim-brand-country { font-size: 10px; color: #aaa; display: flex; align-items: center; gap: 4px; margin-top: 2px;}
-
-        .sim-chip-visual {
-            width: 44px; height: 34px; border: 1px solid rgba(255,255,255,0.6); border-radius: 6px;
-            position: relative; display: flex; justify-content: center; align-items: center; border-top-right-radius: 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
+        .sim-chip-visual { width: 44px; height: 34px; border: 1px solid rgba(255,255,255,0.6); border-radius: 6px; position: relative; display: flex; justify-content: center; align-items: center; border-top-right-radius: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
         .sim-chip-visual::before { content: ''; position: absolute; top: -1px; right: -8px; width: 8px; height: 1px; background: rgba(255,255,255,0.6); }
         .sim-chip-visual::after { content: ''; position: absolute; top: -8px; right: -1px; width: 1px; height: 8px; background: rgba(255,255,255,0.6); }
-        .sim-chip-inner {
-            width: 28px; height: 22px; background: linear-gradient(135deg, #fcd34d, #d97706);
-            border-radius: 3px; border: 1px solid #000; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; gap: 1px; padding: 2px;
-        }
+        .sim-chip-inner { width: 28px; height: 22px; background: linear-gradient(135deg, #fcd34d, #d97706); border-radius: 3px; border: 1px solid #000; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; gap: 1px; padding: 2px; }
         .sim-chip-inner div { background: #fcd34d; border: 1px solid #b45309; }
 
-        .sim-display-area { 
-            text-align: left; display: flex; flex-direction: column; justify-content: flex-end; 
-            width: 100%; margin-top: 20px; min-height: 45px; position: relative; z-index: 1;
-        }
+        .sim-display-area { text-align: left; display: flex; flex-direction: column; justify-content: flex-end; width: 100%; margin-top: 20px; min-height: 45px; position: relative; z-index: 1; }
         .sim-slot-machine { display: none; flex-direction: column; width: 100%; }
         .sim-slot-machine.show { display: flex; }
         .slot-number { font-family: var(--font-title); font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -1px; white-space: nowrap; text-shadow: 0 0 20px rgba(255,255,255,0.3);}
 
-        .result-under-card {
-            width: 100%; max-width: 360px; display: none; flex-direction: column; align-items: center; margin-bottom: 20px; flex-shrink: 0;
-        }
+        .result-under-card { width: 100%; max-width: 360px; display: none; flex-direction: column; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
         .result-under-card.show { display: flex; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
-
         .res-number { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 6px; color: #fff; text-align: center; font-family: var(--font-title); }
         .res-rarity { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: #888; margin-bottom: 6px;}
         .res-price { font-size: 20px; font-weight: 800; color: #fff; font-family: var(--font-title);}
@@ -156,16 +108,13 @@
         .color-Легендарный { color: #fbbf24; text-shadow: 0 0 30px rgba(251,191,36,0.8); }
         .color-Мифический { color: #ef4444; text-shadow: 0 0 30px rgba(239,68,68,1), 0 0 50px rgba(239,68,68,0.6); animation: pulseMythic 1.5s infinite; }
         @keyframes pulseMythic { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
-
         .dim-zero { color: rgba(255,255,255,0.15); }
 
         .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; max-width: 360px; margin-top: 10px; flex-shrink: 0; }
         .sim-x5-grid.show { display: grid; }
         .sim-x5-item { background: #111; border-radius: 10px; border: 1px solid var(--border); padding: 8px 2px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 65px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
-        
         .sim-x5-item .rarity-text { font-size: 9px; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; white-space: nowrap; }
         .sim-x5-item .price-text { font-size: 9px; font-weight: 600; color: #ccc; white-space: nowrap; font-family: var(--font-title);}
-        
         .sim-x5-item.rolling .rarity-text { animation: slotRoll 0.1s linear infinite; color: #fff; }
         @keyframes slotRoll { 0% { transform: translateY(0); } 50% { transform: translateY(-3px); opacity: 0.7;} 100% { transform: translateY(0); } }
 
@@ -176,7 +125,6 @@
         .btn-archive:active { transform: scale(0.98); border-color: #fff;}
         .btn-archive span:first-child { font-size: 10px; color: #888; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800;}
         .btn-archive span:last-child { font-size: 16px; color: #fff; font-weight: 800; font-family: var(--font-title);}
-        
         .btn-roaming-square { width: 60px; height: 60px; background: linear-gradient(180deg, #222, #111); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-md); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; flex-shrink: 0; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
         .btn-roaming-square:active { transform: scale(0.95); border-color: #fff;}
         .btn-roaming-square span:first-child { font-size: 20px; }
@@ -190,61 +138,29 @@
         .btn-x5.active { background: #fff; color: #000; box-shadow: 0 5px 20px rgba(255,255,255,0.2);}
 
         /* --- RARE SCREEN --- */
-        .rare-screen-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(5, 5, 5, 0.95); z-index: 100000;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.4s; padding: 20px;
-            backdrop-filter: blur(10px);
-        }
+        .rare-screen-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.95); z-index: 100000; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s; padding: 20px; backdrop-filter: blur(10px); }
         .rare-screen-overlay.active { opacity: 1; pointer-events: auto; }
-        
         .rare-screen-overlay.legendary { background: radial-gradient(circle at center, rgba(251,191,36,0.15) 0%, #050505 70%); }
         .rare-screen-overlay.mythic { background: radial-gradient(circle at center, rgba(239,68,68,0.2) 0%, #050505 70%); }
-
-        .rare-card {
-            background: linear-gradient(145deg, #1a1a1a, #050505); border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); 
-            padding: 24px; width: 100%; max-width: 340px; position: relative;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1); margin-bottom: 40px;
-            transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex; flex-direction: column; justify-content: space-between; min-height: 220px;
-            overflow: hidden;
-        }
-        .rare-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: repeating-linear-gradient(-45deg, transparent, transparent 15px, rgba(255,255,255,0.02) 15px, rgba(255,255,255,0.02) 30px);
-            pointer-events: none;
-        }
+        .rare-card { background: linear-gradient(145deg, #1a1a1a, #050505); border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); padding: 24px; width: 100%; max-width: 340px; position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1); margin-bottom: 40px; transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; justify-content: space-between; min-height: 220px; overflow: hidden; }
+        .rare-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: repeating-linear-gradient(-45deg, transparent, transparent 15px, rgba(255,255,255,0.02) 15px, rgba(255,255,255,0.02) 30px); pointer-events: none; }
         .rare-screen-overlay.active .rare-card { transform: scale(1); }
         .rare-screen-overlay.legendary .rare-card { border-color: rgba(251,191,36,0.4); box-shadow: 0 0 50px rgba(251,191,36,0.2), inset 0 0 20px rgba(251,191,36,0.1); }
         .rare-screen-overlay.mythic .rare-card { border-color: rgba(239,68,68,0.4); box-shadow: 0 0 60px rgba(239,68,68,0.3), inset 0 0 20px rgba(239,68,68,0.1); }
-
         .rare-brand { display: flex; align-items: center; gap: 10px; z-index: 1;}
         .rare-brand-icon { width: 30px; height: 30px; border-radius: 8px; background: #fff; color: #000; display: flex; justify-content: center; align-items: center; font-weight: 900; font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
         .rare-brand-text { font-size: 18px; font-weight: 800; color: #fff; line-height: 1.1; font-family: var(--font-title);}
         .rare-country { font-size: 11px; color: #aaa; display: block; margin-top: 2px; font-weight: 600;}
-
-        .rare-chip {
-            position: absolute; top: 24px; right: 24px;
-            width: 50px; height: 40px; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px;
-            border-top-right-radius: 0; display: flex; justify-content: center; align-items: center; z-index: 1;
-        }
+        .rare-chip { position: absolute; top: 24px; right: 24px; width: 50px; height: 40px; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; border-top-right-radius: 0; display: flex; justify-content: center; align-items: center; z-index: 1; }
         .rare-chip::before { content: ''; position: absolute; top: -1px; right: -8px; width: 8px; height: 1px; background: rgba(255,255,255,0.3); }
         .rare-chip::after { content: ''; position: absolute; top: -8px; right: -1px; width: 1px; height: 8px; background: rgba(255,255,255,0.3); }
         .rare-chip-inner { width: 32px; height: 24px; background: linear-gradient(135deg, #fcd34d, #d97706); border-radius: 3px; border: 1px solid #000; }
-
         .rare-number-text { font-size: 26px; font-weight: 800; letter-spacing: 0.5px; margin-top: 40px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; z-index: 1; font-family: var(--font-title);}
         .rare-number-sub { font-size: 11px; font-weight: 600; text-align: right; color: #aaa; margin-top: 8px; z-index: 1;}
-
         .rare-bottom-text { text-align: center; width: 100%;}
         .rare-bottom-title { font-size: 32px; font-weight: 900; margin-bottom: 8px; font-family: var(--font-title);}
         .rare-bottom-sub { font-size: 15px; font-weight: 600; color: #888; margin-bottom: 35px; }
-        
-        .rare-btn-continue {
-            background: #fff; color: #000; border: none;
-            border-radius: 30px; padding: 18px 40px; font-size: 16px; font-weight: 800;
-            cursor: pointer; transition: 0.2s; width: 240px; font-family: var(--font-title); box-shadow: 0 10px 30px rgba(255,255,255,0.2);
-        }
+        .rare-btn-continue { background: #fff; color: #000; border: none; border-radius: 30px; padding: 18px 40px; font-size: 16px; font-weight: 800; cursor: pointer; transition: 0.2s; width: 240px; font-family: var(--font-title); box-shadow: 0 10px 30px rgba(255,255,255,0.2); }
         .rare-btn-continue:active { transform: scale(0.95); background: #ddd; box-shadow: none;}
 
         /* --- REST OF SCREENS --- */
@@ -377,17 +293,8 @@
         #screen-inventory { padding: 0; display: none; flex-direction: column; }
         #screen-inventory.active { display: flex; }
         
-        .inv-top-fixed { 
-            position: fixed; top: 0; left: 0; right: 0;
-            padding: 60px 16px 12px 16px; 
-            background: rgba(5,5,5,0.95); backdrop-filter: blur(10px);
-            z-index: 50; 
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            will-change: transform;
-        }
+        .inv-top-fixed { position: fixed; top: 0; left: 0; right: 0; padding: 60px 16px 12px 16px; background: rgba(5,5,5,0.95); backdrop-filter: blur(10px); z-index: 50; border-bottom: 1px solid rgba(255,255,255,0.05); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; }
         .inv-top-fixed.hidden { transform: translateY(-100%); }
-        
         .inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 0 4px;}
         .inventory-header h2 { font-size: 22px; font-weight: 900; font-family: var(--font-title); text-transform: uppercase; letter-spacing: -0.5px;}
         .btn-sell-all { background: #fff; color: #000; border: none; border-radius: 20px; padding: 10px 16px; font-size: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; font-family: var(--font-title); box-shadow: 0 4px 15px rgba(255,255,255,0.2);}
@@ -401,23 +308,12 @@
 
         .inv-grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         
-        .inv-card {
-            background: #151515; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08);
-            padding: 16px; display: flex; flex-direction: column; position: relative;
-            overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        }
-        /* Динамический градиент для карточки */
-        .inv-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, var(--rarity-color) 0%, transparent 40%);
-            opacity: 0.15; pointer-events: none;
-        }
-        
+        .inv-card { background: #151515; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08); padding: 16px; display: flex; flex-direction: column; position: relative; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+        .inv-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, var(--rarity-color) 0%, transparent 40%); opacity: 0.15; pointer-events: none; }
         .inv-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; z-index: 1;}
         .inv-brand { display: flex; align-items: center; gap: 8px; }
         .inv-brand-icon { width: 20px; height: 20px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 12px; }
         .inv-brand-name { font-size: 12px; font-weight: 800; color: #fff; font-family: var(--font-title);}
-        
         .inv-chip { width: 36px; height: 28px; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; border-top-right-radius: 0; display: flex; justify-content: center; align-items: center; position: relative; }
         .inv-chip::before { content: ''; position: absolute; top: -1px; right: -6px; width: 6px; height: 1px; background: rgba(255,255,255,0.3); }
         .inv-chip::after { content: ''; position: absolute; top: -6px; right: -1px; width: 1px; height: 6px; background: rgba(255,255,255,0.3); }
@@ -756,6 +652,7 @@
                 <div class="game-tab" onclick="switchGamePane('upgrade', this)">Апгрейд</div>
             </div>
             <div class="game-content">
+                <!-- Контент вкладки Монетка -->
                 <div id="pane-coin" class="game-pane active">
                     <div id="coin-lobby" style="display: flex; flex-direction: column; height: 100%;">
                         <div class="lobby-tabs">
@@ -801,6 +698,7 @@
                         <button class="btn-main" style="background: #111; color: #fff; border: 1px solid #333; width: 100%; box-shadow: none;" onclick="leaveGame('coin')">Выйти</button>
                     </div>
                 </div>
+                <!-- Контент вкладки Кости -->
                 <div id="pane-dice" class="game-pane">
                     <div id="dice-lobby" style="display: flex; flex-direction: column; height: 100%;">
                         <div class="lobby-tabs">
@@ -860,6 +758,7 @@
                         <button class="btn-main" style="background: #111; color: #fff; border: 1px solid #333; width: 100%; box-shadow: none;" onclick="leaveGame('dice')">Выйти</button>
                     </div>
                 </div>
+                <!-- Контент вкладки Краш -->
                 <div id="pane-crash" class="game-pane">
                     <div class="history-strip" id="rocketHistory" style="gap: 8px; margin-bottom: 12px;"></div>
                     <div class="crash-graph-container">
@@ -893,6 +792,7 @@
                         <div id="liveBetsList"></div>
                     </div>
                 </div>
+                <!-- Контент вкладки Апгрейд -->
                 <div id="pane-upgrade" class="game-pane">
                     <div class="empty-pane"><span>🚧</span><br>Апгрейд скоро!</div>
                 </div>
@@ -1009,20 +909,16 @@
         </div>
     </div>
 
-    <!-- НОВОЕ МОДАЛЬНОЕ ОКНО ТАРИФОВ -->
+    <!-- МОДАЛЬНОЕ ОКНО ТАРИФОВ -->
     <div class="modal-overlay" id="tariffModal" onclick="closeTariffModal(event)">
         <div class="bottom-sheet tariff-modal-content">
             <div style="background: #0a0a0a; padding: 24px; border-radius: 30px 30px 0 0; display: flex; flex-direction: column;">
                 <div class="tariff-header">Тариф</div>
                 <div class="tariff-sub">Дороже тариф — чаще редкие номера</div>
                 
-                <div class="tariff-list" id="tariffListContainer">
-                    <!-- Сюда рендерятся тарифы через JS -->
-                </div>
+                <div class="tariff-list" id="tariffListContainer"></div>
 
-                <div class="chances-list-modal" id="tariffChancesContainer">
-                    <!-- Сюда рендерятся шансы через JS -->
-                </div>
+                <div class="chances-list-modal" id="tariffChancesContainer"></div>
 
                 <button class="btn-tariff-select" id="tariffSelectBtn" onclick="confirmTariffSelection()">
                     <span id="tariffSelectText">Выбрать «Стандарт»</span>
@@ -1032,17 +928,49 @@
         </div>
     </div>
 
+    <!-- МОДАЛЬНОЕ ОКНО РОУМИНГА -->
     <div class="modal-overlay" id="roamingModal" onclick="closeRoamingModal(event)">
         <div class="bottom-sheet">
             <div class="modal-title">Роуминг и Оператор</div>
-            
             <div style="font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 12px; font-family: var(--font-title);">Страна:</div>
             <div class="country-grid" id="countryGrid"></div>
-            
             <div style="font-size: 14px; font-weight: 800; color: #fff; margin-top: 20px; margin-bottom: 12px; font-family: var(--font-title);">Оператор:</div>
             <div class="operator-grid" id="operatorGrid"></div>
-            
             <button class="btn-main" style="margin-top: 24px; background: transparent; border: 1px solid #333; box-shadow: none; color: #888;" onclick="closeRoamingModal(event)">Закрыть</button>
+        </div>
+    </div>
+
+    <!-- НОВОЕ ОКНО ВЫСТАВЛЕНИЯ НА АУКЦИОН (ИСПРАВЛЕНИЕ БАГА) -->
+    <div class="modal-overlay" id="auctionModal">
+        <div class="bottom-sheet">
+            <div class="modal-title">Выставить на аукцион</div>
+            <div style="text-align: center; margin-bottom: 15px;">
+                <div style="font-size: 22px; font-weight: 800; font-family: var(--font-title);" id="auctionNumberDisplay">+7 999 888-77-66</div>
+                <div style="font-size: 12px; color: #888; margin-top: 4px;" id="auctionRarityDisplay">Обычный</div>
+                <div style="font-size: 14px; color: var(--accent); margin-top: 5px; font-weight: 700;" id="auctionPricePreview">Базовая цена: 150 🪙</div>
+            </div>
+
+            <div style="font-size: 12px; font-weight: 800; color: #fff; margin-bottom: 8px;">Время лота:</div>
+            <div class="time-options">
+                <button class="time-btn active" onclick="selectAuctionTime(1, this)">1 час</button>
+                <button class="time-btn" onclick="selectAuctionTime(6, this)">6 часов</button>
+                <button class="time-btn" onclick="selectAuctionTime(24, this)">24 часа</button>
+            </div>
+
+            <div style="font-size: 12px; font-weight: 800; color: #fff; margin-bottom: 8px;">Цена:</div>
+            <div class="price-options">
+                <button class="price-btn active" onclick="selectAuctionPrice('min', this)">Базовая</button>
+                <button class="price-btn" onclick="selectAuctionPrice('x2', this)">x2</button>
+                <button class="price-btn" onclick="selectAuctionPrice('x10', this)">x10</button>
+                <button class="price-btn" onclick="selectAuctionPrice('custom', this)">Своя</button>
+            </div>
+
+            <div id="customPriceBlock" style="display: none;">
+                <input type="number" id="customPriceInput" class="price-input" placeholder="Введите цену">
+            </div>
+
+            <button class="btn-main" onclick="confirmAuctionList()">Выставить</button>
+            <button class="btn-main" style="background: transparent; border: 1px solid #333; color: #888; box-shadow: none; margin-top: 8px;" onclick="closeAuctionModal()">Отмена</button>
         </div>
     </div>
 
@@ -1223,9 +1151,11 @@
             "Мифический": { color: "#ef4444", min: 1000000,  max: 3000000 }
         };
 
+        // ДОБАВЛЕН КЕЙС С 3-ЗНАЧНЫМИ НОМЕРАМИ (ЦЕНА ОТ 80 МЛН)
         const vipLots = [
             { id: 'vip_1', title: 'Топ-Секретный (3 цифры)', badge: 'TIER 1', desc: 'Мифический номер. Только 3 цифры. Цена от 100 млн до 1 млрд.', features: ['3 цифры', 'Мифический', 'Цена: 100 млн - 1 млрд'], starsCost: 250, btnClass: 'mythic' },
-            { id: 'vip_2', title: 'Прокрут (50 звёзд)', badge: 'SPIN', desc: 'Крутка случайного номера. Шанс на мифический выше.', features: ['1 крутка', 'Повышенный шанс', 'Стоимость: 50 ⭐'], starsCost: 50, btnClass: '' }
+            { id: 'vip_2', title: 'Прокрут (50 звёзд)', badge: 'SPIN', desc: 'Крутка случайного номера. Шанс на мифический выше.', features: ['1 крутка', 'Повышенный шанс', 'Стоимость: 50 ⭐'], starsCost: 50, btnClass: '' },
+            { id: 'vip_3', title: 'Кейс 3 Цифры', badge: 'MIN 80M', desc: 'Гарантированный 3-значный номер. Минимальная стоимость 80 000 000 🪙.', features: ['3 цифры', 'Цена от 80 млн', 'Стоимость: 500 ⭐'], starsCost: 500, btnClass: 'mythic' }
         ];
 
         const wheelPrizes = [
@@ -2127,35 +2057,52 @@
             }).join('');
         }
         
+        // ДОБАВЛЕНО ПОДТВЕРЖДЕНИЕ ПРОДАЖИ
         window.sellItem = function(index) { 
-            let bonus = 1 + (skills.trade * 0.03);
-            let sellPrice = Math.floor(inventory[index].price * bonus);
-            balance += sellPrice; 
-            saveBalance();
-            inventory.splice(index, 1); 
-            updateUI(); renderInventory(); 
-            showToast(`Продано за ${sellPrice.toLocaleString('ru-RU')} 🪙`, '💰'); 
+            tg.showConfirm('Вы уверены, что хотите продать этот номер?', (isConfirmed) => {
+                if (isConfirmed) {
+                    let bonus = 1 + (skills.trade * 0.03);
+                    let sellPrice = Math.floor(inventory[index].price * bonus);
+                    balance += sellPrice; 
+                    saveBalance();
+                    inventory.splice(index, 1); 
+                    updateUI(); renderInventory(); 
+                    showToast(`Продано за ${sellPrice.toLocaleString('ru-RU')} 🪙`, '💰'); 
+                }
+            });
         }
+        
+        // ДОБАВЛЕНО ПОДТВЕРЖДЕНИЕ ПРОДАЖИ ВСЕГО
         window.sellAllNumbers = function() { 
             if (inventory.length === 0) return; 
-            let bonus = 1 + (skills.trade * 0.03);
-            let total = inventory.reduce((sum, item) => sum + item.price, 0); 
-            let totalWithBonus = Math.floor(total * bonus);
-            balance += totalWithBonus; 
-            saveBalance();
-            inventory = []; updateUI(); renderInventory(); 
-            showToast(`Продано всё за ${totalWithBonus.toLocaleString('ru-RU')} 🪙`, '💰'); 
+            tg.showConfirm('Вы уверены, что хотите продать ВСЕ номера?', (isConfirmed) => {
+                if (isConfirmed) {
+                    let bonus = 1 + (skills.trade * 0.03);
+                    let total = inventory.reduce((sum, item) => sum + item.price, 0); 
+                    let totalWithBonus = Math.floor(total * bonus);
+                    balance += totalWithBonus; 
+                    saveBalance();
+                    inventory = []; updateUI(); renderInventory(); 
+                    showToast(`Продано всё за ${totalWithBonus.toLocaleString('ru-RU')} 🪙`, '💰'); 
+                }
+            });
         }
+        
+        // ДОБАВЛЕНО ПОДТВЕРЖДЕНИЕ СКУПЩИКУ
         window.sellToBuyer = function() { 
             if (inventory.length === 0) return showToast('База пуста!', '❌'); 
-            let bonus = 1 + (skills.trade * 0.03);
-            let total = inventory.reduce((sum, item) => sum + item.price, 0); 
-            let totalWithBonus = Math.floor(total * bonus * 1.2);
-            balance += totalWithBonus; 
-            saveBalance();
-            inventory = []; updateUI(); 
-            if(document.getElementById('screen-inventory').classList.contains('active')) renderInventory(); 
-            showToast(`Скупщик заплатил ${totalWithBonus.toLocaleString('ru-RU')} 🪙 (+20% + бонус)`, '🤑'); 
+            tg.showConfirm('Сдать всё скупщику за +20%?', (isConfirmed) => {
+                if (isConfirmed) {
+                    let bonus = 1 + (skills.trade * 0.03);
+                    let total = inventory.reduce((sum, item) => sum + item.price, 0); 
+                    let totalWithBonus = Math.floor(total * bonus * 1.2);
+                    balance += totalWithBonus; 
+                    saveBalance();
+                    inventory = []; updateUI(); 
+                    if(document.getElementById('screen-inventory').classList.contains('active')) renderInventory(); 
+                    showToast(`Скупщик заплатил ${totalWithBonus.toLocaleString('ru-RU')} 🪙 (+20% + бонус)`, '🤑'); 
+                }
+            });
         }
 
         window.activatePromo = async function() {
