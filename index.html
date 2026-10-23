@@ -17,10 +17,19 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); user-select: none; -webkit-tap-highlight-color: transparent; }
+        
+        /* ИСПРАВЛЕНИЕ ВЫСОТЫ ЭКРАНА */
         body { 
             background-color: var(--bg); 
             background-image: radial-gradient(circle at 50% 0%, rgba(80, 40, 150, 0.15) 0%, transparent 70%);
-            color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; position: relative;
+            color: var(--text); 
+            height: 100vh; 
+            height: 100dvh; 
+            height: var(--tg-viewport-stable-height, 100dvh); /* Поддержка высоты Telegram */
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden; 
+            position: relative;
         }
 
         /* --- HEADER --- */
@@ -60,12 +69,19 @@
         .small-btn { padding: 10px; display: flex; align-items: center; gap: 10px; }
         .small-btn span { font-size: 12px; font-weight: 600; color: var(--text); }
 
-        .screen { display: none; flex: 1; flex-direction: column; animation: fadeIn 0.3s ease; position: relative; height: 100%; overflow: hidden; }
+        .screen { display: none; flex: 1; flex-direction: column; animation: fadeIn 0.3s ease; position: relative; overflow: hidden; }
         .screen.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* --- GAME SCREEN --- */
-        #screen-game { justify-content: flex-start; padding: 80px 16px 20px 16px; align-items: center; overflow-y: auto; }
+        #screen-game { 
+            justify-content: flex-start; 
+            padding: 80px 16px 0 16px; /* Убрал нижний паддинг, он теперь в кнопках */
+            align-items: center; 
+            overflow-y: auto; 
+            flex: 1; 
+            width: 100%;
+        }
         
         .sim-top-section { 
             background: linear-gradient(145deg, #1a1a1a, #0a0a0a); border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.15);
@@ -88,12 +104,10 @@
 
         .sim-display-area { text-align: left; display: flex; flex-direction: column; justify-content: flex-end; width: 100%; margin-top: 20px; min-height: 45px; position: relative; z-index: 1; }
         
-        /* ТЕПЕРЬ БЛОК ВСЕГДА ВИДЕН */
         .sim-slot-machine { display: flex; flex-direction: column; width: 100%; }
         
         .slot-number { font-family: var(--font-title); font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 0 20px rgba(255,255,255,0.3);}
 
-        /* --- УБРАЛИ СТАРЫЙ БЛОК РЕЗУЛЬТАТА ПОД КАРТОЧКОЙ, ЧТОБЫ НЕ ДУБЛИРОВАТЬ --- */
         .result-under-card { display: none !important; }
 
         .color-Обычный { color: #aaa; text-shadow: 0 0 10px rgba(170,170,170,0.3); }
@@ -105,7 +119,7 @@
         @keyframes pulseMythic { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
         .dim-zero { color: rgba(255,255,255,0.15); }
 
-        .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; max-width: 360px; margin-top: 10px; flex-shrink: 0; }
+        .sim-x5-grid { display: none; grid-template-columns: repeat(5, 1fr); gap: 6px; width: 100%; max-width: 360px; margin-top: 10px; margin-bottom: 20px; flex-shrink: 0; }
         .sim-x5-grid.show { display: grid; }
         .sim-x5-item { background: #111; border-radius: 10px; border: 1px solid var(--border); padding: 8px 2px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 65px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.5);}
         .sim-x5-item .rarity-text { font-size: 9px; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; white-space: nowrap; }
@@ -113,7 +127,17 @@
         .sim-x5-item.rolling .rarity-text { animation: slotRoll 0.1s linear infinite; color: #fff; }
         @keyframes slotRoll { 0% { transform: translateY(0); } 50% { transform: translateY(-3px); opacity: 0.7;} 100% { transform: translateY(0); } }
 
-        .sim-controls-bottom { display: flex; flex-direction: column; gap: 12px; width: 100%; margin-top: auto; max-width: 360px; flex-shrink: 0; padding-bottom: 20px;}
+        .sim-controls-bottom { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+            width: 100%; 
+            margin-top: auto; /* Прижимает к низу */
+            max-width: 360px; 
+            flex-shrink: 0; 
+            padding-top: 20px;
+            padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)); /* Защита от полоски iPhone */
+        }
         .sim-top-row { display: flex; gap: 12px; align-items: stretch; width: 100%; }
         
         .btn-archive { flex: 1; background: linear-gradient(180deg, #222, #111); color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; justify-content: center; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 15px rgba(0,0,0,0.5);}
@@ -132,7 +156,7 @@
         .btn-x5 { background: #111; color: #fff; border: 1px solid rgba(255,255,255,0.2); flex: 0.4; box-shadow: none; }
         .btn-x5.active { background: #fff; color: #000; box-shadow: 0 5px 20px rgba(255,255,255,0.2);}
 
-        /* --- ОСТАЛЬНОЙ CSS ОСТАЕТСЯ БЕЗ ИЗМЕНЕНИЙ --- */
+        /* --- ОСТАЛЬНОЙ CSS --- */
         .rare-screen-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.95); z-index: 100000; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s; padding: 20px; backdrop-filter: blur(10px); }
         .rare-screen-overlay.active { opacity: 1; pointer-events: auto; }
         .rare-screen-overlay.legendary { background: radial-gradient(circle at center, rgba(251,191,36,0.15) 0%, #050505 70%); }
@@ -292,7 +316,7 @@
         .inv-filters::-webkit-scrollbar { display: none; }
         .inv-filter-btn { padding: 10px 16px; border-radius: 20px; background: #151515; border: 1px solid var(--border); color: #aaa; font-size: 12px; font-weight: 700; white-space: nowrap; cursor: pointer; transition: 0.2s; font-family: var(--font-title);}
         .inv-filter-btn.active { background: #fff; color: #000; border-color: #fff; box-shadow: 0 0 15px rgba(255,255,255,0.2);}
-        .inv-scroll-area { flex: 1; overflow-y: auto; padding: 160px 16px 30px 16px; position: relative; }
+        .inv-scroll-area { flex: 1; overflow-y: auto; padding: 160px 16px calc(30px + env(safe-area-inset-bottom, 0px)) 16px; position: relative; }
         .inv-grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .inv-card { background: #151515; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.08); padding: 16px; display: flex; flex-direction: column; position: relative; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
         .inv-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, var(--rarity-color) 0%, transparent 40%); opacity: 0.15; pointer-events: none; }
@@ -312,7 +336,7 @@
         .btn-inv-act { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; font-size: 11px; font-weight: 800; padding: 10px 0; cursor: pointer; text-transform: uppercase; transition: 0.2s; font-family: var(--font-title);}
         .btn-inv-act:active { background: rgba(255,255,255,0.15); }
 
-        .screen-padded { padding: 80px 16px 20px 16px; overflow-y: auto; }
+        .screen-padded { padding: 80px 16px calc(20px + env(safe-area-inset-bottom, 0px)) 16px; overflow-y: auto; }
         .profile-layout { display: flex; flex-direction: column; gap: 12px; padding-bottom: 16px;}
         .profile-card { background: linear-gradient(145deg, #151515, #0a0a0a); border-radius: var(--radius-lg); padding: 24px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
         .avatar { width: 80px; height: 80px; border-radius: 50%; background: #111; border: 3px solid #fff; display: flex; justify-content: center; align-items: center; font-size: 32px; margin: 0 auto 12px auto; overflow: hidden; box-shadow: 0 0 20px rgba(255,255,255,0.1);}
@@ -325,7 +349,7 @@
         
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 9998; display: flex; justify-content: center; align-items: flex-end; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .bottom-sheet { width: 100%; max-width: 500px; background: #0a0a0a; border-radius: 30px 30px 0 0; padding: 24px 20px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); max-height: 90vh; overflow-y: auto; border-top: 1px solid var(--border-bright); box-shadow: 0 -20px 50px rgba(0,0,0,0.8);}
+        .bottom-sheet { width: 100%; max-width: 500px; background: #0a0a0a; border-radius: 30px 30px 0 0; padding: 24px 20px calc(24px + env(safe-area-inset-bottom, 0px)) 20px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); max-height: 90vh; overflow-y: auto; border-top: 1px solid var(--border-bright); box-shadow: 0 -20px 50px rgba(0,0,0,0.8);}
         .modal-overlay.active .bottom-sheet { transform: translateY(0); }
         .modal-title { font-size: 18px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 20px; color: #fff; font-family: var(--font-title);}
         
@@ -487,14 +511,11 @@
                 </div>
             </div>
             <div class="sim-display-area">
-                <!-- БЛОК ВСЕГДА ОТКРЫТ -->
                 <div class="sim-slot-machine" id="simSlotMachine">
                     <div class="slot-number" id="simSlotNumber">+0 000 000 00 00</div>
                 </div>
             </div>
         </div>
-
-        <!-- УБРАН БЛОК RESULT-UNDER-CARD -->
 
         <div class="sim-x5-grid" id="simX5Grid"></div>
 
@@ -517,7 +538,7 @@
         </div>
     </div>    
     
-    <!-- ОСТАЛЬНЫЕ ЭКРАНЫ БЕЗ ИЗМЕНЕНИЙ (Скопированы из прошлой версии) -->
+    <!-- ОСТАЛЬНЫЕ ЭКРАНЫ -->
     <div id="screen-skills" class="screen screen-padded">
         <h1 style="font-size: 24px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 20px; font-family: var(--font-title);">Дерево Навыков</h1>
         <div class="profile-card" style="text-align: center; margin-bottom: 20px;">
@@ -954,8 +975,16 @@
         const firebaseConfig = { apiKey: "AIzaSyALQK0FztkoJCDRc-dWgaWsOFrJyaBQUg", authDomain: "casino-numbers.firebaseapp.com", databaseURL: "https://casino-numbers-default-rtdb.firebaseio.com", projectId: "casino-numbers", storageBucket: "casino-numbers.firebasestorage.app", messagingSenderId: "163879101194", appId: "1:163879101194:web:90cd7c69d377327ae410f3" };
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
+        
+        // --- ИСПРАВЛЕНИЕ ВЫСОТЫ TELEGRAM ---
         const tg = window.Telegram.WebApp;
-        tg.expand(); tg.setHeaderColor("#050505"); tg.setBackgroundColor("#050505");
+        tg.expand(); 
+        tg.setHeaderColor("#050505"); 
+        tg.setBackgroundColor("#050505");
+        if (tg.viewportStableHeight) {
+            document.documentElement.style.setProperty('--tg-viewport-stable-height', tg.viewportStableHeight + 'px');
+        }
+        // -----------------------------------
 
         let currentUserName = "Игрок";
         let currentUserAvatar = "👤";
@@ -1058,7 +1087,6 @@
             document.getElementById('simBrandName').innerText = brandName;
             document.getElementById('simBrandCountry').innerText = brandCountry;
 
-            // Устанавливаем красивый дефолтный шаблон (например, +0 000 000 00 00)
             if (!isSpinning) {
                 let prefix = currentCountry.prefix > 0 ? '+' + currentCountry.prefix : '+0';
                 let zeroPattern = "000 000 00 00";
@@ -1794,15 +1822,13 @@
             saveBalance();
             updateUI(); isSpinning = true;
             
-            // Очищаем нижнюю сетку и готовим карточку к анимации
             document.getElementById('simX5Grid').classList.remove('show');
-            document.getElementById('simSlotNumber').className = 'slot-number'; // Убираем цвет
+            document.getElementById('simSlotNumber').className = 'slot-number'; 
             
             let spinTicks = 0;
             let rollingNumber = document.getElementById('simSlotNumber');
             let prefixHTML = `<span>+${currentCountry.prefix || 0}</span>`; 
             
-            // Анимация кручения на главной карте
             let interval = setInterval(() => {
                 let p1 = Math.floor(Math.random() * 900) + 100;
                 let p2 = Math.floor(Math.random() * 90) + 10;
@@ -1817,7 +1843,6 @@
                 }
             }, 60);
 
-            // Если х5, то еще и нижние карточки крутим
             if (count === 5) {
                 let grid = document.getElementById('simX5Grid'); 
                 grid.classList.add('show');
@@ -1892,11 +1917,9 @@
             if (count === 1) {
                 const item = await generateNumberDataAsync(); statOpened++;
                 
-                // Красим номер на карточке
                 slotNumberElement.innerHTML = item.number;
                 slotNumberElement.className = `slot-number color-${item.rarity}`;
 
-                // Уведомляем
                 if (item.rarity === 'Мифический' || item.rarity === 'Легендарный') {
                     if (mythicAnimEnabled) {
                         showRareScreen(item.number, item.price, item.rarity);
@@ -1928,7 +1951,6 @@
                 balance += totalSold;
                 saveBalance();
                 
-                // Ищем самый дорогой номер для главной карточки
                 let bestResult = results.reduce((prev, current) => (prev.price > current.price) ? prev : current);
                 
                 slotNumberElement.innerHTML = bestResult.number;
@@ -1939,7 +1961,6 @@
                     showRareScreen(topResult.number, topResult.price, topResult.rarity);
                 }
 
-                // Рисуем все 5 номеров под карточкой
                 let grid = document.getElementById('simX5Grid'); 
                 grid.innerHTML = results.map(item => `
                     <div class="sim-x5-item" style="border-left: 3px solid ${baseRarities[item.rarity].color}">
