@@ -9,33 +9,21 @@
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Unbounded:wght@600;800;900&display=swap');
         
         :root {
-            --bg: #050505; 
-            --card: #121212; 
-            --text: #ffffff; 
-            --text-muted: #888888;
-            --border: rgba(255,255,255,0.08); 
-            --border-bright: rgba(255,255,255,0.2);
-            --radius-lg: 24px; 
-            --radius-md: 16px; 
-            --radius-sm: 12px;
+            --bg: #050505; --card: #121212; --text: #ffffff; --text-muted: #888888;
+            --border: rgba(255,255,255,0.08); --border-bright: rgba(255,255,255,0.2);
+            --radius-lg: 24px; --radius-md: 16px; --radius-sm: 12px;
             --accent: #fcd34d;
-            --font-main: 'Montserrat', sans-serif;
-            --font-title: 'Unbounded', sans-serif;
+            --font-main: 'Montserrat', sans-serif; --font-title: 'Unbounded', sans-serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); user-select: none; -webkit-tap-highlight-color: transparent; }
-        
         body { 
             background-color: var(--bg); 
             background-image: radial-gradient(circle at 50% 0%, rgba(80, 40, 150, 0.15) 0%, transparent 70%);
-            color: var(--text); 
-            height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-            overflow: hidden; 
-            position: relative;
+            color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; position: relative;
         }
 
+        /* --- HEADER --- */
         .top-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; pointer-events: none; backdrop-filter: blur(15px); background: rgba(5,5,5,0.7); border-bottom: 1px solid var(--border); }
         .user-info { display: flex; align-items: center; gap: 8px; pointer-events: auto;}
         .header-avatar { width: 32px; height: 32px; border-radius: 50%; background: #222; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 2px solid var(--border-bright); box-shadow: 0 0 10px rgba(255,255,255,0.1); }
@@ -53,20 +41,16 @@
 
         .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; backdrop-filter: blur(5px); }
         .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
-        
         .sidebar { position: fixed; bottom: -100%; left: 0; right: 0; width: 100%; max-width: 500px; margin: 0 auto; height: 80vh; background: #0a0a0a; border-top: 1px solid var(--border-bright); border-radius: 30px 30px 0 0; z-index: 999; display: flex; flex-direction: column; transition: bottom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow-y: auto; box-shadow: 0 -10px 40px rgba(0,0,0,0.8); }
         .sidebar.active { bottom: 0; }
-        
         .swipe-bar { width: 50px; height: 5px; background: rgba(255,255,255,0.2); border-radius: 3px; margin: 12px auto 20px auto; flex-shrink: 0;}
         .menu-content { padding: 0 16px 30px 16px; display: flex; flex-direction: column; gap: 12px; }
         .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        
         .menu-box-btn, .wide-btn, .small-btn { background: #151515; border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; }
         .menu-box-btn:active, .wide-btn:active, .small-btn:active { transform: scale(0.95); border-color: var(--border-bright); background: #222; }
         .menu-box-btn { padding: 12px 4px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
         .menu-box-btn span { font-size: 10px; font-weight: 700; color: var(--text); text-align: center; }
-        
         .icon-box { width: 38px; height: 38px; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
         .wide-btn { padding: 12px; display: flex; align-items: center; gap: 10px; }
         .wide-btn h4 { font-size: 12px; font-weight: 800; margin-bottom: 2px; color: var(--text); font-family: var(--font-title); }
@@ -80,9 +64,15 @@
         .screen.active { display: flex; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
+        /* --- GAME SCREEN --- */
         #screen-game { justify-content: flex-start; padding: 80px 16px 20px 16px; align-items: center; overflow-y: auto; }
         
-        .sim-top-section { background: linear-gradient(145deg, #1a1a1a, #0a0a0a); border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.15); padding: 16px; position: relative; display: flex; flex-direction: column; margin-bottom: 15px; width: 100%; max-width: 360px; box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1); overflow: hidden; min-height: 160px; justify-content: space-between; flex-shrink: 0; }
+        .sim-top-section { 
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a); border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.15);
+            padding: 16px; position: relative; display: flex; flex-direction: column; margin-bottom: 15px; width: 100%;
+            max-width: 360px; box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+            overflow: hidden; min-height: 160px; justify-content: space-between; flex-shrink: 0;
+        }
         .sim-top-section::after { content: ''; position: absolute; top: 0; left: -50%; width: 200%; height: 50%; background: linear-gradient(to bottom, rgba(255,255,255,0.05), transparent); transform: rotate(-15deg); pointer-events: none; }
         .sim-header-row { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; z-index: 1;}
         .sim-brand { display: flex; align-items: center; gap: 8px; }
@@ -97,16 +87,14 @@
         .sim-chip-inner div { background: #fcd34d; border: 1px solid #b45309; }
 
         .sim-display-area { text-align: left; display: flex; flex-direction: column; justify-content: flex-end; width: 100%; margin-top: 20px; min-height: 45px; position: relative; z-index: 1; }
-        .sim-slot-machine { display: none; flex-direction: column; width: 100%; }
-        .sim-slot-machine.show { display: flex; }
-        .slot-number { font-family: var(--font-title); font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -1px; white-space: nowrap; text-shadow: 0 0 20px rgba(255,255,255,0.3);}
+        
+        /* ТЕПЕРЬ БЛОК ВСЕГДА ВИДЕН */
+        .sim-slot-machine { display: flex; flex-direction: column; width: 100%; }
+        
+        .slot-number { font-family: var(--font-title); font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 0 20px rgba(255,255,255,0.3);}
 
-        .result-under-card { width: 100%; max-width: 360px; display: none; flex-direction: column; align-items: center; margin-bottom: 20px; flex-shrink: 0; }
-        .result-under-card.show { display: flex; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes popIn { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
-        .res-number { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 6px; color: #fff; text-align: center; font-family: var(--font-title); }
-        .res-rarity { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; color: #888; margin-bottom: 6px;}
-        .res-price { font-size: 20px; font-weight: 800; color: #fff; font-family: var(--font-title);}
+        /* --- УБРАЛИ СТАРЫЙ БЛОК РЕЗУЛЬТАТА ПОД КАРТОЧКОЙ, ЧТОБЫ НЕ ДУБЛИРОВАТЬ --- */
+        .result-under-card { display: none !important; }
 
         .color-Обычный { color: #aaa; text-shadow: 0 0 10px rgba(170,170,170,0.3); }
         .color-Необычный { color: #10b981; text-shadow: 0 0 15px rgba(16,185,129,0.5); }
@@ -144,6 +132,7 @@
         .btn-x5 { background: #111; color: #fff; border: 1px solid rgba(255,255,255,0.2); flex: 0.4; box-shadow: none; }
         .btn-x5.active { background: #fff; color: #000; box-shadow: 0 5px 20px rgba(255,255,255,0.2);}
 
+        /* --- ОСТАЛЬНОЙ CSS ОСТАЕТСЯ БЕЗ ИЗМЕНЕНИЙ --- */
         .rare-screen-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.95); z-index: 100000; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s; padding: 20px; backdrop-filter: blur(10px); }
         .rare-screen-overlay.active { opacity: 1; pointer-events: auto; }
         .rare-screen-overlay.legendary { background: radial-gradient(circle at center, rgba(251,191,36,0.15) 0%, #050505 70%); }
@@ -480,6 +469,7 @@
         </div>
     </div>
 
+    <!-- ЭКРАН ИГРЫ -->
     <div id="screen-game" class="screen active">
         <div class="sim-top-section">
             <div class="sim-header-row">
@@ -497,17 +487,14 @@
                 </div>
             </div>
             <div class="sim-display-area">
+                <!-- БЛОК ВСЕГДА ОТКРЫТ -->
                 <div class="sim-slot-machine" id="simSlotMachine">
-                    <div class="slot-number" id="simSlotNumber">+0 000 000-00-00</div>
+                    <div class="slot-number" id="simSlotNumber">+0 000 000 00 00</div>
                 </div>
             </div>
         </div>
 
-        <div class="result-under-card" id="simResultBox">
-            <div class="res-rarity" id="simResultRarity">Обычный</div>
-            <div class="res-number" id="simResultNumber">+7 999 888-77-66</div>
-            <div class="res-price" id="simResultPrice">150 🪙</div>
-        </div>
+        <!-- УБРАН БЛОК RESULT-UNDER-CARD -->
 
         <div class="sim-x5-grid" id="simX5Grid"></div>
 
@@ -530,6 +517,7 @@
         </div>
     </div>    
     
+    <!-- ОСТАЛЬНЫЕ ЭКРАНЫ БЕЗ ИЗМЕНЕНИЙ (Скопированы из прошлой версии) -->
     <div id="screen-skills" class="screen screen-padded">
         <h1 style="font-size: 24px; font-weight: 900; text-transform: uppercase; text-align: center; margin-bottom: 20px; font-family: var(--font-title);">Дерево Навыков</h1>
         <div class="profile-card" style="text-align: center; margin-bottom: 20px;">
@@ -896,6 +884,7 @@
         </div>
     </div>
 
+    <!-- МОДАЛЬНЫЕ ОКНА -->
     <div class="modal-overlay" id="tariffModal" onclick="closeTariffModal(event)">
         <div class="bottom-sheet tariff-modal-content">
             <div style="background: #0a0a0a; padding: 24px; border-radius: 30px 30px 0 0; display: flex; flex-direction: column;">
@@ -1069,11 +1058,14 @@
             document.getElementById('simBrandName').innerText = brandName;
             document.getElementById('simBrandCountry').innerText = brandCountry;
 
-            let prefix = currentCountry.prefix > 0 ? '+' + currentCountry.prefix : '+0';
-            let zeroPattern = "000 000-00-00";
-            
-            let formattedNumber = `<span>${prefix}</span> <span class="dim-zero">${zeroPattern}</span>`;
-            document.getElementById('simSlotNumber').innerHTML = formattedNumber;
+            // Устанавливаем красивый дефолтный шаблон (например, +0 000 000 00 00)
+            if (!isSpinning) {
+                let prefix = currentCountry.prefix > 0 ? '+' + currentCountry.prefix : '+0';
+                let zeroPattern = "000 000 00 00";
+                let formattedNumber = `<span>${prefix}</span> <span class="dim-zero">${zeroPattern}</span>`;
+                document.getElementById('simSlotNumber').innerHTML = formattedNumber;
+                document.getElementById('simSlotNumber').className = 'slot-number';
+            }
         }
 
         let rocketHistory = JSON.parse(localStorage.getItem('rocket_history')) || [];
@@ -1802,33 +1794,33 @@
             saveBalance();
             updateUI(); isSpinning = true;
             
-            document.getElementById('simResultBox').classList.remove('show');
+            // Очищаем нижнюю сетку и готовим карточку к анимации
             document.getElementById('simX5Grid').classList.remove('show');
+            document.getElementById('simSlotNumber').className = 'slot-number'; // Убираем цвет
             
-            if (count === 1) {
-                document.getElementById('simSlotMachine').classList.add('show');
-                let spinTicks = 0;
-                let rollingNumber = document.getElementById('simSlotNumber');
-                let prefixHTML = `<span>+${currentCountry.prefix || 0}</span>`; 
+            let spinTicks = 0;
+            let rollingNumber = document.getElementById('simSlotNumber');
+            let prefixHTML = `<span>+${currentCountry.prefix || 0}</span>`; 
+            
+            // Анимация кручения на главной карте
+            let interval = setInterval(() => {
+                let p1 = Math.floor(Math.random() * 900) + 100;
+                let p2 = Math.floor(Math.random() * 90) + 10;
+                let p3 = Math.floor(Math.random() * 90) + 10;
+                rollingNumber.innerHTML = prefixHTML + ` <span class="dim-zero">${p1} ${p2}-${p3}</span>`;
+                spinTicks++;
                 
-                let interval = setInterval(() => {
-                    let p1 = Math.floor(Math.random() * 900) + 100;
-                    let p2 = Math.floor(Math.random() * 90) + 10;
-                    let p3 = Math.floor(Math.random() * 90) + 10;
-                    rollingNumber.innerHTML = prefixHTML + ` <span class="dim-zero">${p1} ${p2}-${p3}</span>`;
-                    spinTicks++;
-                    
-                    if (spinTicks > 25) { 
-                        clearInterval(interval); 
-                        isSpinning = false; 
-                        document.getElementById('simSlotMachine').classList.remove('show');
-                        finishSpin(1); 
-                    }
-                }, 60);
-            } else {
+                if (spinTicks > 25) { 
+                    clearInterval(interval); 
+                    isSpinning = false; 
+                    finishSpin(count); 
+                }
+            }, 60);
+
+            // Если х5, то еще и нижние карточки крутим
+            if (count === 5) {
                 let grid = document.getElementById('simX5Grid'); 
                 grid.classList.add('show');
-                
                 grid.innerHTML = Array(5).fill(0).map(() => `
                     <div class="sim-x5-item rolling">
                         <span class="rarity-text">...</span>
@@ -1836,27 +1828,16 @@
                     </div>
                 `).join('');
 
-                let ticks = 0;
-                let maxTicks = 30; 
-                
-                let interval = setInterval(() => {
-                    ticks++;
+                let gridTicks = 0;
+                let gridInterval = setInterval(() => {
+                    gridTicks++;
                     let items = document.querySelectorAll('.sim-x5-item .rarity-text');
                     items.forEach(el => {
                         let rarities = ['Обычный', 'Необычный', 'Редкий', 'Эпический'];
                         el.innerText = rarities[Math.floor(Math.random() * rarities.length)];
                     });
-
-                    if (ticks >= maxTicks) {
-                        clearInterval(interval);
-                        isSpinning = false;
-                        
-                        let allItems = document.querySelectorAll('.sim-x5-item');
-                        allItems.forEach(el => el.classList.remove('rolling'));
-                        
-                        finishSpin(5);
-                    }
-                }, 50);
+                    if (gridTicks >= 25) clearInterval(gridInterval);
+                }, 60);
             }
         }
 
@@ -1906,32 +1887,20 @@
         }
 
         async function finishSpin(count) {
+            const slotNumberElement = document.getElementById('simSlotNumber');
+
             if (count === 1) {
                 const item = await generateNumberDataAsync(); statOpened++;
                 
-                const resultBox = document.getElementById('simResultBox');
-                const resNum = document.getElementById('simResultNumber');
-                const resRar = document.getElementById('simResultRarity');
-                const resPrc = document.getElementById('simResultPrice');
+                // Красим номер на карточке
+                slotNumberElement.innerHTML = item.number;
+                slotNumberElement.className = `slot-number color-${item.rarity}`;
 
+                // Уведомляем
                 if (item.rarity === 'Мифический' || item.rarity === 'Легендарный') {
                     if (mythicAnimEnabled) {
                         showRareScreen(item.number, item.price, item.rarity);
-                    } else {
-                        resultBox.className = 'result-under-card show';
-                        resNum.className = `res-number color-${item.rarity}`;
-                        resRar.className = `res-rarity color-${item.rarity}`;
-                        resNum.innerText = item.number;
-                        resRar.innerText = item.rarity;
-                        resPrc.innerText = `${item.price.toLocaleString('ru-RU')} 🪙`;
                     }
-                } else {
-                    resultBox.className = 'result-under-card show';
-                    resNum.className = `res-number color-${item.rarity}`;
-                    resRar.className = `res-rarity color-${item.rarity}`;
-                    resNum.innerText = item.number;
-                    resRar.innerText = item.rarity;
-                    resPrc.innerText = `${item.price.toLocaleString('ru-RU')} 🪙`;
                 }
                 
                 if (autoSellSettings[item.rarity]) { 
@@ -1959,11 +1928,18 @@
                 balance += totalSold;
                 saveBalance();
                 
+                // Ищем самый дорогой номер для главной карточки
+                let bestResult = results.reduce((prev, current) => (prev.price > current.price) ? prev : current);
+                
+                slotNumberElement.innerHTML = bestResult.number;
+                slotNumberElement.className = `slot-number color-${bestResult.rarity}`;
+
                 let topResult = results.find(r => r.rarity === 'Мифический') || results.find(r => r.rarity === 'Легендарный');
                 if (topResult && mythicAnimEnabled) {
                     showRareScreen(topResult.number, topResult.price, topResult.rarity);
                 }
 
+                // Рисуем все 5 номеров под карточкой
                 let grid = document.getElementById('simX5Grid'); 
                 grid.innerHTML = results.map(item => `
                     <div class="sim-x5-item" style="border-left: 3px solid ${baseRarities[item.rarity].color}">
